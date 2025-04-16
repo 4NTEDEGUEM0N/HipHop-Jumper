@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(Introducao_Desenvolvimento_Jogos)
+project(HipHop-Jumper)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -23,7 +23,7 @@ endif()
 
 add_compile_definitions(DEBUG)
 
-add_executable(Introducao_Desenvolvimento_Jogos
+add_executable(HipHop-Jumper
         main.cpp
         include/Game.hpp
         src/Game.cpp
@@ -93,7 +93,7 @@ add_executable(Introducao_Desenvolvimento_Jogos
 )
 
 if (WIN32)
-    target_link_libraries(Introducao_Desenvolvimento_Jogos
+    target_link_libraries(HipHop-Jumper
             SDL2
             SDL2main
             SDL2_image
@@ -107,12 +107,12 @@ if (WIN32)
             rpcrt4
     )
 
-    add_custom_command(TARGET Introducao_Desenvolvimento_Jogos POST_BUILD
+    add_custom_command(TARGET HipHop-Jumper POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory
-            C:/SDL2/bin $<TARGET_FILE_DIR:Introducao_Desenvolvimento_Jogos>/bin)
+            C:/SDL2/bin $<TARGET_FILE_DIR:HipHop-Jumper>/bin)
 
 elseif (UNIX)
-        target_link_libraries(Introducao_Desenvolvimento_Jogos
+        target_link_libraries(HipHop-Jumper
                 SDL2::SDL2
                 SDL2_image::SDL2_image
                 SDL2_mixer::SDL2_mixer
