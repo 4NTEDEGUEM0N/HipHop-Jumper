@@ -6,6 +6,7 @@
 #include <vector>
 #include "Component.hpp"
 #include "TileSet.hpp"
+#include "Rect.hpp"
 
 using namespace std;
 
@@ -17,7 +18,6 @@ private:
     int mapHeight;
     int mapDepth;
     set<int> solidIDs;
-    bool collider = false;
 
 public:
     TileMap(GameObject& associated, string file, TileSet* tileSet);
@@ -33,6 +33,11 @@ public:
     void Update(float dt);
     bool Is(string type);
     void SetCollisionLayer(int layer);
+    void SetCollisionMatrix(int layer);
+    bool IsSolid(int x, int y);
+    bool IsColliding(Rect box);
+
+    vector<vector<bool>> collisionMatrix;
 };
 
 #endif //TILEMAP_HPP

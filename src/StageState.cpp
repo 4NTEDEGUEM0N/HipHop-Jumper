@@ -28,7 +28,7 @@ StageState::StageState() {
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
 
-    GameObject* tileMapObject = new GameObject();
+    tileMapObject = new GameObject();
     AddObject(tileMapObject);
     tileMapObject->box.X = 0;
     tileMapObject->box.Y = 0;
@@ -40,8 +40,8 @@ StageState::StageState() {
     //backgroundMusic.Play();
 
     GameObject* playerObject = new GameObject(false);
-    playerObject->box.X = 192;
-    playerObject->box.Y = 3712;
+    playerObject->box.X = 198;
+    playerObject->box.Y = 3690;
     AddObject(playerObject);
     Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
     Camera::Follow(playerObject);
@@ -116,3 +116,7 @@ void StageState::Start() {
 
 void StageState::Pause() {}
 void StageState::Resume() {}
+
+GameObject* StageState::GetTileMapObject() {
+    return tileMapObject;
+}

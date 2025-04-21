@@ -81,37 +81,37 @@ void TileMap::RenderLayer(int layer) {
     baseX -= Camera::pos.GetX() * paralaxFactor;
     baseY -= Camera::pos.GetY() * paralaxFactor;
 
-    int renderCount = 0;
+    //int renderCount = 0;
 
-    /*
-    for (int y = 0; y < mapHeight; ++y) {
-        for (int x = 0; x < mapWidth; ++x) {
-            int index = At(x, y, layer);
-            tileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
-            renderCount++;
-        }
-    }
-    */
-
-    // Calcular a área visível na tela
     int screenWidth = 1200;
     int screenHeight = 900;
 
     // Coordenadas do início e fim visíveis no mapa
-    int startX = std::max(0, (int)((Camera::pos.GetX() - baseX) / tileWidth));
-    int endX = std::min(mapWidth, (int)((Camera::pos.GetX() + screenWidth - baseX) / tileWidth + 1));
-    int startY = std::max(0, (int)((Camera::pos.GetY() - baseY) / tileHeight));
-    int endY = std::min(mapHeight, (int)((Camera::pos.GetY() + screenHeight - baseY) / tileHeight + 1));
+    int startX = max(0, (int)((Camera::pos.GetX() - baseX) / tileWidth));
+    int endX = min(mapWidth, (int)((Camera::pos.GetX() + screenWidth - baseX) / tileWidth + 1));
+    int startY = max(0, (int)((Camera::pos.GetY() - baseY) / tileHeight));
+    int endY = min(mapHeight, (int)((Camera::pos.GetY() + screenHeight - baseY) / tileHeight + 1));
 
     for (int y = startY; y < endY; ++y) {
         for (int x = startX; x < endX; ++x) {
             int index = At(x, y, layer);
             tileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
-            renderCount++;
+            //renderCount++;
+#ifdef DEBUG
+            if (Collider::showCollision and layer == 1 and collisionMatrix[y][x]) {
+                SDL_Rect rect;
+                rect.x = baseX + x * tileWidth - Camera::pos.X;
+                rect.y = baseY + y * tileHeight - Camera::pos.Y;
+                rect.w = tileWidth;
+                rect.h = tileHeight;
+
+                SDL_SetRenderDrawColor(Game::GetInstance().GetRenderer(), 255, 0, 0, SDL_ALPHA_OPAQUE);
+                SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &rect);
+#endif
+            }
         }
     }
-
-    cerr << "Tiles renderizados: " << renderCount << endl;
+    //cerr << "Tiles renderizados: " << renderCount << endl;
 }
 
 void TileMap::Render() {
@@ -138,8 +138,12 @@ bool TileMap::Is(string type) {
     return type == "TileMap";
 }
 
+void TileMap::Start() {
+    //SetCollisionLayer(1);
+    SetCollisionMatrix(1);
+}
+
 void TileMap::SetCollisionLayer(int layer) {
-    cerr << "Teste" << endl;
     for (int y = 0; y < mapHeight; ++y) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
@@ -162,7 +166,55 @@ void TileMap::SetCollisionLayer(int layer) {
     }
 }
 
-void TileMap::Start() {
-    SetCollisionLayer(1);
+void TileMap::SetCollisionMatrix(int layer) {
+    collisionMatrix = vector<vector<bool>>(mapHeight, vector<bool>(mapWidth, false));
+
+    for (int y = 0; y < mapHeight; ++y) {
+        for (int x = 0; x < mapWidth; ++x) {
+            int index = At(x, y, layer);
+            collisionMatrix[y][x] = (solidIDs.count(index) > 0);
+        }
+    }
 }
+
+bool TileMap::IsSolid(int x, int y) {
+    if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight)
+        return false;
+    return collisionMatrix[y][x];
+}
+
+bool TileMap::IsColliding(Rect box) {
+    int tileWidth = tileSet->GetTileWidth();
+    int tileHeight = tileSet->GetTileHeight();
+
+
+    int left   = box.X / tileWidth;
+    int right  = (box.X + box.W) / tileWidth;
+    int top    = box.Y / tileHeight;
+    int bottom = (box.Y + box.H) / tileHeight;
+
+    Vec2 topLeft = Vec2(left, top);
+    Vec2 topRight = Vec2(right, top);
+    Vec2 bottomLeft = Vec2(left, bottom);
+    Vec2 bottomRight = Vec2(right, bottom);
+
+    if (IsSolid(topLeft.X, topLeft.Y)) {
+        //cerr << "Colidiu Top Left" << endl;
+        return true;
+    }
+    if (IsSolid(topRight.X, topRight.Y)) {
+        //cerr << "Colidiu Top Right" << endl;
+        return true;
+    }
+    if (IsSolid(bottomLeft.X, bottomLeft.Y)) {
+        //cerr << "Colidiu Bottom Left" << endl;
+        return true;
+    }
+    if (IsSolid(bottomRight.X, bottomRight.Y)) {
+        //cerr << "Colidiu Bottom Right" << endl;
+        return true;
+    }
+    return false;
+}
+
 

@@ -25,6 +25,8 @@ public:
     bool PopRequested();
     bool QuitRequested();
 
+    virtual GameObject* GetTileMapObject() {return nullptr;};
+
 protected:
     void StartArray();
     virtual void UpdateArray(float dt);

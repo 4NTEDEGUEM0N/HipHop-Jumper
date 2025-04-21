@@ -23,6 +23,10 @@ public:
     void Start();
     void Pause();
     void Resume();
+
+
+    GameObject* tileMapObject;
+    GameObject* GetTileMapObject();
 };
 
 

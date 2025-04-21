@@ -11,6 +11,8 @@
 #include "../include/Camera.hpp"
 #include "../include/Bullet.hpp"
 #include "../include/GameData.hpp"
+#include "../include/StageState.hpp"
+#include "../include/TileMap.hpp"
 
 
 Character* Character::player = nullptr;
@@ -80,19 +82,21 @@ void Character::Update(float dt) {
                 Vec2 direction = task.pos;
                 direction = direction.normalize();
                 speed = direction * linearSpeed;
-                Rect new_box = associated.box + (speed * dt);
-                /*
-                if (new_box.X > 1856)
-                    new_box.X = 1856;
-                else if (new_box.X < 640)
-                    new_box.X = 640;
-                if (new_box.Y > 1984)
-                    new_box.Y = 1984;
-                else if (new_box.Y < 512)
-                    new_box.Y = 512;
-                */
+                Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
+                Rect new_box_y = associated.box + Vec2(0, speed.Y * dt);
 
-                associated.box = new_box;
+                GameObject* tileMapObject = Game::GetInstance().GetState().GetTileMapObject();
+                Component* tileMapComponent = tileMapObject->GetComponent("TileMap");
+                TileMap* tileMap = dynamic_cast<TileMap*>(tileMapComponent);
+
+                if (!tileMap->IsColliding(new_box_x)) {
+                    associated.box = associated.box + Vec2(speed.X * dt, 0);
+                }
+                if (!tileMap->IsColliding(new_box_y)) {
+                    associated.box = associated.box + Vec2(0, speed.Y * dt);
+                }
+
+                //associated.box = new_box;
             }
         } else if (task.type == Command::SHOOT) {
             Component* component = gun.lock()->GetComponent("Gun");
