@@ -1,13 +1,16 @@
 #include "../include/TileMap.hpp"
+#include "../include/Tile.hpp"
 #include <fstream>
 #include <iostream>
 #include <map>
 #include <sstream>
-
 #include "../include/Camera.hpp"
 #include "../include/GameObject.hpp"
+#include "../include/Collider.hpp"
+#include "../include/Game.hpp"
 
 TileMap::TileMap(GameObject& associated, string file, TileSet* tileSet) : Component(associated) {
+    solidIDs = {3,4,10,11,14,15,16,17,18,21,22,23,28,29,30};
     Load(file);
     SetTileSet(tileSet);
 }
@@ -109,3 +112,31 @@ void TileMap::Update(float dt) {}
 bool TileMap::Is(string type) {
     return type == "TileMap";
 }
+
+void TileMap::SetCollisionLayer(int layer) {
+    for (int y = 0; y < mapHeight; ++y) {
+        for (int x = 0; x < mapWidth; ++x) {
+            int index = At(x, y, layer);
+            if (solidIDs.find(index) != solidIDs.end()) {
+                int tileWidth = tileSet->GetTileWidth();
+                int tileHeight = tileSet->GetTileHeight();
+                //cerr << "ID: " << index << " X: " << x*tileWidth << " Y: "<< y*tileHeight << endl;
+
+                GameObject* tileObj = new GameObject();
+                tileObj->box.X = x*tileWidth;
+                tileObj->box.Y = y*tileHeight;
+                tileObj->box.H = tileWidth;
+                tileObj->box.W = tileHeight;
+                Tile* tileCpt = new Tile(*tileObj, index);
+                tileObj->AddComponent(tileCpt);
+                State& state = Game::GetInstance().GetState();
+                state.AddObject(tileObj);
+            }
+        }
+    }
+}
+
+void TileMap::Start() {
+    SetCollisionLayer(1);
+}
+

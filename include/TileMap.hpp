@@ -2,6 +2,7 @@
 #define TILEMAP_HPP
 
 #include <memory>
+#include <set>
 #include <vector>
 #include "Component.hpp"
 #include "TileSet.hpp"
@@ -15,6 +16,8 @@ private:
     int mapWidth;
     int mapHeight;
     int mapDepth;
+    set<int> solidIDs;
+    bool collider = false;
 
 public:
     TileMap(GameObject& associated, string file, TileSet* tileSet);
@@ -23,11 +26,13 @@ public:
     int& At(int x, int y, int z = 0);
     void Render();
     void RenderLayer(int layer);
+    void Start();
     int GetWidth();
     int GetHeight();
     int GetDepth();
     void Update(float dt);
     bool Is(string type);
+    void SetCollisionLayer(int layer);
 };
 
 #endif //TILEMAP_HPP

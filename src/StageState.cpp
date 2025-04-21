@@ -33,15 +33,15 @@ StageState::StageState() {
     tileMapObject->box.X = 0;
     tileMapObject->box.Y = 0;
     tileSet = new TileSet("../Recursos/img/Tileset.png", 64, 64);
-    TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map.txt", tileSet);
+    TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map_vertical.txt", tileSet);
     tileMapObject->AddComponent(tileMap);
 
-    backgroundMusic.Open("../Recursos/audio/BGM.wav");
-    backgroundMusic.Play();
+    //backgroundMusic.Open("../Recursos/audio/BGM.wav");
+    //backgroundMusic.Play();
 
     GameObject* playerObject = new GameObject();
-    playerObject->box.X = 1280;
-    playerObject->box.Y = 1280;
+    playerObject->box.X = 192;
+    playerObject->box.Y = 3712;
     AddObject(playerObject);
     Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
     Camera::Follow(playerObject);
@@ -49,19 +49,19 @@ StageState::StageState() {
     PlayerController* playerController = new PlayerController(*playerObject);
     playerObject->AddComponent(playerController);
 
-    GameObject* waveObject = new GameObject();
-    AddObject(waveObject);
-    WaveSpawner* waveSpawner = new WaveSpawner(*waveObject);
-    waveObject->AddComponent(waveSpawner);
+    //GameObject* waveObject = new GameObject();
+    //AddObject(waveObject);
+    //WaveSpawner* waveSpawner = new WaveSpawner(*waveObject);
+    //waveObject->AddComponent(waveSpawner);
 
-    GameObject* aiObject = new GameObject();
-    aiObject->box.X = 576 + rand()%(1984 - 576 + 1);
-    aiObject->box.Y = 448 + rand()%(2112 - 448 + 1);
-    AddObject(aiObject);
-    Character* aiCharacter = new Character(*aiObject, "../Recursos/img/NPC.png");
-    aiObject->AddComponent(aiCharacter);
-    AIController* aiController = new AIController(*aiObject);
-    aiObject->AddComponent(aiController);
+    //GameObject* aiObject = new GameObject();
+    //aiObject->box.X = 576 + rand()%(1984 - 576 + 1);
+    //aiObject->box.Y = 448 + rand()%(2112 - 448 + 1);
+    //AddObject(aiObject);
+    //Character* aiCharacter = new Character(*aiObject, "../Recursos/img/NPC.png");
+    //aiObject->AddComponent(aiCharacter);
+    //AIController* aiController = new AIController(*aiObject);
+    //aiObject->AddComponent(aiController);
 
 }
 

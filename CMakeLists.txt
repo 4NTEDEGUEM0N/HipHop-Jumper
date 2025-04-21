@@ -90,6 +90,8 @@ add_executable(HipHop-Jumper
         include/GameData.hpp
         src/EndState.cpp
         src/GameData.cpp
+        include/Tile.hpp
+        src/Tile.cpp
 )
 
 if (WIN32)

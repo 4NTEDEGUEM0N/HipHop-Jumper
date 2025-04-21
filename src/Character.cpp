@@ -12,6 +12,7 @@
 #include "../include/Bullet.hpp"
 #include "../include/GameData.hpp"
 
+
 Character* Character::player = nullptr;
 
 Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/Dead.wav"), hitSound("../Recursos/audio/Hit1.wav") {
@@ -80,6 +81,7 @@ void Character::Update(float dt) {
                 direction = direction.normalize();
                 speed = direction * linearSpeed;
                 Rect new_box = associated.box + (speed * dt);
+                /*
                 if (new_box.X > 1856)
                     new_box.X = 1856;
                 else if (new_box.X < 640)
@@ -88,6 +90,7 @@ void Character::Update(float dt) {
                     new_box.Y = 1984;
                 else if (new_box.Y < 512)
                     new_box.Y = 512;
+                */
 
                 associated.box = new_box;
             }
