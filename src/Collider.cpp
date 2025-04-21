@@ -13,9 +13,19 @@ bool Collider::showCollision = false;
 Collider::Collider(GameObject& associated, Vec2 scale, Vec2 offset): Component(associated) {
     this->scale = scale;
     this->offset = offset;
+
+	this->box.W = associated.box.GetW() * scale.GetX();
+	this->box.H = associated.box.GetH() * scale.GetY();
+
+	double angleRad = (associated.angleDeg * M_PI)/180;
+	Vec2 newCenter = offset.rotate(angleRad) + associated.box.center();
+	box.X = newCenter.GetX() - box.GetW() / 2;
+	box.Y = newCenter.GetY() - box.GetH() / 2;
 }
 
 void Collider::Update(float dt) {
+	if (associated.isStatic) return;
+
     this->box.W = associated.box.GetW() * scale.GetX();
     this->box.H = associated.box.GetH() * scale.GetY();
 
@@ -28,6 +38,14 @@ void Collider::Update(float dt) {
 void Collider::Render() {
 #ifdef DEBUG
 	if (!showCollision) return;
+
+	int screenWidth = 1200;
+	int screenHeight = 900;
+
+	if (box.X + box.W < Camera::pos.GetX() || box.X > Camera::pos.GetX() + screenWidth ||
+		box.Y + box.H < Camera::pos.GetY() || box.Y > Camera::pos.GetY() + screenHeight) {
+		return;
+		}
 
     Vec2 center( box.center() );
 	SDL_Point points[5];

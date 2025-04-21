@@ -17,8 +17,9 @@ public:
     Rect box;
     bool started;
     double angleDeg;
+    bool isStatic = true;
 
-    GameObject();
+    GameObject(bool isStatic = true);
     ~GameObject();
     void Update(float dt);
     void Render();

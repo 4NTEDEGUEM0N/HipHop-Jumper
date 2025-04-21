@@ -39,7 +39,7 @@ StageState::StageState() {
     //backgroundMusic.Open("../Recursos/audio/BGM.wav");
     //backgroundMusic.Play();
 
-    GameObject* playerObject = new GameObject();
+    GameObject* playerObject = new GameObject(false);
     playerObject->box.X = 192;
     playerObject->box.Y = 3712;
     AddObject(playerObject);

@@ -81,12 +81,37 @@ void TileMap::RenderLayer(int layer) {
     baseX -= Camera::pos.GetX() * paralaxFactor;
     baseY -= Camera::pos.GetY() * paralaxFactor;
 
+    int renderCount = 0;
+
+    /*
     for (int y = 0; y < mapHeight; ++y) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
             tileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
+            renderCount++;
         }
     }
+    */
+
+    // Calcular a área visível na tela
+    int screenWidth = 1200;
+    int screenHeight = 900;
+
+    // Coordenadas do início e fim visíveis no mapa
+    int startX = std::max(0, (int)((Camera::pos.GetX() - baseX) / tileWidth));
+    int endX = std::min(mapWidth, (int)((Camera::pos.GetX() + screenWidth - baseX) / tileWidth + 1));
+    int startY = std::max(0, (int)((Camera::pos.GetY() - baseY) / tileHeight));
+    int endY = std::min(mapHeight, (int)((Camera::pos.GetY() + screenHeight - baseY) / tileHeight + 1));
+
+    for (int y = startY; y < endY; ++y) {
+        for (int x = startX; x < endX; ++x) {
+            int index = At(x, y, layer);
+            tileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
+            renderCount++;
+        }
+    }
+
+    cerr << "Tiles renderizados: " << renderCount << endl;
 }
 
 void TileMap::Render() {
@@ -114,6 +139,7 @@ bool TileMap::Is(string type) {
 }
 
 void TileMap::SetCollisionLayer(int layer) {
+    cerr << "Teste" << endl;
     for (int y = 0; y < mapHeight; ++y) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);

@@ -116,14 +116,14 @@ void Gun::Shot(Vec2 target) {
     if (gunCharacter == Character::player) {
         targetsPlayer = false;
 
-        GameObject* bulletObject2 = new GameObject();
+        GameObject* bulletObject2 = new GameObject(false);
         bulletObject2->box.X = associated.box.X + 35;
         bulletObject2->box.Y = associated.box.Y;
         state.AddObject(bulletObject2);
         Bullet* bullet2 = new Bullet(*bulletObject2, angle + 0.25f, 1000, 25, 1000, targetsPlayer);
         bulletObject2->AddComponent(bullet2);
 
-        GameObject* bulletObject3 = new GameObject();
+        GameObject* bulletObject3 = new GameObject(false);
         bulletObject3->box.X = associated.box.X + 35;
         bulletObject3->box.Y = associated.box.Y;
         state.AddObject(bulletObject3);
@@ -131,7 +131,7 @@ void Gun::Shot(Vec2 target) {
         bulletObject3->AddComponent(bullet3);
     }
 
-    GameObject* bulletObject = new GameObject();
+    GameObject* bulletObject = new GameObject(false);
     bulletObject->box.X = associated.box.X + 35;
     bulletObject->box.Y = associated.box.Y;
     state.AddObject(bulletObject);

@@ -1,10 +1,11 @@
 #include "../include/GameObject.hpp"
 
 
-GameObject::GameObject() {
+GameObject::GameObject(bool isStatic) {
     isDead = false;
     started = false;
     angleDeg = 0;
+    this->isStatic = isStatic;
 }
 
 GameObject::~GameObject() {

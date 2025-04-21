@@ -132,6 +132,7 @@ void Game::Run(){
             stateStack.top()->Render();
             SDL_RenderPresent(renderer);
             SDL_Delay(15);
+            cerr << "FPS: " << (1.0 / GetInstance().GetDeltaTime()) << endl;
         }
     }
 }
