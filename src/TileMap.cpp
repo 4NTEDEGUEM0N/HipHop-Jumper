@@ -98,15 +98,45 @@ void TileMap::RenderLayer(int layer) {
             tileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
             //renderCount++;
 #ifdef DEBUG
-            if (Collider::showCollision and layer == 1 and collisionMatrix[y][x]) {
-                SDL_Rect rect;
-                rect.x = baseX + x * tileWidth - Camera::pos.X;
-                rect.y = baseY + y * tileHeight - Camera::pos.Y;
-                rect.w = tileWidth;
-                rect.h = tileHeight;
-
+            if (Collider::showCollision and layer == 1 and collisionMatrix[y][x] != TileCollisionType::None) {
                 SDL_SetRenderDrawColor(Game::GetInstance().GetRenderer(), 255, 0, 0, SDL_ALPHA_OPAQUE);
-                SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &rect);
+
+                int x0 = baseX + x * tileWidth - Camera::pos.X;
+                int y0 = baseY + y * tileHeight - Camera::pos.Y;
+                switch (collisionMatrix[y][x]) {
+
+                case TileCollisionType::Full: {
+                    SDL_Rect rect = {x0, y0, tileWidth, tileHeight};
+                    SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &rect);
+                    break;
+                }
+                    case TileCollisionType::TriangleBottomRight: {
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0, y0 + tileHeight, x0, y0); // esquerda inferior → esquerda superior
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0, y0, x0 + tileWidth, y0);  // esquerda superior → direita superior
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0 + tileWidth, y0, x0, y0 + tileHeight); // direita superior → esquerda inferior
+                        break;
+                    }
+                    case TileCollisionType::TriangleBottomLeft: {
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0 + tileWidth, y0 + tileHeight, x0 + tileWidth, y0); // direita inferior → direita superior
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0 + tileWidth, y0, x0, y0); // direita superior → esquerda superior
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0, y0, x0 + tileWidth, y0 + tileHeight); // esquerda superior → direita inferior
+                        break;
+                    }
+                    case TileCollisionType::TriangleTopRight: {
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0, y0, x0, y0 + tileHeight); // esquerda superior → esquerda inferior
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0, y0 + tileHeight, x0 + tileWidth, y0 + tileHeight); // esquerda inferior → direita inferior
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0 + tileWidth, y0 + tileHeight, x0, y0); // direita inferior → esquerda superior
+                        break;
+                    }
+                    case TileCollisionType::TriangleTopLeft: {
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0 + tileWidth, y0, x0 + tileWidth, y0 + tileHeight); // direita superior → direita inferior
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0 + tileWidth, y0 + tileHeight, x0, y0 + tileHeight); // direita inferior → esquerda inferior
+                        SDL_RenderDrawLine(Game::GetInstance().GetRenderer(), x0, y0 + tileHeight, x0 + tileWidth, y0); // esquerda inferior → direita superior
+                        break;
+                    }
+                default:
+                    break;
+                }
 #endif
             }
         }
@@ -167,12 +197,24 @@ void TileMap::SetCollisionLayer(int layer) {
 }
 
 void TileMap::SetCollisionMatrix(int layer) {
-    collisionMatrix = vector<vector<bool>>(mapHeight, vector<bool>(mapWidth, false));
+    collisionMatrix = vector<vector<TileCollisionType>>(mapHeight, vector<TileCollisionType>(mapWidth, TileCollisionType::None));
 
     for (int y = 0; y < mapHeight; ++y) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
-            collisionMatrix[y][x] = (solidIDs.count(index) > 0);
+            if (solidIDs.find(index) != solidIDs.end()) {
+                if (index == 14) {
+                    collisionMatrix[y][x] = TileCollisionType::TriangleTopLeft;
+                } else if (index == 16) {
+                    collisionMatrix[y][x] = TileCollisionType::TriangleTopRight;
+                } else if (index == 28) {
+                    collisionMatrix[y][x] = TileCollisionType::TriangleBottomLeft;
+                } else if (index == 30) {
+                    collisionMatrix[y][x] = TileCollisionType::TriangleBottomRight;
+                } else {
+                    collisionMatrix[y][x] = TileCollisionType::Full;
+                }
+            }
         }
     }
 }
@@ -180,7 +222,9 @@ void TileMap::SetCollisionMatrix(int layer) {
 bool TileMap::IsSolid(int x, int y) {
     if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight)
         return false;
-    return collisionMatrix[y][x];
+    if (collisionMatrix[y][x] != TileCollisionType::None)
+        return true;
+    return false;
 }
 
 bool TileMap::IsColliding(Rect box) {
@@ -199,22 +243,118 @@ bool TileMap::IsColliding(Rect box) {
     Vec2 bottomRight = Vec2(right, bottom);
 
     if (IsSolid(topLeft.X, topLeft.Y)) {
-        //cerr << "Colidiu Top Left" << endl;
+        TileCollisionType type = collisionMatrix[topLeft.Y][topLeft.X];
+        if (type != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, topLeft.X, topLeft.Y, type, tileWidth, tileHeight)) {
+                cerr << "Colidiu Top Left" << endl;
+                return true;
+            }
+            return false;
+        }
+        cerr << "Colidiu Top Left" << endl;
         return true;
     }
     if (IsSolid(topRight.X, topRight.Y)) {
-        //cerr << "Colidiu Top Right" << endl;
+        TileCollisionType type = collisionMatrix[topRight.Y][topRight.X];
+        if (type != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, topRight.X, topRight.Y, type, tileWidth, tileHeight)) {
+                cerr << "Colidiu Top Right" << endl;
+                return true;
+            }
+            return false;
+        }
+        cerr << "Colidiu Top Right" << endl;
         return true;
     }
     if (IsSolid(bottomLeft.X, bottomLeft.Y)) {
-        //cerr << "Colidiu Bottom Left" << endl;
+        TileCollisionType type = collisionMatrix[bottomLeft.Y][bottomLeft.X];
+        if (type != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, bottomLeft.X, bottomLeft.Y, type, tileWidth, tileHeight)) {
+                cerr << "Colidiu Bottom Left" << endl;
+                return true;
+            }
+            return false;
+        }
+        cerr << "Colidiu Bottom Left" << endl;
         return true;
     }
     if (IsSolid(bottomRight.X, bottomRight.Y)) {
-        //cerr << "Colidiu Bottom Right" << endl;
+        TileCollisionType type = collisionMatrix[bottomRight.Y][bottomRight.X];
+        if (type != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, bottomRight.X, bottomRight.Y, type, tileWidth, tileHeight)) {
+                cerr << "Colidiu Bottom Right" << endl;
+                return true;
+            }
+            return false;
+        }
+        cerr << "Colidiu Bottom Right" << endl;
         return true;
     }
     return false;
 }
 
+bool TileMap::RectCollidesTriangle(Rect box, int tileX, int tileY, TileCollisionType type, int tileW, int tileH) {
+    float startX = tileX * tileW;
+    float startY = tileY * tileH;
+
+    // Vértices do triângulo
+    Vec2 A, B, C;
+    switch(type) {
+        case TileCollisionType::TriangleBottomRight:
+            A = {startX, startY + tileH};
+            B = {startX, startY};
+            C = {startX + tileW, startY};
+        break;
+        case TileCollisionType::TriangleBottomLeft:
+            A = {startX + tileW, startY + tileH};
+            B = {startX + tileW, startY};
+            C = {startX, startY};
+        break;
+        case TileCollisionType::TriangleTopRight:
+            A = {startX, startY};
+            B = {startX, startY + tileH};
+            C = {startX + tileW, startY + tileH};
+        break;
+        case TileCollisionType::TriangleTopLeft:
+            A = {startX + tileW, startY};
+            B = {startX + tileW, startY + tileH};
+            C = {startX, startY + tileH};
+        break;
+        default:
+            return false;
+    }
+
+    // Verifica se algum canto do box está dentro do triângulo
+    Vec2 points[] = {
+        {box.X, box.Y},
+        {box.X + box.W, box.Y},
+        {box.X, box.Y + box.H},
+        {box.X + box.W, box.Y + box.H}
+    };
+
+    for (auto& p : points) {
+        if (PointInTriangle(p, A, B, C))
+            return true;
+    }
+    if (box.contains(A) || box.contains(B) || box.contains(C)) {
+        return true;
+    }
+
+    return false;
+}
+
+bool TileMap::PointInTriangle(Vec2 pt, Vec2 v1, Vec2 v2, Vec2 v3) {
+    float d1 = Sign(pt, v1, v2);
+    float d2 = Sign(pt, v2, v3);
+    float d3 = Sign(pt, v3, v1);
+
+    bool has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+    bool has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+    return !(has_neg && has_pos);
+}
+
+float TileMap::Sign(Vec2 p1, Vec2 p2, Vec2 p3) {
+    return (p1.X - p3.X) * (p2.Y - p3.Y) - (p2.X - p3.X) * (p1.Y - p3.Y);
+}
 

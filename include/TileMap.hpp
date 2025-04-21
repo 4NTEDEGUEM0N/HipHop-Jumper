@@ -34,10 +34,21 @@ public:
     bool Is(string type);
     void SetCollisionLayer(int layer);
     void SetCollisionMatrix(int layer);
+
+    enum class TileCollisionType {
+        None,
+        Full,
+        TriangleTopLeft,
+        TriangleTopRight,
+        TriangleBottomLeft,
+        TriangleBottomRight
+    };
     bool IsSolid(int x, int y);
     bool IsColliding(Rect box);
-
-    vector<vector<bool>> collisionMatrix;
+    vector<vector<TileCollisionType>> collisionMatrix;
+    bool RectCollidesTriangle(Rect box, int tileX, int tileY, TileCollisionType type, int tileW, int tileH);
+    bool PointInTriangle(Vec2 pt, Vec2 v1, Vec2 v2, Vec2 v3);
+    float Sign(Vec2 p1, Vec2 p2, Vec2 p3);
 };
 
 #endif //TILEMAP_HPP
