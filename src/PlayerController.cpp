@@ -14,13 +14,12 @@ void PlayerController::Update(float dt) {
     Component* component = associated.GetComponent("Character");
     Character* character = dynamic_cast<Character*>(component);
     Vec2 direction = Vec2(0, 0);
-    if (InputManager::GetInstance().IsKeyDown(SDLK_w)) {
-        direction = direction + Vec2(0, -1);
-        move = true;
+    if (InputManager::GetInstance().KeyPress(SDLK_w)) {
+        character->Issue(Character::Command(Character::Command::JUMP, 0, 0));
     }
     if (InputManager::GetInstance().IsKeyDown(SDLK_s)) {
-        direction = direction + Vec2(0, 1);
-        move = true;
+        //direction = direction + Vec2(0, 1);
+        //move = true;
     }
     if (InputManager::GetInstance().IsKeyDown(SDLK_a)) {
         direction = direction + Vec2(-1, 0);

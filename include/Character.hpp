@@ -16,7 +16,8 @@ public:
     public:
         enum CommandType {
             MOVE,
-            SHOOT
+            SHOOT,
+            JUMP
         };
         CommandType type;
         Vec2 pos;
@@ -36,6 +37,9 @@ private:
     Timer damageCooldown;
     Sound deathSound;
     Sound hitSound;
+
+    float ySpeed;
+    bool onGround;
 
 public:
     static Character* player;

@@ -26,6 +26,8 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     deathTimer = Timer();
     dead = false;
     damageCooldown = Timer();
+    ySpeed = 0;
+    onGround = true;
     if (player == nullptr)
         player = this;
 
@@ -67,6 +69,11 @@ void Character::Start() {
 void Character::Update(float dt) {
     Component* component = associated.GetComponent("Animator");
     Animator* animator = dynamic_cast<Animator*>(component);
+
+    GameObject* tileMapObject = Game::GetInstance().GetState().GetTileMapObject();
+    Component* tileMapComponent = tileMapObject->GetComponent("TileMap");
+    TileMap* tileMap = dynamic_cast<TileMap*>(tileMapComponent);
+
     while(!taskQueue.empty()) {
         Command task = taskQueue.front();
         taskQueue.pop();
@@ -83,17 +90,9 @@ void Character::Update(float dt) {
                 direction = direction.normalize();
                 speed = direction * linearSpeed;
                 Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
-                Rect new_box_y = associated.box + Vec2(0, speed.Y * dt);
-
-                GameObject* tileMapObject = Game::GetInstance().GetState().GetTileMapObject();
-                Component* tileMapComponent = tileMapObject->GetComponent("TileMap");
-                TileMap* tileMap = dynamic_cast<TileMap*>(tileMapComponent);
 
                 if (!tileMap->IsColliding(new_box_x)) {
                     associated.box = associated.box + Vec2(speed.X * dt, 0);
-                }
-                if (!tileMap->IsColliding(new_box_y)) {
-                    associated.box = associated.box + Vec2(0, speed.Y * dt);
                 }
 
                 //associated.box = new_box;
@@ -102,6 +101,14 @@ void Character::Update(float dt) {
             Component* component = gun.lock()->GetComponent("Gun");
             Gun* gunCpt = dynamic_cast<Gun*>(component);
             gunCpt->Shot(task.pos);
+        }
+
+        if (task.type == Command::JUMP) {
+            if (ySpeed >= 0) {
+                ySpeed = -300;
+                onGround = false;
+            }
+
         }
 
         if (hp <= 0 && !dead) {
@@ -133,6 +140,23 @@ void Character::Update(float dt) {
         }
         damageCooldown.Update(dt);
     }
+
+    if (!onGround) {
+        ySpeed = ySpeed + 250.0f * dt;
+        if (ySpeed > 500)
+            ySpeed = 500;
+        Rect new_box_y = associated.box + Vec2(0, ySpeed * dt);
+        if (!tileMap->IsColliding(new_box_y)) {
+            associated.box = associated.box + Vec2(0, ySpeed * dt);
+        } else if (ySpeed > 0) {
+            ySpeed = 0;
+            //onGround = true;
+        } else {
+            ySpeed = 0;
+        }
+    }
+
+
     deathTimer.Update(dt);
     if (dead && deathTimer.Get() > 2) {
         if (this == player) {
