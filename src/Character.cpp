@@ -104,7 +104,7 @@ void Character::Update(float dt) {
         }
 
         if (task.type == Command::JUMP) {
-            if (ySpeed >= 0) {
+            if (onGround) {
                 ySpeed = -300;
                 onGround = false;
             }
@@ -141,19 +141,17 @@ void Character::Update(float dt) {
         damageCooldown.Update(dt);
     }
 
-    if (!onGround) {
-        ySpeed = ySpeed + 250.0f * dt;
-        if (ySpeed > 500)
-            ySpeed = 500;
-        Rect new_box_y = associated.box + Vec2(0, ySpeed * dt);
-        if (!tileMap->IsColliding(new_box_y)) {
-            associated.box = associated.box + Vec2(0, ySpeed * dt);
-        } else if (ySpeed > 0) {
-            ySpeed = 0;
-            //onGround = true;
-        } else {
-            ySpeed = 0;
-        }
+    ySpeed = ySpeed + 250.0f * dt;
+    if (ySpeed > 500)
+        ySpeed = 500;
+    Rect new_box_y = associated.box + Vec2(0, ySpeed * dt);
+    if (!tileMap->IsColliding(new_box_y)) {
+        associated.box = associated.box + Vec2(0, ySpeed * dt);
+    } else if (ySpeed > 0) {
+        ySpeed = 0;
+        onGround = true;
+    } else {
+        ySpeed = 0;
     }
 
 
