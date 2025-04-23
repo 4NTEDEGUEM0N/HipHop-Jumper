@@ -219,12 +219,10 @@ void TileMap::SetCollisionMatrix(int layer) {
     }
 }
 
-bool TileMap::IsSolid(int x, int y) {
+TileMap::TileCollisionType TileMap::GetCollisionType(int x, int y) {
     if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight)
-        return false;
-    if (collisionMatrix[y][x] != TileCollisionType::None)
-        return true;
-    return false;
+        return TileCollisionType::None;
+    return collisionMatrix[y][x];
 }
 
 bool TileMap::IsColliding(Rect box) {
@@ -242,51 +240,52 @@ bool TileMap::IsColliding(Rect box) {
     Vec2 bottomLeft = Vec2(left, bottom);
     Vec2 bottomRight = Vec2(right, bottom);
 
-    if (IsSolid(topLeft.X, topLeft.Y)) {
-        TileCollisionType type = collisionMatrix[topLeft.Y][topLeft.X];
-        if (type != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, topLeft.X, topLeft.Y, type, tileWidth, tileHeight)) {
-                cerr << "Colidiu Top Left" << endl;
+    TileCollisionType type_topLeft = GetCollisionType(topLeft.X, topLeft.Y);
+    TileCollisionType type_topRight = GetCollisionType(topRight.X, topRight.Y);
+    TileCollisionType type_bottomLeft = GetCollisionType(bottomLeft.X, bottomLeft.Y);
+    TileCollisionType type_bottomRight = GetCollisionType(bottomRight.X, bottomRight.Y);
+
+    if (type_topLeft != TileCollisionType::None) {
+        if (type_topLeft != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, topLeft.X, topLeft.Y, type_topLeft, tileWidth, tileHeight)) {
+                //cerr << "Colidiu Top Left" << endl;
                 return true;
             }
         } else {
-            cerr << "Colidiu Top Left" << endl;
+            //cerr << "Colidiu Top Left" << endl;
             return true;
         }
     }
-    if (IsSolid(topRight.X, topRight.Y)) {
-        TileCollisionType type = collisionMatrix[topRight.Y][topRight.X];
-        if (type != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, topRight.X, topRight.Y, type, tileWidth, tileHeight)) {
-                cerr << "Colidiu Top Right" << endl;
+    if (type_topRight != TileCollisionType::None) {
+        if (type_topRight != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, topRight.X, topRight.Y, type_topRight, tileWidth, tileHeight)) {
+                //cerr << "Colidiu Top Right" << endl;
                 return true;
             }
         } else {
-            cerr << "Colidiu Top Right" << endl;
+            //cerr << "Colidiu Top Right" << endl;
             return true;
         }
     }
-    if (IsSolid(bottomLeft.X, bottomLeft.Y)) {
-        TileCollisionType type = collisionMatrix[bottomLeft.Y][bottomLeft.X];
-        if (type != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, bottomLeft.X, bottomLeft.Y, type, tileWidth, tileHeight)) {
-                cerr << "Colidiu Bottom Left" << endl;
+    if (type_bottomLeft != TileCollisionType::None) {
+        if (type_bottomLeft != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, bottomLeft.X, bottomLeft.Y, type_bottomLeft, tileWidth, tileHeight)) {
+                //cerr << "Colidiu Bottom Left" << endl;
                 return true;
             }
         } else {
-            cerr << "Colidiu Bottom Left" << endl;
+            //cerr << "Colidiu Bottom Left" << endl;
             return true;
         }
     }
-    if (IsSolid(bottomRight.X, bottomRight.Y)) {
-        TileCollisionType type = collisionMatrix[bottomRight.Y][bottomRight.X];
-        if (type != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, bottomRight.X, bottomRight.Y, type, tileWidth, tileHeight)) {
-                cerr << "Colidiu Bottom Right" << endl;
+    if (type_bottomRight != TileCollisionType::None) {
+        if (type_bottomRight != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, bottomRight.X, bottomRight.Y, type_bottomRight, tileWidth, tileHeight)) {
+                //cerr << "Colidiu Bottom Right" << endl;
                 return true;
             }
         } else {
-            cerr << "Colidiu Bottom Right" << endl;
+            //cerr << "Colidiu Bottom Right" << endl;
             return true;
         }
     }
@@ -356,5 +355,12 @@ bool TileMap::PointInTriangle(Vec2 pt, Vec2 v1, Vec2 v2, Vec2 v3) {
 
 float TileMap::Sign(Vec2 p1, Vec2 p2, Vec2 p3) {
     return (p1.X - p3.X) * (p2.Y - p3.Y) - (p2.X - p3.X) * (p1.Y - p3.Y);
+}
+
+int TileMap::GetTileSetWidth() {
+    return tileSet->GetTileWidth();
+}
+int TileMap::GetTileSetHeight() {
+    return tileSet->GetTileHeight();
 }
 

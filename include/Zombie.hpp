@@ -3,6 +3,7 @@
 #include "Component.hpp"
 #include "GameObject.hpp"
 #include "Sound.hpp"
+#include "TileMap.hpp"
 #include "Timer.hpp"
 
 class Zombie : public Component {
@@ -14,6 +15,9 @@ private:
     bool hit;
     Timer hitTimer;
     Timer deathTimer;
+    bool runLeft;
+    bool onGround;
+    float ySpeed;
 
 public:
     Zombie(GameObject& associated, int hp);
@@ -23,6 +27,7 @@ public:
     void Render();
     bool Is(string type);
     void NotifyCollision(GameObject &other);
+    void CheckDirection(float dt, TileMap* tileMap);
 
     static int zombieCounter;
 };

@@ -82,14 +82,14 @@ void StageState::Update(float dt) {
         quitRequested = InputManager::GetInstance().QuitRequested();
     }
 
-    /*if (InputManager::GetInstance().KeyPress(SDLK_SPACE)) {
-        GameObject* zombieObject = new GameObject();
+    if (InputManager::GetInstance().KeyPress(SDLK_SPACE)) {
+        GameObject* zombieObject = new GameObject(false);
         AddObject(zombieObject);
         Zombie* zmb = new Zombie(*zombieObject, 100);
         zombieObject->box.X = InputManager::GetInstance().GetMouseX() + Camera::pos.GetX();
         zombieObject->box.Y = InputManager::GetInstance().GetMouseY() + Camera::pos.GetY();
         zombieObject->AddComponent(zmb);
-    }*/
+    }
 
     if (InputManager::GetInstance().KeyPress(SDLK_c)) {
         Collider::showCollision = !Collider::showCollision;

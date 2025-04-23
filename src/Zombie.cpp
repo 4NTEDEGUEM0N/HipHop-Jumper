@@ -4,6 +4,7 @@
 #include "../include/Camera.hpp"
 #include "../include/Collider.hpp"
 #include "../include/Character.hpp"
+#include "../include/Game.hpp"
 #include <iostream>
 
 #include "../include/InputManager.hpp"
@@ -15,6 +16,8 @@ Zombie::Zombie(GameObject& associated, int hp):Component(associated), deathSound
     hasPlayedDeathSound = false;
     hit = false;
     zombieCounter += 1;
+    onGround = false;
+    runLeft = false;
 
     SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/Enemy.png", 3,2);
     associated.AddComponent(zmb);
@@ -86,19 +89,46 @@ void Zombie::Update(float dt) {
         associated.RequestDelete();
     }
 
-    if (Character::player != nullptr && hitpoints > 0) {
-        Vec2 playerPos = Character::player->GetPosition();
-        Vec2 direction = playerPos - associated.box.center();
-        Component* component = associated.GetComponent("Animator");
-        Animator* animator = dynamic_cast<Animator*>(component);
-        if (hitTimer.Get() > 0.5) {
-            if (direction.GetX() < 0)
-            animator->SetAnimation("walkingLeft");
-        else
-            animator->SetAnimation("walking");
+    GameObject* tileMapObject = Game::GetInstance().GetState().GetTileMapObject();
+    Component* tileMapComponent = tileMapObject->GetComponent("TileMap");
+    TileMap* tileMap = dynamic_cast<TileMap*>(tileMapComponent);
+    if (onGround) {
+        //associated.box = associated.box + Vec2(100.0f *dt, 0);
+        CheckDirection(dt, tileMap);
+    } else {
+        ySpeed = ySpeed + 250.0f * dt;
+        Rect new_box = associated.box + Vec2(0, ySpeed * dt);
+        if (!tileMap->IsColliding(new_box)) {
+            associated.box = new_box;
+        } else {
+            ySpeed = 0;
+            onGround = true;
         }
+    }
+}
 
-        associated.box = associated.box + direction.normalize() * 100 * dt;
+void Zombie::CheckDirection(float dt, TileMap* tileMap) {
+    Component* component = associated.GetComponent("Animator");
+    Animator* animator = dynamic_cast<Animator*>(component);
+
+    float speed = 100.0;
+    if (runLeft) {
+        animator->SetAnimation("walkingLeft");
+        speed = speed * -1;
+    } else {
+        animator->SetAnimation("walking");
+    }
+    Rect new_box = associated.box + Vec2(speed * dt,0);
+    if (!tileMap->IsColliding(new_box)) {
+        int boxX = (new_box.X + (new_box.W/2))/tileMap->GetTileSetWidth();
+        int boxY = (new_box.Y + new_box.H + 5)/tileMap->GetTileSetHeight();
+        if (tileMap->GetCollisionType(boxX, boxY) != TileMap::TileCollisionType::Full) {
+            runLeft = !runLeft;
+        } else {
+            associated.box = new_box;
+        }
+    } else {
+        runLeft = !runLeft;
     }
 }
 

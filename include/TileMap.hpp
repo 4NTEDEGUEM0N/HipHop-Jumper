@@ -34,6 +34,8 @@ public:
     bool Is(string type);
     void SetCollisionLayer(int layer);
     void SetCollisionMatrix(int layer);
+    int GetTileSetWidth();
+    int GetTileSetHeight();
 
     enum class TileCollisionType {
         None,
@@ -43,7 +45,7 @@ public:
         TriangleBottomLeft,
         TriangleBottomRight
     };
-    bool IsSolid(int x, int y);
+    TileCollisionType GetCollisionType(int x, int y);
     bool IsColliding(Rect box);
     vector<vector<TileCollisionType>> collisionMatrix;
     bool RectCollidesTriangle(Rect box, int tileX, int tileY, TileCollisionType type, int tileW, int tileH);
