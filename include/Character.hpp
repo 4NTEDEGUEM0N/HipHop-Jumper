@@ -17,7 +17,8 @@ public:
         enum CommandType {
             MOVE,
             SHOOT,
-            JUMP
+            JUMP,
+            DASH
         };
         CommandType type;
         Vec2 pos;
@@ -44,6 +45,8 @@ private:
     bool canJump;
     bool canDoubleJump;
     bool canDash;
+    bool dashing;
+    Timer dashTimer;
 
 public:
     static Character* player;
