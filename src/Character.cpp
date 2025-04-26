@@ -112,6 +112,9 @@ void Character::Update(float dt) {
                 ySpeed = -300;
                 onGround = false;
                 canJump = false;
+            } else if (canDoubleJump) {
+                ySpeed = -300;
+                canDoubleJump = false;
             }
 
         }
@@ -152,10 +155,13 @@ void Character::Update(float dt) {
     Rect new_box_y = associated.box + Vec2(0, ySpeed * dt);
     if (!tileMap->IsColliding(new_box_y)) {
         associated.box = associated.box + Vec2(0, ySpeed * dt);
+        onGround = false;
+        canJump = false;
     } else if (ySpeed > 0) {
         ySpeed = 0;
         onGround = true;
         canJump = true;
+        canDoubleJump = true;
     } else {
         ySpeed = 0;
     }
