@@ -36,9 +36,9 @@ void HUD::Render() {
     hpText->SetText(to_string(player->GetHP()) + "/100");
     hpText->Render();
 
-    RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 5);
-    RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 42);
-    RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 79);
+    RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 0*32 + 1*5);
+    RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 1*32 + 2*5);
+    RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 2*32 + 3*5);
 }
 
 void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
