@@ -12,7 +12,7 @@ public:
         SHADED,
         BLENDED
     };
-    Text(GameObject& associated, string fontFile, int fontSize, TextStyle style, string text, SDL_Color color);
+    Text(GameObject& associated, string fontFile, int fontSize, TextStyle style, string text, SDL_Color color, bool cameraFollower=false);
     ~Text();
     void Update(float dt);
     void Render();
@@ -31,6 +31,7 @@ private:
     string fontFile;
     int fontSize;
     SDL_Color color;
+    bool cameraFollower;
 };
 
 #endif //TEXT_HPP

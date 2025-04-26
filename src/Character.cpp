@@ -209,6 +209,10 @@ Vec2 Character::GetPosition() const {
     return associated.box.center();
 }
 
+int Character::GetHP() {
+    return hp;
+}
+
 
 
 

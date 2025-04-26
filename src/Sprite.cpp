@@ -68,6 +68,14 @@ int Sprite::GetHeight() {
     return (height / frameCountH) * scale.GetY();
 }
 
+int Sprite::GetRealWidth() {
+    return (width / frameCountW);
+}
+
+int Sprite::GetRealHeight() {
+    return (height / frameCountH);
+}
+
 bool Sprite::IsOpen() {
     return texture != nullptr;
 }
