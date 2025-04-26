@@ -13,11 +13,13 @@ private:
     Text* hpText;
 
     Sprite characterSprite;
+    Sprite characterAbilities;
     Rect* characterRect;
 
 public:
     HUD();
     void Render();
+    void RenderAbility(int abilityNumber, bool active, int x, int y);
 };
 
 #endif //HUD_HPP

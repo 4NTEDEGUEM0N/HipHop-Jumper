@@ -31,6 +31,10 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     if (player == nullptr)
         player = this;
 
+    canJump = true;
+    canDoubleJump = false;
+    canDash = false;
+
     SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
     associated.AddComponent(character);
 
@@ -107,6 +111,7 @@ void Character::Update(float dt) {
             if (onGround) {
                 ySpeed = -300;
                 onGround = false;
+                canJump = false;
             }
 
         }
@@ -150,6 +155,7 @@ void Character::Update(float dt) {
     } else if (ySpeed > 0) {
         ySpeed = 0;
         onGround = true;
+        canJump = true;
     } else {
         ySpeed = 0;
     }
@@ -212,6 +218,20 @@ Vec2 Character::GetPosition() const {
 int Character::GetHP() {
     return hp;
 }
+
+bool Character::CanJump() {
+    return canJump;
+}
+
+bool Character::CanDoubleJump() {
+    return canDoubleJump;
+}
+
+
+bool Character::CanDash() {
+    return canDash;
+}
+
 
 
 

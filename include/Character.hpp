@@ -41,6 +41,10 @@ private:
     float ySpeed;
     bool onGround;
 
+    bool canJump;
+    bool canDoubleJump;
+    bool canDash;
+
 public:
     static Character* player;
 
@@ -54,6 +58,9 @@ public:
     void Issue(Command task);
     Vec2 GetPosition() const;
     int GetHP();
+    bool CanJump();
+    bool CanDoubleJump();
+    bool CanDash();
 
 
 };

@@ -2,8 +2,9 @@
 #include "../include/Game.hpp"
 #include <iostream>
 
-HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png") {
+HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbilities("../Recursos/img/habilidades.png",2,3) {
     characterSprite.cameraFollower = true;
+    characterAbilities.cameraFollower = true;
     characterSprite.SetScale(0.6f, 0.6f);
     characterRect = new Rect(0, 900-characterSprite.GetHeight(), characterSprite.GetRealWidth(), characterSprite.GetRealHeight());
 
@@ -34,5 +35,15 @@ void HUD::Render() {
 
     hpText->SetText(to_string(player->GetHP()) + "/100");
     hpText->Render();
+
+    RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 5);
+    RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 42);
+    RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 79);
+}
+
+void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
+    int frame = abilityNumber * 2 + (active ? 0 : 1);
+    characterAbilities.SetFrame(frame);
+    characterAbilities.Render(x, y, characterAbilities.GetWidth(), characterAbilities.GetHeight());
 }
 
