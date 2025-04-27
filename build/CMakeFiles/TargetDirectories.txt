@@ -1,0 +1,3 @@
+/Users/pedrovenzi/Documents/unb/projetos/hhj/build/CMakeFiles/HipHop-Jumper.dir
+/Users/pedrovenzi/Documents/unb/projetos/hhj/build/CMakeFiles/edit_cache.dir
+/Users/pedrovenzi/Documents/unb/projetos/hhj/build/CMakeFiles/rebuild_cache.dir
