@@ -2,7 +2,7 @@
 #include "../include/Game.hpp"
 #include "../include/Resources.hpp"
 #include "../include/Camera.hpp"
-#include <SDL2/SDL_image.h>
+#include <SDL_image.h>
 #include <iostream>
 
 using namespace std;

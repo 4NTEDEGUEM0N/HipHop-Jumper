@@ -49,6 +49,7 @@
 		B0152B2B2DBD6F02008B5B08 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152B0A2DBD6F02008B5B08 /* Component.cpp */; };
 		B0152B2C2DBD6F02008B5B08 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152B0B2DBD6F02008B5B08 /* Sprite.cpp */; };
 		B0152B2D2DBD6F02008B5B08 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152B0C2DBD6F02008B5B08 /* GameObject.cpp */; };
+		B094C2542DC2C54B00463219 /* HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B094C2532DC2C54B00463219 /* HUD.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -175,6 +176,8 @@
 		B0152B6A2DBD8303008B5B08 /* PumpAction.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PumpAction.mp3; sourceTree = "<group>"; };
 		B0152B6B2DBD8303008B5B08 /* endStateLose.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = endStateLose.ogg; sourceTree = "<group>"; };
 		B0152B6C2DBD8303008B5B08 /* Dead.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dead.wav; sourceTree = "<group>"; };
+		B094C2522DC2C4E800463219 /* HUD.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HUD.hpp; path = include/HUD.hpp; sourceTree = "<group>"; };
+		B094C2532DC2C54B00463219 /* HUD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HUD.cpp; path = src/HUD.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +216,8 @@
 				B0152ABD2DBD57ED008B5B08 /* GameData.hpp */,
 				B0152AC02DBD57EE008B5B08 /* GameObject.hpp */,
 				B0152AD02DBD57EF008B5B08 /* Gun.hpp */,
+				B094C2522DC2C4E800463219 /* HUD.hpp */,
+				B094C2532DC2C54B00463219 /* HUD.cpp */,
 				B0152AB12DBD57ED008B5B08 /* InputManager.hpp */,
 				B0152ABC2DBD57ED008B5B08 /* Music.hpp */,
 				B0152AC72DBD57EE008B5B08 /* PlayerController.hpp */,
@@ -429,6 +434,7 @@
 				B0152B1E2DBD6F02008B5B08 /* Wave.cpp in Sources */,
 				B0152B122DBD6F02008B5B08 /* SpriteRenderer.cpp in Sources */,
 				B0152B1C2DBD6F02008B5B08 /* Camera.cpp in Sources */,
+				B094C2542DC2C54B00463219 /* HUD.cpp in Sources */,
 				B0152B132DBD6F02008B5B08 /* AIController.cpp in Sources */,
 				B0152B2A2DBD6F02008B5B08 /* Character.cpp in Sources */,
 				B0152B152DBD6F02008B5B08 /* Sound.cpp in Sources */,
