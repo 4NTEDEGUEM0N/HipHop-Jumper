@@ -2,7 +2,7 @@
 #include "../include/Game.hpp"
 #include "../include/Resources.hpp"
 #include "../include/Camera.hpp"
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <iostream>
 
 using namespace std;
@@ -66,6 +66,14 @@ int Sprite::GetWidth() {
 
 int Sprite::GetHeight() {
     return (height / frameCountH) * scale.GetY();
+}
+
+int Sprite::GetRealWidth() {
+    return (width / frameCountW);
+}
+
+int Sprite::GetRealHeight() {
+    return (height / frameCountH);
 }
 
 bool Sprite::IsOpen() {

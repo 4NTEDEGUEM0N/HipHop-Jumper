@@ -1,6 +1,7 @@
 #ifndef STAGESTATE_HPP
 #define STAGESTATE_HPP
 
+#include "HUD.hpp"
 #include "Music.hpp"
 #include "State.hpp"
 #include "TileSet.hpp"
@@ -11,6 +12,7 @@ class StageState : public State {
 private:
     TileSet* tileSet;
     Music backgroundMusic;
+    HUD* hud;
 
 public:
     StageState();

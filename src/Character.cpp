@@ -31,6 +31,12 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     if (player == nullptr)
         player = this;
 
+    canJump = true;
+    canDoubleJump = false;
+    canDash = false;
+    dashing = false;
+    dashTimer = Timer();
+
     SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
     associated.AddComponent(character);
 
@@ -78,7 +84,7 @@ void Character::Update(float dt) {
         Command task = taskQueue.front();
         taskQueue.pop();
 
-        if (task.type == Command::MOVE) {
+        if (task.type == Command::MOVE && !dashing) {
             if (task.pos == Vec2(0,0)) {
                 string currentAnimation = animator->GetAnimation();
                 if (currentAnimation == "walkingRight")
@@ -97,18 +103,27 @@ void Character::Update(float dt) {
 
                 //associated.box = new_box;
             }
-        } else if (task.type == Command::SHOOT) {
+        } else if (task.type == Command::SHOOT && !dashing) {
             Component* component = gun.lock()->GetComponent("Gun");
             Gun* gunCpt = dynamic_cast<Gun*>(component);
             gunCpt->Shot(task.pos);
-        }
-
-        if (task.type == Command::JUMP) {
+        } else if (task.type == Command::JUMP && !dashing) {
             if (onGround) {
                 ySpeed = -300;
                 onGround = false;
+                canJump = false;
+            } else if (canDoubleJump) {
+                ySpeed = -300;
+                canDoubleJump = false;
             }
-
+        } else if (task.type == Command::DASH && canDash) {
+            if (task.pos.X != 0) {
+                speed = task.pos * linearSpeed * 3;
+                canDash = false;
+                dashing = true;
+                dashTimer.Restart();
+                ySpeed = 0;
+            }
         }
 
         if (hp <= 0 && !dead) {
@@ -141,17 +156,38 @@ void Character::Update(float dt) {
         damageCooldown.Update(dt);
     }
 
-    ySpeed = ySpeed + 250.0f * dt;
-    if (ySpeed > 500)
-        ySpeed = 500;
-    Rect new_box_y = associated.box + Vec2(0, ySpeed * dt);
-    if (!tileMap->IsColliding(new_box_y)) {
-        associated.box = associated.box + Vec2(0, ySpeed * dt);
-    } else if (ySpeed > 0) {
-        ySpeed = 0;
-        onGround = true;
-    } else {
-        ySpeed = 0;
+    dashTimer.Update(dt);
+    if (dashing && dashTimer.Get() <= 0.5) {
+        Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
+        if (!tileMap->IsColliding(new_box_x)) {
+            associated.box = new_box_x;
+        } else {
+            dashing = false;
+        }
+    }
+    if (dashTimer.Get() > 0.5) {
+        dashing = false;
+        if (dashTimer.Get() > 4)
+            canDash = true;
+    }
+
+    if (!dashing) {
+        ySpeed = ySpeed + 250.0f * dt;
+        if (ySpeed > 500)
+            ySpeed = 500;
+        Rect new_box_y = associated.box + Vec2(0, ySpeed * dt);
+        if (!tileMap->IsColliding(new_box_y)) {
+            associated.box = associated.box + Vec2(0, ySpeed * dt);
+            onGround = false;
+            canJump = false;
+        } else if (ySpeed > 0) {
+            ySpeed = 0;
+            onGround = true;
+            canJump = true;
+            canDoubleJump = true;
+        } else {
+            ySpeed = 0;
+        }
     }
 
 
@@ -208,6 +244,24 @@ void Character::NotifyCollision(GameObject &other) {
 Vec2 Character::GetPosition() const {
     return associated.box.center();
 }
+
+int Character::GetHP() {
+    return hp;
+}
+
+bool Character::CanJump() {
+    return canJump;
+}
+
+bool Character::CanDoubleJump() {
+    return canDoubleJump;
+}
+
+
+bool Character::CanDash() {
+    return canDash;
+}
+
 
 
 

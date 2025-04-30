@@ -5,7 +5,7 @@
 #ifdef DEBUG
 #include "../include/Camera.hpp"
 #include "../include/Game.hpp"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #endif // DEBUG
 
 bool Collider::showCollision = false;

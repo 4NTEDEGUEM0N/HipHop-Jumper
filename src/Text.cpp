@@ -8,13 +8,14 @@
 #include "../include/Camera.hpp"
 #include "../include/Game.hpp"
 
-Text::Text(GameObject& associated, string fontFile, int fontSize, TextStyle style, string text, SDL_Color color) : Component(associated){
+Text::Text(GameObject& associated, string fontFile, int fontSize, TextStyle style, string text, SDL_Color color, bool cameraFollower) : Component(associated){
     texture = nullptr;
     this->text = text;
     this->style = style;
     this->fontFile = fontFile;
     this->fontSize = fontSize;
     this->color = color;
+    this->cameraFollower = cameraFollower;
 
     font = Resources::GetFont(fontFile, fontSize).get();
     RemakeTexture();
@@ -31,8 +32,14 @@ void Text::Update(float dt) {}
 void Text::Render() {
     if (texture != nullptr) {
         SDL_Rect dstRect;
-        dstRect.x = associated.box.X - Camera::pos.GetX();
-        dstRect.y = associated.box.Y - Camera::pos.GetY();
+        if (!cameraFollower) {
+            dstRect.x = associated.box.X - Camera::pos.GetX();
+            dstRect.y = associated.box.Y - Camera::pos.GetY();
+        } else {
+            dstRect.x = associated.box.X;
+            dstRect.y = associated.box.Y;
+        }
+
         dstRect.w = associated.box.W;
         dstRect.h = associated.box.H;
 

@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "Vec2.hpp"
 
@@ -31,6 +31,8 @@ public:
     void Render(int x, int y, int w, int h, float angle = 0);
     int GetWidth();
     int GetHeight();
+    int GetRealWidth();
+    int GetRealHeight();
     bool IsOpen();
     void SetFrame(int frame);
     void SetFrameCount(int frame_count_w, int frame_count_h);

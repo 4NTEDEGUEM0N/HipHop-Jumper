@@ -2,7 +2,7 @@
 #define GAME_HPP
 
 #include <stack>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "State.hpp"
 #include <string>
 

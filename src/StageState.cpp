@@ -19,6 +19,7 @@
 #include "../include/WaveSpawner.hpp"
 #include "../include/Game.hpp"
 #include "../include/GameData.hpp"
+#include "../include/HUD.hpp"
 
 
 StageState::StageState() {
@@ -62,6 +63,8 @@ StageState::StageState() {
     //aiObject->AddComponent(aiCharacter);
     //AIController* aiController = new AIController(*aiObject);
     //aiObject->AddComponent(aiController);
+
+    hud = new HUD();
 
 }
 
@@ -108,6 +111,7 @@ void StageState::Update(float dt) {
 
 void StageState::Render() {
     RenderArray();
+    hud->Render();
 }
 
 void StageState::Start() {
