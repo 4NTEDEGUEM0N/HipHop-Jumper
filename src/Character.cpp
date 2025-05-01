@@ -188,9 +188,7 @@ void Character::Update(float dt) {
                     canDoubleJump = true;
 
                     if (collision.type == TileMap::TileCollisionType::Full or collisions.size() > 1) {
-                        int tileY = (new_box_y.Y + associated.box.H)/tileMap->GetTileSetHeight();
-                        tileY = tileY * tileMap->GetTileSetHeight();
-                        associated.box.Y = tileY - associated.box.H - 0.01;
+                        associated.box.Y = (collision.tilePos.Y * tileMap->GetTileSetHeight())  - associated.box.H - 0.01;
                     } else if (collision.type == TileMap::TileCollisionType::TriangleTopLeft and collision.corner == TileMap::CollisionCorner::BottomRight) {
                         float tileY = collision.tilePos.Y * tileMap->GetTileSetHeight();
                         float tileX = collision.tilePos.X * tileMap->GetTileSetWidth();
