@@ -28,9 +28,9 @@ void Item::Update(float dt) {
     associated.box.Y = associated.box.Y + counter*dt;
 
     if (collected) {
-        collectTimer.Update(dt);
-        if (collectTimer.Get() >= 0.4)
+        if (collectTimer.Get() >= 0.5)
             associated.RequestDelete();
+        collectTimer.Update(dt);
     }
 }
 
@@ -45,6 +45,7 @@ void Item::NotifyCollision(GameObject &other) {
         if (!collected) {
             collectSound.Play(1);
             collected = true;
+            collectTimer.Restart();
         }
     }
 }
