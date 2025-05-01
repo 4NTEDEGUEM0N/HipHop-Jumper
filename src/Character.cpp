@@ -187,10 +187,20 @@ void Character::Update(float dt) {
                     canJump = true;
                     canDoubleJump = true;
 
-                    if (collision.type == TileMap::TileCollisionType::Full) {
+                    if (collision.type == TileMap::TileCollisionType::Full or collisions.size() > 1) {
                         int tileY = (new_box_y.Y + associated.box.H)/tileMap->GetTileSetHeight();
                         tileY = tileY * tileMap->GetTileSetHeight();
                         associated.box.Y = tileY - associated.box.H - 0.01;
+                    } else if (collision.type == TileMap::TileCollisionType::TriangleTopLeft and collision.corner == TileMap::CollisionCorner::BottomRight) {
+                        float tileY = collision.tilePos.Y * tileMap->GetTileSetHeight();
+                        float tileX = collision.tilePos.X * tileMap->GetTileSetWidth();
+                        float rampY = -((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X + associated.box.W) + (tileY + tileMap->GetTileSetHeight() + ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
+                        associated.box.Y = rampY - associated.box.H - 0.01;
+                    } else if (collision.type == TileMap::TileCollisionType::TriangleTopRight and collision.corner == TileMap::CollisionCorner::BottomLeft) {
+                        float tileY = collision.tilePos.Y * tileMap->GetTileSetHeight();
+                        float tileX = collision.tilePos.X * tileMap->GetTileSetWidth();
+                        float rampY = ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X) + (tileY - ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
+                        associated.box.Y = rampY - associated.box.H - 0.01;
                     }
                 }
             }
