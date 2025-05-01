@@ -29,6 +29,7 @@ public:
 
 private:
     weak_ptr<GameObject> gun;
+    vector<GameObject> inventory;
     queue<Command> taskQueue;
     Vec2 speed;
     float linearSpeed;

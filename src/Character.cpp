@@ -13,12 +13,15 @@
 #include "../include/GameData.hpp"
 #include "../include/StageState.hpp"
 #include "../include/TileMap.hpp"
+#include "../include/Item.hpp"
+#include "../include/InventoryItem.hpp"
 
 
 Character* Character::player = nullptr;
 
 Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/Dead.wav"), hitSound("../Recursos/audio/Hit1.wav") {
     gun.reset();
+    inventory = vector<GameObject>();
     taskQueue = queue<Command>();
     speed = Vec2(0, 0);
     linearSpeed = 200;
@@ -118,7 +121,7 @@ void Character::Update(float dt) {
             }
         } else if (task.type == Command::DASH && canDash) {
             if (task.pos.X != 0) {
-                speed = task.pos * linearSpeed * 3;
+                speed = task.pos * linearSpeed * 9;
                 canDash = false;
                 dashing = true;
                 dashTimer.Restart();
@@ -157,7 +160,7 @@ void Character::Update(float dt) {
     }
 
     dashTimer.Update(dt);
-    if (dashing && dashTimer.Get() <= 0.5) {
+    if (dashing && dashTimer.Get() <= 0.15) {
         Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
         if (tileMap->IsColliding(new_box_x).size() == 0) {
             associated.box = new_box_x;
@@ -165,14 +168,16 @@ void Character::Update(float dt) {
             dashing = false;
         }
     }
-    if (dashTimer.Get() > 0.5) {
+    if (dashTimer.Get() > 0.15) {
         dashing = false;
         if (dashTimer.Get() > 4)
             canDash = true;
     }
 
     if (!dashing) {
-        ySpeed = ySpeed + 250.0f * dt;
+        // calculo da gravidade do personagem
+        ySpeed = ySpeed + 500.0f * dt;
+        // speedcap de queda
         if (ySpeed > 500)
             ySpeed = 500;
         Rect new_box_y = associated.box + Vec2(0, ySpeed * dt);
@@ -256,6 +261,34 @@ void Character::NotifyCollision(GameObject &other) {
                 hp -= 25;
                 hitSound.Play(1);
             }
+        }
+    } else if (other.GetComponent("Item") != nullptr) {
+        Item* itemCpt = dynamic_cast<Item*>(other.GetComponent("Item"));
+        switch (itemCpt->GetItemType()) {
+            case Item::ItemType::Minikit: {
+                GameObject* inventoryItemObject = new GameObject();
+
+                InventoryItem* inventoryItemCpt = new InventoryItem(*inventoryItemObject, Item::ItemType::Minikit);
+                inventoryItemObject->AddComponent(inventoryItemCpt);
+                
+                inventory.push_back(inventoryItemObject);
+
+                break;
+            }
+                
+            case Item::ItemType::SprayCap:
+
+                break;
+            
+                
+            case Item::ItemType::SprayBody:
+
+                break;
+                
+            case Item::ItemType::SprayColor:
+
+                break;
+    
         }
     }
 }

@@ -49,3 +49,7 @@ void Item::NotifyCollision(GameObject &other) {
         }
     }
 }
+
+Item::ItemType Item::GetItemType() {
+    return type;
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B002CBE52DC431C200654639 /* InventoryItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CBE42DC431C200654639 /* InventoryItem.cpp */; };
 		B0152AA62DBD48DC008B5B08 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0152AA02DBD4864008B5B08 /* SDL2_image.framework */; };
 		B0152AA72DBD48DC008B5B08 /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0152AA02DBD4864008B5B08 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0152AA92DBD48DD008B5B08 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0152A9F2DBD4864008B5B08 /* SDL2_mixer.framework */; };
@@ -80,6 +81,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B002CBE32DC431AE00654639 /* InventoryItem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InventoryItem.hpp; path = include/InventoryItem.hpp; sourceTree = "<group>"; };
+		B002CBE42DC431C200654639 /* InventoryItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InventoryItem.cpp; path = src/InventoryItem.cpp; sourceTree = "<group>"; };
 		B0152A8E2DBD3E11008B5B08 /* hhj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hhj; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0152A912DBD3E12008B5B08 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B0152A982DBD3EA4008B5B08 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				B094C2522DC2C4E800463219 /* HUD.hpp */,
 				B094C2532DC2C54B00463219 /* HUD.cpp */,
 				B0152AB12DBD57ED008B5B08 /* InputManager.hpp */,
+				B094C2572DC41B7D00463219 /* Item.hpp */,
+				B002CBE32DC431AE00654639 /* InventoryItem.hpp */,
 				B0152ABC2DBD57ED008B5B08 /* Music.hpp */,
 				B0152AC72DBD57EE008B5B08 /* PlayerController.hpp */,
 				B0152AC52DBD57EE008B5B08 /* Rect.hpp */,
@@ -251,16 +256,16 @@
 				B0152B022DBD6F01008B5B08 /* Bullet.cpp */,
 				B0152AFB2DBD6F01008B5B08 /* Camera.cpp */,
 				B0152B092DBD6F02008B5B08 /* Character.cpp */,
-				B094C2572DC41B7D00463219 /* Item.hpp */,
-				B094C2552DC41B6B00463219 /* Item.cpp */,
 				B0152B052DBD6F01008B5B08 /* Collider.cpp */,
 				B0152B0A2DBD6F02008B5B08 /* Component.cpp */,
 				B0152AFF2DBD6F01008B5B08 /* EndState.cpp */,
 				B0152AF62DBD6F00008B5B08 /* Game.cpp */,
 				B0152AFE2DBD6F01008B5B08 /* GameData.cpp */,
 				B0152B0C2DBD6F02008B5B08 /* GameObject.cpp */,
+				B002CBE42DC431C200654639 /* InventoryItem.cpp */,
 				B0152B062DBD6F02008B5B08 /* Gun.cpp */,
 				B0152AF32DBD6F00008B5B08 /* InputManager.cpp */,
+				B094C2552DC41B6B00463219 /* Item.cpp */,
 				B0152B072DBD6F02008B5B08 /* Music.cpp */,
 				B0152B012DBD6F01008B5B08 /* PlayerController.cpp */,
 				B0152AF92DBD6F00008B5B08 /* Rect.cpp */,
@@ -449,6 +454,7 @@
 				B0152B232DBD6F02008B5B08 /* Bullet.cpp in Sources */,
 				B0152B162DBD6F02008B5B08 /* Animation.cpp in Sources */,
 				B0152B222DBD6F02008B5B08 /* PlayerController.cpp in Sources */,
+				B002CBE52DC431C200654639 /* InventoryItem.cpp in Sources */,
 				B0152B192DBD6F02008B5B08 /* WaveSpawner.cpp in Sources */,
 				B0152B1D2DBD6F02008B5B08 /* State.cpp in Sources */,
 			);
