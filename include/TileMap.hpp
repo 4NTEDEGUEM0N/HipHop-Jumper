@@ -37,6 +37,9 @@ public:
     int GetTileSetWidth();
     int GetTileSetHeight();
 
+    enum class CollisionCorner {
+        TopLeft, TopRight, BottomLeft, BottomRight
+    };
     enum class TileCollisionType {
         None,
         Full,
@@ -45,8 +48,13 @@ public:
         TriangleBottomLeft,
         TriangleBottomRight
     };
+    struct CollisionInfo {
+        CollisionCorner corner;
+        Vec2 tilePos;
+        TileCollisionType type;
+    };
     TileCollisionType GetCollisionType(int x, int y);
-    bool IsColliding(Rect box);
+    vector<CollisionInfo> IsColliding(Rect box);
     vector<vector<TileCollisionType>> collisionMatrix;
     bool RectCollidesTriangle(Rect box, int tileX, int tileY, TileCollisionType type, int tileW, int tileH);
     bool PointInTriangle(Vec2 pt, Vec2 v1, Vec2 v2, Vec2 v3);

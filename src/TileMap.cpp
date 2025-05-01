@@ -225,7 +225,9 @@ TileMap::TileCollisionType TileMap::GetCollisionType(int x, int y) {
     return collisionMatrix[y][x];
 }
 
-bool TileMap::IsColliding(Rect box) {
+vector<TileMap::CollisionInfo> TileMap::IsColliding(Rect box) {
+    vector<CollisionInfo> collisions;
+
     int tileWidth = tileSet->GetTileWidth();
     int tileHeight = tileSet->GetTileHeight();
 
@@ -248,48 +250,48 @@ bool TileMap::IsColliding(Rect box) {
     if (type_topLeft != TileCollisionType::None) {
         if (type_topLeft != TileCollisionType::Full) {
             if (RectCollidesTriangle(box, topLeft.X, topLeft.Y, type_topLeft, tileWidth, tileHeight)) {
-                //cerr << "Colidiu Top Left" << endl;
-                return true;
+                CollisionInfo collision = {CollisionCorner::TopLeft, Vec2(topLeft.X, topLeft.Y), type_topLeft};
+                collisions.push_back(collision);
             }
         } else {
-            //cerr << "Colidiu Top Left" << endl;
-            return true;
+            CollisionInfo collision = {CollisionCorner::TopLeft, Vec2(topLeft.X, topLeft.Y), type_topLeft};
+            collisions.push_back(collision);
         }
     }
     if (type_topRight != TileCollisionType::None) {
         if (type_topRight != TileCollisionType::Full) {
             if (RectCollidesTriangle(box, topRight.X, topRight.Y, type_topRight, tileWidth, tileHeight)) {
-                //cerr << "Colidiu Top Right" << endl;
-                return true;
+                CollisionInfo collision = {CollisionCorner::TopRight, Vec2(topRight.X, topRight.Y), type_topRight};
+                collisions.push_back(collision);
             }
         } else {
-            //cerr << "Colidiu Top Right" << endl;
-            return true;
+            CollisionInfo collision = {CollisionCorner::TopRight, Vec2(topRight.X, topRight.Y), type_topRight};
+            collisions.push_back(collision);
         }
     }
     if (type_bottomLeft != TileCollisionType::None) {
         if (type_bottomLeft != TileCollisionType::Full) {
             if (RectCollidesTriangle(box, bottomLeft.X, bottomLeft.Y, type_bottomLeft, tileWidth, tileHeight)) {
-                //cerr << "Colidiu Bottom Left" << endl;
-                return true;
+                CollisionInfo collision = {CollisionCorner::BottomLeft, Vec2(bottomLeft.X, bottomLeft.Y), type_bottomLeft};
+                collisions.push_back(collision);
             }
         } else {
-            //cerr << "Colidiu Bottom Left" << endl;
-            return true;
+            CollisionInfo collision = {CollisionCorner::BottomLeft, Vec2(bottomLeft.X, bottomLeft.Y), type_bottomLeft};
+            collisions.push_back(collision);
         }
     }
     if (type_bottomRight != TileCollisionType::None) {
         if (type_bottomRight != TileCollisionType::Full) {
             if (RectCollidesTriangle(box, bottomRight.X, bottomRight.Y, type_bottomRight, tileWidth, tileHeight)) {
-                //cerr << "Colidiu Bottom Right" << endl;
-                return true;
+                CollisionInfo collision = {CollisionCorner::BottomRight, Vec2(bottomRight.X, bottomRight.Y), type_bottomRight};
+                collisions.push_back(collision);
             }
         } else {
-            //cerr << "Colidiu Bottom Right" << endl;
-            return true;
+            CollisionInfo collision = {CollisionCorner::BottomRight, Vec2(bottomRight.X, bottomRight.Y), type_bottomRight};
+            collisions.push_back(collision);
         }
     }
-    return false;
+    return collisions;
 }
 
 bool TileMap::RectCollidesTriangle(Rect box, int tileX, int tileY, TileCollisionType type, int tileW, int tileH) {

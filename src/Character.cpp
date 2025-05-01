@@ -97,7 +97,7 @@ void Character::Update(float dt) {
                 speed = direction * linearSpeed;
                 Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
 
-                if (!tileMap->IsColliding(new_box_x)) {
+                if (tileMap->IsColliding(new_box_x).size() == 0) {
                     associated.box = associated.box + Vec2(speed.X * dt, 0);
                 }
 
@@ -159,7 +159,7 @@ void Character::Update(float dt) {
     dashTimer.Update(dt);
     if (dashing && dashTimer.Get() <= 0.5) {
         Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
-        if (!tileMap->IsColliding(new_box_x)) {
+        if (tileMap->IsColliding(new_box_x).size() == 0) {
             associated.box = new_box_x;
         } else {
             dashing = false;
@@ -176,17 +176,28 @@ void Character::Update(float dt) {
         if (ySpeed > 500)
             ySpeed = 500;
         Rect new_box_y = associated.box + Vec2(0, ySpeed * dt);
-        if (!tileMap->IsColliding(new_box_y)) {
+        vector<TileMap::CollisionInfo> collisions = tileMap->IsColliding(new_box_y);
+        if (collisions.size() > 0) {
+            for (TileMap::CollisionInfo collision : collisions) {
+                if (collision.corner == TileMap::CollisionCorner::TopRight or collision.corner == TileMap::CollisionCorner::TopLeft)
+                    ySpeed = 0;
+                if (collision.corner == TileMap::CollisionCorner::BottomRight or collision.corner == TileMap::CollisionCorner::BottomLeft) {
+                    ySpeed = 0;
+                    onGround = true;
+                    canJump = true;
+                    canDoubleJump = true;
+
+                    if (collision.type == TileMap::TileCollisionType::Full) {
+                        int tileY = (new_box_y.Y + associated.box.H)/tileMap->GetTileSetHeight();
+                        tileY = tileY * tileMap->GetTileSetHeight();
+                        associated.box.Y = tileY - associated.box.H - 0.01;
+                    }
+                }
+            }
+        } else {
             associated.box = associated.box + Vec2(0, ySpeed * dt);
             onGround = false;
             canJump = false;
-        } else if (ySpeed > 0) {
-            ySpeed = 0;
-            onGround = true;
-            canJump = true;
-            canDoubleJump = true;
-        } else {
-            ySpeed = 0;
         }
     }
 
