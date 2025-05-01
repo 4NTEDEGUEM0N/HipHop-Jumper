@@ -50,6 +50,7 @@
 		B0152B2C2DBD6F02008B5B08 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152B0B2DBD6F02008B5B08 /* Sprite.cpp */; };
 		B0152B2D2DBD6F02008B5B08 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152B0C2DBD6F02008B5B08 /* GameObject.cpp */; };
 		B094C2542DC2C54B00463219 /* HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B094C2532DC2C54B00463219 /* HUD.cpp */; };
+		B094C2562DC41B6B00463219 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B094C2552DC41B6B00463219 /* Item.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -178,6 +179,8 @@
 		B0152B6C2DBD8303008B5B08 /* Dead.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dead.wav; sourceTree = "<group>"; };
 		B094C2522DC2C4E800463219 /* HUD.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HUD.hpp; path = include/HUD.hpp; sourceTree = "<group>"; };
 		B094C2532DC2C54B00463219 /* HUD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HUD.cpp; path = src/HUD.cpp; sourceTree = "<group>"; };
+		B094C2552DC41B6B00463219 /* Item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Item.cpp; path = src/Item.cpp; sourceTree = "<group>"; };
+		B094C2572DC41B7D00463219 /* Item.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Item.hpp; path = include/Item.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +251,8 @@
 				B0152B022DBD6F01008B5B08 /* Bullet.cpp */,
 				B0152AFB2DBD6F01008B5B08 /* Camera.cpp */,
 				B0152B092DBD6F02008B5B08 /* Character.cpp */,
+				B094C2572DC41B7D00463219 /* Item.hpp */,
+				B094C2552DC41B6B00463219 /* Item.cpp */,
 				B0152B052DBD6F01008B5B08 /* Collider.cpp */,
 				B0152B0A2DBD6F02008B5B08 /* Component.cpp */,
 				B0152AFF2DBD6F01008B5B08 /* EndState.cpp */,
@@ -410,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B094C2562DC41B6B00463219 /* Item.cpp in Sources */,
 				B0152B0F2DBD6F02008B5B08 /* Animator.cpp in Sources */,
 				B0152B0D2DBD6F02008B5B08 /* StageState.cpp in Sources */,
 				B0152B2D2DBD6F02008B5B08 /* GameObject.cpp in Sources */,

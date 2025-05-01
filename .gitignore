@@ -1,3 +1,2 @@
-# Ignore Xcode project configuration files
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
+# ignore
+build/
