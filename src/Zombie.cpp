@@ -98,7 +98,7 @@ void Zombie::Update(float dt) {
     } else {
         ySpeed = ySpeed + 250.0f * dt;
         Rect new_box = associated.box + Vec2(0, ySpeed * dt);
-        if (!tileMap->IsColliding(new_box)) {
+        if (tileMap->IsColliding(new_box).size() == 0) {
             associated.box = new_box;
         } else {
             ySpeed = 0;
@@ -119,7 +119,7 @@ void Zombie::CheckDirection(float dt, TileMap* tileMap) {
         animator->SetAnimation("walking");
     }
     Rect new_box = associated.box + Vec2(speed * dt,0);
-    if (!tileMap->IsColliding(new_box)) {
+    if (tileMap->IsColliding(new_box).size() == 0) {
         int boxX = (new_box.X + (new_box.W/2))/tileMap->GetTileSetWidth();
         int boxY = (new_box.Y + new_box.H + 5)/tileMap->GetTileSetHeight();
         if (tileMap->GetCollisionType(boxX, boxY) != TileMap::TileCollisionType::Full) {
