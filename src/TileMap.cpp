@@ -9,9 +9,8 @@
 #include "../include/Collider.hpp"
 #include "../include/Game.hpp"
 
-TileMap::TileMap(GameObject& associated, string file, TileSet* tileSet) : Component(associated) {
-    //solidIDs = {3,4,10,11,14,15,16,17,18,21,22,23,28,29,30};
-    solidIDs = {7};
+TileMap::TileMap(GameObject& associated, string file, TileSet* tileSet, set<int> solidIDs) : Component(associated) {
+    this->solidIDs = solidIDs;
     Load(file);
     SetTileSet(tileSet);
 }
@@ -240,15 +239,25 @@ vector<TileMap::CollisionInfo> TileMap::IsColliding(Rect box) {
     int top    = box.Y / tileHeight;
     int bottom = (box.Y + box.H) / tileHeight;
 
+
+
     Vec2 topLeft = Vec2(left, top);
     Vec2 topRight = Vec2(right, top);
     Vec2 bottomLeft = Vec2(left, bottom);
     Vec2 bottomRight = Vec2(right, bottom);
+    Vec2 centerTop    = Vec2((box.X + box.W / 2)/ tileWidth, box.Y / tileHeight);
+    Vec2 centerBottom = Vec2((box.X + box.W / 2)/ tileWidth, (box.Y + box.H) / tileHeight);
+    Vec2 centerLeft   = Vec2(box.X/ tileWidth, (box.Y + box.H / 2) / tileHeight);
+    Vec2 centerRight  = Vec2((box.X + box.W)/ tileWidth, (box.Y + box.H / 2) / tileHeight);
 
     TileCollisionType type_topLeft = GetCollisionType(topLeft.X, topLeft.Y);
     TileCollisionType type_topRight = GetCollisionType(topRight.X, topRight.Y);
     TileCollisionType type_bottomLeft = GetCollisionType(bottomLeft.X, bottomLeft.Y);
     TileCollisionType type_bottomRight = GetCollisionType(bottomRight.X, bottomRight.Y);
+    TileCollisionType type_centerTop = GetCollisionType(centerTop.X, centerTop.Y);
+    TileCollisionType type_centerBottom = GetCollisionType(centerBottom.X, centerBottom.Y);
+    TileCollisionType type_centerLeft = GetCollisionType(centerLeft.X, centerLeft.Y);
+    TileCollisionType type_centerRight = GetCollisionType(centerRight.X, centerRight.Y);
 
     if (type_topLeft != TileCollisionType::None) {
         if (type_topLeft != TileCollisionType::Full) {
@@ -294,6 +303,53 @@ vector<TileMap::CollisionInfo> TileMap::IsColliding(Rect box) {
             collisions.push_back(collision);
         }
     }
+    if (type_centerTop != TileCollisionType::None) {
+        if (type_centerTop != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, centerTop.X, centerTop.Y, type_centerTop, tileWidth, tileHeight)) {
+                CollisionInfo collision = {CollisionCorner::CenterTop, Vec2(centerTop.X, centerTop.Y), type_centerTop};
+                collisions.push_back(collision);
+            }
+        } else {
+            CollisionInfo collision = {CollisionCorner::CenterTop, Vec2(centerTop.X, centerTop.Y), type_centerTop};
+            collisions.push_back(collision);
+        }
+    }
+    if (type_centerBottom != TileCollisionType::None) {
+        if (type_centerBottom != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, centerBottom.X, centerBottom.Y, type_centerBottom, tileWidth, tileHeight)) {
+                CollisionInfo collision = {CollisionCorner::CenterBottom, Vec2(centerBottom.X, centerBottom.Y), type_centerBottom};
+                collisions.push_back(collision);
+            }
+        } else {
+            CollisionInfo collision = {CollisionCorner::CenterBottom, Vec2(centerBottom.X, centerBottom.Y), type_centerBottom};
+            collisions.push_back(collision);
+        }
+    }
+
+    if (type_centerLeft != TileCollisionType::None) {
+        if (type_centerLeft != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, centerLeft.X, centerLeft.Y, type_centerLeft, tileWidth, tileHeight)) {
+                CollisionInfo collision = {CollisionCorner::CenterLeft, Vec2(centerLeft.X, centerLeft.Y), type_centerLeft};
+                collisions.push_back(collision);
+            }
+        } else {
+            CollisionInfo collision = {CollisionCorner::CenterLeft, Vec2(centerLeft.X, centerLeft.Y), type_centerLeft};
+            collisions.push_back(collision);
+        }
+    }
+
+    if (type_centerRight != TileCollisionType::None) {
+        if (type_centerRight != TileCollisionType::Full) {
+            if (RectCollidesTriangle(box, centerRight.X, centerRight.Y, type_centerRight, tileWidth, tileHeight)) {
+                CollisionInfo collision = {CollisionCorner::CenterRight, Vec2(centerRight.X, centerRight.Y), type_centerRight};
+                collisions.push_back(collision);
+            }
+        } else {
+            CollisionInfo collision = {CollisionCorner::CenterRight, Vec2(centerRight.X, centerRight.Y), type_centerRight};
+            collisions.push_back(collision);
+        }
+    }
+
     return collisions;
 }
 

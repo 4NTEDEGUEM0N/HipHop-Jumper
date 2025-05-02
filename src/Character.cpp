@@ -100,8 +100,19 @@ void Character::Update(float dt) {
                 speed = direction * linearSpeed * 2;
                 Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
 
-                if (tileMap->IsColliding(new_box_x).size() == 0) {
+                vector<TileMap::CollisionInfo> collisions = tileMap->IsColliding(new_box_x);
+                if (collisions.size() == 0) {
                     associated.box = associated.box + Vec2(speed.X * dt, 0);
+                } else {
+                    for (TileMap::CollisionInfo collision : collisions) {
+                        if (collision.type == TileMap::TileCollisionType::Full) {
+                            if (collision.corner == TileMap::CollisionCorner::TopRight or collision.corner == TileMap::CollisionCorner::BottomRight) {
+                                associated.box.X = (collision.tilePos.X * tileMap->GetTileSetWidth())  - associated.box.W - 0.01;
+                            } else if (collision.corner == TileMap::CollisionCorner::TopLeft or collision.corner == TileMap::CollisionCorner::BottomLeft) {
+                                associated.box.X = (collision.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth() + 0.01;
+                            }
+                        }
+                    }
                 }
 
                 //associated.box = new_box;
@@ -192,7 +203,7 @@ void Character::Update(float dt) {
                     canJump = true;
                     canDoubleJump = true;
 
-                    if (collision.type == TileMap::TileCollisionType::Full or collisions.size() > 1) {
+                    if (collision.type == TileMap::TileCollisionType::Full) {
                         associated.box.Y = (collision.tilePos.Y * tileMap->GetTileSetHeight())  - associated.box.H - 0.01;
                     } else if (collision.type == TileMap::TileCollisionType::TriangleTopLeft and collision.corner == TileMap::CollisionCorner::BottomRight) {
                         float tileY = collision.tilePos.Y * tileMap->GetTileSetHeight();

@@ -20,7 +20,7 @@ private:
     set<int> solidIDs;
 
 public:
-    TileMap(GameObject& associated, string file, TileSet* tileSet);
+    TileMap(GameObject& associated, string file, TileSet* tileSet, set<int> solidIDs);
     void Load(string file);
     void SetTileSet(TileSet* tileSet);
     int& At(int x, int y, int z = 0);
@@ -38,7 +38,7 @@ public:
     int GetTileSetHeight();
 
     enum class CollisionCorner {
-        TopLeft, TopRight, BottomLeft, BottomRight
+        TopLeft, TopRight, BottomLeft, BottomRight, CenterBottom, CenterTop, CenterLeft, CenterRight,
     };
     enum class TileCollisionType {
         None,
