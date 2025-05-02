@@ -48,6 +48,8 @@ private:
     bool canDash;
     bool dashing;
     Timer dashTimer;
+    bool isHit;
+    Timer hitTimer;
 
 public:
     static Character* player;

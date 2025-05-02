@@ -39,6 +39,8 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     canDash = false;
     dashing = false;
     dashTimer = Timer();
+    isHit = false;
+    dashTimer = Timer();
 
     SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
     associated.AddComponent(character);
@@ -87,7 +89,7 @@ void Character::Update(float dt) {
         Command task = taskQueue.front();
         taskQueue.pop();
 
-        if (task.type == Command::MOVE && !dashing) {
+        if (task.type == Command::MOVE && !dashing && !isHit) {
             if (task.pos == Vec2(0,0)) {
                 string currentAnimation = animator->GetAnimation();
                 if (currentAnimation == "walkingRight")
@@ -117,11 +119,11 @@ void Character::Update(float dt) {
 
                 //associated.box = new_box;
             }
-        } else if (task.type == Command::SHOOT && !dashing) {
+        } else if (task.type == Command::SHOOT && !dashing && !isHit) {
             Component* component = gun.lock()->GetComponent("Gun");
             Gun* gunCpt = dynamic_cast<Gun*>(component);
             gunCpt->Shot(task.pos);
-        } else if (task.type == Command::JUMP && !dashing) {
+        } else if (task.type == Command::JUMP && !dashing && !isHit) {
             if (onGround) {
                 ySpeed = -400;
                 onGround = false;
@@ -130,7 +132,7 @@ void Character::Update(float dt) {
                 ySpeed = -400;
                 canDoubleJump = false;
             }
-        } else if (task.type == Command::DASH && canDash) {
+        } else if (task.type == Command::DASH && canDash  && !isHit) {
             if (task.pos.X != 0) {
                 speed = task.pos * linearSpeed * 9;
                 canDash = false;
@@ -183,6 +185,21 @@ void Character::Update(float dt) {
         dashing = false;
         if (dashTimer.Get() > 4)
             canDash = true;
+    }
+
+    hitTimer.Update(dt);
+    if (hitTimer.Get() <= 0.5 and isHit) {
+        int direction = 1;
+        if (speed.X < 0) direction = -1;
+        Rect new_box_x = associated.box + Vec2(linearSpeed * 2 * dt * direction, 0);
+        if (tileMap->IsColliding(new_box_x).size() == 0) {
+            associated.box = new_box_x;
+        } else {
+            isHit = false;
+        }
+    }
+    if (hitTimer.Get() > 0.5 and isHit) {
+        isHit = false;
     }
 
     if (!dashing) {
@@ -258,6 +275,14 @@ void Character::NotifyCollision(GameObject &other) {
                 hp -= 25;
                 damageCooldown.Restart();
                 hitSound.Play(1);
+                ySpeed = -100;
+                canJump = false;
+                canDoubleJump = false;
+                canDash = false;
+                dashTimer.Restart();
+                isHit = true;
+                hitTimer.Restart();
+                speed = {associated.box.X - other.box.X,0};
             }
         }
     } else if (other.GetComponent("Bullet") != nullptr) {

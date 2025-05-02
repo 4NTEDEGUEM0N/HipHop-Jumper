@@ -86,6 +86,9 @@ StageState::StageState() {
         Item* minikit5 = new Item(*minikitObject5, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
         minikitObject5->AddComponent(minikit5);
         AddObject(minikitObject5);
+
+
+
     } else {
         tileMapObject = new GameObject();
         AddObject(tileMapObject);
@@ -113,12 +116,26 @@ StageState::StageState() {
         minikitObject->AddComponent(minikit);
         AddObject(minikitObject);
 
+        GameObject* zombieObject = new GameObject(false);
+        AddObject(zombieObject);
+        Zombie* zmb = new Zombie(*zombieObject, 100);
+        zombieObject->box.X = 896;
+        zombieObject->box.Y = 1024 - 20;
+        zombieObject->AddComponent(zmb);
+
         GameObject* minikitObject2 = new GameObject(false);
         minikitObject2->box.X = 384;
         minikitObject2->box.Y = 896;
         Item* minikit2 = new Item(*minikitObject2, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
         minikitObject2->AddComponent(minikit2);
         AddObject(minikitObject2);
+
+        GameObject* zombieObject2 = new GameObject(false);
+        AddObject(zombieObject2);
+        Zombie* zmb2 = new Zombie(*zombieObject2, 100);
+        zombieObject2->box.X = 384;
+        zombieObject2->box.Y = 896 - 20;
+        zombieObject2->AddComponent(zmb2);
 
         GameObject* minikitObject3 = new GameObject(false);
         minikitObject3->box.X = 896;
@@ -140,6 +157,7 @@ StageState::StageState() {
         Item* minikit5 = new Item(*minikitObject5, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
         minikitObject5->AddComponent(minikit5);
         AddObject(minikitObject5);
+
     }
 
     //backgroundMusic.Open("../Recursos/audio/BGM.wav");
