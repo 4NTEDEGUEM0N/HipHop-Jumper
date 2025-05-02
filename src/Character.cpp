@@ -279,6 +279,7 @@ void Character::NotifyCollision(GameObject &other) {
                 canJump = false;
                 canDoubleJump = false;
                 canDash = false;
+                dashing = false;
                 dashTimer.Restart();
                 isHit = true;
                 hitTimer.Restart();

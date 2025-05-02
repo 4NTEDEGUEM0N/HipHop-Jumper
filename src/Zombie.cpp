@@ -89,20 +89,22 @@ void Zombie::Update(float dt) {
         associated.RequestDelete();
     }
 
-    GameObject* tileMapObject = Game::GetInstance().GetState().GetTileMapObject();
-    Component* tileMapComponent = tileMapObject->GetComponent("TileMap");
-    TileMap* tileMap = dynamic_cast<TileMap*>(tileMapComponent);
-    if (onGround) {
-        //associated.box = associated.box + Vec2(100.0f *dt, 0);
-        CheckDirection(dt, tileMap);
-    } else {
-        ySpeed = ySpeed + 250.0f * dt;
-        Rect new_box = associated.box + Vec2(0, ySpeed * dt);
-        if (tileMap->IsColliding(new_box).size() == 0) {
-            associated.box = new_box;
+    if (hitpoints > 0 and !hit) {
+        GameObject* tileMapObject = Game::GetInstance().GetState().GetTileMapObject();
+        Component* tileMapComponent = tileMapObject->GetComponent("TileMap");
+        TileMap* tileMap = dynamic_cast<TileMap*>(tileMapComponent);
+        if (onGround) {
+            //associated.box = associated.box + Vec2(100.0f *dt, 0);
+            CheckDirection(dt, tileMap);
         } else {
-            ySpeed = 0;
-            onGround = true;
+            ySpeed = ySpeed + 250.0f * dt;
+            Rect new_box = associated.box + Vec2(0, ySpeed * dt);
+            if (tileMap->IsColliding(new_box).size() == 0) {
+                associated.box = new_box;
+            } else {
+                ySpeed = 0;
+                onGround = true;
+            }
         }
     }
 }
