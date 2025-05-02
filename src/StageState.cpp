@@ -34,16 +34,20 @@ StageState::StageState() {
     AddObject(tileMapObject);
     tileMapObject->box.X = 0;
     tileMapObject->box.Y = 0;
-    tileSet = new TileSet("../Recursos/img/Tileset.png", 64, 64);
-    TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map_vertical.txt", tileSet);
+    //tileSet = new TileSet("../Recursos/img/Tileset.png", 64, 64);
+    tileSet = new TileSet("../Recursos/img/Tileset_teste.png", 64, 64);
+    //TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map_vertical.txt", tileSet);
+    TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map_test_tileset.txt", tileSet);
     tileMapObject->AddComponent(tileMap);
 
     //backgroundMusic.Open("../Recursos/audio/BGM.wav");
     //backgroundMusic.Play();
 
     GameObject* playerObject = new GameObject(false);
-    playerObject->box.X = 198;
-    playerObject->box.Y = 3690;
+    //playerObject->box.X = 198;
+    //playerObject->box.Y = 3690;
+    playerObject->box.X = 448;
+    playerObject->box.Y = 1152;
     AddObject(playerObject);
     Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
     Camera::Follow(playerObject);

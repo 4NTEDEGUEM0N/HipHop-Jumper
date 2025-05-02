@@ -97,7 +97,7 @@ void Character::Update(float dt) {
             } else {
                 Vec2 direction = task.pos;
                 direction = direction.normalize();
-                speed = direction * linearSpeed;
+                speed = direction * linearSpeed * 2;
                 Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
 
                 if (tileMap->IsColliding(new_box_x).size() == 0) {
@@ -112,11 +112,11 @@ void Character::Update(float dt) {
             gunCpt->Shot(task.pos);
         } else if (task.type == Command::JUMP && !dashing) {
             if (onGround) {
-                ySpeed = -300;
+                ySpeed = -400;
                 onGround = false;
                 canJump = false;
             } else if (canDoubleJump) {
-                ySpeed = -300;
+                ySpeed = -400;
                 canDoubleJump = false;
             }
         } else if (task.type == Command::DASH && canDash) {

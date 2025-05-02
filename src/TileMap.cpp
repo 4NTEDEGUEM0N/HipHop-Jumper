@@ -10,7 +10,8 @@
 #include "../include/Game.hpp"
 
 TileMap::TileMap(GameObject& associated, string file, TileSet* tileSet) : Component(associated) {
-    solidIDs = {3,4,10,11,14,15,16,17,18,21,22,23,28,29,30};
+    //solidIDs = {3,4,10,11,14,15,16,17,18,21,22,23,28,29,30};
+    solidIDs = {7};
     Load(file);
     SetTileSet(tileSet);
 }
@@ -77,7 +78,9 @@ void TileMap::RenderLayer(int layer) {
     float baseX = associated.box.X;
     float baseY = associated.box.Y;
 
-    float paralaxFactor = ((-1.0f * (layer + 1))/mapDepth) + 1;
+    float paralaxFactor = 0.1;// = ((-1.0f * (layer + 1))/mapDepth) + 1;
+    if (layer == 0)
+        paralaxFactor = 0;
     baseX -= Camera::pos.GetX() * paralaxFactor;
     baseY -= Camera::pos.GetY() * paralaxFactor;
 
@@ -98,7 +101,7 @@ void TileMap::RenderLayer(int layer) {
             tileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
             //renderCount++;
 #ifdef DEBUG
-            if (Collider::showCollision and layer == 1 and collisionMatrix[y][x] != TileCollisionType::None) {
+            if (Collider::showCollision and layer == 0 and collisionMatrix[y][x] != TileCollisionType::None) {
                 SDL_SetRenderDrawColor(Game::GetInstance().GetRenderer(), 255, 0, 0, SDL_ALPHA_OPAQUE);
 
                 int x0 = baseX + x * tileWidth - Camera::pos.X;
@@ -145,7 +148,7 @@ void TileMap::RenderLayer(int layer) {
 }
 
 void TileMap::Render() {
-    for (int z = 0; z < mapDepth; ++z) {
+    for (int z = mapDepth-1; z >= 0; --z) {
         RenderLayer(z);
     }
 }
@@ -169,8 +172,8 @@ bool TileMap::Is(string type) {
 }
 
 void TileMap::Start() {
-    //SetCollisionLayer(1);
-    SetCollisionMatrix(1);
+    //SetCollisionLayer(0);
+    SetCollisionMatrix(0);
 }
 
 void TileMap::SetCollisionLayer(int layer) {
