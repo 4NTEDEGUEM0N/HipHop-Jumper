@@ -101,9 +101,10 @@ StageState::StageState() {
 
         GameObject* playerObject = new GameObject(false);
         playerObject->box.X = 448;
-        playerObject->box.Y = 1152;
+        playerObject->box.Y = 652;
         AddObject(playerObject);
-        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
+        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/bonequinho.png");
         Camera::Follow(playerObject);
         playerObject->AddComponent(playerCharacter);
         PlayerController* playerController = new PlayerController(*playerObject);

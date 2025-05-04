@@ -6,7 +6,7 @@ HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbiliti
     characterSprite.cameraFollower = true;
     characterAbilities.cameraFollower = true;
     characterSprite.SetScale(0.6f, 0.6f);
-    characterRect = new Rect(0, 900-characterSprite.GetHeight(), characterSprite.GetRealWidth(), characterSprite.GetRealHeight());
+    characterRect = new Rect(0, 900-characterSprite.GetHeight(), characterSprite.GetWidth(), characterSprite.GetHeight());
 
     player = Character::player;
     hpRect = new Rect(0, 900 - characterSprite.GetHeight() - 20, characterSprite.GetWidth(), 20);

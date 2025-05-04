@@ -42,20 +42,31 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     isHit = false;
     dashTimer = Timer();
 
-    SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
+    //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
+    SpriteRenderer* character = new SpriteRenderer(associated, sprite);
+    character->SetScale(0.2,0.2);
     associated.AddComponent(character);
 
     Animator* animator = new Animator(associated);
+    /*
     animator->AddAnimation("idle", Animation(6, 9, 0.2));
     animator->AddAnimation("idleLeft", Animation(6, 9, 0.2, SDL_FLIP_HORIZONTAL));
     animator->AddAnimation("walkingRight", Animation(0, 5, 0.2));
     animator->AddAnimation("walkingLeft", Animation(0, 5, 0.2, SDL_FLIP_HORIZONTAL));
     animator->AddAnimation("dead", Animation(10, 11, 0.5));
+    */
+
+    animator->AddAnimation("idle", Animation(0, 0, 0.2));
+    animator->AddAnimation("idleLeft", Animation(0, 0, 0.2, SDL_FLIP_HORIZONTAL));
+    animator->AddAnimation("walkingRight", Animation(0, 0, 0.2));
+    animator->AddAnimation("walkingLeft", Animation(0, 0, 0.2, SDL_FLIP_HORIZONTAL));
+    animator->AddAnimation("dead", Animation(0, 0, 0.5));
 
     animator->SetAnimation("idle");
     associated.AddComponent(animator);
 
     Collider* collider = new Collider(associated);
+    //collider->SetScale(Vec2(0.5, 0.5));
     associated.AddComponent(collider);
 }
 
