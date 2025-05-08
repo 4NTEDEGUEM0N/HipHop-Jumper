@@ -21,6 +21,7 @@
 #include "../include/GameData.hpp"
 #include "../include/HUD.hpp"
 #include "../include/Item.hpp"
+#include "../include/CadernoState.hpp"
 
 
 StageState::StageState() {
@@ -210,6 +211,12 @@ void StageState::Update(float dt) {
 
     if (InputManager::GetInstance().KeyPress(SDLK_c)) {
         Collider::showCollision = !Collider::showCollision;
+    }
+
+    if (InputManager::GetInstance().KeyPress(SDLK_g)) {
+        Game& game = Game::GetInstance();
+        CadernoState* cadernoState = new CadernoState();
+        game.Push(cadernoState);
     }
 
     if (GameData::ended) {
