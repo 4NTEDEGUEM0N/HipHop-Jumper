@@ -100,6 +100,8 @@ add_executable(HipHop-Jumper
         src/InventoryItem.cpp
         include/CadernoState.hpp
         src/CadernoState.cpp
+        include/Button.hpp
+        src/Button.cpp
 )
 
 if (WIN32)

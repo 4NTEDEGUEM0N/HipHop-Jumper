@@ -2,10 +2,12 @@
 
 #include <iostream>
 
+#include "../include/Button.hpp"
 #include "../include/Camera.hpp"
 #include "../include/SpriteRenderer.hpp"
 #include "../include/InputManager.hpp"
 #include "../include/Game.hpp"
+#include "../include/Text.hpp"
 
 CadernoState::CadernoState() {
     cadernoObj = new GameObject();
@@ -31,6 +33,42 @@ CadernoState::CadernoState() {
 
     currentColor = {255, 0, 0, 255};
     brushSize = 5;
+
+    GameObject* buttonObj = new GameObject();
+    Button* button = new Button(*buttonObj);
+    buttonObj->AddComponent(button);
+    SpriteRenderer* buttonSprite = new SpriteRenderer(*buttonObj, "../Recursos/img/pixel.png");
+    buttonSprite->SetCameraFollower(true);
+    buttonObj->AddComponent(buttonSprite);
+    Text* text = new Text(*buttonObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Vermelho", {255, 0, 0, 255}, true);
+    buttonObj->AddComponent(text);
+    //buttonSprite->SetScale(200,50);
+    buttonObj->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    buttonObj->box.Y = cadernoObj->box.Y;
+    AddObject(buttonObj);
+
+    button->SetClickFunction([this]() {
+        currentColor = {255, 0, 0, 255};
+    });
+
+    GameObject* buttonObj2 = new GameObject();
+    Button* button2 = new Button(*buttonObj2);
+    buttonObj2->AddComponent(button2);
+    SpriteRenderer* buttonSprite2 = new SpriteRenderer(*buttonObj2, "../Recursos/img/pixel.png");
+    buttonSprite2->SetCameraFollower(true);
+    buttonObj2->AddComponent(buttonSprite2);
+    //buttonSprite->SetScale(200,50);
+    Text* text2 = new Text(*buttonObj2, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Amarelo", {255, 255, 0, 255}, true);
+    buttonObj2->AddComponent(text2);
+    buttonObj2->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    buttonObj2->box.Y = cadernoObj->box.Y + buttonObj2->box.H + 5;
+    AddObject(buttonObj2);
+
+    //GameObject* textObj = new GameObject();
+
+    button2->SetClickFunction([this]() {
+        currentColor = {255, 255, 0, 255};
+    });
 }
 
 void DrawBrush(SDL_Renderer* renderer, int x, int y, int size, SDL_Color color) {
