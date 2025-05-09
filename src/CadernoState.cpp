@@ -42,7 +42,6 @@ CadernoState::CadernoState() {
     buttonObj->AddComponent(buttonSprite);
     Text* text = new Text(*buttonObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Vermelho", {255, 0, 0, 255}, true);
     buttonObj->AddComponent(text);
-    //buttonSprite->SetScale(200,50);
     buttonObj->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
     buttonObj->box.Y = cadernoObj->box.Y;
     AddObject(buttonObj);
@@ -57,17 +56,30 @@ CadernoState::CadernoState() {
     SpriteRenderer* buttonSprite2 = new SpriteRenderer(*buttonObj2, "../Recursos/img/pixel.png");
     buttonSprite2->SetCameraFollower(true);
     buttonObj2->AddComponent(buttonSprite2);
-    //buttonSprite->SetScale(200,50);
     Text* text2 = new Text(*buttonObj2, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Amarelo", {255, 255, 0, 255}, true);
     buttonObj2->AddComponent(text2);
     buttonObj2->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
     buttonObj2->box.Y = cadernoObj->box.Y + buttonObj2->box.H + 5;
     AddObject(buttonObj2);
 
-    //GameObject* textObj = new GameObject();
-
     button2->SetClickFunction([this]() {
         currentColor = {255, 255, 0, 255};
+    });
+
+    GameObject* buttonObj3 = new GameObject();
+    Button* button3 = new Button(*buttonObj3);
+    buttonObj3->AddComponent(button3);
+    SpriteRenderer* buttonSprite3 = new SpriteRenderer(*buttonObj3, "../Recursos/img/pixel.png");
+    buttonSprite3->SetCameraFollower(true);
+    buttonObj3->AddComponent(buttonSprite3);
+    Text* text3 = new Text(*buttonObj3, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Rosa", {254, 88, 224, 255}, true);
+    buttonObj3->AddComponent(text3);
+    buttonObj3->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    buttonObj3->box.Y = buttonObj2->box.Y + buttonObj2->box.H + 5;
+    AddObject(buttonObj3);
+
+    button3->SetClickFunction([this]() {
+        currentColor = {254, 88, 224, 255};
     });
 }
 
