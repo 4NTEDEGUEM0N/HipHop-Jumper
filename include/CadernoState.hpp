@@ -17,6 +17,8 @@ public:
     void Resume();
 
     void CreateColorButton(string cor, SDL_Color color, int n);
+    void RenderMouseBrush();
+    void ClearCanvas();
 
 private:
     GameObject* cadernoObj;

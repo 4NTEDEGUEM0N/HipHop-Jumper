@@ -57,55 +57,25 @@ CadernoState::CadernoState() {
     CreateColorButton("Vermelho", {255,0,0,255}, 2);
     CreateColorButton("Amarelo", {255,255,0,255}, 3);
     CreateColorButton("Rosa", {254, 88, 224, 255}, 4);
+    CreateColorButton("Azul", {26, 160, 251, 255}, 5);
+    CreateColorButton("Borracha", {255, 255, 255, 0}, 6);
 
-    /*GameObject* buttonObj = new GameObject();
+    int n = 7;
+    GameObject* buttonObj = new GameObject();
     Button* button = new Button(*buttonObj);
     buttonObj->AddComponent(button);
     SpriteRenderer* buttonSprite = new SpriteRenderer(*buttonObj, "../Recursos/img/pixel.png");
     buttonSprite->SetCameraFollower(true);
     buttonObj->AddComponent(buttonSprite);
-    Text* text = new Text(*buttonObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Vermelho", {255, 0, 0, 255}, true);
+    Text* text = new Text(*buttonObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "APAGAR", {255, 255, 255, 255}, true);
     buttonObj->AddComponent(text);
     buttonObj->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
-    buttonObj->box.Y = cadernoObj->box.Y;
+    buttonObj->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
     AddObject(buttonObj);
 
     button->SetClickFunction([this]() {
-        currentColor = {255, 0, 0, 255};
+        ClearCanvas();
     });
-
-    GameObject* buttonObj2 = new GameObject();
-    Button* button2 = new Button(*buttonObj2);
-    buttonObj2->AddComponent(button2);
-    SpriteRenderer* buttonSprite2 = new SpriteRenderer(*buttonObj2, "../Recursos/img/pixel.png");
-    buttonSprite2->SetCameraFollower(true);
-    buttonObj2->AddComponent(buttonSprite2);
-    Text* text2 = new Text(*buttonObj2, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Amarelo", {255, 255, 0, 255}, true);
-    buttonObj2->AddComponent(text2);
-    buttonObj2->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
-    buttonObj2->box.Y = cadernoObj->box.Y + buttonObj2->box.H + 5;
-    AddObject(buttonObj2);
-
-    button2->SetClickFunction([this]() {
-        currentColor = {255, 255, 0, 255};
-    });
-
-    GameObject* buttonObj3 = new GameObject();
-    Button* button3 = new Button(*buttonObj3);
-    buttonObj3->AddComponent(button3);
-    SpriteRenderer* buttonSprite3 = new SpriteRenderer(*buttonObj3, "../Recursos/img/pixel.png");
-    buttonSprite3->SetCameraFollower(true);
-    buttonObj3->AddComponent(buttonSprite3);
-    Text* text3 = new Text(*buttonObj3, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Rosa", {254, 88, 224, 255}, true);
-    buttonObj3->AddComponent(text3);
-    buttonObj3->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
-    buttonObj3->box.Y = cadernoObj->box.Y + 2*buttonObj2->box.H + 2*5;
-    AddObject(buttonObj3);
-
-    button3->SetClickFunction([this]() {
-        currentColor = {254, 88, 224, 255};
-    });
-    */
 }
 
 void DrawBrush(SDL_Renderer* renderer, int x, int y, int size, SDL_Color color) {
@@ -143,10 +113,13 @@ void CadernoState::Update(float dt) {
     if (drawing && input.IsMouseDown(SDL_BUTTON_LEFT)) {
         auto renderer = Game::GetInstance().GetRenderer();
         SDL_SetRenderTarget(renderer, canvasTexture);
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        if (currentColor.a == 0) {
+            SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+        } else {
+            SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        }
 
-        if (lastX != -1 && lastY != -1) {
-            // Para linhas grossas: interpola pontos ao longo da linha
+        if (lastX != -1 && lastY != -1 && (canvasX != lastX || canvasY != lastY)) {
             int steps = max(abs(canvasX - lastX), abs(canvasY - lastY));
             for (int i = 0; i <= steps; ++i) {
                 float t = i / (float)steps;
@@ -164,11 +137,46 @@ void CadernoState::Update(float dt) {
     }
 }
 
+void CadernoState::ClearCanvas() {
+    auto renderer = Game::GetInstance().GetRenderer();
+    SDL_SetRenderTarget(renderer, canvasTexture);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+    SDL_RenderClear(renderer);
+    SDL_SetRenderTarget(renderer, nullptr);
+}
+
+
+void CadernoState::RenderMouseBrush() {
+    InputManager& input = InputManager::GetInstance();
+    int x = input.GetMouseX();
+    int y = input.GetMouseY();
+    Vec2 mouse = Vec2(x,y);
+
+    if (cadernoObj->box.contains(mouse)) {
+        SDL_ShowCursor(SDL_DISABLE);
+        auto renderer = Game::GetInstance().GetRenderer();
+        //SDL_SetRenderTarget(renderer, canvasTexture);
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, currentColor.r, currentColor.g, currentColor.b, 255);
+        for (int dx = -brushSize / 2; dx <= brushSize / 2; dx++) {
+            for (int dy = -brushSize / 2; dy <= brushSize / 2; dy++) {
+                SDL_RenderDrawPoint(renderer, x + dx, y + dy);
+            }
+        }
+        SDL_SetRenderTarget(renderer, nullptr);
+    } else {
+        SDL_ShowCursor(SDL_ENABLE);
+    }
+}
+
 void CadernoState::Render() {
     RenderArray();
 
     SDL_Rect canvasRect = {(int)cadernoObj->box.X, (int)cadernoObj->box.Y, (int)cadernoObj->box.W, (int)cadernoObj->box.H};
     SDL_RenderCopy(Game::GetInstance().GetRenderer(), canvasTexture, nullptr, &canvasRect);
+
+    RenderMouseBrush();
 }
 
 void CadernoState::LoadAssets() {}
@@ -179,4 +187,5 @@ void CadernoState::Pause() {}
 void CadernoState::Resume() {}
 CadernoState::~CadernoState() {
     SDL_DestroyTexture(canvasTexture);
+    SDL_ShowCursor(SDL_ENABLE);
 }
