@@ -9,6 +9,24 @@
 #include "../include/Game.hpp"
 #include "../include/Text.hpp"
 
+void CadernoState::CreateColorButton(string cor, SDL_Color color, int n) {
+    GameObject* buttonObj = new GameObject();
+    Button* button = new Button(*buttonObj);
+    buttonObj->AddComponent(button);
+    SpriteRenderer* buttonSprite = new SpriteRenderer(*buttonObj, "../Recursos/img/pixel.png");
+    buttonSprite->SetCameraFollower(true);
+    buttonObj->AddComponent(buttonSprite);
+    Text* text = new Text(*buttonObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, cor, color, true);
+    buttonObj->AddComponent(text);
+    buttonObj->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    buttonObj->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
+    AddObject(buttonObj);
+
+    button->SetClickFunction([color, this]() {
+        currentColor = color;
+    });
+}
+
 CadernoState::CadernoState() {
     cadernoObj = new GameObject();
     AddObject(cadernoObj);
@@ -31,10 +49,16 @@ CadernoState::CadernoState() {
     SDL_RenderClear(renderer);
     SDL_SetRenderTarget(renderer, nullptr);
 
-    currentColor = {255, 0, 0, 255};
+    currentColor = {0, 0, 0, 255};
     brushSize = 5;
 
-    GameObject* buttonObj = new GameObject();
+
+    CreateColorButton("Preto", {0,0,0,255}, 1);
+    CreateColorButton("Vermelho", {255,0,0,255}, 2);
+    CreateColorButton("Amarelo", {255,255,0,255}, 3);
+    CreateColorButton("Rosa", {254, 88, 224, 255}, 4);
+
+    /*GameObject* buttonObj = new GameObject();
     Button* button = new Button(*buttonObj);
     buttonObj->AddComponent(button);
     SpriteRenderer* buttonSprite = new SpriteRenderer(*buttonObj, "../Recursos/img/pixel.png");
@@ -75,12 +99,13 @@ CadernoState::CadernoState() {
     Text* text3 = new Text(*buttonObj3, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Rosa", {254, 88, 224, 255}, true);
     buttonObj3->AddComponent(text3);
     buttonObj3->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
-    buttonObj3->box.Y = buttonObj2->box.Y + buttonObj2->box.H + 5;
+    buttonObj3->box.Y = cadernoObj->box.Y + 2*buttonObj2->box.H + 2*5;
     AddObject(buttonObj3);
 
     button3->SetClickFunction([this]() {
         currentColor = {254, 88, 224, 255};
     });
+    */
 }
 
 void DrawBrush(SDL_Renderer* renderer, int x, int y, int size, SDL_Color color) {

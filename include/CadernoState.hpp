@@ -16,6 +16,8 @@ public:
     void Pause();
     void Resume();
 
+    void CreateColorButton(string cor, SDL_Color color, int n);
+
 private:
     GameObject* cadernoObj;
     SDL_Texture* canvasTexture;
