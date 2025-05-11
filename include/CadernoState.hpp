@@ -19,6 +19,7 @@ public:
     void CreateColorButton(string cor, SDL_Color color, int n);
     void RenderMouseBrush();
     void ClearCanvas();
+    void FloodFill(int startX, int startY);
 
 private:
     GameObject* cadernoObj;
@@ -28,6 +29,7 @@ private:
     bool drawing;
     SDL_Color currentColor;
     int brushSize;
+    bool brush;
 };
 
 

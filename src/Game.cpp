@@ -18,7 +18,7 @@ Game& Game::GetInstance(){
     if(instance != nullptr){
         return *instance;
     }
-    instance = new Game("Thiago - 200073303", 1200, 900);
+    instance = new Game("Hip-Hop Jumper", 1200, 900);
     return *instance;
 }
 

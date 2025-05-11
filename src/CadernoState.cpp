@@ -25,6 +25,7 @@ void CadernoState::CreateColorButton(string cor, SDL_Color color, int n) {
     button->SetClickFunction([color, this]() {
         currentColor = color;
     });
+    brush = true;
 }
 
 CadernoState::CadernoState() {
@@ -76,6 +77,40 @@ CadernoState::CadernoState() {
     button->SetClickFunction([this]() {
         ClearCanvas();
     });
+
+    n++;
+    GameObject* buttonObj2 = new GameObject();
+    Button* button2 = new Button(*buttonObj2);
+    buttonObj2->AddComponent(button2);
+    SpriteRenderer* buttonSprite2 = new SpriteRenderer(*buttonObj2, "../Recursos/img/pixel.png");
+    buttonSprite2->SetCameraFollower(true);
+    buttonObj2->AddComponent(buttonSprite2);
+    Text* text2 = new Text(*buttonObj2, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Pincel", {255, 255, 255, 255}, true);
+    buttonObj2->AddComponent(text2);
+    buttonObj2->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    buttonObj2->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
+    AddObject(buttonObj2);
+
+    button2->SetClickFunction([this]() {
+        brush = true;
+    });
+
+    n++;
+    GameObject* buttonObj3 = new GameObject();
+    Button* button3 = new Button(*buttonObj3);
+    buttonObj3->AddComponent(button3);
+    SpriteRenderer* buttonSprite3 = new SpriteRenderer(*buttonObj3, "../Recursos/img/pixel.png");
+    buttonSprite3->SetCameraFollower(true);
+    buttonObj3->AddComponent(buttonSprite3);
+    Text* text3 = new Text(*buttonObj3, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Balde", {255, 255, 255, 255}, true);
+    buttonObj3->AddComponent(text3);
+    buttonObj3->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    buttonObj3->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
+    AddObject(buttonObj3);
+
+    button3->SetClickFunction([this]() {
+        brush = false;
+    });
 }
 
 void DrawBrush(SDL_Renderer* renderer, int x, int y, int size, SDL_Color color) {
@@ -110,7 +145,7 @@ void CadernoState::Update(float dt) {
         lastX = lastY = -1;
     }
 
-    if (drawing && input.IsMouseDown(SDL_BUTTON_LEFT)) {
+    if (drawing && input.IsMouseDown(SDL_BUTTON_LEFT) && brush) {
         auto renderer = Game::GetInstance().GetRenderer();
         SDL_SetRenderTarget(renderer, canvasTexture);
         if (currentColor.a == 0) {
@@ -134,6 +169,8 @@ void CadernoState::Update(float dt) {
         SDL_SetRenderTarget(renderer, nullptr);
         lastX = canvasX;
         lastY = canvasY;
+    } else if (drawing && input.IsMouseDown(SDL_BUTTON_LEFT) && !brush) {
+        FloodFill(canvasX, canvasY);
     }
 }
 
@@ -168,6 +205,63 @@ void CadernoState::RenderMouseBrush() {
     } else {
         SDL_ShowCursor(SDL_ENABLE);
     }
+}
+
+#include <queue>
+
+void CadernoState::FloodFill(int startX, int startY) {
+    SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
+
+    // Cria uma surface com os dados da canvasTexture
+    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA8888);
+    SDL_Texture* tempTex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
+
+    // Copia a canvasTexture para a temporária
+    SDL_SetRenderTarget(renderer, tempTex);
+    SDL_RenderCopy(renderer, canvasTexture, nullptr, nullptr);
+    SDL_SetRenderTarget(renderer, nullptr);
+
+    // Lê os pixels da textura para a surface
+    SDL_SetRenderTarget(renderer, tempTex);
+    SDL_RenderReadPixels(renderer, nullptr, SDL_PIXELFORMAT_RGBA8888, surface->pixels, surface->pitch);
+    SDL_SetRenderTarget(renderer, nullptr);
+
+    // Acesso direto ao buffer
+    Uint32* pixels = (Uint32*)surface->pixels;
+    int pitch = surface->pitch / 4;
+
+    // Cor original a ser substituída
+    Uint32* pixelRef = &pixels[startY * pitch + startX];
+    Uint32 targetColor = *pixelRef;
+
+    Uint32 newColor = SDL_MapRGBA(surface->format, currentColor.r, currentColor.g, currentColor.b, currentColor.a);
+    if (targetColor == newColor) return;
+
+    std::queue<std::pair<int, int>> q;
+    q.push({startX, startY});
+
+    while (!q.empty()) {
+        //auto [x, y] = q.front(); q.pop();
+        std::pair<int, int> point = q.front(); q.pop();
+        int x = point.first;
+        int y = point.second;
+
+        if (x < 0 || x >= width || y < 0 || y >= height) continue;
+        if (pixels[y * pitch + x] != targetColor) continue;
+
+        pixels[y * pitch + x] = newColor;
+
+        q.push({x+1, y});
+        q.push({x-1, y});
+        q.push({x, y+1});
+        q.push({x, y-1});
+    }
+
+    // Atualiza a canvasTexture com os pixels preenchidos
+    SDL_UpdateTexture(canvasTexture, nullptr, surface->pixels, surface->pitch);
+
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(tempTex);
 }
 
 void CadernoState::Render() {
