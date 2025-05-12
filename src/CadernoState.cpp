@@ -23,6 +23,7 @@ void CadernoState::CreateColorButton(string cor, SDL_Color color, int n) {
 
     button->SetClickFunction([color, this]() {
         currentColor = color;
+        currentColorText->SetColor(color);
     });
     brush = true;
 }
@@ -50,7 +51,28 @@ CadernoState::CadernoState() {
     SDL_SetRenderTarget(renderer, nullptr);
 
     currentColor = {0, 0, 0, 255};
+    brush = true;
     brushSize = 5;
+
+    GameObject* ferramentaObj = new GameObject();
+    SpriteRenderer* toolButtonSprite = new SpriteRenderer(*ferramentaObj, "../Recursos/img/pixel.png");
+    toolButtonSprite->SetCameraFollower(true);
+    ferramentaObj->AddComponent(toolButtonSprite);
+    currentTool = new Text(*ferramentaObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Ferramenta: Pincel", {255, 255, 255, 255}, true);
+    ferramentaObj->box.X = cadernoObj->box.X;
+    ferramentaObj->box.Y = cadernoObj->box.Y - ferramentaObj->box.H;
+    ferramentaObj->AddComponent(currentTool);
+    AddObject(ferramentaObj);
+
+    GameObject* colorObj = new GameObject();
+    SpriteRenderer* colorButtonSprite = new SpriteRenderer(*colorObj, "../Recursos/img/pixel.png");
+    colorButtonSprite->SetCameraFollower(true);
+    colorObj->AddComponent(colorButtonSprite);
+    currentColorText = new Text(*colorObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Cor Atual", currentColor, true);
+    colorObj->box.X = cadernoObj->box.X + ferramentaObj->box.W + 10;
+    colorObj->box.Y = cadernoObj->box.Y - colorObj->box.H;
+    colorObj->AddComponent(currentColorText);
+    AddObject(colorObj);
 
 
     CreateColorButton("Preto", {0,0,0,255}, 1);
@@ -92,6 +114,7 @@ CadernoState::CadernoState() {
 
     button2->SetClickFunction([this]() {
         brush = true;
+        currentTool->SetText("Ferramenta: Pincel");
     });
 
     n++;
@@ -109,6 +132,7 @@ CadernoState::CadernoState() {
 
     button3->SetClickFunction([this]() {
         brush = false;
+        currentTool->SetText("Ferramenta: Balde ");
     });
 }
 

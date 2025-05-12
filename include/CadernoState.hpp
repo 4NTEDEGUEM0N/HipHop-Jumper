@@ -2,6 +2,7 @@
 #define CADERNOSTATE_HPP
 #include <SDL_render.h>
 #include "State.hpp"
+#include "Text.hpp"
 
 class CadernoState : public State {
 public:
@@ -30,6 +31,8 @@ private:
     SDL_Color currentColor;
     int brushSize;
     bool brush;
+    Text* currentTool;
+    Text* currentColorText;
 };
 
 
