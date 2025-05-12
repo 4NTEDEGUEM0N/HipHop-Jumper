@@ -18,9 +18,9 @@ Gun::Gun(GameObject& associated, weak_ptr<GameObject> character) : Component(ass
     reloaded = true;
     reloading = false;
 
-    SpriteRenderer* gun = new SpriteRenderer(associated, "../Recursos/img/Gun.png", 3, 2);
-    gun->SetScale(0.9, 0.9);
-    associated.AddComponent(gun);
+    //SpriteRenderer* gun = new SpriteRenderer(associated, "../Recursos/img/Gun.png", 3, 2);
+    //gun->SetScale(0.9, 0.9);
+    //associated.AddComponent(gun);
     Animator* animator = new Animator(associated);
     animator->AddAnimation("idle", Animation(0, 0, 0));
     animator->AddAnimation("idleLeft", Animation(0, 0, 0, SDL_FLIP_HORIZONTAL));

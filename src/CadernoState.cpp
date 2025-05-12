@@ -1,7 +1,6 @@
 #include "../include/CadernoState.hpp"
-
 #include <iostream>
-
+#include <queue>
 #include "../include/Button.hpp"
 #include "../include/Camera.hpp"
 #include "../include/SpriteRenderer.hpp"
@@ -206,8 +205,6 @@ void CadernoState::RenderMouseBrush() {
         SDL_ShowCursor(SDL_ENABLE);
     }
 }
-
-#include <queue>
 
 void CadernoState::FloodFill(int startX, int startY) {
     SDL_Renderer* renderer = Game::GetInstance().GetRenderer();

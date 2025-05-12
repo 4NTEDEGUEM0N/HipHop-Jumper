@@ -43,7 +43,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     dashTimer = Timer();
 
     //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
-    SpriteRenderer* character = new SpriteRenderer(associated, sprite);
+    SpriteRenderer* character = new SpriteRenderer(associated, sprite, 2, 5);
     character->SetScale(0.15,0.15);
     associated.AddComponent(character);
 
@@ -56,11 +56,11 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     animator->AddAnimation("dead", Animation(10, 11, 0.5));
     */
 
-    animator->AddAnimation("idle", Animation(0, 0, 0.2));
-    animator->AddAnimation("idleLeft", Animation(0, 0, 0.2, SDL_FLIP_HORIZONTAL));
-    animator->AddAnimation("walkingRight", Animation(0, 0, 0.2));
-    animator->AddAnimation("walkingLeft", Animation(0, 0, 0.2, SDL_FLIP_HORIZONTAL));
-    animator->AddAnimation("dead", Animation(0, 0, 0.5));
+    animator->AddAnimation("idle", Animation(8, 8, 0));
+    animator->AddAnimation("idleLeft", Animation(8, 8, 0, SDL_FLIP_HORIZONTAL));
+    animator->AddAnimation("walkingRight", Animation(0, 7, 0.1));
+    animator->AddAnimation("walkingLeft", Animation(0, 7, 0.1, SDL_FLIP_HORIZONTAL));
+    animator->AddAnimation("dead", Animation(8, 8, 0.5));
 
     animator->SetAnimation("idle");
     associated.AddComponent(animator);
