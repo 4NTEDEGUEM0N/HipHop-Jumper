@@ -74,6 +74,60 @@ CadernoState::CadernoState() {
     colorObj->AddComponent(currentColorText);
     AddObject(colorObj);
 
+    GameObject* sizeObj = new GameObject();
+    SpriteRenderer* sizeButtonSprite = new SpriteRenderer(*sizeObj, "../Recursos/img/pixel.png");
+    sizeButtonSprite->SetCameraFollower(true);
+    sizeObj->AddComponent(sizeButtonSprite);
+    currentSizeText = new Text(*sizeObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Tamanho: " + to_string(brushSize) + " ", {255, 255, 255, 255}, true);
+    sizeObj->box.X = colorObj->box.X + colorObj->box.W + 10;
+    sizeObj->box.Y = colorObj->box.Y;
+    sizeObj->AddComponent(currentSizeText);
+    AddObject(sizeObj);
+
+    GameObject* sizePlusObj = new GameObject();
+    Button* sizePlusButton = new Button(*sizePlusObj);
+    sizePlusObj->AddComponent(sizePlusButton);
+    SpriteRenderer* sizePlusbuttonSprite = new SpriteRenderer(*sizePlusObj, "../Recursos/img/pixel.png");
+    sizePlusbuttonSprite->SetCameraFollower(true);
+    sizePlusObj->AddComponent(sizePlusbuttonSprite);
+    Text* textPlus = new Text(*sizePlusObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, " + ", {255, 255, 255, 255}, true);
+    sizePlusObj->AddComponent(textPlus);
+    sizePlusObj->box.X = sizeObj->box.X + sizeObj->box.W + 10;
+    sizePlusObj->box.Y = sizeObj->box.Y;
+    AddObject(sizePlusObj);
+
+    sizePlusButton->SetClickFunction([this]() {
+        if (brushSize < 20) {
+            brushSize++;
+            if (brushSize > 9)
+                currentSizeText->SetText("Tamanho: " + to_string(brushSize));
+            else
+                currentSizeText->SetText("Tamanho: " + to_string(brushSize) + " ");
+        }
+    });
+
+    GameObject* sizeMinusObj = new GameObject();
+    Button* sizeMinusButton = new Button(*sizeMinusObj);
+    sizeMinusObj->AddComponent(sizeMinusButton);
+    SpriteRenderer* sizeMinusButtonSprite = new SpriteRenderer(*sizeMinusObj, "../Recursos/img/pixel.png");
+    sizeMinusButtonSprite->SetCameraFollower(true);
+    sizeMinusObj->AddComponent(sizeMinusButtonSprite);
+    Text* textMinus = new Text(*sizeMinusObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, " - ", {255, 255, 255, 255}, true);
+    sizeMinusObj->AddComponent(textMinus);
+    sizeMinusObj->box.X = sizePlusObj->box.X + sizePlusObj->box.W + 5;
+    sizeMinusObj->box.Y = sizePlusObj->box.Y;
+    AddObject(sizeMinusObj);
+
+    sizeMinusButton->SetClickFunction([this]() {
+        if (brushSize > 1) {
+            brushSize--;
+            if (brushSize > 9)
+                currentSizeText->SetText("Tamanho: " + to_string(brushSize));
+            else
+                currentSizeText->SetText("Tamanho: " + to_string(brushSize) + " ");
+        }
+    });
+
 
     CreateColorButton("Preto", {0,0,0,255}, 1);
     CreateColorButton("Vermelho", {255,0,0,255}, 2);

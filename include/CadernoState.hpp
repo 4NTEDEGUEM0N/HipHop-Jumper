@@ -33,6 +33,7 @@ private:
     bool brush;
     Text* currentTool;
     Text* currentColorText;
+    Text* currentSizeText;
 };
 
 

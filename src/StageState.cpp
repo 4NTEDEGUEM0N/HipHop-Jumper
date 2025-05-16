@@ -101,7 +101,7 @@ StageState::StageState() {
         tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);
-        playerObject->box.X = 448;
+        playerObject->box.X = 398;
         playerObject->box.Y = 652;
         AddObject(playerObject);
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
