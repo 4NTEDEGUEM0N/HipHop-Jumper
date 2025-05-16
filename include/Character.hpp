@@ -7,6 +7,7 @@
 #include "Timer.hpp"
 #include "Vec2.hpp"
 #include "Sound.hpp"
+#include "SpriteRenderer.hpp"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ public:
     };
 
 private:
+    SpriteRenderer* characterSprite;
     weak_ptr<GameObject> gun;
     vector<GameObject> inventory;
     queue<Command> taskQueue;

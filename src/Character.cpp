@@ -43,9 +43,9 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     dashTimer = Timer();
 
     //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
-    SpriteRenderer* character = new SpriteRenderer(associated, sprite, 2, 5);
-    character->SetScale(0.15,0.15);
-    associated.AddComponent(character);
+    characterSprite = new SpriteRenderer(associated, sprite, 2, 6);
+    characterSprite->SetScale(0.15,0.15);
+    associated.AddComponent(characterSprite);
 
     Animator* animator = new Animator(associated);
     /*
@@ -57,10 +57,13 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     */
 
     animator->AddAnimation("idle", Animation(8, 8, 0));
-    animator->AddAnimation("idleLeft", Animation(8, 8, 0, SDL_FLIP_HORIZONTAL));
+    //animator->AddAnimation("idleLeft", Animation(8, 8, 0, SDL_FLIP_HORIZONTAL));
     animator->AddAnimation("walkingRight", Animation(0, 7, 0.1));
-    animator->AddAnimation("walkingLeft", Animation(0, 7, 0.1, SDL_FLIP_HORIZONTAL));
+    //animator->AddAnimation("walkingLeft", Animation(0, 7, 0.1, SDL_FLIP_HORIZONTAL));
     animator->AddAnimation("dead", Animation(8, 8, 0.5));
+    animator->AddAnimation("jump", Animation(10, 10, 0));
+    animator->AddAnimation("falling", Animation(11, 11, 0));
+    animator->AddAnimation("wallGrab", Animation(9, 9, 0));
 
     animator->SetAnimation("idle");
     associated.AddComponent(animator);
@@ -101,12 +104,15 @@ void Character::Update(float dt) {
         taskQueue.pop();
 
         if (task.type == Command::MOVE && !dashing && !isHit) {
-            if (task.pos == Vec2(0,0)) {
+            if (task.pos == Vec2(0,0) and onGround) {
+                animator->SetAnimation("idle");
+                /*
                 string currentAnimation = animator->GetAnimation();
                 if (currentAnimation == "walkingRight")
                     animator->SetAnimation("idle");
                 else if (currentAnimation == "walkingLeft")
                     animator->SetAnimation("idleLeft");
+                */
             } else {
                 Vec2 direction = task.pos;
                 direction = direction.normalize();
@@ -116,6 +122,10 @@ void Character::Update(float dt) {
                 vector<TileMap::CollisionInfo> collisions = tileMap->IsColliding(new_box_x);
                 if (collisions.size() == 0) {
                     associated.box = associated.box + Vec2(speed.X * dt, 0);
+                    if (speed.X < 0)
+                        characterSprite->SetFlip(SDL_FLIP_HORIZONTAL);
+                    else if (speed.X > 0)
+                        characterSprite->SetFlip(SDL_FLIP_NONE);
                 } else {
                     for (TileMap::CollisionInfo collision : collisions) {
                         if (collision.type == TileMap::TileCollisionType::Full) {
@@ -139,9 +149,11 @@ void Character::Update(float dt) {
                 ySpeed = -400;
                 onGround = false;
                 canJump = false;
+                animator->SetAnimation("jump");
             } else if (canDoubleJump) {
                 ySpeed = -400;
                 canDoubleJump = false;
+                animator->SetAnimation("jump");
             }
         } else if (task.type == Command::DASH && canDash  && !isHit) {
             if (task.pos.X != 0) {
@@ -173,11 +185,13 @@ void Character::Update(float dt) {
                 associated.RemoveComponent(collider);
         }
 
-        if (task.type == Command::MOVE && hp > 0) {
+        if (task.type == Command::MOVE && hp > 0 and onGround) {
             if (task.pos.GetX() < 0) {
-                animator->SetAnimation("walkingLeft");
+                animator->SetAnimation("walkingRight");
+                characterSprite->SetFlip(SDL_FLIP_HORIZONTAL);
             } else if (task.pos.GetX() > 0 || task.pos.GetY() != 0) {
                 animator->SetAnimation("walkingRight");
+                characterSprite->SetFlip(SDL_FLIP_NONE);
             }
         }
         damageCooldown.Update(dt);
@@ -223,13 +237,19 @@ void Character::Update(float dt) {
         vector<TileMap::CollisionInfo> collisions = tileMap->IsColliding(new_box_y);
         if (collisions.size() > 0) {
             for (TileMap::CollisionInfo collision : collisions) {
-                if (collision.corner == TileMap::CollisionCorner::TopRight or collision.corner == TileMap::CollisionCorner::TopLeft)
+                if (collision.corner == TileMap::CollisionCorner::TopRight or collision.corner == TileMap::CollisionCorner::TopLeft) {
                     ySpeed = 0;
+                    animator->SetAnimation("falling");
+                }
                 if (collision.corner == TileMap::CollisionCorner::BottomRight or collision.corner == TileMap::CollisionCorner::BottomLeft) {
                     ySpeed = 0;
                     onGround = true;
                     canJump = true;
                     canDoubleJump = true;
+                    string currentAnimation = animator->GetAnimation();
+                    /*if (currentAnimation != "walkingRight") {
+                        animator->SetAnimation("idle");
+                    }*/
 
                     if (collision.type == TileMap::TileCollisionType::Full) {
                         associated.box.Y = (collision.tilePos.Y * tileMap->GetTileSetHeight())  - associated.box.H - 0.01;
@@ -250,6 +270,10 @@ void Character::Update(float dt) {
             associated.box = associated.box + Vec2(0, ySpeed * dt);
             onGround = false;
             canJump = false;
+            if (ySpeed < 0)
+                animator->SetAnimation("jump");
+            else
+                animator->SetAnimation("falling");
         }
     }
 

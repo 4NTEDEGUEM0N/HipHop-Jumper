@@ -15,9 +15,10 @@ public:
     void Update(float dt);
     void Render();
     bool Is(string type);
-    void SetFrame(int frame, SDL_RendererFlip flip);
+    void SetFrame(int frame);
     void SetCameraFollower(bool cameraFollower);
     void SetScale(float scaleX, float scaleY);
+    void SetFlip(SDL_RendererFlip flip);
 };
 
 #endif //SPRITERENDERER_HPP

@@ -23,8 +23,11 @@ void SpriteRenderer::Open(string file) {
     associated.box.H = sprite.GetHeight();
 }
 
-void SpriteRenderer::SetFrame(int frame, SDL_RendererFlip flip) {
+void SpriteRenderer::SetFrame(int frame) {
     sprite.SetFrame(frame);
+}
+
+void SpriteRenderer::SetFlip(SDL_RendererFlip flip) {
     sprite.SetFlip(flip);
 }
 
