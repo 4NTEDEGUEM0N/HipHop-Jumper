@@ -21,11 +21,19 @@ void CadernoState::CreateColorButton(string cor, SDL_Color color, int n) {
     buttonObj->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
     AddObject(buttonObj);
 
-    button->SetClickFunction([color, this]() {
+    if (cor == "Borracha") {
+        button->SetClickFunction([color, this]() {
+        currentColor = color;
+        currentColorText->SetColor(color);
+        brush = true;
+        currentTool->SetText("Ferramenta: Pincel");
+    });
+    } else {
+        button->SetClickFunction([color, this]() {
         currentColor = color;
         currentColorText->SetColor(color);
     });
-    brush = true;
+    }
 }
 
 CadernoState::CadernoState() {
@@ -289,15 +297,9 @@ void CadernoState::FloodFill(int startX, int startY) {
 
     // Cria uma surface com os dados da canvasTexture
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA8888);
-    SDL_Texture* tempTex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
-
-    // Copia a canvasTexture para a temporária
-    SDL_SetRenderTarget(renderer, tempTex);
-    SDL_RenderCopy(renderer, canvasTexture, nullptr, nullptr);
-    SDL_SetRenderTarget(renderer, nullptr);
 
     // Lê os pixels da textura para a surface
-    SDL_SetRenderTarget(renderer, tempTex);
+    SDL_SetRenderTarget(renderer, canvasTexture);
     SDL_RenderReadPixels(renderer, nullptr, SDL_PIXELFORMAT_RGBA8888, surface->pixels, surface->pitch);
     SDL_SetRenderTarget(renderer, nullptr);
 
@@ -336,7 +338,6 @@ void CadernoState::FloodFill(int startX, int startY) {
     SDL_UpdateTexture(canvasTexture, nullptr, surface->pixels, surface->pitch);
 
     SDL_FreeSurface(surface);
-    SDL_DestroyTexture(tempTex);
 }
 
 void CadernoState::Render() {
