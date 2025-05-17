@@ -42,8 +42,11 @@ private:
     Sound deathSound;
     Sound hitSound;
 
-    float ySpeed;
     bool onGround;
+    Vec2 direction;
+    float gravity;
+    float groundAccel;
+    bool moving;
 
     bool canJump;
     bool canDoubleJump;
