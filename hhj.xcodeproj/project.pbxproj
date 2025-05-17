@@ -83,6 +83,20 @@
 /* Begin PBXFileReference section */
 		B002CBE32DC431AE00654639 /* InventoryItem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InventoryItem.hpp; path = include/InventoryItem.hpp; sourceTree = "<group>"; };
 		B002CBE42DC431C200654639 /* InventoryItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InventoryItem.cpp; path = src/InventoryItem.cpp; sourceTree = "<group>"; };
+		B002CBFC2DD8E36500654639 /* pixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pixel.png; sourceTree = "<group>"; };
+		B002CBFD2DD8E36500654639 /* caderno.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caderno.png; sourceTree = "<group>"; };
+		B002CBFE2DD8E36500654639 /* habilidades.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = habilidades.png; sourceTree = "<group>"; };
+		B002CBFF2DD8E36500654639 /* minikit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minikit.png; sourceTree = "<group>"; };
+		B002CC002DD8E36500654639 /* bonequinho.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bonequinho.png; sourceTree = "<group>"; };
+		B002CC012DD8E36500654639 /* Tileset_teste.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tileset_teste.png; sourceTree = "<group>"; };
+		B002CC022DD8E36500654639 /* boneco.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boneco.png; sourceTree = "<group>"; };
+		B002CC032DD8E36500654639 /* spray run test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spray run test.png"; sourceTree = "<group>"; };
+		B002CC042DD8E38200654639 /* Button.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Button.cpp; path = src/Button.cpp; sourceTree = "<group>"; };
+		B002CC052DD8E38200654639 /* CadernoState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CadernoState.cpp; path = src/CadernoState.cpp; sourceTree = "<group>"; };
+		B002CC062DD8E39000654639 /* CadernoState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CadernoState.hpp; path = include/CadernoState.hpp; sourceTree = "<group>"; };
+		B002CC072DD8E39000654639 /* Button.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Button.hpp; path = include/Button.hpp; sourceTree = "<group>"; };
+		B002CC082DD8E39D00654639 /* map_test_tileset.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = map_test_tileset.txt; sourceTree = "<group>"; };
+		B002CC092DD8E3AC00654639 /* lego-star-wars-minikit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "lego-star-wars-minikit.mp3"; sourceTree = "<group>"; };
 		B0152A8E2DBD3E11008B5B08 /* hhj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hhj; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0152A912DBD3E12008B5B08 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B0152A982DBD3EA4008B5B08 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -204,56 +218,12 @@
 		B0152A852DBD3E11008B5B08 = {
 			isa = PBXGroup;
 			children = (
-				B0152B642DBD8303008B5B08 /* audio */,
-				B0152B622DBD8303008B5B08 /* font */,
-				B0152B532DBD8303008B5B08 /* img */,
-				B0152B5E2DBD8303008B5B08 /* map */,
-				B0152AB02DBD57ED008B5B08 /* AIController.hpp */,
-				B0152ABA2DBD57ED008B5B08 /* Animation.hpp */,
-				B0152ACD2DBD57EE008B5B08 /* Animator.hpp */,
-				B0152AD12DBD57EF008B5B08 /* Bullet.hpp */,
-				B0152AC92DBD57EE008B5B08 /* Camera.hpp */,
-				B0152AB92DBD57ED008B5B08 /* Character.hpp */,
-				B0152ACF2DBD57EE008B5B08 /* Collider.hpp */,
-				B0152ABF2DBD57ED008B5B08 /* Collision.hpp */,
-				B0152ABE2DBD57ED008B5B08 /* Component.hpp */,
-				B0152ACB2DBD57EE008B5B08 /* EndState.hpp */,
-				B0152ACC2DBD57EE008B5B08 /* Game.hpp */,
-				B0152ABD2DBD57ED008B5B08 /* GameData.hpp */,
-				B0152AC02DBD57EE008B5B08 /* GameObject.hpp */,
-				B0152AD02DBD57EF008B5B08 /* Gun.hpp */,
-				B094C2522DC2C4E800463219 /* HUD.hpp */,
-				B094C2532DC2C54B00463219 /* HUD.cpp */,
-				B0152AB12DBD57ED008B5B08 /* InputManager.hpp */,
-				B094C2572DC41B7D00463219 /* Item.hpp */,
-				B002CBE32DC431AE00654639 /* InventoryItem.hpp */,
-				B0152ABC2DBD57ED008B5B08 /* Music.hpp */,
-				B0152AC72DBD57EE008B5B08 /* PlayerController.hpp */,
-				B0152AC52DBD57EE008B5B08 /* Rect.hpp */,
-				B0152ABB2DBD57ED008B5B08 /* Resources.hpp */,
-				B0152AC82DBD57EE008B5B08 /* Sound.hpp */,
-				B0152AB32DBD57ED008B5B08 /* Sprite.hpp */,
-				B0152ACA2DBD57EE008B5B08 /* SpriteRenderer.hpp */,
-				B0152AB62DBD57ED008B5B08 /* StageState.hpp */,
-				B0152AB52DBD57ED008B5B08 /* State.hpp */,
-				B0152AB72DBD57ED008B5B08 /* Text.hpp */,
-				B0152AC22DBD57EE008B5B08 /* Tile.hpp */,
-				B0152AB82DBD57ED008B5B08 /* TileMap.hpp */,
-				B0152AC12DBD57EE008B5B08 /* TileSet.hpp */,
-				B0152AC32DBD57EE008B5B08 /* Timer.hpp */,
-				B0152ACE2DBD57EE008B5B08 /* TitleState.hpp */,
-				B0152AB42DBD57ED008B5B08 /* Vec2.hpp */,
-				B0152AB22DBD57ED008B5B08 /* Wave.hpp */,
-				B0152AC42DBD57EE008B5B08 /* WaveSpawner.hpp */,
-				B0152AC62DBD57EE008B5B08 /* Zombie.hpp */,
-				B0152A982DBD3EA4008B5B08 /* CMakeLists.txt */,
-				B0152A9A2DBD3EA4008B5B08 /* README.md */,
-				B0152A912DBD3E12008B5B08 /* main.cpp */,
-				B0152A8F2DBD3E11008B5B08 /* Products */,
 				B0152AF22DBD6F00008B5B08 /* AIController.cpp */,
 				B0152AF52DBD6F00008B5B08 /* Animation.cpp */,
 				B0152AEE2DBD6EFF008B5B08 /* Animator.cpp */,
 				B0152B022DBD6F01008B5B08 /* Bullet.cpp */,
+				B002CC042DD8E38200654639 /* Button.cpp */,
+				B002CC052DD8E38200654639 /* CadernoState.cpp */,
 				B0152AFB2DBD6F01008B5B08 /* Camera.cpp */,
 				B0152B092DBD6F02008B5B08 /* Character.cpp */,
 				B0152B052DBD6F01008B5B08 /* Collider.cpp */,
@@ -262,10 +232,12 @@
 				B0152AF62DBD6F00008B5B08 /* Game.cpp */,
 				B0152AFE2DBD6F01008B5B08 /* GameData.cpp */,
 				B0152B0C2DBD6F02008B5B08 /* GameObject.cpp */,
-				B002CBE42DC431C200654639 /* InventoryItem.cpp */,
 				B0152B062DBD6F02008B5B08 /* Gun.cpp */,
+				B094C2532DC2C54B00463219 /* HUD.cpp */,
 				B0152AF32DBD6F00008B5B08 /* InputManager.cpp */,
+				B002CBE42DC431C200654639 /* InventoryItem.cpp */,
 				B094C2552DC41B6B00463219 /* Item.cpp */,
+				B0152A912DBD3E12008B5B08 /* main.cpp */,
 				B0152B072DBD6F02008B5B08 /* Music.cpp */,
 				B0152B012DBD6F01008B5B08 /* PlayerController.cpp */,
 				B0152AF92DBD6F00008B5B08 /* Rect.cpp */,
@@ -285,7 +257,53 @@
 				B0152AFD2DBD6F01008B5B08 /* Wave.cpp */,
 				B0152AF82DBD6F00008B5B08 /* WaveSpawner.cpp */,
 				B0152AED2DBD6EFF008B5B08 /* Zombie.cpp */,
+				B0152AB02DBD57ED008B5B08 /* AIController.hpp */,
+				B0152ABA2DBD57ED008B5B08 /* Animation.hpp */,
+				B0152ACD2DBD57EE008B5B08 /* Animator.hpp */,
+				B0152AD12DBD57EF008B5B08 /* Bullet.hpp */,
+				B002CC072DD8E39000654639 /* Button.hpp */,
+				B002CC062DD8E39000654639 /* CadernoState.hpp */,
+				B0152AC92DBD57EE008B5B08 /* Camera.hpp */,
+				B0152AB92DBD57ED008B5B08 /* Character.hpp */,
+				B0152ACF2DBD57EE008B5B08 /* Collider.hpp */,
+				B0152ABF2DBD57ED008B5B08 /* Collision.hpp */,
+				B0152ABE2DBD57ED008B5B08 /* Component.hpp */,
+				B0152ACB2DBD57EE008B5B08 /* EndState.hpp */,
+				B0152ACC2DBD57EE008B5B08 /* Game.hpp */,
+				B0152ABD2DBD57ED008B5B08 /* GameData.hpp */,
+				B0152AC02DBD57EE008B5B08 /* GameObject.hpp */,
+				B0152AD02DBD57EF008B5B08 /* Gun.hpp */,
+				B094C2522DC2C4E800463219 /* HUD.hpp */,
+				B0152AB12DBD57ED008B5B08 /* InputManager.hpp */,
+				B002CBE32DC431AE00654639 /* InventoryItem.hpp */,
+				B094C2572DC41B7D00463219 /* Item.hpp */,
+				B0152ABC2DBD57ED008B5B08 /* Music.hpp */,
+				B0152AC72DBD57EE008B5B08 /* PlayerController.hpp */,
+				B0152AC52DBD57EE008B5B08 /* Rect.hpp */,
+				B0152ABB2DBD57ED008B5B08 /* Resources.hpp */,
+				B0152AC82DBD57EE008B5B08 /* Sound.hpp */,
+				B0152AB32DBD57ED008B5B08 /* Sprite.hpp */,
+				B0152ACA2DBD57EE008B5B08 /* SpriteRenderer.hpp */,
+				B0152AB62DBD57ED008B5B08 /* StageState.hpp */,
+				B0152AB52DBD57ED008B5B08 /* State.hpp */,
+				B0152AB72DBD57ED008B5B08 /* Text.hpp */,
+				B0152AC22DBD57EE008B5B08 /* Tile.hpp */,
+				B0152AB82DBD57ED008B5B08 /* TileMap.hpp */,
+				B0152AC12DBD57EE008B5B08 /* TileSet.hpp */,
+				B0152AC32DBD57EE008B5B08 /* Timer.hpp */,
+				B0152ACE2DBD57EE008B5B08 /* TitleState.hpp */,
+				B0152AB42DBD57ED008B5B08 /* Vec2.hpp */,
+				B0152AB22DBD57ED008B5B08 /* Wave.hpp */,
+				B0152AC42DBD57EE008B5B08 /* WaveSpawner.hpp */,
+				B0152AC62DBD57EE008B5B08 /* Zombie.hpp */,
+				B0152A9A2DBD3EA4008B5B08 /* README.md */,
+				B0152A982DBD3EA4008B5B08 /* CMakeLists.txt */,
+				B0152B642DBD8303008B5B08 /* audio */,
+				B0152B622DBD8303008B5B08 /* font */,
 				B0152A9D2DBD4863008B5B08 /* Frameworks */,
+				B0152B532DBD8303008B5B08 /* img */,
+				B0152B5E2DBD8303008B5B08 /* map */,
+				B0152A8F2DBD3E11008B5B08 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -311,6 +329,14 @@
 		B0152B532DBD8303008B5B08 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				B002CC022DD8E36500654639 /* boneco.png */,
+				B002CC002DD8E36500654639 /* bonequinho.png */,
+				B002CBFD2DD8E36500654639 /* caderno.png */,
+				B002CBFE2DD8E36500654639 /* habilidades.png */,
+				B002CBFF2DD8E36500654639 /* minikit.png */,
+				B002CBFC2DD8E36500654639 /* pixel.png */,
+				B002CC032DD8E36500654639 /* spray run test.png */,
+				B002CC012DD8E36500654639 /* Tileset_teste.png */,
 				B0152B542DBD8303008B5B08 /* Bullet.png */,
 				B0152B552DBD8303008B5B08 /* Enemy.png */,
 				B0152B562DBD8303008B5B08 /* Title.png */,
@@ -329,6 +355,7 @@
 		B0152B5E2DBD8303008B5B08 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				B002CC082DD8E39D00654639 /* map_test_tileset.txt */,
 				B0152B5F2DBD8303008B5B08 /* map.txt */,
 				B0152B602DBD8303008B5B08 /* map_vertical.txt */,
 				B0152B612DBD8303008B5B08 /* map_test.txt */,
@@ -349,6 +376,7 @@
 		B0152B642DBD8303008B5B08 /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				B002CC092DD8E3AC00654639 /* lego-star-wars-minikit.mp3 */,
 				B0152B652DBD8303008B5B08 /* Hit0.wav */,
 				B0152B662DBD8303008B5B08 /* Hit1.wav */,
 				B0152B672DBD8303008B5B08 /* BGM.wav */,

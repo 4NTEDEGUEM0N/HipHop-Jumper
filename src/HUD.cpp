@@ -39,6 +39,7 @@ void HUD::Render() {
     RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 0*32 + 1*5);
     RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 1*32 + 2*5);
     RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 2*32 + 3*5);
+
 }
 
 void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
@@ -47,3 +48,4 @@ void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
     characterAbilities.Render(x, y, characterAbilities.GetWidth(), characterAbilities.GetHeight());
 }
 
+//void HUD::RenderItem(int itemNumber,)
