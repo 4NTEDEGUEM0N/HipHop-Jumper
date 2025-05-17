@@ -26,7 +26,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     speed = Vec2(0, 0);
     linearSpeed = 400;
     gravity = 500;
-    groundAccel = 1000;
+    acceleration = 1000;
     hp = 100;
     deathTimer = Timer();
     dead = false;
@@ -102,7 +102,12 @@ void Character::Update(float dt) {
             } else {
                 moving = true;
                 direction = task.pos;
-                speed = speed + direction * groundAccel * dt;
+                float accel;
+                if (onGround) {
+                    accel = acceleration * 3;
+                } else
+                    accel = acceleration;
+                speed = speed + direction * accel * dt;
                 if (speed.X > 400)
                     speed.X = 400;
                 if (speed.X < -400)
@@ -174,9 +179,7 @@ void Character::Update(float dt) {
 
     hitTimer.Update(dt);
     if (hitTimer.Get() <= 0.5 and isHit) {
-        int direction = 1;
-        if (speed.X < 0) direction = -1;
-        Rect new_box_x = associated.box + Vec2(linearSpeed * dt * direction, 0);
+        Rect new_box_x = associated.box + Vec2(speed.X * dt,0);
         if (tileMap->IsColliding(new_box_x).size() == 0) {
             associated.box = new_box_x;
         } else {
@@ -189,7 +192,12 @@ void Character::Update(float dt) {
 
     if (!dashing && !isHit) {
         if (!moving and speed.X != 0) {
-            speed = speed - direction * groundAccel * dt;
+            float friction;
+            if (onGround) {
+                friction = acceleration * 3;
+            } else
+                friction = acceleration;
+            speed = speed - direction * friction * dt;
             if (speed.X < 0 and direction.X > 0) speed.X = 0;
             if (speed.X > 0 and direction.X < 0) speed.X = 0;
         }
@@ -306,7 +314,7 @@ void Character::NotifyCollision(GameObject &other) {
                 hp -= 25;
                 damageCooldown.Restart();
                 hitSound.Play(1);
-                speed.Y = -100;
+                speed.Y = -200;
                 canJump = false;
                 canDoubleJump = false;
                 canDash = false;
@@ -314,7 +322,10 @@ void Character::NotifyCollision(GameObject &other) {
                 dashTimer.Restart();
                 isHit = true;
                 hitTimer.Restart();
-                speed = {associated.box.X - other.box.X,0};
+                direction = (associated.box.X - other.box.X > 0) ? Vec2(1,0) : Vec2(-1,0);
+                speed.X = direction.X * 500;
+                onGround = false;
+                moving = false;
             }
         }
     } else if (other.GetComponent("Bullet") != nullptr) {

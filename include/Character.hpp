@@ -45,7 +45,7 @@ private:
     bool onGround;
     Vec2 direction;
     float gravity;
-    float groundAccel;
+    float acceleration;
     bool moving;
 
     bool canJump;
