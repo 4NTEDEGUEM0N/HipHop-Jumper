@@ -1,8 +1,7 @@
 
 #include "../include/InventoryItem.hpp"
 
-InventoryItem::InventoryItem(GameObject& associated, Item::ItemType type) : Component(associated) {
-    this->type = type;
+InventoryItem::InventoryItem(GameObject& associated, const ItemData& itemData) : Component(associated), itemData(itemData) {
 }
 
 void InventoryItem::Update(float dt) {}
@@ -13,7 +12,7 @@ bool InventoryItem::Is(string type) {
     return type == "InventoryItem";
 }
 
-Item::ItemType InventoryItem::GetItemType() {
-    return type;
+ItemData InventoryItem::GetItemData() {
+    return itemData;
 }
 

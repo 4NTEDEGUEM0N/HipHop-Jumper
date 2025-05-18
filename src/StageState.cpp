@@ -53,38 +53,40 @@ StageState::StageState() {
         PlayerController* playerController = new PlayerController(*playerObject);
         playerObject->AddComponent(playerController);
 
+        ItemData minikitData = ItemData::Minikit();
+        
         GameObject* minikitObject = new GameObject(false);
         minikitObject->box.X = 832;
         minikitObject->box.Y = 2816;
-        Item* minikit = new Item(*minikitObject, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit = new Item(*minikitObject, minikitData, "../Recursos/img/minikit.png");
         minikitObject->AddComponent(minikit);
         AddObject(minikitObject);
 
         GameObject* minikitObject2 = new GameObject(false);
         minikitObject2->box.X = 640;
         minikitObject2->box.Y = 256;
-        Item* minikit2 = new Item(*minikitObject2, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit2 = new Item(*minikitObject2, minikitData, "../Recursos/img/minikit.png");
         minikitObject2->AddComponent(minikit2);
         AddObject(minikitObject2);
 
         GameObject* minikitObject3 = new GameObject(false);
         minikitObject3->box.X = 640;
         minikitObject3->box.Y = 2176;
-        Item* minikit3 = new Item(*minikitObject3, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit3 = new Item(*minikitObject3, minikitData, "../Recursos/img/minikit.png");
         minikitObject3->AddComponent(minikit3);
         AddObject(minikitObject3);
 
         GameObject* minikitObject4 = new GameObject(false);
         minikitObject4->box.X = 512;
         minikitObject4->box.Y = 1664;
-        Item* minikit4 = new Item(*minikitObject4, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit4 = new Item(*minikitObject4, minikitData, "../Recursos/img/minikit.png");
         minikitObject4->AddComponent(minikit4);
         AddObject(minikitObject4);
 
         GameObject* minikitObject5 = new GameObject(false);
         minikitObject5->box.X = 256;
         minikitObject5->box.Y = 2752;
-        Item* minikit5 = new Item(*minikitObject5, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit5 = new Item(*minikitObject5, minikitData, "../Recursos/img/minikit.png");
         minikitObject5->AddComponent(minikit5);
         AddObject(minikitObject5);
 
@@ -110,11 +112,13 @@ StageState::StageState() {
         playerObject->AddComponent(playerCharacter);
         PlayerController* playerController = new PlayerController(*playerObject);
         playerObject->AddComponent(playerController);
+        
+        ItemData minikitData = ItemData::Minikit();
 
         GameObject* minikitObject = new GameObject(false);
         minikitObject->box.X = 896;
         minikitObject->box.Y = 1024;
-        Item* minikit = new Item(*minikitObject, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit = new Item(*minikitObject, minikitData, "../Recursos/img/minikit.png");
         minikitObject->AddComponent(minikit);
         AddObject(minikitObject);
 
@@ -128,7 +132,7 @@ StageState::StageState() {
         GameObject* minikitObject2 = new GameObject(false);
         minikitObject2->box.X = 384;
         minikitObject2->box.Y = 896;
-        Item* minikit2 = new Item(*minikitObject2, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit2 = new Item(*minikitObject2, minikitData, "../Recursos/img/minikit.png");
         minikitObject2->AddComponent(minikit2);
         AddObject(minikitObject2);
 
@@ -142,21 +146,21 @@ StageState::StageState() {
         GameObject* minikitObject3 = new GameObject(false);
         minikitObject3->box.X = 896;
         minikitObject3->box.Y = 768;
-        Item* minikit3 = new Item(*minikitObject3, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit3 = new Item(*minikitObject3, minikitData, "../Recursos/img/minikit.png");
         minikitObject3->AddComponent(minikit3);
         AddObject(minikitObject3);
 
         GameObject* minikitObject4 = new GameObject(false);
         minikitObject4->box.X = 320;
         minikitObject4->box.Y = 640;
-        Item* minikit4 = new Item(*minikitObject4, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit4 = new Item(*minikitObject4, minikitData, "../Recursos/img/minikit.png");
         minikitObject4->AddComponent(minikit4);
         AddObject(minikitObject4);
 
         GameObject* minikitObject5 = new GameObject(false);
         minikitObject5->box.X = 640;
         minikitObject5->box.Y = 320;
-        Item* minikit5 = new Item(*minikitObject5, Item::ItemType::Minikit, "../Recursos/img/minikit.png");
+        Item* minikit5 = new Item(*minikitObject5, minikitData, "../Recursos/img/minikit.png");
         minikitObject5->AddComponent(minikit5);
         AddObject(minikitObject5);
 

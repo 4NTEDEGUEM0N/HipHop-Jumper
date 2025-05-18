@@ -9,19 +9,19 @@ using namespace std;
 
 class InventoryItem : public Component {
 public:
-    InventoryItem(GameObject& associated, Item::ItemType type);
+    InventoryItem(GameObject& associated, const ItemData& itemData);
     void Update(float dt);
     void Render();
     bool Is(string type);
     
-    Item::ItemType GetItemType();
+    ItemData GetItemData();
 
 private:
     Sound collectSound;
     bool collected;
     Timer collectTimer;
 
-    Item::ItemType type;
+    ItemData itemData;
     int counter;
     bool up;
 };

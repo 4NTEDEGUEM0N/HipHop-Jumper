@@ -343,31 +343,37 @@ void Character::NotifyCollision(GameObject &other) {
         }
     } else if (other.GetComponent("Item") != nullptr) {
         Item* itemCpt = dynamic_cast<Item*>(other.GetComponent("Item"));
-        switch (itemCpt->GetItemType()) {
-            case Item::ItemType::Minikit: {
-                GameObject* inventoryItemObject = new GameObject();
-
-                InventoryItem* inventoryItemCpt = new InventoryItem(*inventoryItemObject, Item::ItemType::Minikit);
-                inventoryItemObject->AddComponent(inventoryItemCpt);
-                
-                inventory.push_back(inventoryItemObject);
-
-                break;
-            }
-                
-            case Item::ItemType::SprayCap:
-
-                break;
+        if (!itemCpt->IsCollected()) {
+            itemCpt->TryCollect();
+            itemCpt->SetCollected();
+            ItemData itemData = itemCpt->GetItemData();
             
-                
-            case Item::ItemType::SprayBody:
+            switch (itemData.type) {
+                case ItemData::Type::Minikit: {
+                    GameObject* inventoryItemObject = new GameObject();
 
-                break;
-                
-            case Item::ItemType::SprayColor:
+                    InventoryItem* inventoryItemCpt = new InventoryItem(*inventoryItemObject, itemData);
+                    inventoryItemObject->AddComponent(inventoryItemCpt);
+                    
+                    inventory.push_back(inventoryItemObject);
 
-                break;
-    
+                    break;
+                }
+                    
+                case ItemData::Type::SprayCap:
+
+                    break;
+                
+                    
+                case ItemData::Type::SprayBody:
+
+                    break;
+                    
+                case ItemData::Type::SprayColor:
+
+                    break;
+        
+            }
         }
     }
 }
@@ -378,6 +384,10 @@ Vec2 Character::GetPosition() const {
 
 int Character::GetHP() {
     return hp;
+}
+
+int Character::GetInventorySize() {
+    return inventory.size();
 }
 
 bool Character::CanJump() {

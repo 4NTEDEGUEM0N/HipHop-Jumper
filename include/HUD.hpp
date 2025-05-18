@@ -14,12 +14,14 @@ private:
 
     Sprite characterSprite;
     Sprite characterAbilities;
+    Sprite characterItems;
     Rect* characterRect;
 
 public:
     HUD();
     void Render();
     void RenderAbility(int abilityNumber, bool active, int x, int y);
+    void RenderItem(int itemNumber, int x, int y);
 };
 
 #endif //HUD_HPP

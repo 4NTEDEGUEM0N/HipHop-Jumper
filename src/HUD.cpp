@@ -2,9 +2,10 @@
 #include "../include/Game.hpp"
 #include <iostream>
 
-HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbilities("../Recursos/img/habilidades.png",2,3) {
+HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbilities("../Recursos/img/habilidades.png",2,3), characterItems("../Recursos/img/minikitHud.png",2,1) {
     characterSprite.cameraFollower = true;
     characterAbilities.cameraFollower = true;
+    characterItems.cameraFollower = true;
     characterSprite.SetScale(0.6f, 0.6f);
     characterRect = new Rect(0, 900-characterSprite.GetHeight(), characterSprite.GetWidth(), characterSprite.GetHeight());
 
@@ -40,12 +41,21 @@ void HUD::Render() {
     RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 1*32 + 2*5);
     RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 2*32 + 3*5);
 
+    int invSize = player->GetInventorySize();
+    for(int i = 0; i < invSize; i++) {
+        RenderItem(invSize, characterRect->X + characterSprite.GetWidth() + 5 + 64 * i, characterRect->Y + characterSprite.GetHeight() - 250);
+    }
 }
 
 void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
     int frame = abilityNumber * 2 + (active ? 0 : 1);
     characterAbilities.SetFrame(frame);
     characterAbilities.Render(x, y, characterAbilities.GetWidth(), characterAbilities.GetHeight());
-}
+}\
 
-//void HUD::RenderItem(int itemNumber,)
+void HUD::RenderItem(int itemNumber, int x, int y) {
+    int frame = 1; // so minikit por enquanto
+    
+    characterItems.SetFrame(frame);
+    characterItems.Render(x, y, characterItems.GetWidth(), characterItems.GetHeight());
+}

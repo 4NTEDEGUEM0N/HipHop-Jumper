@@ -2,14 +2,17 @@
 #include "../include/SpriteRenderer.hpp"
 #include "../include/Collider.hpp"
 
-Item::Item(GameObject& associated, ItemType type, string file) : Component(associated), collectSound("../Recursos/audio/lego-star-wars-minikit.mp3") {
-    this->type = type;
+Item::Item(GameObject& associated, ItemData itemData, string file) :
+    Component(associated),
+    itemData(itemData),
+    collectSound("../Recursos/audio/lego-star-wars-minikit.mp3")
+{
     counter = 0;
     up = false;
     collected = false;
     collectTimer.Restart();
 
-    SpriteRenderer* item = new SpriteRenderer(associated, file);
+    SpriteRenderer* item = new SpriteRenderer(associated, itemData.iconPath);
     associated.AddComponent(item);
 
     Collider* collider = new Collider(associated);
@@ -40,16 +43,28 @@ bool Item::Is(string type) {
     return type == "Item";
 }
 
-void Item::NotifyCollision(GameObject &other) {
-    if (other.GetComponent("Character") != nullptr) {
-        if (!collected) {
-            collectSound.Play(1);
-            collected = true;
-            collectTimer.Restart();
-        }
+bool Item::IsCollected() {
+    return collected;
+}
+
+void Item::SetCollected() {
+    collected = true;
+}
+
+
+void Item::TryCollect() {
+    if (!collected) {
+        collectSound.Play(1);
+        collectTimer.Restart();
     }
 }
 
-Item::ItemType Item::GetItemType() {
-    return type;
+void Item::NotifyCollision(GameObject& other) {
+    if (other.GetComponent("Character")) {
+        // exibir texto "pressione E pra coletar"? baseado nas informacoes do item
+    }
+}
+
+ItemData Item::GetItemData() {
+    return itemData;
 }
