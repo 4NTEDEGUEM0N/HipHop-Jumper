@@ -5,7 +5,7 @@
 //  Created by Pedro Venzi on 18/05/25.
 //
 
-#include "ItemData.hpp"
+#include "../include/ItemData.hpp"
 
 //ItemData ItemData::GetItemData(Type type) {
 //    switch (type) {
