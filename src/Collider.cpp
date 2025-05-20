@@ -40,8 +40,8 @@ void Collider::Render() {
 	if (!showCollision) return;
 
 
-	if (box.X + box.W < Camera::pos.GetX() || box.X > Camera::pos.GetX() + Game::ScreenWidth ||
-		box.Y + box.H < Camera::pos.GetY() || box.Y > Camera::pos.GetY() + Game::ScreenHeight) {
+	if (box.X + box.W < Camera::pos.GetX() || box.X > Camera::pos.GetX() + Game::VirtualScreenWidth ||
+		box.Y + box.H < Camera::pos.GetY() || box.Y > Camera::pos.GetY() + Game::VirtualScreenHeight) {
 		return;
 		}
 

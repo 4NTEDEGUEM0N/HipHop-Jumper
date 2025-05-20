@@ -24,8 +24,11 @@ public:
 
     float GetDeltaTime();
 
-    static int ScreenWidth;
-    static int ScreenHeight;
+    static int VirtualScreenWidth;
+    static int VirtualScreenHeight;
+
+    static int RealScreenWidth;
+    static int RealScreenHeight;
 
 private:
     void CalculateDeltaTime();

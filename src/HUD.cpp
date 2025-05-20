@@ -7,10 +7,10 @@ HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbiliti
     characterAbilities.cameraFollower = true;
     characterItems.cameraFollower = true;
     characterSprite.SetScale(0.6f, 0.6f);
-    characterRect = new Rect(0, Game::ScreenHeight-characterSprite.GetHeight(), characterSprite.GetWidth(), characterSprite.GetHeight());
+    characterRect = new Rect(0, Game::VirtualScreenHeight-characterSprite.GetHeight(), characterSprite.GetWidth(), characterSprite.GetHeight());
 
     player = Character::player;
-    hpRect = new Rect(0, Game::ScreenHeight - characterSprite.GetHeight() - 20, characterSprite.GetWidth(), 20);
+    hpRect = new Rect(0, Game::VirtualScreenHeight - characterSprite.GetHeight() - 20, characterSprite.GetWidth(), 20);
     GameObject* hpTextObj = new GameObject(true);
     hpTextObj->box.X = hpRect->X + hpRect->W/2 - 25;
     hpTextObj->box.Y = hpRect->Y + hpRect->H/2 - 8;

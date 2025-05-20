@@ -13,14 +13,17 @@
 using namespace std;
 
 Game* Game::instance = nullptr;
-int Game::ScreenWidth = 1200;
-int Game::ScreenHeight = 900;
+int Game::VirtualScreenWidth = 1200;
+int Game::VirtualScreenHeight = 900;
+
+int Game::RealScreenWidth = 960;
+int Game::RealScreenHeight = 720;
 
 Game& Game::GetInstance(){
     if(instance != nullptr){
         return *instance;
     }
-    instance = new Game("Hip-Hop Jumper", ScreenWidth, ScreenHeight);
+    instance = new Game("Hip-Hop Jumper", RealScreenWidth, RealScreenHeight);
     return *instance;
 }
 
@@ -64,7 +67,7 @@ Game::Game(string title, int width, int height){
         exit(1);
     }
 
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (window == nullptr) {
         cerr << "Erro - SDL_CreateWindow: "<< SDL_GetError() << endl;
         exit(1);
@@ -75,6 +78,8 @@ Game::Game(string title, int width, int height){
         cerr << "Erro - SDL_CreateRenderer: "<< SDL_GetError() << endl;
         exit(1);
     }
+    SDL_RenderSetLogicalSize(renderer, VirtualScreenWidth, VirtualScreenHeight);
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
     srand(time(NULL));
 }

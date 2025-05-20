@@ -20,7 +20,7 @@ void Camera::Unfollow() {
 
 void Camera::Update(float dt) {
     if (focus != nullptr) {
-        pos = focus->box.center() - Vec2(Game::ScreenWidth / 2, Game::ScreenHeight / 2);
+        pos = focus->box.center() - Vec2(Game::VirtualScreenWidth / 2, Game::VirtualScreenHeight / 2);
     } else {
         speed = Vec2(0, 0);
         if (InputManager::GetInstance().IsKeyDown(UP_ARROW_KEY) || InputManager::GetInstance().IsKeyDown(SDLK_w)) {
