@@ -9,6 +9,7 @@
 #define LEFT_MOUSE_BUTTON SDL_BUTTON_LEFT
 
 #include <SDL_keycode.h>
+#include <SDL_render.h>
 #include <unordered_map>
 
 using namespace std;
@@ -23,6 +24,7 @@ private:
     int updateCounter;
     int mouseX;
     int mouseY;
+    SDL_Renderer* renderer;
 
 public:
     void Update();
@@ -38,6 +40,7 @@ public:
     static InputManager& GetInstance();
     InputManager();
     ~InputManager() = default;
+    void SetRenderer(SDL_Renderer* renderer);
 };
 
 

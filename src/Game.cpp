@@ -78,6 +78,9 @@ Game::Game(string title, int width, int height){
         cerr << "Erro - SDL_CreateRenderer: "<< SDL_GetError() << endl;
         exit(1);
     }
+
+    InputManager::GetInstance().SetRenderer(renderer);
+
     SDL_RenderSetLogicalSize(renderer, VirtualScreenWidth, VirtualScreenHeight);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 

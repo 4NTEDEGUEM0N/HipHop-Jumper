@@ -19,10 +19,15 @@ InputManager::InputManager() {
 }
 
 void InputManager::Update() {
-    SDL_GetMouseState(&mouseX, &mouseY);
     quitRequested = false;
     updateCounter++;
-    SDL_GetMouseState(&mouseX, &mouseY);
+    int realMouseX, realMouseY;
+    SDL_GetMouseState(&realMouseX, &realMouseY);
+
+    float logicalMouseX, logicalMouseY;
+    SDL_RenderWindowToLogical(renderer, realMouseX, realMouseY, &logicalMouseX, &logicalMouseY);
+    mouseX = (int)logicalMouseX;
+    mouseY = (int)logicalMouseY;
 
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
@@ -88,4 +93,8 @@ int InputManager::GetMouseY() {
 
 bool InputManager::QuitRequested() {
     return quitRequested;
+}
+
+void InputManager::SetRenderer(SDL_Renderer* renderer) {
+    this->renderer = renderer;
 }
