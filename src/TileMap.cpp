@@ -85,14 +85,11 @@ void TileMap::RenderLayer(int layer) {
 
     //int renderCount = 0;
 
-    int screenWidth = 1200;
-    int screenHeight = 900;
-
     // Coordenadas do início e fim visíveis no mapa
     int startX = max(0, (int)((Camera::pos.GetX() - baseX) / tileWidth));
-    int endX = min(mapWidth, (int)((Camera::pos.GetX() + screenWidth - baseX) / tileWidth + 1));
+    int endX = min(mapWidth, (int)((Camera::pos.GetX() + Game::ScreenWidth - baseX) / tileWidth + 1));
     int startY = max(0, (int)((Camera::pos.GetY() - baseY) / tileHeight));
-    int endY = min(mapHeight, (int)((Camera::pos.GetY() + screenHeight - baseY) / tileHeight + 1));
+    int endY = min(mapHeight, (int)((Camera::pos.GetY() + Game::ScreenHeight - baseY) / tileHeight + 1));
 
     for (int y = startY; y < endY; ++y) {
         for (int x = startX; x < endX; ++x) {

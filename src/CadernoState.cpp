@@ -42,7 +42,7 @@ CadernoState::CadernoState() {
     SpriteRenderer* caderno = new SpriteRenderer(*cadernoObj, "../Recursos/img/Caderno.png");
     caderno->SetCameraFollower(true);
     caderno->SetScale(2,2);
-    Vec2 screenCenter = Vec2(1200/2.0f, 900/2.0f);
+    Vec2 screenCenter = Vec2(Game::ScreenWidth/2.0f, Game::ScreenHeight/2.0f);
     cadernoObj->box.X = screenCenter.GetX() - cadernoObj->box.W / 2;
     cadernoObj->box.Y = screenCenter.GetY() - cadernoObj->box.H / 2;
     cadernoObj->AddComponent(caderno);

@@ -39,11 +39,9 @@ void Collider::Render() {
 #ifdef DEBUG
 	if (!showCollision) return;
 
-	int screenWidth = 1200;
-	int screenHeight = 900;
 
-	if (box.X + box.W < Camera::pos.GetX() || box.X > Camera::pos.GetX() + screenWidth ||
-		box.Y + box.H < Camera::pos.GetY() || box.Y > Camera::pos.GetY() + screenHeight) {
+	if (box.X + box.W < Camera::pos.GetX() || box.X > Camera::pos.GetX() + Game::ScreenWidth ||
+		box.Y + box.H < Camera::pos.GetY() || box.Y > Camera::pos.GetY() + Game::ScreenHeight) {
 		return;
 		}
 

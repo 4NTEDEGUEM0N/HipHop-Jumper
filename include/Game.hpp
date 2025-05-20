@@ -24,6 +24,9 @@ public:
 
     float GetDeltaTime();
 
+    static int ScreenWidth;
+    static int ScreenHeight;
+
 private:
     void CalculateDeltaTime();
 

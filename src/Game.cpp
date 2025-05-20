@@ -13,12 +13,14 @@
 using namespace std;
 
 Game* Game::instance = nullptr;
+int Game::ScreenWidth = 1200;
+int Game::ScreenHeight = 900;
 
 Game& Game::GetInstance(){
     if(instance != nullptr){
         return *instance;
     }
-    instance = new Game("Hip-Hop Jumper", 1200, 900);
+    instance = new Game("Hip-Hop Jumper", ScreenWidth, ScreenHeight);
     return *instance;
 }
 
@@ -164,5 +166,6 @@ State& Game::GetState() {
 void Game::Push(State* state) {
     storedState = state;
 }
+
 
 
