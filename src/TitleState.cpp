@@ -16,6 +16,10 @@ TitleState::TitleState() {
     SpriteRenderer* titleBg = new SpriteRenderer(*backgroudImage, "../Recursos/img/Title.png");
     backgroudImage->AddComponent(titleBg);
 
+    float scaleX = Game::VirtualScreenWidth  / 1200.0f;
+    float scaleY = Game::VirtualScreenHeight / 900.0f;
+    titleBg->SetScale(scaleX, scaleY);
+
     GameObject* instructionsObject = new GameObject();
     this->instructionsObject = AddObject(instructionsObject);
     instructionsObject->box.X = 400;

@@ -15,11 +15,19 @@ EndState::EndState() {
         //titleBg->SetCameraFollower(true);
         backgroudImage->AddComponent(titleBg);
         backgroundMusic.Open("../Recursos/audio/endStateWin.ogg");
+        float scaleX = Game::VirtualScreenWidth  / 1200.0f;
+        float scaleY = Game::VirtualScreenHeight / 900.0f;
+        titleBg->SetScale(scaleX, scaleY);
+
         backgroundMusic.Play();
     } else {
         SpriteRenderer* titleBg = new SpriteRenderer(*backgroudImage, "../Recursos/img/Lose.png");
         //titleBg->SetCameraFollower(true);
         backgroudImage->AddComponent(titleBg);
+        float scaleX = Game::VirtualScreenWidth  / 1200.0f;
+        float scaleY = Game::VirtualScreenHeight / 900.0f;
+        titleBg->SetScale(scaleX, scaleY);
+
         backgroundMusic.Open("../Recursos/audio/endStateLose.ogg");
     }
 

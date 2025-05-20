@@ -13,10 +13,10 @@
 using namespace std;
 
 Game* Game::instance = nullptr;
-int Game::VirtualScreenWidth = 1200;
+int Game::VirtualScreenWidth = 1600;
 int Game::VirtualScreenHeight = 900;
 
-int Game::RealScreenWidth = 960;
+int Game::RealScreenWidth = 1280;
 int Game::RealScreenHeight = 720;
 
 Game& Game::GetInstance(){

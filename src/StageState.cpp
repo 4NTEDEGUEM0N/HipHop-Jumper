@@ -31,6 +31,12 @@ StageState::StageState() {
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
 
+    float scaleX = Game::VirtualScreenWidth  / 1200.0f;
+    float scaleY = Game::VirtualScreenHeight / 900.0f;
+    bg->SetScale(scaleX, scaleY);
+    bgObject->box.X = 0;
+    bgObject->box.Y = 0;
+
     bool teste = true;
 
     if (!teste) {
