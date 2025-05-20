@@ -13,9 +13,11 @@
 using namespace std;
 
 Game* Game::instance = nullptr;
+// Resulução Renderizada pelo Jogo
 int Game::VirtualScreenWidth = 1600;
 int Game::VirtualScreenHeight = 900;
 
+// Resolução vista pelo jogador
 int Game::RealScreenWidth = 1280;
 int Game::RealScreenHeight = 720;
 
