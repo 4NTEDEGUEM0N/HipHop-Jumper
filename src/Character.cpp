@@ -24,13 +24,13 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     inventory = vector<GameObject>();
     taskQueue = queue<Command>();
     speed = Vec2(0, 0);
-    maxGroundSpeed = 400;
-    maxFallSpeed = 500;
-    airGravity = 500;
+    maxGroundSpeed = 500;
+    maxFallSpeed = 700;
+    airGravity = 2000;
     wallGravity = 50;
     groundAcceleration = 3000;
     airAcceleration = 1000;
-    jumpSpeed = -400;
+    jumpSpeed = -800;
     dashSpeed = 2000;
     hp = 100;
     deathTimer = Timer();
