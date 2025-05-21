@@ -24,14 +24,20 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     inventory = vector<GameObject>();
     taskQueue = queue<Command>();
     speed = Vec2(0, 0);
-    linearSpeed = 400;
-    gravity = 500;
-    acceleration = 1000;
+    maxGroundSpeed = 400;
+    maxFallSpeed = 500;
+    airGravity = 500;
+    wallGravity = 50;
+    groundAcceleration = 3000;
+    airAcceleration = 1000;
+    jumpSpeed = -400;
+    dashSpeed = 2000;
     hp = 100;
     deathTimer = Timer();
     dead = false;
     damageCooldown = Timer();
     onGround = true;
+    onWall = false;
     if (player == nullptr)
         player = this;
 
@@ -104,14 +110,14 @@ void Character::Update(float dt) {
                 direction = task.pos;
                 float accel;
                 if (onGround) {
-                    accel = acceleration * 3;
+                    accel = groundAcceleration;
                 } else
-                    accel = acceleration;
+                    accel = airAcceleration;
                 speed = speed + direction * accel * dt;
-                if (speed.X > 400)
-                    speed.X = 400;
-                if (speed.X < -400)
-                    speed.X = -400;
+                if (speed.X > maxGroundSpeed)
+                    speed.X = maxGroundSpeed;
+                if (speed.X < -maxGroundSpeed)
+                    speed.X = -maxGroundSpeed;
             }
         } else if (task.type == Command::SHOOT && !dashing && !isHit) {
             Component* component = gun.lock()->GetComponent("Gun");
@@ -120,18 +126,18 @@ void Character::Update(float dt) {
         } else if (task.type == Command::JUMP && !dashing && !isHit) {
             moving = false;
             if (onGround) {
-                speed.Y = -400;
+                speed.Y = jumpSpeed;
                 onGround = false;
                 canJump = false;
                 animator->SetAnimation("jump");
             } else if (canDoubleJump) {
-                speed.Y = -400;
+                speed.Y = jumpSpeed;
                 canDoubleJump = false;
                 animator->SetAnimation("jump");
             }
         } else if (task.type == Command::DASH && canDash  && !isHit) {
             if (task.pos.X != 0) {
-                speed = task.pos * linearSpeed * 5;
+                speed = task.pos * dashSpeed;
                 canDash = false;
                 dashing = true;
                 dashTimer.Restart();
@@ -194,9 +200,9 @@ void Character::Update(float dt) {
         if (!moving and speed.X != 0) {
             float friction;
             if (onGround) {
-                friction = acceleration * 3;
+                friction = groundAcceleration;
             } else
-                friction = acceleration;
+                friction = airAcceleration;
             speed = speed - direction * friction * dt;
             if (speed.X < 0 and direction.X > 0) speed.X = 0;
             if (speed.X > 0 and direction.X < 0) speed.X = 0;
@@ -225,11 +231,17 @@ void Character::Update(float dt) {
     }
 
     if (!dashing) {
+        float gravity;
+        if (onWall)
+            gravity = wallGravity;
+        else
+            gravity = airGravity;
+
         // calculo da gravidade do personagem
         speed.Y = speed.Y + gravity * dt;
         // speedcap de queda
-        if (speed.Y > 500)
-            speed.Y = 500;
+        if (speed.Y > maxFallSpeed)
+            speed.Y = maxFallSpeed;
         Rect new_box_y = associated.box + Vec2(0, speed.Y * dt);
         vector<TileMap::CollisionInfo> collisions = tileMap->IsColliding(new_box_y);
         if (collisions.size() > 0) {

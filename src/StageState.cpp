@@ -237,6 +237,7 @@ void StageState::Update(float dt) {
     }
 
     Camera::Update(dt);
+    hud->Update(dt);
 }
 
 

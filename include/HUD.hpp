@@ -17,9 +17,13 @@ private:
     Sprite characterItems;
     Rect* characterRect;
 
+    Timer* levelTimer;
+    Text* levelTimerText;
+
 public:
     HUD();
     void Render();
+    void Update(float dt);
     void RenderAbility(int abilityNumber, bool active, int x, int y);
     void RenderItem(int itemNumber, int x, int y);
 };

@@ -34,7 +34,6 @@ private:
     vector<GameObject> inventory;
     queue<Command> taskQueue;
     Vec2 speed;
-    float linearSpeed;
     int hp;
     Timer deathTimer;
     bool dead;
@@ -44,9 +43,16 @@ private:
 
     bool onGround;
     Vec2 direction;
-    float gravity;
-    float acceleration;
+    float airGravity;
+    float wallGravity;
+    float groundAcceleration;
+    float airAcceleration;
+    float maxGroundSpeed;
+    float maxFallSpeed;
+    float jumpSpeed;
+    float dashSpeed;
     bool moving;
+    bool onWall;
 
     bool canJump;
     bool canDoubleJump;

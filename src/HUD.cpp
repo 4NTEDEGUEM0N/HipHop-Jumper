@@ -1,6 +1,8 @@
 #include "../include/HUD.hpp"
 #include "../include/Game.hpp"
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbilities("../Recursos/img/habilidades.png",2,3), characterItems("../Recursos/img/minikitHud.png",2,1) {
     characterSprite.cameraFollower = true;
@@ -15,6 +17,12 @@ HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbiliti
     hpTextObj->box.X = hpRect->X + hpRect->W/2 - 25;
     hpTextObj->box.Y = hpRect->Y + hpRect->H/2 - 8;
     hpText = new Text(*hpTextObj, "../Recursos/font/neodgm.ttf", 20, Text::SOLID, "", {255, 255, 255, 255}, true);
+
+    GameObject* levelTimerObj = new GameObject(true);
+    levelTimer = new Timer();
+    levelTimerText = new Text(*levelTimerObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "0.0", {255, 255, 255, 255}, true);
+    levelTimerObj->box.X = (Game::VirtualScreenWidth / 2) - (levelTimerObj->box.W/2);
+    levelTimerObj->box.Y = 10;
 }
 
 void HUD::Render() {
@@ -45,6 +53,8 @@ void HUD::Render() {
     for(int i = 0; i < invSize; i++) {
         RenderItem(invSize, characterRect->X + characterSprite.GetWidth() + 5 + 64 * i, characterRect->Y + characterSprite.GetHeight() - 250);
     }
+
+    levelTimerText->Render();
 }
 
 void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
@@ -58,4 +68,12 @@ void HUD::RenderItem(int itemNumber, int x, int y) {
     
     characterItems.SetFrame(frame);
     characterItems.Render(x, y, characterItems.GetWidth(), characterItems.GetHeight());
+}
+
+void HUD::Update(float dt) {
+    levelTimer->Update(dt);
+
+    std::ostringstream stream;
+    stream << fixed << setprecision(2) << levelTimer->Get();
+    levelTimerText->SetText(stream.str());
 }
