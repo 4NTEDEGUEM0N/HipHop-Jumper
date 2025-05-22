@@ -20,6 +20,8 @@ private:
     Timer* levelTimer;
     Text* levelTimerText;
 
+    Text* fpsText;
+
 public:
     HUD();
     void Render();

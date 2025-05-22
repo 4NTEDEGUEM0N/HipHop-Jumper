@@ -23,6 +23,11 @@ HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbiliti
     levelTimerText = new Text(*levelTimerObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "0.0", {255, 255, 255, 255}, true);
     levelTimerObj->box.X = (Game::VirtualScreenWidth / 2) - (levelTimerObj->box.W/2);
     levelTimerObj->box.Y = 10;
+
+    GameObject* fpsObj = new GameObject(true);
+    fpsText = new Text(*fpsObj, "../Recursos/font/neodgm.ttf", 20, Text::SOLID, "FPS: 0.0", {255, 255, 255, 255}, true);
+    fpsObj->box.X = 10;
+    fpsObj->box.Y = 10;
 }
 
 void HUD::Render() {
@@ -55,6 +60,7 @@ void HUD::Render() {
     }
 
     levelTimerText->Render();
+    fpsText->Render();
 }
 
 void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
@@ -73,7 +79,11 @@ void HUD::RenderItem(int itemNumber, int x, int y) {
 void HUD::Update(float dt) {
     levelTimer->Update(dt);
 
-    std::ostringstream stream;
-    stream << fixed << setprecision(2) << levelTimer->Get();
-    levelTimerText->SetText(stream.str());
+    ostringstream timer;
+    timer << fixed << setprecision(2) << levelTimer->Get();
+    levelTimerText->SetText(timer.str());
+
+    ostringstream fps;
+    fps << fixed << setprecision(2) << 1/dt;
+    fpsText->SetText("FPS: " + fps.str());
 }
