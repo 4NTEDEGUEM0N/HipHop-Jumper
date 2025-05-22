@@ -63,9 +63,6 @@ private:
     bool isHit;
     Timer hitTimer;
 
-    static int id;
-    static unordered_map<string, SDL_Texture*> graffitiArray;
-
 public:
     static Character* player;
 
@@ -85,6 +82,8 @@ public:
     bool CanDash();
 
     static void AddGraffiti(SDL_Texture* texture);
+    static int id;
+    static unordered_map<string, SDL_Texture*> graffitiArray;
 
 
 };

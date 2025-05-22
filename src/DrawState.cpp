@@ -1,4 +1,4 @@
-#include "../include/CadernoState.hpp"
+#include "../include/DrawState.hpp"
 #include <iostream>
 #include <queue>
 #include "../include/Button.hpp"
@@ -9,7 +9,7 @@
 #include "../include/Game.hpp"
 #include "../include/Text.hpp"
 
-void CadernoState::CreateColorButton(string cor, SDL_Color color, int n) {
+void DrawState::CreateColorButton(string cor, SDL_Color color, int n) {
     GameObject* buttonObj = new GameObject();
     Button* button = new Button(*buttonObj);
     buttonObj->AddComponent(button);
@@ -37,7 +37,18 @@ void CadernoState::CreateColorButton(string cor, SDL_Color color, int n) {
     }
 }
 
-CadernoState::CadernoState() {
+DrawState::DrawState() {
+    GameObject* bgObject = new GameObject();
+    AddObject(bgObject);
+    SpriteRenderer* bg = new SpriteRenderer(*bgObject, "../Recursos/img/madeira.png");
+    bg->SetCameraFollower(true);
+    bgObject->AddComponent(bg);
+    float scaleX = Game::VirtualScreenWidth  / 1200.0f;
+    float scaleY = Game::VirtualScreenHeight / 900.0f;
+    bg->SetScale(scaleX, scaleY);
+    bgObject->box.X = 0;
+    bgObject->box.Y = 0;
+
     cadernoObj = new GameObject();
     AddObject(cadernoObj);
     SpriteRenderer* caderno = new SpriteRenderer(*cadernoObj, "../Recursos/img/Caderno.png");
@@ -62,6 +73,7 @@ CadernoState::CadernoState() {
     currentColor = {0, 0, 0, 255};
     brush = true;
     brushSize = 5;
+    drawing = false;
 
     GameObject* ferramentaObj = new GameObject();
     SpriteRenderer* toolButtonSprite = new SpriteRenderer(*ferramentaObj, "../Recursos/img/pixel.png");
@@ -226,7 +238,7 @@ void DrawBrush(SDL_Renderer* renderer, int x, int y, int size, SDL_Color color) 
     }
 }
 
-void CadernoState::Update(float dt) {
+void DrawState::Update(float dt) {
     UpdateArray(dt);
 
     if (InputManager::GetInstance().KeyPress(SDLK_ESCAPE)) {
@@ -278,7 +290,7 @@ void CadernoState::Update(float dt) {
     }
 }
 
-void CadernoState::ClearCanvas() {
+void DrawState::ClearCanvas() {
     auto renderer = Game::GetInstance().GetRenderer();
     SDL_SetRenderTarget(renderer, canvasTexture);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
@@ -288,7 +300,7 @@ void CadernoState::ClearCanvas() {
 }
 
 
-void CadernoState::RenderMouseBrush() {
+void DrawState::RenderMouseBrush() {
     InputManager& input = InputManager::GetInstance();
     int x = input.GetMouseX();
     int y = input.GetMouseY();
@@ -311,7 +323,7 @@ void CadernoState::RenderMouseBrush() {
     }
 }
 
-void CadernoState::FloodFill(int startX, int startY) {
+void DrawState::FloodFill(int startX, int startY) {
     SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
 
     // Cria uma surface com os dados da canvasTexture
@@ -359,7 +371,7 @@ void CadernoState::FloodFill(int startX, int startY) {
     SDL_FreeSurface(surface);
 }
 
-void CadernoState::Render() {
+void DrawState::Render() {
     RenderArray();
 
     SDL_Rect canvasRect = {(int)cadernoObj->box.X, (int)cadernoObj->box.Y, (int)cadernoObj->box.W, (int)cadernoObj->box.H};
@@ -368,13 +380,13 @@ void CadernoState::Render() {
     RenderMouseBrush();
 }
 
-void CadernoState::LoadAssets() {}
-void CadernoState::Start() {
+void DrawState::LoadAssets() {}
+void DrawState::Start() {
     StartArray();
 }
-void CadernoState::Pause() {}
-void CadernoState::Resume() {}
-CadernoState::~CadernoState() {
+void DrawState::Pause() {}
+void DrawState::Resume() {}
+DrawState::~DrawState() {
     SDL_DestroyTexture(canvasTexture);
     SDL_ShowCursor(SDL_ENABLE);
 }

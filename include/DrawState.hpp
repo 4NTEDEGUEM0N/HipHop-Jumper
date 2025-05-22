@@ -4,10 +4,10 @@
 #include "State.hpp"
 #include "Text.hpp"
 
-class CadernoState : public State {
+class DrawState : public State {
 public:
-    CadernoState();
-    ~CadernoState();
+    DrawState();
+    ~DrawState();
 
     void LoadAssets();
     void Update(float dt);
