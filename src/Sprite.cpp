@@ -20,6 +20,15 @@ Sprite::Sprite(string file, int frame_count_w, int frame_count_h) {
     Open(file);
 }
 
+Sprite::Sprite(SDL_Texture* texture, string key, int frame_count_w, int frame_count_h) {
+    this->texture = nullptr;
+    cameraFollower = false;
+    scale = Vec2(1, 1);
+    flip = SDL_FLIP_NONE;
+    SetFrameCount(frame_count_w, frame_count_h);
+    Open(texture, key);
+}
+
 Sprite::~Sprite() {
     if (texture != nullptr) {
         texture = nullptr;
@@ -34,6 +43,17 @@ void Sprite::Open(string file) {
     texture = Resources::GetImage(file);
 
     SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
+    SetClip(0, 0, width, height);
+}
+
+void Sprite::Open(SDL_Texture* texture, string key) {
+    if (this->texture != nullptr) {
+        this->texture == nullptr;
+    }
+
+    this->texture = Resources::GetTexture(texture, key);
+
+    SDL_QueryTexture(this->texture.get(), nullptr, nullptr, &width, &height);
     SetClip(0, 0, width, height);
 }
 

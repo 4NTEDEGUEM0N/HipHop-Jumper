@@ -3,6 +3,7 @@
 #include <queue>
 #include "../include/Button.hpp"
 #include "../include/Camera.hpp"
+#include "../include/Character.hpp"
 #include "../include/SpriteRenderer.hpp"
 #include "../include/InputManager.hpp"
 #include "../include/Game.hpp"
@@ -145,23 +146,6 @@ CadernoState::CadernoState() {
     CreateColorButton("Borracha", {255, 255, 255, 0}, 6);
 
     int n = 7;
-    GameObject* buttonObj = new GameObject();
-    Button* button = new Button(*buttonObj);
-    buttonObj->AddComponent(button);
-    SpriteRenderer* buttonSprite = new SpriteRenderer(*buttonObj, "../Recursos/img/pixel.png");
-    buttonSprite->SetCameraFollower(true);
-    buttonObj->AddComponent(buttonSprite);
-    Text* text = new Text(*buttonObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "APAGAR", {255, 255, 255, 255}, true);
-    buttonObj->AddComponent(text);
-    buttonObj->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
-    buttonObj->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
-    AddObject(buttonObj);
-
-    button->SetClickFunction([this]() {
-        ClearCanvas();
-    });
-
-    n++;
     GameObject* buttonObj2 = new GameObject();
     Button* button2 = new Button(*buttonObj2);
     buttonObj2->AddComponent(button2);
@@ -171,7 +155,7 @@ CadernoState::CadernoState() {
     Text* text2 = new Text(*buttonObj2, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Pincel", {255, 255, 255, 255}, true);
     buttonObj2->AddComponent(text2);
     buttonObj2->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
-    buttonObj2->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
+    buttonObj2->box.Y = cadernoObj->box.Y + (n-1)*buttonObj2->box.H + (n-1)*5;
     AddObject(buttonObj2);
 
     button2->SetClickFunction([this]() {
@@ -189,12 +173,47 @@ CadernoState::CadernoState() {
     Text* text3 = new Text(*buttonObj3, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Balde", {255, 255, 255, 255}, true);
     buttonObj3->AddComponent(text3);
     buttonObj3->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
-    buttonObj3->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
+    buttonObj3->box.Y = cadernoObj->box.Y + (n-1)*buttonObj2->box.H + (n-1)*5;
     AddObject(buttonObj3);
 
     button3->SetClickFunction([this]() {
         brush = false;
         currentTool->SetText("Ferramenta: Balde ");
+    });
+
+    n++;
+    n++;
+    GameObject* buttonObj4 = new GameObject();
+    Button* button4 = new Button(*buttonObj4);
+    buttonObj4->AddComponent(button4);
+    SpriteRenderer* buttonSprite4 = new SpriteRenderer(*buttonObj4, "../Recursos/img/pixel.png");
+    buttonSprite4->SetCameraFollower(true);
+    buttonObj4->AddComponent(buttonSprite4);
+    Text* text4 = new Text(*buttonObj4, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "SALVAR", {255, 255, 255, 255}, true);
+    buttonObj4->AddComponent(text4);
+    buttonObj4->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    buttonObj4->box.Y = cadernoObj->box.Y + (n-1)*buttonObj2->box.H + (n-1)*5;
+    AddObject(buttonObj4);
+
+    button4->SetClickFunction([this]() {
+        Character::AddGraffiti(canvasTexture);
+    });
+
+    n++;
+    GameObject* buttonObj = new GameObject();
+    Button* button = new Button(*buttonObj);
+    buttonObj->AddComponent(button);
+    SpriteRenderer* buttonSprite = new SpriteRenderer(*buttonObj, "../Recursos/img/pixel.png");
+    buttonSprite->SetCameraFollower(true);
+    buttonObj->AddComponent(buttonSprite);
+    Text* text = new Text(*buttonObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "APAGAR", {255, 255, 255, 255}, true);
+    buttonObj->AddComponent(text);
+    buttonObj->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    buttonObj->box.Y = cadernoObj->box.Y + (n-1)*buttonObj->box.H + (n-1)*5;
+    AddObject(buttonObj);
+
+    button->SetClickFunction([this]() {
+        ClearCanvas();
     });
 }
 

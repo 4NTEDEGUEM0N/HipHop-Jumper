@@ -15,6 +15,7 @@ private:
     static unordered_map<string, shared_ptr<Mix_Music>> musicTable;
     static unordered_map<string, shared_ptr<Mix_Chunk>> soundTable;
     static unordered_map<string, shared_ptr<TTF_Font>> fontTable;
+    static unordered_map<string, shared_ptr<SDL_Texture>> textureTable;
 
 public:
     static shared_ptr<SDL_Texture> GetImage(string file);
@@ -25,6 +26,8 @@ public:
     static void ClearSounds();
     static shared_ptr<TTF_Font> GetFont(string file, int size);
     static void ClearFonts();
+    static shared_ptr<SDL_Texture> GetTexture(SDL_Texture*, string key);
+    static void ClearTexture();
 };
 
 

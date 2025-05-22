@@ -2,6 +2,7 @@
 #define CHARACTER_HPP
 #include <memory>
 #include <queue>
+#include <unordered_map>
 
 #include "Component.hpp"
 #include "Timer.hpp"
@@ -62,6 +63,9 @@ private:
     bool isHit;
     Timer hitTimer;
 
+    static int id;
+    static unordered_map<string, SDL_Texture*> graffitiArray;
+
 public:
     static Character* player;
 
@@ -79,6 +83,8 @@ public:
     bool CanJump();
     bool CanDoubleJump();
     bool CanDash();
+
+    static void AddGraffiti(SDL_Texture* texture);
 
 
 };

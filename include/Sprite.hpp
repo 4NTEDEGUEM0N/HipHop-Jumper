@@ -25,8 +25,10 @@ public:
 
     Sprite();
     Sprite(string file, int frame_count_w = 1, int frame_count_h = 1);
+    Sprite(SDL_Texture* texture, string key, int frame_count_w = 1, int frame_count_h = 1);
     ~Sprite();
     void Open(string file);
+    void Open(SDL_Texture* texture, string key);
     void SetClip(int x, int y, int w, int h);
     void Render(int x, int y, int w, int h, float angle = 0);
     int GetWidth();

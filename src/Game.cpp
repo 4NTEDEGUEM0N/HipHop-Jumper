@@ -102,6 +102,7 @@ Game::~Game(){
     Resources::ClearMusics();
     Resources::ClearSounds();
     Resources::ClearFonts();
+    Resources::ClearTexture();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

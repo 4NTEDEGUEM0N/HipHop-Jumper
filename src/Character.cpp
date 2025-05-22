@@ -11,6 +11,7 @@
 #include "../include/Camera.hpp"
 #include "../include/Bullet.hpp"
 #include "../include/GameData.hpp"
+#include "../include/InputManager.hpp"
 #include "../include/StageState.hpp"
 #include "../include/TileMap.hpp"
 #include "../include/Item.hpp"
@@ -18,6 +19,8 @@
 
 
 Character* Character::player = nullptr;
+unordered_map<string, SDL_Texture*> Character::graffitiArray;
+int Character::id = 0;
 
 Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/Dead.wav"), hitSound("../Recursos/audio/Hit1.wav") {
     gun.reset();
@@ -29,7 +32,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     airGravity = 2000;
     wallGravity = 50;
     groundAcceleration = 3000;
-    airAcceleration = 1000;
+    airAcceleration = 1500;
     jumpSpeed = -800;
     dashSpeed = 2000;
     hp = 100;
@@ -49,6 +52,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     isHit = false;
     dashTimer = Timer();
     moving = false;
+
 
     //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
     characterSprite = new SpriteRenderer(associated, sprite, 2, 6);
@@ -302,6 +306,22 @@ void Character::Update(float dt) {
         else if (speed.X == 0 and not moving)
             animator->SetAnimation("idle");
     }
+
+    InputManager& input = InputManager::GetInstance();
+    if (input.KeyPress(SDLK_e) and !graffitiArray.empty()) {
+        cerr << "Grafitando ID : " << to_string(id-1) << endl;
+        SDL_Texture* texture = graffitiArray[to_string(id-1)];
+        GameObject* graffitiObj = new GameObject(true);
+        SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, to_string(id-1));
+        graffitiObj->AddComponent(graffiti);
+        graffiti->SetScale(0.3f, 0.3f);
+        graffitiObj->box.X = associated.box.X + associated.box.W/2 - graffitiObj->box.W/2;
+        graffitiObj->box.Y = associated.box.Y - graffitiObj->box.H;
+        graffiti->Render();
+
+        State& state = Game::GetInstance().GetState();
+        state.AddObject(graffitiObj);
+    }
 }
 
 void Character::Render() {}
@@ -415,6 +435,36 @@ bool Character::CanDash() {
     return canDash;
 }
 
+void Character::AddGraffiti(SDL_Texture *texture) {
+    auto renderer = Game::GetInstance().GetRenderer();
+
+    int w, h;
+    SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+
+    // Define o blend mode correto antes de ler pixels
+    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+
+    // Cria uma surface temporária com canal alfa
+    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, w, h, 32, SDL_PIXELFORMAT_RGBA8888);
+
+    // Lê os pixels da canvasTexture
+    SDL_SetRenderTarget(renderer, texture);
+    SDL_RenderReadPixels(renderer, nullptr, SDL_PIXELFORMAT_RGBA8888, surface->pixels, surface->pitch);
+    SDL_SetRenderTarget(renderer, nullptr);
+
+    // Cria uma nova textura que suportará transparência
+    SDL_Texture* newTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, w, h);
+    SDL_SetTextureBlendMode(newTexture, SDL_BLENDMODE_BLEND); // <- IMPORTANTE!
+
+    // Atualiza a nova textura com os dados da surface
+    SDL_UpdateTexture(newTexture, nullptr, surface->pixels, surface->pitch);
+
+    SDL_FreeSurface(surface);
+
+    cerr << "Salvando ID: " << to_string(id) << endl;
+    graffitiArray[to_string(id)] = newTexture;
+    id++;
+}
 
 
 

@@ -10,6 +10,7 @@ private:
 public:
     SpriteRenderer(GameObject& associated);
     SpriteRenderer(GameObject& associated, string file, int frame_count_w = 1, int frame_count_h = 1);
+    SpriteRenderer(GameObject& associated, SDL_Texture* texture, string key, int frame_count_w = 1, int frame_count_h = 1);
     void Open(string file);
     void SetFrameCount(int frame_count_w, int frame_count_h);
     void Update(float dt);

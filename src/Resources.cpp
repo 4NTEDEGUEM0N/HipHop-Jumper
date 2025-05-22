@@ -10,6 +10,7 @@ unordered_map<string, shared_ptr<SDL_Texture>> Resources::imageTable;
 unordered_map<string, shared_ptr<Mix_Music>> Resources::musicTable;
 unordered_map<string, shared_ptr<Mix_Chunk>> Resources::soundTable;
 unordered_map<string, shared_ptr<TTF_Font>> Resources::fontTable;
+unordered_map<string, shared_ptr<SDL_Texture>> Resources::textureTable;
 
 void SDL_Texture_Deleter(SDL_Texture* texture) {
     if (texture != nullptr) {
@@ -36,6 +37,27 @@ void Resources::ClearImages() {
     for (auto it = imageTable.begin(); it != imageTable.end(); ) {
         if (it->second.use_count() == 1) {
             it = imageTable.erase(it);
+        } else {
+            it++;
+        }
+    }
+}
+
+shared_ptr<SDL_Texture> Resources::GetTexture(SDL_Texture* texture, string key) {
+    auto search = textureTable.find(key);
+    if (search == textureTable.end()) {
+        shared_ptr<SDL_Texture> texturePtr(texture, SDL_Texture_Deleter);
+        textureTable[key] = texturePtr;
+        return textureTable[key];
+
+    }
+    return search->second;
+}
+
+void Resources::ClearTexture() {
+    for (auto it = textureTable.begin(); it != textureTable.end(); ) {
+        if (it->second.use_count() == 1) {
+            it = textureTable.erase(it);
         } else {
             it++;
         }

@@ -13,6 +13,13 @@ SpriteRenderer::SpriteRenderer(GameObject& associated, string file, int frame_co
     sprite.SetFrame(0);
 }
 
+SpriteRenderer::SpriteRenderer(GameObject& associated, SDL_Texture* texture, string key, int frame_count_w, int frame_count_h)
+                                :Component(associated), sprite(texture, key, frame_count_w, frame_count_h) {
+    associated.box.W = sprite.GetWidth();
+    associated.box.H = sprite.GetHeight();
+    sprite.SetFrame(0);
+}
+
 void SpriteRenderer::SetFrameCount(int frame_count_w, int frame_count_h) {
     sprite.SetFrameCount(frame_count_w, frame_count_h);
 }
