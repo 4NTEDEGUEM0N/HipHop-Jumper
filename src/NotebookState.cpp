@@ -138,20 +138,20 @@ void NotebookState::RenderGraffitis() {
         graffitiObj->AddComponent(graffiti);
 
         switch (i-startIndex) {
-            case 0:
+            case 0: // Top Left
                 graffitiObj->box.X = cadernoObj->box.X + 30;
                 graffitiObj->box.Y = cadernoObj->box.Y + 20;
             break;
-            case 1:
-                graffitiObj->box.X = cadernoObj->box.X + cadernoObj->box.W - graffitiObj->box.W - 30;
+            case 1: // Bottom Left
+                graffitiObj->box.X = cadernoObj->box.X + 30;
                 graffitiObj->box.Y = cadernoObj->box.Y + cadernoObj->box.H - graffitiObj->box.H - 20;
             break;
-            case 2:
+            case 2: // Top Right
                 graffitiObj->box.X = cadernoObj->box.X + cadernoObj->box.W - graffitiObj->box.W - 30;
                 graffitiObj->box.Y = cadernoObj->box.Y + 20;
             break;
-            case 3:
-                graffitiObj->box.X = cadernoObj->box.X + 30;
+            case 3: // Bottom Right
+                graffitiObj->box.X = cadernoObj->box.X + cadernoObj->box.W - graffitiObj->box.W - 30;
                 graffitiObj->box.Y = cadernoObj->box.Y + cadernoObj->box.H - graffitiObj->box.H - 20;
             break;
         }
