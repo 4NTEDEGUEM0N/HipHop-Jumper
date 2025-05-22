@@ -83,7 +83,7 @@ public:
 
     static void AddGraffiti(SDL_Texture* texture);
     static int id;
-    static unordered_map<string, SDL_Texture*> graffitiArray;
+    static vector<SDL_Texture*> graffitiArray;
 
 
 };

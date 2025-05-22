@@ -126,13 +126,10 @@ void NotebookState::RenderGraffitis() {
     int startIndex = (currentPage - 1) * 4;
     int endIndex = startIndex + 4;
 
-    int i = startIndex;
-    auto it = Character::graffitiArray.begin();
-    advance(it, startIndex);
-    for (; it != Character::graffitiArray.end() and i < endIndex; it++, i++) {
-        SDL_Texture* texture = it->second;
+    for (int i = startIndex; i < Character::graffitiArray.size() and i < endIndex; i++) {
+        SDL_Texture* texture = Character::graffitiArray[i];
         GameObject* graffitiObj = new GameObject(true);
-        SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, it->first);
+        SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, to_string(i));
         graffiti->SetCameraFollower(true);
         graffiti->SetScale(0.4f, 0.4f);
         graffitiObj->AddComponent(graffiti);

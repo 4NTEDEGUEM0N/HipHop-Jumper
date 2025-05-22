@@ -19,7 +19,7 @@
 
 
 Character* Character::player = nullptr;
-unordered_map<string, SDL_Texture*> Character::graffitiArray;
+vector<SDL_Texture*> Character::graffitiArray;
 int Character::id = 0;
 
 Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/Dead.wav"), hitSound("../Recursos/audio/Hit1.wav") {
@@ -309,10 +309,10 @@ void Character::Update(float dt) {
 
     InputManager& input = InputManager::GetInstance();
     if (input.KeyPress(SDLK_e) and !graffitiArray.empty()) {
-        cerr << "Grafitando ID : " << to_string(id-1) << endl;
-        SDL_Texture* texture = graffitiArray[to_string(id-1)];
+        id = graffitiArray.size() - 1;
+        SDL_Texture* texture = graffitiArray[id];
         GameObject* graffitiObj = new GameObject(true);
-        SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, to_string(id-1));
+        SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, to_string(id));
         graffitiObj->AddComponent(graffiti);
         graffiti->SetScale(0.3f, 0.3f);
         graffitiObj->box.X = associated.box.X + associated.box.W/2 - graffitiObj->box.W/2;
@@ -461,9 +461,7 @@ void Character::AddGraffiti(SDL_Texture *texture) {
 
     SDL_FreeSurface(surface);
 
-    cerr << "Salvando ID: " << to_string(id) << endl;
-    graffitiArray[to_string(id)] = newTexture;
-    id++;
+    graffitiArray.emplace_back(newTexture);
 }
 
 
