@@ -346,7 +346,7 @@ void Character::NotifyCollision(GameObject &other) {
                 hp -= 25;
                 damageCooldown.Restart();
                 hitSound.Play(1);
-                speed.Y = -200;
+                speed.Y = jumpSpeed/1.5;
                 canJump = false;
                 canDoubleJump = false;
                 canDash = false;
@@ -355,7 +355,7 @@ void Character::NotifyCollision(GameObject &other) {
                 isHit = true;
                 hitTimer.Restart();
                 direction = (associated.box.X - other.box.X > 0) ? Vec2(1,0) : Vec2(-1,0);
-                speed.X = direction.X * 500;
+                speed.X = direction.X * maxGroundSpeed;
                 onGround = false;
                 moving = false;
             }
