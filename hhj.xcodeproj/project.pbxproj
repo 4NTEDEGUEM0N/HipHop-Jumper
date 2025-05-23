@@ -20,7 +20,6 @@
 		B05052602DDA8A3F00C81331 /* Animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152AEE2DBD6EFF008B5B08 /* Animator.cpp */; };
 		B05052612DDA8A3F00C81331 /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CC7C2DDA3D3100654639 /* Bullet.cpp */; };
 		B05052622DDA8A3F00C81331 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CC042DD8E38200654639 /* Button.cpp */; };
-		B05052632DDA8A3F00C81331 /* CadernoState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CC752DDA3D3100654639 /* CadernoState.cpp */; };
 		B05052642DDA8A3F00C81331 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152AFB2DBD6F01008B5B08 /* Camera.cpp */; };
 		B05052652DDA8A3F00C81331 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CC652DDA3D3100654639 /* Character.cpp */; };
 		B05052662DDA8A3F00C81331 /* Collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152B052DBD6F01008B5B08 /* Collider.cpp */; };
@@ -34,7 +33,6 @@
 		B050526E2DDA8A3F00C81331 /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152AF32DBD6F00008B5B08 /* InputManager.cpp */; };
 		B050526F2DDA8A3F00C81331 /* InventoryItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CC7A2DDA3D3100654639 /* InventoryItem.cpp */; };
 		B05052702DDA8A3F00C81331 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B094C2552DC41B6B00463219 /* Item.cpp */; };
-		B05052712DDA8A3F00C81331 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152A912DBD3E12008B5B08 /* main.cpp */; };
 		B05052722DDA8A3F00C81331 /* Music.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CC702DDA3D3100654639 /* Music.cpp */; };
 		B05052732DDA8A3F00C81331 /* PlayerController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152B012DBD6F01008B5B08 /* PlayerController.cpp */; };
 		B05052742DDA8A3F00C81331 /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CC742DDA3D3100654639 /* Rect.cpp */; };
@@ -55,6 +53,9 @@
 		B05052832DDA8A3F00C81331 /* WaveSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0152AF82DBD6F00008B5B08 /* WaveSpawner.cpp */; };
 		B05052842DDA8A3F00C81331 /* Zombie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B002CC6E2DDA3D3100654639 /* Zombie.cpp */; };
 		B05052872DDA944B00C81331 /* ItemData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B05052852DDA944B00C81331 /* ItemData.cpp */; };
+		B084BA1E2DE0D17A006946A3 /* DrawState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B084BA1C2DE0D17A006946A3 /* DrawState.cpp */; };
+		B084BA1F2DE0D17A006946A3 /* NotebookState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */; };
+		B084BA232DE0D198006946A3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B084BA222DE0D198006946A3 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -149,7 +150,6 @@
 		B002CC702DDA3D3100654639 /* Music.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Music.cpp; sourceTree = "<group>"; };
 		B002CC722DDA3D3100654639 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		B002CC742DDA3D3100654639 /* Rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rect.cpp; sourceTree = "<group>"; };
-		B002CC752DDA3D3100654639 /* CadernoState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CadernoState.cpp; sourceTree = "<group>"; };
 		B002CC772DDA3D3100654639 /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
 		B002CC792DDA3D3100654639 /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
 		B002CC7A2DDA3D3100654639 /* InventoryItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InventoryItem.cpp; sourceTree = "<group>"; };
@@ -158,7 +158,6 @@
 		B002CC812DDA3D3100654639 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		B002CCCE2DDA7FA900654639 /* minikitHud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = minikitHud.png; path = Recursos/img/minikitHud.png; sourceTree = SOURCE_ROOT; };
 		B0152A8E2DBD3E11008B5B08 /* hhj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hhj; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0152A912DBD3E12008B5B08 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B0152A982DBD3EA4008B5B08 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		B0152A9A2DBD3EA4008B5B08 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B0152A9E2DBD4864008B5B08 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
@@ -239,8 +238,14 @@
 		B0152B6A2DBD8303008B5B08 /* PumpAction.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PumpAction.mp3; sourceTree = "<group>"; };
 		B0152B6B2DBD8303008B5B08 /* endStateLose.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = endStateLose.ogg; sourceTree = "<group>"; };
 		B0152B6C2DBD8303008B5B08 /* Dead.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dead.wav; sourceTree = "<group>"; };
+		B02179A62DE0D7FA00DD1357 /* bgm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm1.mp3; path = Recursos/audio/bgm1.mp3; sourceTree = SOURCE_ROOT; };
 		B05052852DDA944B00C81331 /* ItemData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ItemData.cpp; sourceTree = "<group>"; };
 		B05052862DDA944B00C81331 /* ItemData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ItemData.hpp; sourceTree = "<group>"; };
+		B084BA1C2DE0D17A006946A3 /* DrawState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawState.cpp; sourceTree = "<group>"; };
+		B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NotebookState.cpp; sourceTree = "<group>"; };
+		B084BA202DE0D18F006946A3 /* DrawState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawState.hpp; path = include/DrawState.hpp; sourceTree = SOURCE_ROOT; };
+		B084BA212DE0D18F006946A3 /* NotebookState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NotebookState.hpp; path = include/NotebookState.hpp; sourceTree = SOURCE_ROOT; };
+		B084BA222DE0D198006946A3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
 		B094C2532DC2C54B00463219 /* HUD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HUD.cpp; sourceTree = "<group>"; };
 		B094C2552DC41B6B00463219 /* Item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
 		B094C2572DC41B7D00463219 /* Item.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Item.hpp; sourceTree = "<group>"; };
@@ -264,45 +269,29 @@
 		B002CC332DDA3D1800654639 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				B084BA202DE0D18F006946A3 /* DrawState.hpp */,
+				B084BA212DE0D18F006946A3 /* NotebookState.hpp */,
 				B0152AB02DBD57ED008B5B08 /* AIController.hpp */,
 				B0152ABA2DBD57ED008B5B08 /* Animation.hpp */,
-				B002CC442DDA3D1800654639 /* Animator.hpp */,
 				B0152AD12DBD57EF008B5B08 /* Bullet.hpp */,
-				B002CC572DDA3D1800654639 /* Button.hpp */,
 				B002CC062DD8E39000654639 /* CadernoState.hpp */,
-				B002CC5A2DDA3D1800654639 /* Camera.hpp */,
 				B0152AB92DBD57ED008B5B08 /* Character.hpp */,
-				B002CC392DDA3D1800654639 /* Collider.hpp */,
 				B0152ABF2DBD57ED008B5B08 /* Collision.hpp */,
-				B002CC4A2DDA3D1800654639 /* Component.hpp */,
 				B0152ACB2DBD57EE008B5B08 /* EndState.hpp */,
-				B002CC3D2DDA3D1800654639 /* Game.hpp */,
 				B0152ABD2DBD57ED008B5B08 /* GameData.hpp */,
-				B002CC492DDA3D1800654639 /* GameObject.hpp */,
 				B0152AD02DBD57EF008B5B08 /* Gun.hpp */,
-				B002CC372DDA3D1800654639 /* HUD.hpp */,
 				B0152AB12DBD57ED008B5B08 /* InputManager.hpp */,
-				B002CC342DDA3D1800654639 /* InventoryItem.hpp */,
 				B094C2572DC41B7D00463219 /* Item.hpp */,
 				B05052862DDA944B00C81331 /* ItemData.hpp */,
 				B0152ABC2DBD57ED008B5B08 /* Music.hpp */,
-				B002CC562DDA3D1800654639 /* PlayerController.hpp */,
 				B0152AC52DBD57EE008B5B08 /* Rect.hpp */,
-				B002CC502DDA3D1800654639 /* Resources.hpp */,
 				B0152AC82DBD57EE008B5B08 /* Sound.hpp */,
-				B002CC4B2DDA3D1800654639 /* Sprite.hpp */,
 				B0152ACA2DBD57EE008B5B08 /* SpriteRenderer.hpp */,
-				B002CC542DDA3D1800654639 /* StageState.hpp */,
 				B0152AB52DBD57ED008B5B08 /* State.hpp */,
-				B002CC582DDA3D1800654639 /* Text.hpp */,
 				B0152AC22DBD57EE008B5B08 /* Tile.hpp */,
-				B002CC362DDA3D1800654639 /* TileMap.hpp */,
 				B0152AC12DBD57EE008B5B08 /* TileSet.hpp */,
-				B002CC4C2DDA3D1800654639 /* Timer.hpp */,
 				B0152ACE2DBD57EE008B5B08 /* TitleState.hpp */,
-				B002CC3A2DDA3D1800654639 /* Vec2.hpp */,
 				B0152AB22DBD57ED008B5B08 /* Wave.hpp */,
-				B002CC532DDA3D1800654639 /* WaveSpawner.hpp */,
 				B0152AC62DBD57EE008B5B08 /* Zombie.hpp */,
 				B002CC342DDA3D1800654639 /* InventoryItem.hpp */,
 				B002CC352DDA3D1800654639 /* Tile.hpp */,
@@ -355,7 +344,9 @@
 				B0152AEE2DBD6EFF008B5B08 /* Animator.cpp */,
 				B002CC7C2DDA3D3100654639 /* Bullet.cpp */,
 				B002CC042DD8E38200654639 /* Button.cpp */,
-				B002CC752DDA3D3100654639 /* CadernoState.cpp */,
+				B084BA222DE0D198006946A3 /* main.cpp */,
+				B084BA1C2DE0D17A006946A3 /* DrawState.cpp */,
+				B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */,
 				B0152AFB2DBD6F01008B5B08 /* Camera.cpp */,
 				B002CC652DDA3D3100654639 /* Character.cpp */,
 				B0152B052DBD6F01008B5B08 /* Collider.cpp */,
@@ -370,7 +361,6 @@
 				B002CC7A2DDA3D3100654639 /* InventoryItem.cpp */,
 				B094C2552DC41B6B00463219 /* Item.cpp */,
 				B05052852DDA944B00C81331 /* ItemData.cpp */,
-				B0152A912DBD3E12008B5B08 /* main.cpp */,
 				B002CC702DDA3D3100654639 /* Music.cpp */,
 				B0152B012DBD6F01008B5B08 /* PlayerController.cpp */,
 				B002CC742DDA3D3100654639 /* Rect.cpp */,
@@ -481,6 +471,7 @@
 		B0152B642DBD8303008B5B08 /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				B02179A62DE0D7FA00DD1357 /* bgm1.mp3 */,
 				B002CC092DD8E3AC00654639 /* lego-star-wars-minikit.mp3 */,
 				B0152B652DBD8303008B5B08 /* Hit0.wav */,
 				B0152B662DBD8303008B5B08 /* Hit1.wav */,
@@ -584,7 +575,6 @@
 				B05052602DDA8A3F00C81331 /* Animator.cpp in Sources */,
 				B05052612DDA8A3F00C81331 /* Bullet.cpp in Sources */,
 				B05052622DDA8A3F00C81331 /* Button.cpp in Sources */,
-				B05052632DDA8A3F00C81331 /* CadernoState.cpp in Sources */,
 				B05052642DDA8A3F00C81331 /* Camera.cpp in Sources */,
 				B05052652DDA8A3F00C81331 /* Character.cpp in Sources */,
 				B05052662DDA8A3F00C81331 /* Collider.cpp in Sources */,
@@ -598,11 +588,13 @@
 				B050526E2DDA8A3F00C81331 /* InputManager.cpp in Sources */,
 				B050526F2DDA8A3F00C81331 /* InventoryItem.cpp in Sources */,
 				B05052702DDA8A3F00C81331 /* Item.cpp in Sources */,
-				B05052712DDA8A3F00C81331 /* main.cpp in Sources */,
 				B05052722DDA8A3F00C81331 /* Music.cpp in Sources */,
 				B05052732DDA8A3F00C81331 /* PlayerController.cpp in Sources */,
+				B084BA1F2DE0D17A006946A3 /* NotebookState.cpp in Sources */,
 				B05052742DDA8A3F00C81331 /* Rect.cpp in Sources */,
+				B084BA232DE0D198006946A3 /* main.cpp in Sources */,
 				B05052752DDA8A3F00C81331 /* Resources.cpp in Sources */,
+				B084BA1E2DE0D17A006946A3 /* DrawState.cpp in Sources */,
 				B05052762DDA8A3F00C81331 /* Sound.cpp in Sources */,
 				B05052772DDA8A3F00C81331 /* Sprite.cpp in Sources */,
 				B05052782DDA8A3F00C81331 /* SpriteRenderer.cpp in Sources */,

@@ -172,8 +172,8 @@ StageState::StageState() {
 
     }
 
-    //backgroundMusic.Open("../Recursos/audio/BGM.wav");
-    //backgroundMusic.Play();
+    backgroundMusic.Open("../Recursos/audio/bgm1.mp3");
+    backgroundMusic.Play();
 
     //GameObject* waveObject = new GameObject();
     //AddObject(waveObject);

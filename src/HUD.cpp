@@ -56,7 +56,7 @@ void HUD::Render() {
 
     int invSize = player->GetInventorySize();
     for(int i = 0; i < invSize; i++) {
-        RenderItem(invSize, characterRect->X + characterSprite.GetWidth() + 5 + 64 * i, characterRect->Y + characterSprite.GetHeight() - 250);
+        RenderItem(invSize, characterRect->X + characterSprite.GetWidth() + 5 + 64 * i, characterRect->Y + characterSprite.GetHeight() - 100);
     }
 
     levelTimerText->Render();
