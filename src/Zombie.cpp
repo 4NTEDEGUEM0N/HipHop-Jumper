@@ -18,6 +18,7 @@ Zombie::Zombie(GameObject& associated, int hp):Component(associated), deathSound
     zombieCounter += 1;
     onGround = false;
     runLeft = false;
+    ySpeed = 0;
 
     SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/Enemy.png", 3,2);
     associated.AddComponent(zmb);
