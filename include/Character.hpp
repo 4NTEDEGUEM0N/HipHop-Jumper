@@ -60,6 +60,7 @@ private:
     bool canDash;
     bool dashing;
     Timer dashTimer;
+    float dashDuration;
     bool isHit;
     Timer hitTimer;
 

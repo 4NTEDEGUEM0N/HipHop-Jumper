@@ -51,22 +51,24 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     dashTimer = Timer();
     isHit = false;
     dashTimer = Timer();
+    dashDuration = 0.15;
     moving = false;
 
 
     //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
-    characterSprite = new SpriteRenderer(associated, sprite, 2, 6);
-    characterSprite->SetScale(0.15,0.15);
+    characterSprite = new SpriteRenderer(associated, sprite, 6, 5);
+    characterSprite->SetScale(0.08,0.08);
     associated.AddComponent(characterSprite);
 
     Animator* animator = new Animator(associated);
 
-    animator->AddAnimation("idle", Animation(8, 8, 0));
-    animator->AddAnimation("walking", Animation(0, 7, 0.1));
-    animator->AddAnimation("dead", Animation(8, 8, 0.5));
-    animator->AddAnimation("jump", Animation(10, 10, 0));
-    animator->AddAnimation("falling", Animation(11, 11, 0));
-    animator->AddAnimation("wallGrab", Animation(9, 9, 0));
+    animator->AddAnimation("idle", Animation(0, 2, 0.1));
+    animator->AddAnimation("walking", Animation(4, 11, 0.1));
+    animator->AddAnimation("dead", Animation(25, 25, 0));
+    animator->AddAnimation("jump", Animation(16, 16, 0.1));
+    animator->AddAnimation("falling", Animation(23, 23, 0));
+    animator->AddAnimation("wallGrab", Animation(28, 28, 0));
+    animator->AddAnimation("dash", Animation(12, 15, 0.05));
 
     animator->SetAnimation("idle");
     associated.AddComponent(animator);
@@ -147,6 +149,7 @@ void Character::Update(float dt) {
                 dashTimer.Restart();
                 speed.Y = 0;
                 moving = false;
+                animator->SetAnimation("dash");
             }
         }
 
@@ -173,7 +176,7 @@ void Character::Update(float dt) {
     }
 
     dashTimer.Update(dt);
-    if (dashing && dashTimer.Get() <= 0.15) {
+    if (dashing && dashTimer.Get() <= dashDuration) {
         Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
         if (tileMap->IsColliding(new_box_x).size() == 0) {
             associated.box = new_box_x;
@@ -181,7 +184,7 @@ void Character::Update(float dt) {
             dashing = false;
         }
     }
-    if (dashTimer.Get() > 0.15) {
+    if (dashTimer.Get() > dashDuration) {
         dashing = false;
         if (dashTimer.Get() > 4)
             canDash = true;
@@ -300,7 +303,7 @@ void Character::Update(float dt) {
     } else if (direction.X > 0) {
         characterSprite->SetFlip(SDL_FLIP_NONE);
     }
-    if (hp > 0 and onGround) {
+    if (hp > 0 and onGround and !dashing) {
         if (speed.X != 0)
             animator->SetAnimation("walking");
         else if (speed.X == 0 and not moving)

@@ -109,11 +109,12 @@ StageState::StageState() {
         tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);
-        playerObject->box.X = 398;
-        playerObject->box.Y = 652;
         AddObject(playerObject);
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
-        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
+        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Spritesheet 2.png");
+        playerObject->box.X = 576;
+        playerObject->box.Y = 1008 - playerObject->box.H;
         Camera::Follow(playerObject);
         playerObject->AddComponent(playerCharacter);
         PlayerController* playerController = new PlayerController(*playerObject);
@@ -132,7 +133,7 @@ StageState::StageState() {
         AddObject(zombieObject);
         Zombie* zmb = new Zombie(*zombieObject, 100);
         zombieObject->box.X = 896;
-        zombieObject->box.Y = 1024 - 20;
+        zombieObject->box.Y = 1024 - 30;
         zombieObject->AddComponent(zmb);
 
         GameObject* minikitObject2 = new GameObject(false);
@@ -146,7 +147,7 @@ StageState::StageState() {
         AddObject(zombieObject2);
         Zombie* zmb2 = new Zombie(*zombieObject2, 100);
         zombieObject2->box.X = 384;
-        zombieObject2->box.Y = 896 - 20;
+        zombieObject2->box.Y = 896 - 30;
         zombieObject2->AddComponent(zmb2);
 
         GameObject* minikitObject3 = new GameObject(false);
@@ -172,8 +173,8 @@ StageState::StageState() {
 
     }
 
-    backgroundMusic.Open("../Recursos/audio/bgm1.mp3");
-    backgroundMusic.Play();
+    //backgroundMusic.Open("../Recursos/audio/bgm1.mp3");
+    //backgroundMusic.Play();
 
     //GameObject* waveObject = new GameObject();
     //AddObject(waveObject);

@@ -20,12 +20,13 @@ Zombie::Zombie(GameObject& associated, int hp):Component(associated), deathSound
     runLeft = false;
     ySpeed = 0;
 
-    SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/Enemy.png", 3,2);
+    SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/caminhada_vigilante.png", 4,3);
     associated.AddComponent(zmb);
+    zmb->SetScale(0.1, 0.1);
 
     Animator *animator = new Animator(associated);
-    animator->AddAnimation("walking", Animation(0, 3, 0.2));
-    animator->AddAnimation("walkingLeft", Animation(0, 3, 0.2, SDL_FLIP_HORIZONTAL));
+    animator->AddAnimation("walking", Animation(0, 11, 0.1));
+    animator->AddAnimation("walkingLeft", Animation(0, 11, 0.1, SDL_FLIP_HORIZONTAL));
     animator->AddAnimation("dead", Animation(5, 5, 0));
     animator->AddAnimation("hit", Animation(4, 4, 0));
     animator->AddAnimation("hitLeft", Animation(4, 4, 0, SDL_FLIP_HORIZONTAL));
@@ -100,9 +101,13 @@ void Zombie::Update(float dt) {
         } else {
             ySpeed = ySpeed + 250.0f * dt;
             Rect new_box = associated.box + Vec2(0, ySpeed * dt);
-            if (tileMap->IsColliding(new_box).size() == 0) {
+            auto collisions = tileMap->IsColliding(new_box);
+            if (collisions.empty()) {
+                onGround = false;
                 associated.box = new_box;
             } else {
+                auto collision = collisions.front();
+                associated.box.Y = (collision.tilePos.Y * tileMap->GetTileSetHeight())  - associated.box.H - 0.01;
                 ySpeed = 0;
                 onGround = true;
             }
