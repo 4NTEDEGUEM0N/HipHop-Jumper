@@ -131,11 +131,13 @@ void Character::Update(float dt) {
             gunCpt->Shot(task.pos);
         } else if (task.type == Command::JUMP && !dashing && !isHit) {
             moving = false;
-            if (onGround) {
+            if (canJump) {
                 speed.Y = jumpSpeed;
                 onGround = false;
                 canJump = false;
                 animator->SetAnimation("jump");
+                if (onWall)
+                    speed.X = maxGroundSpeed*2*direction.X*-1;
             } else if (canDoubleJump) {
                 speed.Y = jumpSpeed;
                 canDoubleJump = false;
@@ -218,12 +220,14 @@ void Character::Update(float dt) {
 
         vector<TileMap::CollisionInfo> collisions = tileMap->IsColliding(new_box_x);
         if (collisions.size() == 0) {
+            onWall = false;
             associated.box = new_box_x;
             if (speed.X < 0)
                 characterSprite->SetFlip(SDL_FLIP_HORIZONTAL);
             else if (speed.X > 0)
                 characterSprite->SetFlip(SDL_FLIP_NONE);
         } else {
+            bool TopLeft = false, TopRight = false, BottomLeft = false, BottomRight = false, CenterBottom = false, CenterTop = false, CenterLeft = false, CenterRight = false;
             for (TileMap::CollisionInfo collision : collisions) {
                 if (collision.type == TileMap::TileCollisionType::Full) {
                     speed.X = 0;
@@ -233,13 +237,50 @@ void Character::Update(float dt) {
                         associated.box.X = (collision.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth() + 0.01;
                     }
                 }
+                switch (collision.corner) {
+                    case TileMap::CollisionCorner::TopLeft:
+                        TopLeft = true;
+                        break;
+                    case TileMap::CollisionCorner::TopRight:
+                        TopRight = true;
+                        break;
+                    case TileMap::CollisionCorner::BottomLeft:
+                        BottomLeft = true;
+                        break;
+                    case TileMap::CollisionCorner::BottomRight:
+                        BottomRight = true;
+                        break;
+                    case TileMap::CollisionCorner::CenterBottom:
+                        CenterBottom = true;
+                        break;
+                    case TileMap::CollisionCorner::CenterTop:
+                        CenterTop = true;
+                        break;
+                    case TileMap::CollisionCorner::CenterRight:
+                        CenterRight = true;
+                        break;
+                    case TileMap::CollisionCorner::CenterLeft:
+                        CenterLeft = true;
+                        break;
+                }
+            }
+            if ((TopLeft or CenterLeft or BottomLeft) and (not CenterBottom and not BottomRight)) {
+                animator->SetAnimation("wallGrab");
+                onWall = true;
+                canJump = true;
+            } else if ((TopRight or CenterRight or BottomRight) and (not CenterBottom and not BottomLeft)) {
+                animator->SetAnimation("wallGrab");
+                onWall = true;
+                canJump = true;
+            } else {
+                onWall = false;
             }
         }
     }
 
     if (!dashing) {
         float gravity;
-        if (onWall)
+        if (onWall and speed.Y >= 0)
             gravity = wallGravity;
         else
             gravity = airGravity;
@@ -281,10 +322,11 @@ void Character::Update(float dt) {
         } else {
             associated.box = associated.box + Vec2(0, speed.Y * dt);
             onGround = false;
-            canJump = false;
+            if (not onWall)
+                canJump = false;
             if (speed.Y < 0)
                 animator->SetAnimation("jump");
-            else
+            else if (not onWall)
                 animator->SetAnimation("falling");
         }
     }

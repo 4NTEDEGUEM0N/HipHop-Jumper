@@ -84,6 +84,7 @@ void HUD::Update(float dt) {
     levelTimerText->SetText(timer.str());
 
     ostringstream fps;
-    fps << fixed << setprecision(2) << 1/dt;
+    float delta = Game::GetInstance().GetDeltaTime();
+    fps << fixed << setprecision(2) << 1/delta;
     fpsText->SetText("FPS: " + fps.str());
 }

@@ -113,8 +113,8 @@ StageState::StageState() {
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
         Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Spritesheet 2.png");
-        playerObject->box.X = 576;
-        playerObject->box.Y = 1008 - playerObject->box.H;
+        playerObject->box.X = 1216;
+        playerObject->box.Y = 960 - playerObject->box.H;
         Camera::Follow(playerObject);
         playerObject->AddComponent(playerCharacter);
         PlayerController* playerController = new PlayerController(*playerObject);
@@ -123,7 +123,7 @@ StageState::StageState() {
         ItemData minikitData = ItemData::Minikit();
 
         GameObject* minikitObject = new GameObject(false);
-        minikitObject->box.X = 896;
+        minikitObject->box.X = 1024;
         minikitObject->box.Y = 1024;
         Item* minikit = new Item(*minikitObject, minikitData, "../Recursos/img/minikit.png");
         minikitObject->AddComponent(minikit);
@@ -132,13 +132,13 @@ StageState::StageState() {
         GameObject* zombieObject = new GameObject(false);
         AddObject(zombieObject);
         Zombie* zmb = new Zombie(*zombieObject, 100);
-        zombieObject->box.X = 896;
-        zombieObject->box.Y = 1024 - 30;
+        zombieObject->box.X = 1024;
+        zombieObject->box.Y = 1024 - zombieObject->box.H;
         zombieObject->AddComponent(zmb);
 
         GameObject* minikitObject2 = new GameObject(false);
-        minikitObject2->box.X = 384;
-        minikitObject2->box.Y = 896;
+        minikitObject2->box.X = 1536;
+        minikitObject2->box.Y = 1152;
         Item* minikit2 = new Item(*minikitObject2, minikitData, "../Recursos/img/minikit.png");
         minikitObject2->AddComponent(minikit2);
         AddObject(minikitObject2);
@@ -146,27 +146,27 @@ StageState::StageState() {
         GameObject* zombieObject2 = new GameObject(false);
         AddObject(zombieObject2);
         Zombie* zmb2 = new Zombie(*zombieObject2, 100);
-        zombieObject2->box.X = 384;
-        zombieObject2->box.Y = 896 - 30;
+        zombieObject2->box.X = 1536;
+        zombieObject2->box.Y = 1152 - zombieObject2->box.H;
         zombieObject2->AddComponent(zmb2);
 
         GameObject* minikitObject3 = new GameObject(false);
-        minikitObject3->box.X = 896;
-        minikitObject3->box.Y = 768;
+        minikitObject3->box.X = 1536;
+        minikitObject3->box.Y = 896;
         Item* minikit3 = new Item(*minikitObject3, minikitData, "../Recursos/img/minikit.png");
         minikitObject3->AddComponent(minikit3);
         AddObject(minikitObject3);
 
         GameObject* minikitObject4 = new GameObject(false);
-        minikitObject4->box.X = 320;
-        minikitObject4->box.Y = 640;
+        minikitObject4->box.X = 960;
+        minikitObject4->box.Y = 768;
         Item* minikit4 = new Item(*minikitObject4, minikitData, "../Recursos/img/minikit.png");
         minikitObject4->AddComponent(minikit4);
         AddObject(minikitObject4);
 
         GameObject* minikitObject5 = new GameObject(false);
-        minikitObject5->box.X = 640;
-        minikitObject5->box.Y = 320;
+        minikitObject5->box.X = 1216;
+        minikitObject5->box.Y = 448;
         Item* minikit5 = new Item(*minikitObject5, minikitData, "../Recursos/img/minikit.png");
         minikitObject5->AddComponent(minikit5);
         AddObject(minikitObject5);
@@ -199,7 +199,8 @@ StageState::~StageState() = default;
 
 void StageState::LoadAssets() {}
 
-void StageState::Update(float dt) {
+void StageState::Update(float dtt) {
+    float dt = 0.0156;
     UpdateArray(dt);
 
     if (InputManager::GetInstance().KeyPress(ESCAPE_KEY)) {
