@@ -81,6 +81,7 @@ public:
     bool CanJump();
     bool CanDoubleJump();
     bool CanDash();
+    float GetDamageCooldownTimer();
 
     static void AddGraffiti(SDL_Texture* texture);
     static int id;

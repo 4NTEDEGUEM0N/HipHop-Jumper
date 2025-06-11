@@ -19,17 +19,20 @@ Zombie::Zombie(GameObject& associated, int hp):Component(associated), deathSound
     onGround = false;
     runLeft = false;
     ySpeed = 0;
+    hitting = false;
 
-    SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/caminhada_vigilante.png", 4,3);
+    SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/vigilante.png", 4,8);
     associated.AddComponent(zmb);
     zmb->SetScale(0.1, 0.1);
 
     Animator *animator = new Animator(associated);
     animator->AddAnimation("walking", Animation(0, 11, 0.1));
     animator->AddAnimation("walkingLeft", Animation(0, 11, 0.1, SDL_FLIP_HORIZONTAL));
-    animator->AddAnimation("dead", Animation(5, 5, 0));
-    animator->AddAnimation("hit", Animation(4, 4, 0));
-    animator->AddAnimation("hitLeft", Animation(4, 4, 0, SDL_FLIP_HORIZONTAL));
+    animator->AddAnimation("dead", Animation(18, 18, 0));
+    animator->AddAnimation("hit", Animation(12, 23, 0.08));
+    animator->AddAnimation("hitLeft", Animation(12, 23, 0.08, SDL_FLIP_HORIZONTAL));
+    animator->AddAnimation("hitting", Animation(24, 31, 0.05));
+    animator->AddAnimation("hittingLeft", Animation(24, 31, 0.05, SDL_FLIP_HORIZONTAL));
     animator->SetAnimation("walking");
     associated.AddComponent(animator);
 
@@ -79,7 +82,7 @@ void Zombie::Update(float dt) {
     }*/
 
     hitTimer.Update(dt);
-    if (hit && hitTimer.Get() > 0.5 && hitpoints > 0) {
+    if (hit && hitTimer.Get() > 0.8 && hitpoints > 0 && not hitting) {
         hit = false;
         Component* component = associated.GetComponent("Animator");
         Animator* animator = dynamic_cast<Animator*>(component);
@@ -91,7 +94,7 @@ void Zombie::Update(float dt) {
         associated.RequestDelete();
     }
 
-    if (hitpoints > 0 and !hit) {
+    if (hitpoints > 0 and !hit and !hitting) {
         GameObject* tileMapObject = Game::GetInstance().GetState().GetTileMapObject();
         Component* tileMapComponent = tileMapObject->GetComponent("TileMap");
         TileMap* tileMap = dynamic_cast<TileMap*>(tileMapComponent);
@@ -112,6 +115,13 @@ void Zombie::Update(float dt) {
                 onGround = true;
             }
         }
+    }
+    hittingTimer.Update(dt);
+    if (hitting && hittingTimer.Get() > 0.4 && hitpoints > 0) {
+        hitting = false;
+        Component* component = associated.GetComponent("Animator");
+        Animator* animator = dynamic_cast<Animator*>(component);
+        animator->SetAnimation("walking");
     }
 }
 
@@ -150,6 +160,13 @@ void Zombie::NotifyCollision(GameObject &other) {
     if (other.GetComponent("Bullet") != nullptr) {
         hitSound.Play(1);
         Damage(25);
+    }
+    else if (other.GetComponent("Character") != nullptr) {
+        hitting = true;
+        hittingTimer.Restart();
+        Component* component = associated.GetComponent("Animator");
+        Animator* animator = dynamic_cast<Animator*>(component);
+        (associated.box.X - other.box.X > 0) ? animator->SetAnimation("hittingLeft") : animator->SetAnimation("hitting");
     }
 }
 

@@ -69,6 +69,8 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     animator->AddAnimation("falling", Animation(23, 23, 0));
     animator->AddAnimation("wallGrab", Animation(28, 28, 0));
     animator->AddAnimation("dash", Animation(12, 15, 0.05));
+    animator->AddAnimation("hit", Animation(26, 26, 0));
+
 
     animator->SetAnimation("idle");
     associated.AddComponent(animator);
@@ -197,6 +199,7 @@ void Character::Update(float dt) {
         Rect new_box_x = associated.box + Vec2(speed.X * dt,0);
         if (tileMap->IsColliding(new_box_x).size() == 0) {
             associated.box = new_box_x;
+            animator->SetAnimation("hit");
         } else {
             isHit = false;
         }
@@ -324,9 +327,9 @@ void Character::Update(float dt) {
             onGround = false;
             if (not onWall)
                 canJump = false;
-            if (speed.Y < 0)
+            if (speed.Y < 0 and not isHit)
                 animator->SetAnimation("jump");
-            else if (not onWall)
+            else if (not onWall and not isHit)
                 animator->SetAnimation("falling");
         }
     }
@@ -509,6 +512,7 @@ void Character::AddGraffiti(SDL_Texture *texture) {
     graffitiArray.emplace_back(newTexture);
 }
 
-
-
+float Character::GetDamageCooldownTimer() {
+    return damageCooldown.Get();
+}
 

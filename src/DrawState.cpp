@@ -209,6 +209,7 @@ DrawState::DrawState() {
 
     button4->SetClickFunction([this]() {
         Character::AddGraffiti(canvasTexture);
+        popRequested = true;
     });
 
     n++;

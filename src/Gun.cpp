@@ -18,14 +18,14 @@ Gun::Gun(GameObject& associated, weak_ptr<GameObject> character) : Component(ass
     reloaded = true;
     reloading = false;
 
-    //SpriteRenderer* gun = new SpriteRenderer(associated, "../Recursos/img/Gun.png", 3, 2);
-    //gun->SetScale(0.9, 0.9);
+    //SpriteRenderer* gun = new SpriteRenderer(associated, "../Recursos/img/spray_can.png", 1, 1);
+    //gun->SetScale(0.07, 0.07);
     //associated.AddComponent(gun);
     Animator* animator = new Animator(associated);
     animator->AddAnimation("idle", Animation(0, 0, 0));
     animator->AddAnimation("idleLeft", Animation(0, 0, 0, SDL_FLIP_HORIZONTAL));
-    animator->AddAnimation("reload", Animation(1, 5, 0.08));
-    animator->AddAnimation("reloadLeft", Animation(1, 5, 0.08, SDL_FLIP_VERTICAL));
+    animator->AddAnimation("reload", Animation(0, 0, 0.08));
+    animator->AddAnimation("reloadLeft", Animation(0, 0, 0.08, SDL_FLIP_VERTICAL));
 
     animator->SetAnimation("idle");
     associated.AddComponent(animator);
@@ -48,10 +48,10 @@ void Gun::Update(float dt) {
         associated.angleDeg = angle * 180 / M_PI;
 
     Vec2 character_center = character.lock()->box.center();
-    float gunX = character_center.GetX() - associated.box.GetW() / 2;
+    float gunX = character_center.GetX() + associated.box.GetW() / 2;
     float gunY = character_center.GetY() - associated.box.GetH() / 2;
     associated.box.X = gunX;
-    associated.box.Y = gunY + 20;
+    associated.box.Y = gunY;
 
     Vec2 direction = Vec2(1, 0).rotate(angle);
     if (characterAnimation == "walkingLeft" || characterAnimation == "idleLeft") {

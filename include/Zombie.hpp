@@ -18,6 +18,8 @@ private:
     bool runLeft;
     bool onGround;
     float ySpeed;
+    bool hitting;
+    Timer hittingTimer;
 
 public:
     Zombie(GameObject& associated, int hp);
