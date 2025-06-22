@@ -37,9 +37,9 @@ StageState::StageState() {
     bgObject->box.X = 0;
     bgObject->box.Y = 0;
 
-    bool teste = true;
+    int teste = 2;
 
-    if (!teste) {
+    if (teste == 0) {
         tileMapObject = new GameObject();
         AddObject(tileMapObject);
         tileMapObject->box.X = 0;
@@ -98,7 +98,7 @@ StageState::StageState() {
 
 
 
-    } else {
+    } else if (teste == 1) {
         tileMapObject = new GameObject();
         AddObject(tileMapObject);
         tileMapObject->box.X = 0;
@@ -171,6 +171,27 @@ StageState::StageState() {
         minikitObject5->AddComponent(minikit5);
         AddObject(minikitObject5);
 
+    } else if (teste == 2) {
+        tileMapObject = new GameObject();
+        AddObject(tileMapObject);
+        tileMapObject->box.X = 0;
+        tileMapObject->box.Y = 0;
+        set<int> solidIDs = {0,1,2,3,4,5,6,7};
+        tileSet = new TileSet("../Recursos/img/tileset_1fase.png", 64, 64);
+        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase.txt", tileSet, solidIDs);
+        tileMapObject->AddComponent(tileMap);
+
+        GameObject* playerObject = new GameObject(false);
+        AddObject(playerObject);
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
+        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Spritesheet 2.png");
+        playerObject->box.X = 1024;
+        playerObject->box.Y = 3392 - playerObject->box.H;
+        Camera::Follow(playerObject);
+        playerObject->AddComponent(playerCharacter);
+        PlayerController* playerController = new PlayerController(*playerObject);
+        playerObject->AddComponent(playerController);
     }
 
     //backgroundMusic.Open("../Recursos/audio/bgm1.mp3");

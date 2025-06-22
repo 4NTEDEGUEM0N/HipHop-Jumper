@@ -202,9 +202,9 @@ void TileMap::SetCollisionMatrix(int layer) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
             if (solidIDs.find(index) != solidIDs.end()) {
-                if (index == 14) {
+                if (index == 5) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopLeft;
-                } else if (index == 16) {
+                } else if (index == 2) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopRight;
                 } else if (index == 28) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomLeft;
