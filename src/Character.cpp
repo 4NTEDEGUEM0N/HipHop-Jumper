@@ -57,7 +57,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
 
     //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
     characterSprite = new SpriteRenderer(associated, sprite, 6, 5);
-    characterSprite->SetScale(0.08,0.08);
+    //characterSprite->SetScale(0.08,0.08);
     associated.AddComponent(characterSprite);
 
     Animator* animator = new Animator(associated);

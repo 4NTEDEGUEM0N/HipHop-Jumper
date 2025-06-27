@@ -23,7 +23,7 @@ Zombie::Zombie(GameObject& associated, int hp):Component(associated), deathSound
 
     SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/vigilante.png", 4,8);
     associated.AddComponent(zmb);
-    zmb->SetScale(0.1, 0.1);
+    //zmb->SetScale(0.1, 0.1);
 
     Animator *animator = new Animator(associated);
     animator->AddAnimation("walking", Animation(0, 11, 0.1));
