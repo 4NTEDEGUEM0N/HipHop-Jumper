@@ -58,6 +58,7 @@ NotebookState::NotebookState() {
         if (currentPage > 1) {
             currentPage--;
             currentPageText->SetText("Pagina " + to_string(currentPage));
+            UpdatePageContent();
         }
     });
 
@@ -77,6 +78,7 @@ NotebookState::NotebookState() {
         if (currentPage < 9) {
             currentPage++;
             currentPageText->SetText("Pagina " + to_string(currentPage));
+            UpdatePageContent();
         }
     });
 
@@ -102,6 +104,11 @@ NotebookState::NotebookState() {
 void NotebookState::Update(float dt) {
     UpdateArray(dt);
 
+    if (contentNeedsUpdate) {
+        UpdatePageContent();
+        contentNeedsUpdate = false;
+    }
+
     if (InputManager::GetInstance().KeyPress(SDLK_ESCAPE)) {
         popRequested = true;
     }
@@ -109,51 +116,102 @@ void NotebookState::Update(float dt) {
 
 void NotebookState::Render() {
     RenderArray();
-    RenderGraffitis();
 }
 
 void NotebookState::LoadAssets() {}
 void NotebookState::Start() {
     StartArray();
+    UpdatePageContent();
 }
 void NotebookState::Pause() {}
-void NotebookState::Resume() {}
-NotebookState::~NotebookState() = default;
+void NotebookState::Resume() {
+    UpdatePageContent();
+}
 
-void NotebookState::RenderGraffitis() {
+NotebookState::~NotebookState() {
+    for (auto& item : pageItems) {
+        item->RequestDelete();
+    }
+    pageItems.clear();
+}
+
+void NotebookState::UpdatePageContent() {
+    for (auto& item : pageItems) {
+        item->RequestDelete();
+    }
+    pageItems.clear();
+
     if (Character::graffitiArray.empty()) return;
 
     int startIndex = (currentPage - 1) * 4;
     int endIndex = startIndex + 4;
 
-    for (int i = startIndex; i < Character::graffitiArray.size() and i < endIndex; i++) {
+    for (int i = startIndex; i < Character::graffitiArray.size() && i < endIndex; i++) {
         SDL_Texture* texture = Character::graffitiArray[i];
-        GameObject* graffitiObj = new GameObject(true);
+
+        GameObject* graffitiObj = new GameObject();
         SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, to_string(i));
         graffiti->SetCameraFollower(true);
         graffiti->SetScale(0.4f, 0.4f);
         graffitiObj->AddComponent(graffiti);
 
-        switch (i-startIndex) {
+        int itemIndexOnPage = i - startIndex;
+
+        switch (itemIndexOnPage) {
             case 0: // Top Left
                 graffitiObj->box.X = cadernoObj->box.X + 30;
-                graffitiObj->box.Y = cadernoObj->box.Y + 20;
+            graffitiObj->box.Y = cadernoObj->box.Y + 20;
             break;
             case 1: // Bottom Left
                 graffitiObj->box.X = cadernoObj->box.X + 30;
-                graffitiObj->box.Y = cadernoObj->box.Y + cadernoObj->box.H - graffitiObj->box.H - 20;
+            graffitiObj->box.Y = cadernoObj->box.Y + cadernoObj->box.H - graffitiObj->box.H - 20;
             break;
             case 2: // Top Right
                 graffitiObj->box.X = cadernoObj->box.X + cadernoObj->box.W - graffitiObj->box.W - 30;
-                graffitiObj->box.Y = cadernoObj->box.Y + 20;
+            graffitiObj->box.Y = cadernoObj->box.Y + 20;
             break;
             case 3: // Bottom Right
                 graffitiObj->box.X = cadernoObj->box.X + cadernoObj->box.W - graffitiObj->box.W - 30;
-                graffitiObj->box.Y = cadernoObj->box.Y + cadernoObj->box.H - graffitiObj->box.H - 20;
+            graffitiObj->box.Y = cadernoObj->box.Y + cadernoObj->box.H - graffitiObj->box.H - 20;
             break;
         }
 
-        graffiti->Render();
-        delete graffitiObj;
+        AddObject(graffitiObj);
+        pageItems.push_back(graffitiObj);
+
+        GameObject* selectBtnObj = new GameObject();
+        Button* selectBtn = new Button(*selectBtnObj);
+        selectBtnObj->AddComponent(selectBtn);
+
+        SpriteRenderer* buttonSprite = new SpriteRenderer(*selectBtnObj, "../Recursos/img/pixel.png");
+        buttonSprite->SetCameraFollower(true);
+        selectBtnObj->AddComponent(buttonSprite);
+        Text* selectText = new Text(*selectBtnObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Selecionar", {255, 255, 255, 255}, true);
+        selectBtnObj->AddComponent(selectText);
+
+        selectBtnObj->box.X = graffitiObj->box.X + (graffitiObj->box.W / 2) - (selectBtnObj->box.W / 2);
+        selectBtnObj->box.Y = graffitiObj->box.Y + graffitiObj->box.H + 5;
+
+        selectBtn->SetClickFunction([this,i]() {
+            Character::SetCurrentGraffitiId(i);
+            this->contentNeedsUpdate = true;
+        });
+
+        AddObject(selectBtnObj);
+        pageItems.push_back(selectBtnObj);
+
+        if (i == Character::currentGraffitiId) {
+            GameObject* checkObj = new GameObject();
+            SpriteRenderer* checkSprite = new SpriteRenderer(*checkObj, "../Recursos/img/check.png");
+            checkSprite->SetCameraFollower(true);
+            checkSprite->SetScale(0.5f, 0.5f);
+            checkObj->AddComponent(checkSprite);
+
+            checkObj->box.X = graffitiObj->box.X + graffitiObj->box.W - checkObj->box.W;
+            checkObj->box.Y = graffitiObj->box.Y;
+
+            AddObject(checkObj);
+            pageItems.push_back(checkObj);
+        }
     }
 }

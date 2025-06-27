@@ -37,7 +37,7 @@ StageState::StageState() {
     bgObject->box.X = 0;
     bgObject->box.Y = 0;
 
-    int teste = 2;
+    int teste = 3;
 
     if (teste == 0) {
         tileMapObject = new GameObject();
@@ -46,8 +46,8 @@ StageState::StageState() {
         tileMapObject->box.Y = 0;
         set <int> solidIDs = {3,4,10,11,14,15,16,17,18,21,22,23,28,29,30};
         tileSet = new TileSet("../Recursos/img/Tileset.png", 64, 64);
-        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map_vertical.txt", tileSet, solidIDs);
-        tileMapObject->AddComponent(tileMap);
+        //TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map_vertical.txt", tileSet, solidIDs);
+        //tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);
         playerObject->box.X = 198;
@@ -105,8 +105,8 @@ StageState::StageState() {
         tileMapObject->box.Y = 0;
         set<int> solidIDs = {7};
         tileSet = new TileSet("../Recursos/img/Tileset_teste.png", 64, 64);
-        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map_test_tileset.txt", tileSet, solidIDs);
-        tileMapObject->AddComponent(tileMap);
+        //TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/map_test_tileset.txt", tileSet, solidIDs);
+        //tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);
         AddObject(playerObject);
@@ -178,7 +178,39 @@ StageState::StageState() {
         tileMapObject->box.Y = 0;
         set<int> solidIDs = {0,1,2,3,4,5,6,7};
         tileSet = new TileSet("../Recursos/img/tileset_1fase.png", 64, 64);
-        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase.txt", tileSet, solidIDs);
+        //TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase.txt", tileSet, solidIDs);
+        //tileMapObject->AddComponent(tileMap);
+
+        GameObject* playerObject = new GameObject(false);
+        AddObject(playerObject);
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
+        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Spritesheet 2.png");
+        playerObject->box.X = 1024;
+        playerObject->box.Y = 3392 - playerObject->box.H;
+        Camera::Follow(playerObject);
+        playerObject->AddComponent(playerCharacter);
+        PlayerController* playerController = new PlayerController(*playerObject);
+        playerObject->AddComponent(playerController);
+    } else if (teste == 3) {
+        TileSet* frenteTileSet = new TileSet("../Recursos/img/tileset_1fase2_frente.png", 64, 64);
+        TileSet* collisionTileSet = new TileSet("../Recursos/img/tileset_1fase2.png", 64, 64);
+        TileSet* backgroundTileSet = new TileSet("../Recursos/img/tileset_1fase2.png", 64, 64);
+        TileSet* metroTileSet = new TileSet("../Recursos/img/tileset_1fase2_tras.png", 64, 64);
+
+        std::vector<TileSet*> TileSets;
+        TileSets.push_back(frenteTileSet);
+        TileSets.push_back(collisionTileSet);
+        TileSets.push_back(backgroundTileSet);
+        TileSets.push_back(metroTileSet);
+
+        tileMapObject = new GameObject();
+        AddObject(tileMapObject);
+        tileMapObject->box.X = 0;
+        tileMapObject->box.Y = 0;
+        set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10};
+        tileSet = collisionTileSet;
+        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase2.txt", TileSets, solidIDs, 1);
         tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);

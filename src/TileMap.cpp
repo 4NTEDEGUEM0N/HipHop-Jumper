@@ -9,10 +9,11 @@
 #include "../include/Collider.hpp"
 #include "../include/Game.hpp"
 
-TileMap::TileMap(GameObject& associated, string file, TileSet* tileSet, set<int> solidIDs) : Component(associated) {
+TileMap::TileMap(GameObject& associated, string file, vector<TileSet*>& tileSets, set<int> solidIDs, int collisionLayer) : Component(associated) {
     this->solidIDs = solidIDs;
     Load(file);
-    SetTileSet(tileSet);
+    this->tileSets = tileSets;
+    this->collisionLayer = collisionLayer;
 }
 
 void TileMap::Load(string file) {
@@ -58,10 +59,6 @@ void TileMap::Load(string file) {
     tileMapFile.close();
 }
 
-void TileMap::SetTileSet(TileSet* tileSet) {
-    this->tileSet.reset(tileSet);
-}
-
 int& TileMap::At(int x, int y, int z) {
     if (x < 0 || x >= mapWidth || y < 0 || y >= mapHeight || z < 0 || z >= mapDepth) {
         cerr << "Erro - TileMap::At - Posição Inválida" << endl;
@@ -71,13 +68,15 @@ int& TileMap::At(int x, int y, int z) {
 }
 
 void TileMap::RenderLayer(int layer) {
-    int tileWidth = tileSet->GetTileWidth();
-    int tileHeight = tileSet->GetTileHeight();
+    TileSet* currentTileSet = tileSets[layer];
+
+    int tileWidth = currentTileSet->GetTileWidth();
+    int tileHeight = currentTileSet->GetTileHeight();
 
     float baseX = associated.box.X;
     float baseY = associated.box.Y;
 
-    float paralaxFactor = 0.1;// = ((-1.0f * (layer + 1))/mapDepth) + 1;
+    float paralaxFactor = 0;// = ((-1.0f * (layer + 1))/mapDepth) + 1;
     if (layer == 0)
         paralaxFactor = 0;
     baseX -= Camera::pos.GetX() * paralaxFactor;
@@ -94,7 +93,7 @@ void TileMap::RenderLayer(int layer) {
     for (int y = startY; y < endY; ++y) {
         for (int x = startX; x < endX; ++x) {
             int index = At(x, y, layer);
-            tileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
+            currentTileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
             //renderCount++;
 #ifdef DEBUG
             if (Collider::showCollision and layer == 0 and collisionMatrix[y][x] != TileCollisionType::None) {
@@ -168,8 +167,8 @@ bool TileMap::Is(string type) {
 }
 
 void TileMap::Start() {
-    //SetCollisionLayer(0);
-    SetCollisionMatrix(0);
+    //SetCollisionLayer(collisionLayer);
+    SetCollisionMatrix(collisionLayer);
 }
 
 void TileMap::SetCollisionLayer(int layer) {
@@ -177,8 +176,8 @@ void TileMap::SetCollisionLayer(int layer) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
             if (solidIDs.find(index) != solidIDs.end()) {
-                int tileWidth = tileSet->GetTileWidth();
-                int tileHeight = tileSet->GetTileHeight();
+                int tileWidth = tileSets[layer]->GetTileWidth();
+                int tileHeight = tileSets[layer]->GetTileHeight();
                 //cerr << "ID: " << index << " X: " << x*tileWidth << " Y: "<< y*tileHeight << endl;
 
                 GameObject* tileObj = new GameObject();
@@ -227,8 +226,8 @@ TileMap::TileCollisionType TileMap::GetCollisionType(int x, int y) {
 vector<TileMap::CollisionInfo> TileMap::IsColliding(Rect box) {
     vector<CollisionInfo> collisions;
 
-    int tileWidth = tileSet->GetTileWidth();
-    int tileHeight = tileSet->GetTileHeight();
+    int tileWidth = tileSets[collisionLayer]->GetTileWidth();
+    int tileHeight = tileSets[collisionLayer]->GetTileHeight();
 
 
     int left   = box.X / tileWidth;
@@ -415,10 +414,11 @@ float TileMap::Sign(Vec2 p1, Vec2 p2, Vec2 p3) {
     return (p1.X - p3.X) * (p2.Y - p3.Y) - (p2.X - p3.X) * (p1.Y - p3.Y);
 }
 
-int TileMap::GetTileSetWidth() {
-    return tileSet->GetTileWidth();
+int TileMap::GetTileSetWidth(int layer) {
+    return tileSets[layer]->GetTileWidth();
 }
-int TileMap::GetTileSetHeight() {
-    return tileSet->GetTileHeight();
+
+int TileMap::GetTileSetHeight(int layer) {
+    return tileSets[layer]->GetTileWidth();
 }
 

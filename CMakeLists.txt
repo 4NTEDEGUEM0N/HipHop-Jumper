@@ -8,8 +8,9 @@ if(WIN32)
     include_directories(SYSTEM "C:/SDL2/include")
     include_directories(SYSTEM "C:/SDL2/include/SDL2")
     link_directories("C:/SDL2/lib")
-
+    set(SDL2_PATH "C:/SDL2")
     add_definitions(-DSDL_MAIN_HANDLED)
+
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static -static-libgcc -static-libstdc++")
     #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mwindows")
 
@@ -35,12 +36,24 @@ if (WIN32)
             SDL2_image
             SDL2_mixer
             SDL2_ttf
+            -lmingw32
             imm32
             winmm
             setupapi
             version
             cfgmgr32
             rpcrt4
+            shell32
+            user32
+            gdi32
+            ole32
+            oleaut32
+            ws2_32
+            "${SDL2_PATH}/lib/libSDL2_ttf.a"
+            "${SDL2_PATH}/lib/libSDL2_mixer.a"
+            "${SDL2_PATH}/lib/libSDL2_image.a"
+            "${SDL2_PATH}/lib/libSDL2.a"
+            "${SDL2_PATH}/lib/libSDL2main.a"
     )
 
     add_custom_command(TARGET HipHop-Jumper POST_BUILD

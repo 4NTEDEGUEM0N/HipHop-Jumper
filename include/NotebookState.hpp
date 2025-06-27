@@ -18,12 +18,14 @@ public:
     void Pause();
     void Resume();
 
-    void RenderGraffitis();
+    void UpdatePageContent();
 
 private:
     GameObject* cadernoObj;
     int currentPage;
     Text* currentPageText;
+    vector<GameObject*> pageItems;
+    bool contentNeedsUpdate = false;
 };
 
 #endif //NOTEBOOKSTATE_HPP

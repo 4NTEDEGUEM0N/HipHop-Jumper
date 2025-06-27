@@ -84,8 +84,9 @@ public:
     float GetDamageCooldownTimer();
 
     static void AddGraffiti(SDL_Texture* texture);
-    static int id;
+    static int currentGraffitiId;
     static vector<SDL_Texture*> graffitiArray;
+    static void SetCurrentGraffitiId(int id);
 
 
 };

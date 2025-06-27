@@ -20,7 +20,7 @@
 
 Character* Character::player = nullptr;
 vector<SDL_Texture*> Character::graffitiArray;
-int Character::id = 0;
+int Character::currentGraffitiId = -1;
 
 Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/Dead.wav"), hitSound("../Recursos/audio/Hit1.wav") {
     gun.reset();
@@ -132,7 +132,6 @@ void Character::Update(float dt) {
             Gun* gunCpt = dynamic_cast<Gun*>(component);
             gunCpt->Shot(task.pos);
         } else if (task.type == Command::JUMP && !dashing && !isHit) {
-            moving = false;
             if (canJump) {
                 speed.Y = jumpSpeed;
                 onGround = false;
@@ -143,6 +142,7 @@ void Character::Update(float dt) {
             } else if (canDoubleJump) {
                 speed.Y = jumpSpeed;
                 canDoubleJump = false;
+                onGround = false;
                 animator->SetAnimation("jump");
             }
         } else if (task.type == Command::DASH && canDash  && !isHit) {
@@ -152,7 +152,6 @@ void Character::Update(float dt) {
                 dashing = true;
                 dashTimer.Restart();
                 speed.Y = 0;
-                moving = false;
                 animator->SetAnimation("dash");
             }
         }
@@ -216,8 +215,14 @@ void Character::Update(float dt) {
             } else
                 friction = airAcceleration;
             speed = speed - direction * friction * dt;
-            if (speed.X < 0 and direction.X > 0) speed.X = 0;
-            if (speed.X > 0 and direction.X < 0) speed.X = 0;
+            if (speed.X < 0 and direction.X > 0) {
+                speed.X = 0;
+                moving = false;
+            }
+            if (speed.X > 0 and direction.X < 0) {
+                speed.X = 0;
+                moving = false;
+            }
         }
         Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
 
@@ -357,10 +362,9 @@ void Character::Update(float dt) {
 
     InputManager& input = InputManager::GetInstance();
     if (input.KeyPress(SDLK_e) and !graffitiArray.empty()) {
-        id = graffitiArray.size() - 1;
-        SDL_Texture* texture = graffitiArray[id];
+        SDL_Texture* texture = graffitiArray[currentGraffitiId];
         GameObject* graffitiObj = new GameObject(true);
-        SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, to_string(id));
+        SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, to_string(currentGraffitiId));
         graffitiObj->AddComponent(graffiti);
         graffiti->SetScale(0.3f, 0.3f);
         graffitiObj->box.X = associated.box.X + associated.box.W/2 - graffitiObj->box.W/2;
@@ -510,7 +514,13 @@ void Character::AddGraffiti(SDL_Texture *texture) {
     SDL_FreeSurface(surface);
 
     graffitiArray.emplace_back(newTexture);
+    currentGraffitiId = graffitiArray.size() - 1;
 }
+
+void Character::SetCurrentGraffitiId(int id) {
+    currentGraffitiId = id;
+}
+
 
 float Character::GetDamageCooldownTimer() {
     return damageCooldown.Get();

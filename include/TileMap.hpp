@@ -13,16 +13,16 @@ using namespace std;
 class TileMap : public Component {
 private:
     vector<int> tileMatrix;
-    unique_ptr<TileSet> tileSet;
+    vector<TileSet*> tileSets;
     int mapWidth;
     int mapHeight;
     int mapDepth;
     set<int> solidIDs;
+    int collisionLayer;
 
 public:
-    TileMap(GameObject& associated, string file, TileSet* tileSet, set<int> solidIDs);
+    TileMap(GameObject& associated, string file, vector<TileSet*>& tileSets, set<int> solidIDs, int collisionLayer);
     void Load(string file);
-    void SetTileSet(TileSet* tileSet);
     int& At(int x, int y, int z = 0);
     void Render();
     void RenderLayer(int layer);
@@ -34,8 +34,8 @@ public:
     bool Is(string type);
     void SetCollisionLayer(int layer);
     void SetCollisionMatrix(int layer);
-    int GetTileSetWidth();
-    int GetTileSetHeight();
+    int GetTileSetWidth(int layer = 0);
+    int GetTileSetHeight(int layer = 0);
 
     enum class CollisionCorner {
         TopLeft, TopRight, BottomLeft, BottomRight, CenterBottom, CenterTop, CenterLeft, CenterRight,
