@@ -137,8 +137,10 @@ void Character::Update(float dt) {
                 onGround = false;
                 canJump = false;
                 animator->SetAnimation("jump");
-                if (onWall)
+                if (onWall) {
                     speed.X = maxGroundSpeed*2*direction.X*-1;
+                    wallJumpCooldown.Restart();
+                }
             } else if (canDoubleJump) {
                 speed.Y = jumpSpeed;
                 canDoubleJump = false;
@@ -207,6 +209,7 @@ void Character::Update(float dt) {
         isHit = false;
     }
 
+    wallJumpCooldown.Update(dt);
     if (!dashing && !isHit) {
         if (!moving and speed.X != 0) {
             float friction;
@@ -215,13 +218,15 @@ void Character::Update(float dt) {
             } else
                 friction = airAcceleration;
             speed = speed - direction * friction * dt;
-            if (speed.X < 0 and direction.X > 0) {
-                speed.X = 0;
-                moving = false;
-            }
-            if (speed.X > 0 and direction.X < 0) {
-                speed.X = 0;
-                moving = false;
+            if (wallJumpCooldown.Get() > 0.15f) {
+                if (speed.X < 0 and direction.X > 0) {
+                    speed.X = 0;
+                    moving = false;
+                }
+                if (speed.X > 0 and direction.X < 0) {
+                    speed.X = 0;
+                    moving = false;
+                }
             }
         }
         Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);

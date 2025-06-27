@@ -63,6 +63,7 @@ private:
     float dashDuration;
     bool isHit;
     Timer hitTimer;
+    Timer wallJumpCooldown;
 
 public:
     static Character* player;
