@@ -13,10 +13,8 @@
 #include "../include/Collision.hpp"
 #include <algorithm>
 
-#include "../include/AIController.hpp"
 #include "../include/EndState.hpp"
 #include "../include/TitleState.hpp"
-#include "../include/WaveSpawner.hpp"
 #include "../include/Game.hpp"
 #include "../include/GameData.hpp"
 #include "../include/HUD.hpp"
@@ -26,7 +24,7 @@
 
 StageState::StageState() {
     GameObject* bgObject = new GameObject();
-    AddObject(bgObject);
+    //AddObject(bgObject);
     SpriteRenderer* bg = new SpriteRenderer(*bgObject, "../Recursos/img/Background.png");
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
@@ -295,9 +293,29 @@ void StageState::Update(float dtt) {
     hud->Update(dt);
 }
 
+bool Y_Sort(GameObject* a, GameObject* b) {
+    return a->box.Y < b->box.Y;
+}
 
 void StageState::Render() {
-    RenderArray();
+    TileMap* tileMap = (TileMap*)tileMapObject->GetComponent("TileMap");
+    tileMap->RenderLayer(3); // Camada do metrô
+    tileMap->RenderLayer(2); // Camada de background
+    tileMap->RenderLayer(1); // Camada de colisão
+
+    vector<GameObject*> objectsToRender;
+    for (const auto& objPtr : objectArray) {
+        if (objPtr.get() != tileMapObject) {
+            objectsToRender.push_back(objPtr.get());
+        }
+    }
+    sort(objectsToRender.begin(), objectsToRender.end(), Y_Sort);
+    for (int i = 0; i < objectsToRender.size(); i++) {
+        objectsToRender[i]->Render();
+    }
+
+    tileMap->RenderLayer(0); // Camada da "frente"
+
     hud->Render();
 }
 
