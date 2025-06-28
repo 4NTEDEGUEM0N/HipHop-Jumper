@@ -6,6 +6,7 @@
 #include "../include/Character.hpp"
 #include "../include/GameObject.hpp"
 #include "../include/Camera.hpp"
+#include "../include/KeyBindingManager.hpp"
 
 
 void PlayerController::Update(float dt) {
@@ -14,29 +15,26 @@ void PlayerController::Update(float dt) {
     Component* component = associated.GetComponent("Character");
     Character* character = dynamic_cast<Character*>(component);
     InputManager& inputManager = InputManager::GetInstance();
+    KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
     Vec2 direction = Vec2(0, 0);
-    if (inputManager.KeyPress(SDLK_w)) {
+    if (keybinder.IsActionPressed(KeyBindingManager::GameAction::JUMP)) {
         character->Issue(Character::Command(Character::Command::JUMP, 0, 0));
     }
-    if (inputManager.IsKeyDown(SDLK_s)) {
-        //direction = direction + Vec2(0, 1);
-        //move = true;
-    }
-    if (inputManager.IsKeyDown(SDLK_a)) {
+    if (keybinder.IsActionDown(KeyBindingManager::GameAction::MOVE_LEFT)) {
         direction = direction + Vec2(-1, 0);
         move = true;
     }
-    if (inputManager.IsKeyDown(SDLK_d)) {
+    if (keybinder.IsActionDown(KeyBindingManager::GameAction::MOVE_RIGHT)) {
         direction = direction + Vec2(1, 0);
         move = true;
     }
-    if (inputManager.MousePress(1)) {
+    if (keybinder.IsMouseActionPressed(KeyBindingManager::MouseAction::SHOOT)) {
         float mouseX = inputManager.GetMouseX() + Camera::pos.GetX();
         float mouseY = inputManager.GetMouseY() + Camera::pos.GetY();
         shot = true;
         character->Issue(Character::Command(Character::Command::SHOOT, mouseX, mouseY));
     }
-    if (inputManager.KeyPress(SDLK_LSHIFT)) {
+    if (keybinder.IsActionPressed(KeyBindingManager::GameAction::DASH)) {
         character->Issue(Character::Command(Character::Command::DASH, direction.X, 0));
     }
     if (move)

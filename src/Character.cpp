@@ -16,6 +16,7 @@
 #include "../include/TileMap.hpp"
 #include "../include/Item.hpp"
 #include "../include/InventoryItem.hpp"
+#include "../include/KeyBindingManager.hpp"
 
 
 Character* Character::player = nullptr;
@@ -365,8 +366,8 @@ void Character::Update(float dt) {
             animator->SetAnimation("idle");
     }
 
-    InputManager& input = InputManager::GetInstance();
-    if (input.KeyPress(SDLK_e) and !graffitiArray.empty()) {
+    KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
+    if (keybinder.IsActionPressed(KeyBindingManager::GameAction::GRAFFITI) and !graffitiArray.empty()) {
         SDL_Texture* texture = graffitiArray[currentGraffitiId];
         GameObject* graffitiObj = new GameObject(true);
         SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, texture, to_string(currentGraffitiId));

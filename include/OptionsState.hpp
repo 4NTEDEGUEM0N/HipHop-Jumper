@@ -1,6 +1,7 @@
 #ifndef OPTIONSSTATE_HPP
 #define OPTIONSSTATE_HPP
 
+#include "KeyBindingManager.hpp"
 #include "State.hpp"
 #include "../include/Text.hpp"
 
@@ -17,9 +18,17 @@ public:
     void Pause();
     void Resume();
 
+    static KeyBindingManager::GameAction actionToRebind;
+
 private:
     Text* soundText;
     Text* musicText;
+    Text* jumpText;
+    Text* leftText;
+    Text* rightText;
+    Text* dashText;
+    Text* notebookText;
+    Text* graffitiText;
 };
 
 #endif //OPTIONSSTATE_HPP

@@ -21,6 +21,7 @@
 #include "../include/Item.hpp"
 #include "../include/NotebookState.hpp"
 #include "../include/PauseState.hpp"
+#include "../include/KeyBindingManager.hpp"
 
 
 StageState::StageState() {
@@ -252,30 +253,32 @@ StageState::~StageState() = default;
 void StageState::LoadAssets() {}
 
 void StageState::Update(float dtt) {
+    InputManager& inputManager = InputManager::GetInstance();
+    KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
     float dt = 0.0156;
     UpdateArray(dt);
 
-    if (InputManager::GetInstance().KeyPress(ESCAPE_KEY)) {
+    if (inputManager.KeyPress(ESCAPE_KEY)) {
         Game& game = Game::GetInstance();
         PauseState* pauseState = new PauseState();
         game.Push(pauseState);
     }
-    quitRequested = InputManager::GetInstance().QuitRequested();
+    quitRequested = inputManager.QuitRequested();
 
-    if (InputManager::GetInstance().KeyPress(SDLK_SPACE)) {
+    if (inputManager.KeyPress(SDLK_l)) {
         GameObject* zombieObject = new GameObject(false);
         AddObject(zombieObject);
         Zombie* zmb = new Zombie(*zombieObject, 100);
-        zombieObject->box.X = InputManager::GetInstance().GetMouseX() + Camera::pos.GetX();
-        zombieObject->box.Y = InputManager::GetInstance().GetMouseY() + Camera::pos.GetY();
+        zombieObject->box.X = inputManager.GetMouseX() + Camera::pos.GetX();
+        zombieObject->box.Y = inputManager.GetMouseY() + Camera::pos.GetY();
         zombieObject->AddComponent(zmb);
     }
 
-    if (InputManager::GetInstance().KeyPress(SDLK_c)) {
+    if (inputManager.KeyPress(SDLK_c)) {
         Collider::showCollision = !Collider::showCollision;
     }
 
-    if (InputManager::GetInstance().KeyPress(SDLK_g)) {
+    if (keybinder.IsActionPressed(KeyBindingManager::GameAction::NOTEBOOK)) {
         Game& game = Game::GetInstance();
         NotebookState* cadernoState = new NotebookState();
         game.Push(cadernoState);
