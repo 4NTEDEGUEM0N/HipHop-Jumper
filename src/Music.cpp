@@ -5,6 +5,8 @@
 
 using namespace std;
 
+int Music::MUSIC_VOLUME = 3;
+
 Music::Music() {
     music = nullptr;
 }
@@ -16,7 +18,7 @@ Music::Music(string file) {
 
 void Music::Play(int times) {
     if (music != nullptr) {
-        Mix_VolumeMusic(32);
+        Mix_VolumeMusic(MUSIC_VOLUME*10);
         bool mix_playmusic = Mix_PlayMusic(music.get(), times);
         if (mix_playmusic == -1) {
             cerr << "Erro - Mix_PlayMusic: " << SDL_GetError() << endl;

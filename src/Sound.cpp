@@ -1,8 +1,8 @@
 #include "../include/Sound.hpp"
-
 #include <iostream>
-
 #include "../include/Resources.hpp"
+
+int Sound::SOUND_VOLUME = 3;
 
 Sound::Sound() {
     chunk = nullptr;
@@ -19,7 +19,7 @@ void Sound::Play(int times) {
         cerr << "Erro - Mix_PlayChannel: " << SDL_GetError() << endl;
         exit(1);
     }
-    Mix_Volume(channel, 32);
+    Mix_Volume(channel, SOUND_VOLUME*10);
 }
 
 void Sound::Stop() {

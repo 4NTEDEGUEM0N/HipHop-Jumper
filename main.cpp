@@ -5,12 +5,11 @@
 #include "include/EndState.hpp"
 #include "include/StageState.hpp"
 #include "include/TitleState.hpp"
+#include "include/PauseState.hpp"
 
 int main (int argc, char** argv) {
     Game& game = Game::GetInstance();
-    //StageState* stageState = new StageState();
     TitleState* tileState = new TitleState();
-    //EndState* endState = new EndState();
     game.Push(tileState);
     game.Run();
     Game::Quit();

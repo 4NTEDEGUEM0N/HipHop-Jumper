@@ -19,6 +19,8 @@ public:
     void Stop();
     void Open(string file);
     bool IsOpen();
+
+    static int SOUND_VOLUME;
 };
 
 

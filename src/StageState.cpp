@@ -20,6 +20,7 @@
 #include "../include/HUD.hpp"
 #include "../include/Item.hpp"
 #include "../include/NotebookState.hpp"
+#include "../include/PauseState.hpp"
 
 
 StageState::StageState() {
@@ -256,12 +257,10 @@ void StageState::Update(float dtt) {
 
     if (InputManager::GetInstance().KeyPress(ESCAPE_KEY)) {
         Game& game = Game::GetInstance();
-        TitleState* titleState = new TitleState();
-        game.Push(titleState);
-        popRequested = true;
-    } else {
-        quitRequested = InputManager::GetInstance().QuitRequested();
+        PauseState* pauseState = new PauseState();
+        game.Push(pauseState);
     }
+    quitRequested = InputManager::GetInstance().QuitRequested();
 
     if (InputManager::GetInstance().KeyPress(SDLK_SPACE)) {
         GameObject* zombieObject = new GameObject(false);

@@ -20,6 +20,8 @@ public:
     void Stop(int msToStop = 1500);
     void Open(string file);
     bool IsOpen();
+
+    static int MUSIC_VOLUME;
 };
 
 #endif //MUSIC_HPP
