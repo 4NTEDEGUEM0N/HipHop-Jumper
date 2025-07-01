@@ -41,6 +41,13 @@ private:
     Timer damageCooldown;
     Sound deathSound;
     Sound hitSound;
+    Sound spraySound;
+    Sound jumpSound;
+    Sound doublejumpSound;
+    Sound dashSound;
+    Sound stepSound;
+    Sound landSound;
+    Sound grabSound;
 
     bool onGround;
     Vec2 direction;
@@ -64,6 +71,7 @@ private:
     bool isHit;
     Timer hitTimer;
     Timer wallJumpCooldown;
+    bool isStepSoundPlaying;
 
 public:
     static Character* player;

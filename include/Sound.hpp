@@ -19,8 +19,10 @@ public:
     void Stop();
     void Open(string file);
     bool IsOpen();
-
+    bool IsPlaying() const;
     static int SOUND_VOLUME;
+    
+    bool isLooping = false; // NEW: tracks if currently looping
 };
 
 

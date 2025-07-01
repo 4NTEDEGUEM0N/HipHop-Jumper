@@ -224,6 +224,9 @@ StageState::StageState() {
         playerObject->AddComponent(playerCharacter);
         PlayerController* playerController = new PlayerController(*playerObject);
         playerObject->AddComponent(playerController);
+        
+        backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
+        backgroundMusic.Play();
     }
 
     //backgroundMusic.Open("../Recursos/audio/bgm1.mp3");

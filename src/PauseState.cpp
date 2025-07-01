@@ -46,6 +46,7 @@ PauseState::PauseState() {
     resumeObj->box.X = optionsObj->box.X;
     resumeObj->box.Y = optionsObj->box.Y - resumeObj->box.H - 10;
     AddObject(resumeObj);
+        
     resumeButton->SetClickFunction([this]() {
         popRequested = true;
     });
@@ -80,6 +81,8 @@ void PauseState::Update(float dt) {
     UpdateArray(dt);
 
     if (InputManager::GetInstance().KeyPress(SDLK_ESCAPE)) {
+//        Sound escSound = Sound("../Recursos/audio/UX/MENU CLICK 3.wav");
+//        escSound.Play();
         popRequested = true;
     }
 }

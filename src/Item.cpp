@@ -5,7 +5,7 @@
 Item::Item(GameObject& associated, ItemData itemData, string file) :
     Component(associated),
     itemData(itemData),
-    collectSound("../Recursos/audio/lego-star-wars-minikit.mp3")
+    collectSound("../Recursos/audio/INTERACOES/COLLECT.wav")
 {
     counter = 0;
     up = false;

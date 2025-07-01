@@ -23,7 +23,16 @@ Character* Character::player = nullptr;
 vector<SDL_Texture*> Character::graffitiArray;
 int Character::currentGraffitiId = -1;
 
-Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/Dead.wav"), hitSound("../Recursos/audio/Hit1.wav") {
+Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/MOVIMENTOS/FIGHT VOCALIZE MALE HURT.wav"),
+    hitSound("../Recursos/audio/MOVIMENTOS/FIGHT VOCALIZE MALE.wav"),
+    spraySound("../Recursos/audio/GRAFFITI/CANSHAKESPRAY.wav"),
+    jumpSound("../Recursos/audio/MOVIMENTOS/JUMP1.wav"),
+    doublejumpSound("../Recursos/audio/MOVIMENTOS/DOUBLEJUMP1.wav"),
+    dashSound("../Recursos/audio/MOVIMENTOS/CLOTHWHOOSH.wav"),
+    stepSound("../Recursos/audio/PASSOS MOVIMENTOS DIVERSOS/PASSOS CONCRETO 1 DEVAGAR.wav"),
+    landSound("../Recursos/audio/MOVIMENTOS/JUMPFINISH.wav"),
+    grabSound("../Recursos/audio/MOVIMENTOS/WHOOSH .wav")
+{
     gun.reset();
     inventory = vector<GameObject>();
     taskQueue = queue<Command>();
@@ -134,15 +143,18 @@ void Character::Update(float dt) {
             gunCpt->Shot(task.pos);
         } else if (task.type == Command::JUMP && !dashing && !isHit) {
             if (canJump) {
+                jumpSound.Play(1);
                 speed.Y = jumpSpeed;
                 onGround = false;
                 canJump = false;
                 animator->SetAnimation("jump");
                 if (onWall) {
                     speed.X = maxGroundSpeed*2*direction.X*-1;
+                    speed.Y = jumpSpeed/3;
                     wallJumpCooldown.Restart();
                 }
             } else if (canDoubleJump) {
+                doublejumpSound.Play(1);
                 speed.Y = jumpSpeed;
                 canDoubleJump = false;
                 onGround = false;
@@ -155,6 +167,7 @@ void Character::Update(float dt) {
                 dashing = true;
                 dashTimer.Restart();
                 speed.Y = 0;
+                dashSound.Play(1);
                 animator->SetAnimation("dash");
             }
         }
@@ -280,10 +293,16 @@ void Character::Update(float dt) {
             }
             if ((TopLeft or CenterLeft or BottomLeft) and (not CenterBottom and not BottomRight)) {
                 animator->SetAnimation("wallGrab");
+                if (onWall == false) {
+                    grabSound.Play(1);
+                }
                 onWall = true;
                 canJump = true;
             } else if ((TopRight or CenterRight or BottomRight) and (not CenterBottom and not BottomLeft)) {
                 animator->SetAnimation("wallGrab");
+                if (onWall == false) {
+                    grabSound.Play(1);
+                }
                 onWall = true;
                 canJump = true;
             } else {
@@ -314,6 +333,9 @@ void Character::Update(float dt) {
                 }
                 if (collision.corner == TileMap::CollisionCorner::BottomRight or collision.corner == TileMap::CollisionCorner::BottomLeft) {
                     speed.Y = 0;
+                    if (onGround == false) {
+                        landSound.Play(1);
+                    }
                     onGround = true;
                     canJump = true;
                     canDoubleJump = true;
@@ -365,6 +387,27 @@ void Character::Update(float dt) {
         else if (speed.X == 0 and not moving)
             animator->SetAnimation("idle");
     }
+    
+    bool shouldPlayStep = onGround && fabs(speed.X) > 10.0f && !dashing && !isHit && !dead;
+
+    //bool shouldPlayStep = onGround && moving && !dashing && !isHit && !dead;
+
+    
+    if (shouldPlayStep) {
+        stepSound.Play(-1);  // loop
+    } else {
+        stepSound.Stop();
+    }
+    
+//    if (shouldPlayStep) {
+//        if (!stepSound.IsPlaying()) {
+//            stepSound.Play(-1);  // Toca em loop infinito
+//        }
+//    } else {
+//        if (stepSound.IsPlaying()) {
+//            stepSound.Stop();  // Para quando necessário
+//        }
+//    }
 
     KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
     if (keybinder.IsActionPressed(KeyBindingManager::GameAction::GRAFFITI) and !graffitiArray.empty()) {
@@ -376,6 +419,7 @@ void Character::Update(float dt) {
         graffitiObj->box.X = associated.box.X + associated.box.W/2 - graffitiObj->box.W/2;
         graffitiObj->box.Y = associated.box.Y - graffitiObj->box.H;
         graffiti->Render();
+        spraySound.Play(); //randomize sound?
 
         State& state = Game::GetInstance().GetState();
         state.AddObject(graffitiObj);
@@ -521,6 +565,7 @@ void Character::AddGraffiti(SDL_Texture *texture) {
 
     graffitiArray.emplace_back(newTexture);
     currentGraffitiId = graffitiArray.size() - 1;
+    
 }
 
 void Character::SetCurrentGraffitiId(int id) {

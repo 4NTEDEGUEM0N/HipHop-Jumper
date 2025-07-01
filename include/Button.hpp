@@ -3,6 +3,7 @@
 #include <functional>
 
 #include "Component.hpp"
+#include "Sound.hpp"
 
 using namespace std;
 
@@ -18,6 +19,11 @@ public:
     function<void()> Click;
     function<void()> Hover;
     function<void()> None;
+    
+    Sound clickSound;
+    Sound hoverSound;
+    
+    bool hoverSoundPlayed;
 
     void SetClickFunction(function<void()> func);
     void SetHoverFunction(function<void()> func);

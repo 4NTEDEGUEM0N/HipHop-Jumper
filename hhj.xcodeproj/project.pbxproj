@@ -228,6 +228,13 @@
 		B07824C22E11D3300020621D /* PauseState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PauseState.hpp; sourceTree = "<group>"; };
 		B07824C32E11D3300020621D /* OptionsState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OptionsState.hpp; sourceTree = "<group>"; };
 		B07824C42E11D3300020621D /* KeyBindingManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KeyBindingManager.hpp; sourceTree = "<group>"; };
+		B07824C62E11D5B90020621D /* INTERACOES */ = {isa = PBXFileReference; lastKnownFileType = folder; path = INTERACOES; sourceTree = "<group>"; };
+		B07824C82E11D5B90020621D /* MOVIMENTOS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MOVIMENTOS; sourceTree = "<group>"; };
+		B07824C92E11D5B90020621D /* PASSOS MOVIMENTOS DIVERSOS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "PASSOS MOVIMENTOS DIVERSOS"; sourceTree = "<group>"; };
+		B07824CB2E11D5B90020621D /* CADERNO  */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "CADERNO "; sourceTree = "<group>"; };
+		B07824CE2E11D5B90020621D /* GRAFFITI */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GRAFFITI; sourceTree = "<group>"; };
+		B07824D02E11D62B0020621D /* UX */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UX; sourceTree = "<group>"; };
+		B07824D12E11D62B0020621D /* TRACKS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TRACKS; sourceTree = "<group>"; };
 		B084BA1C2DE0D17A006946A3 /* DrawState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawState.cpp; sourceTree = "<group>"; };
 		B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NotebookState.cpp; sourceTree = "<group>"; };
 		B084BA202DE0D18F006946A3 /* DrawState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawState.hpp; path = include/DrawState.hpp; sourceTree = SOURCE_ROOT; };
@@ -258,46 +265,37 @@
 			children = (
 				B0152ABA2DBD57ED008B5B08 /* Animation.hpp */,
 				B002CC442DDA3D1800654639 /* Animator.hpp */,
-				B002CC382DDA3D1800654639 /* Bullet.hpp */,
 				B002CC572DDA3D1800654639 /* Button.hpp */,
 				B002CC5A2DDA3D1800654639 /* Camera.hpp */,
 				B0152AB92DBD57ED008B5B08 /* Character.hpp */,
 				B002CC392DDA3D1800654639 /* Collider.hpp */,
-				B002CC3C2DDA3D1800654639 /* Collision.hpp */,
 				B002CC4A2DDA3D1800654639 /* Component.hpp */,
 				B084BA202DE0D18F006946A3 /* DrawState.hpp */,
 				B0152ACB2DBD57EE008B5B08 /* EndState.hpp */,
 				B002CC3D2DDA3D1800654639 /* Game.hpp */,
-				B002CC3B2DDA3D1800654639 /* GameData.hpp */,
 				B002CC492DDA3D1800654639 /* GameObject.hpp */,
 				B0152AD02DBD57EF008B5B08 /* Gun.hpp */,
 				B002CC372DDA3D1800654639 /* HUD.hpp */,
-				B002CC3F2DDA3D1800654639 /* InputManager.hpp */,
 				B002CC342DDA3D1800654639 /* InventoryItem.hpp */,
 				B094C2572DC41B7D00463219 /* Item.hpp */,
 				B05052862DDA944B00C81331 /* ItemData.hpp */,
 				B07824C42E11D3300020621D /* KeyBindingManager.hpp */,
-				B002CC3E2DDA3D1800654639 /* Music.hpp */,
 				B084BA212DE0D18F006946A3 /* NotebookState.hpp */,
 				B07824C32E11D3300020621D /* OptionsState.hpp */,
 				B07824C22E11D3300020621D /* PauseState.hpp */,
 				B002CC562DDA3D1800654639 /* PlayerController.hpp */,
 				B0152AC52DBD57EE008B5B08 /* Rect.hpp */,
 				B002CC502DDA3D1800654639 /* Resources.hpp */,
-				B002CC452DDA3D1800654639 /* Sound.hpp */,
 				B002CC4B2DDA3D1800654639 /* Sprite.hpp */,
 				B0152ACA2DBD57EE008B5B08 /* SpriteRenderer.hpp */,
 				B002CC542DDA3D1800654639 /* StageState.hpp */,
-				B002CC4D2DDA3D1800654639 /* State.hpp */,
 				B002CC582DDA3D1800654639 /* Text.hpp */,
 				B0152AC22DBD57EE008B5B08 /* Tile.hpp */,
 				B002CC362DDA3D1800654639 /* TileMap.hpp */,
-				B002CC552DDA3D1800654639 /* TileSet.hpp */,
 				B002CC4C2DDA3D1800654639 /* Timer.hpp */,
 				B0152ACE2DBD57EE008B5B08 /* TitleState.hpp */,
 				B002CC3A2DDA3D1800654639 /* Vec2.hpp */,
 				B002CC352DDA3D1800654639 /* Tile.hpp */,
-				B002CC522DDA3D1800654639 /* Zombie.hpp */,
 				B002CC382DDA3D1800654639 /* Bullet.hpp */,
 				B002CC3B2DDA3D1800654639 /* GameData.hpp */,
 				B002CC3C2DDA3D1800654639 /* Collision.hpp */,
@@ -454,6 +452,13 @@
 		B0152B642DBD8303008B5B08 /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				B07824D12E11D62B0020621D /* TRACKS */,
+				B07824D02E11D62B0020621D /* UX */,
+				B07824CB2E11D5B90020621D /* CADERNO  */,
+				B07824CE2E11D5B90020621D /* GRAFFITI */,
+				B07824C62E11D5B90020621D /* INTERACOES */,
+				B07824C82E11D5B90020621D /* MOVIMENTOS */,
+				B07824C92E11D5B90020621D /* PASSOS MOVIMENTOS DIVERSOS */,
 				B02179A62DE0D7FA00DD1357 /* bgm1.mp3 */,
 				B002CC092DD8E3AC00654639 /* lego-star-wars-minikit.mp3 */,
 				B0152B652DBD8303008B5B08 /* Hit0.wav */,
