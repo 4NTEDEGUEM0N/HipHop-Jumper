@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iomanip>
 
-HUD::HUD() : characterSprite("../Recursos/img/bonequinho.png"), characterAbilities("../Recursos/img/habilidades.png",2,3), characterItems("../Recursos/img/minikitHud.png",2,1) {
+HUD::HUD() : characterSprite("../Recursos/img/avatar.png"), characterAbilities("../Recursos/img/habilidades.png",2,3), characterItems("../Recursos/img/minikitHud.png",2,1) {
     characterSprite.cameraFollower = true;
     characterAbilities.cameraFollower = true;
     characterItems.cameraFollower = true;
@@ -50,9 +50,9 @@ void HUD::Render() {
     hpText->SetText(to_string(player->GetHP()) + "/100");
     hpText->Render();
 
-    RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 0*32 + 1*5);
-    RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 1*32 + 2*5);
-    RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth() - 37, characterRect->Y + 2*32 + 3*5);
+    RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 0*32 + 1*5);
+    RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 1*32 + 2*5);
+    RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 2*32 + 3*5);
 
     int invSize = player->GetInventorySize();
     for(int i = 0; i < invSize; i++) {
