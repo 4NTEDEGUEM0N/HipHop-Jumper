@@ -220,6 +220,15 @@
 		B0152B6B2DBD8303008B5B08 /* endStateLose.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = endStateLose.ogg; sourceTree = "<group>"; };
 		B0152B6C2DBD8303008B5B08 /* Dead.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dead.wav; sourceTree = "<group>"; };
 		B02179A62DE0D7FA00DD1357 /* bgm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm1.mp3; path = Recursos/audio/bgm1.mp3; sourceTree = SOURCE_ROOT; };
+		B024D7012E14A910004D7CE4 /* tileset_1fase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tileset_1fase.png; sourceTree = "<group>"; };
+		B024D7022E14A910004D7CE4 /* tileset_1fase2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tileset_1fase2.png; sourceTree = "<group>"; };
+		B024D7032E14A910004D7CE4 /* vigilante.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vigilante.png; sourceTree = "<group>"; };
+		B024D7042E14A910004D7CE4 /* spray_can.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spray_can.png; sourceTree = "<group>"; };
+		B024D7052E14A911004D7CE4 /* Spritesheet 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Spritesheet 2.png"; sourceTree = "<group>"; };
+		B024D7062E14A911004D7CE4 /* tileset_1fase2_frente.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tileset_1fase2_frente.png; sourceTree = "<group>"; };
+		B024D7072E14A911004D7CE4 /* tileset_1fase2_tras.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tileset_1fase2_tras.png; sourceTree = "<group>"; };
+		B024D7082E14A911004D7CE4 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		B024D7092E14A9A4004D7CE4 /* Sprite Spray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sprite Spray.png"; sourceTree = "<group>"; };
 		B05052852DDA944B00C81331 /* ItemData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ItemData.cpp; sourceTree = "<group>"; };
 		B05052862DDA944B00C81331 /* ItemData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ItemData.hpp; sourceTree = "<group>"; };
 		B07824BC2E11D31E0020621D /* KeyBindingManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyBindingManager.cpp; sourceTree = "<group>"; };
@@ -415,6 +424,15 @@
 				B002CC012DD8E36500654639 /* Tileset_teste.png */,
 				B0152B542DBD8303008B5B08 /* Bullet.png */,
 				B0152B552DBD8303008B5B08 /* Enemy.png */,
+				B024D7082E14A911004D7CE4 /* check.png */,
+				B024D7042E14A910004D7CE4 /* spray_can.png */,
+				B024D7052E14A911004D7CE4 /* Spritesheet 2.png */,
+				B024D7092E14A9A4004D7CE4 /* Sprite Spray.png */,
+				B024D7012E14A910004D7CE4 /* tileset_1fase.png */,
+				B024D7062E14A911004D7CE4 /* tileset_1fase2_frente.png */,
+				B024D7072E14A911004D7CE4 /* tileset_1fase2_tras.png */,
+				B024D7022E14A910004D7CE4 /* tileset_1fase2.png */,
+				B024D7032E14A910004D7CE4 /* vigilante.png */,
 				B0152B562DBD8303008B5B08 /* Title.png */,
 				B0152B572DBD8303008B5B08 /* Win.png */,
 				B0152B582DBD8303008B5B08 /* Gun.png */,

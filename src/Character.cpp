@@ -66,8 +66,8 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
 
 
     //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
-    characterSprite = new SpriteRenderer(associated, sprite, 6, 5);
-    //characterSprite->SetScale(0.08,0.08);
+    characterSprite = new SpriteRenderer(associated, sprite, 5, 5);
+    characterSprite->SetScale(0.15,0.15);
     associated.AddComponent(characterSprite);
 
     Animator* animator = new Animator(associated);
@@ -76,10 +76,10 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     animator->AddAnimation("walking", Animation(4, 11, 0.1));
     animator->AddAnimation("dead", Animation(25, 25, 0));
     animator->AddAnimation("jump", Animation(16, 16, 0.1));
-    animator->AddAnimation("falling", Animation(23, 23, 0));
-    animator->AddAnimation("wallGrab", Animation(28, 28, 0));
+    animator->AddAnimation("falling", Animation(19, 19, 0));
+    animator->AddAnimation("wallGrab", Animation(24, 24, 0));
     animator->AddAnimation("dash", Animation(12, 15, 0.05));
-    animator->AddAnimation("hit", Animation(26, 26, 0));
+    animator->AddAnimation("hit", Animation(22, 22, 0));
 
 
     animator->SetAnimation("idle");
@@ -150,7 +150,7 @@ void Character::Update(float dt) {
                 animator->SetAnimation("jump");
                 if (onWall) {
                     speed.X = maxGroundSpeed*2*direction.X*-1;
-                    speed.Y = jumpSpeed/3;
+                    speed.Y = jumpSpeed*3/4;
                     wallJumpCooldown.Restart();
                 }
             } else if (canDoubleJump) {

@@ -217,7 +217,7 @@ StageState::StageState() {
         AddObject(playerObject);
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
-        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Spritesheet 2.png");
+        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Sprite Spray.png");
         playerObject->box.X = 1024;
         playerObject->box.Y = 3392 - playerObject->box.H;
         Camera::Follow(playerObject);
