@@ -193,10 +193,10 @@ StageState::StageState() {
         PlayerController* playerController = new PlayerController(*playerObject);
         playerObject->AddComponent(playerController);
     } else if (teste == 3) {
-        TileSet* frenteTileSet = new TileSet("../Recursos/img/tileset_1fase2_frente.png", 64, 64);
+        TileSet* frenteTileSet = new TileSet("../Recursos/img/tileset_1fase2_frente_scaled.png", 64, 64);
         TileSet* collisionTileSet = new TileSet("../Recursos/img/tileset_1fase2.png", 64, 64);
         TileSet* backgroundTileSet = new TileSet("../Recursos/img/tileset_1fase2.png", 64, 64);
-        TileSet* metroTileSet = new TileSet("../Recursos/img/tileset_1fase2_tras.png", 64, 64);
+        TileSet* metroTileSet = new TileSet("../Recursos/img/tileset_1fase2_tras_scaled.png", 64, 64);
 
         std::vector<TileSet*> TileSets;
         TileSets.push_back(frenteTileSet);
@@ -210,14 +210,14 @@ StageState::StageState() {
         tileMapObject->box.Y = 0;
         set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10};
         tileSet = collisionTileSet;
-        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase2.txt", TileSets, solidIDs, 1);
+        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase2_scaled.txt", TileSets, solidIDs, 1);
         tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);
         AddObject(playerObject);
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
-        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Sprite Spray.png");
+        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Sprite Spray2_scaled.png");
         playerObject->box.X = 1024;
         playerObject->box.Y = 3392 - playerObject->box.H;
         Camera::Follow(playerObject);
@@ -326,10 +326,16 @@ void StageState::Render() {
 
 void StageState::Start() {
     StartArray();
+    backgroundMusic.UpdateVolume();
 }
 
-void StageState::Pause() {}
-void StageState::Resume() {}
+void StageState::Pause() {
+    backgroundMusic.Pause();
+}
+void StageState::Resume() {
+    backgroundMusic.UpdateVolume();
+    backgroundMusic.Resume();
+}
 
 GameObject* StageState::GetTileMapObject() {
     return tileMapObject;

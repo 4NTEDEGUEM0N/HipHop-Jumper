@@ -35,6 +35,23 @@ void Music::Stop(int msToStop) {
     }
 }
 
+void Music::Pause() {
+    if (Mix_PlayingMusic() && !Mix_PausedMusic()) {
+        Mix_PauseMusic();
+    }
+}
+
+void Music::Resume() {
+    if (Mix_PlayingMusic() && Mix_PausedMusic()) {
+        Mix_ResumeMusic();
+    }
+}
+
+void Music::UpdateVolume() {
+    Mix_VolumeMusic(MUSIC_VOLUME);
+}
+
+
 void Music::Open(string file) {
     if (music != nullptr) {
         music = nullptr;
