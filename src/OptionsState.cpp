@@ -347,8 +347,8 @@ OptionsState::OptionsState() {
     Button* saveButton = new Button(*saveObj);
     saveObj->AddComponent(saveButton);
     AddObject(saveObj);
-    restoreText = new Text(*saveObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Save", {0,128,0,255}, true);
-    saveObj->AddComponent(restoreText);
+    saveText = new Text(*saveObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Save", {0,128,0,255}, true);
+    saveObj->AddComponent(saveText);
     saveObj->box.X = Game::VirtualScreenWidth/4 - saveObj->box.W/2;
     saveObj->box.Y = restoreObj->box.Y;
 
@@ -356,10 +356,10 @@ OptionsState::OptionsState() {
         popRequested = true;
     });
     saveButton->SetHoverFunction([this]() {
-        restoreText->SetColor({26, 160, 251, 255});
+        saveText->SetColor({26, 160, 251, 255});
     });
     saveButton->SetNoneFunction([this]() {
-        restoreText->SetColor({0,128,0,255});
+        saveText->SetColor({0,128,0,255});
     });
 }
 
