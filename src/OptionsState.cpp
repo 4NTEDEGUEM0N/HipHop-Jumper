@@ -316,6 +316,51 @@ OptionsState::OptionsState() {
     graffitiButton->SetNoneFunction([this]() {
         graffitiText->SetColor({64, 64, 64, 255});
     });
+
+    GameObject* restoreObj = new GameObject();
+    Button* restoreButton = new Button(*restoreObj);
+    restoreObj->AddComponent(restoreButton);
+    AddObject(restoreObj);
+    restoreText = new Text(*restoreObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Reset to Default", {128,0,0,255}, true);
+    restoreObj->AddComponent(restoreText);
+    restoreObj->box.X = (3 * Game::VirtualScreenWidth)/4 - restoreObj->box.W/2;
+    restoreObj->box.Y = graffitiObj->box.Y + restoreObj->box.H + 30;
+
+    restoreButton->SetClickFunction([this]() {
+        KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
+        keybinder.LoadDefaultBindings();
+        jumpText->SetText("Jump: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::JUMP))));
+        leftText->SetText("Left: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::MOVE_LEFT))));
+        rightText->SetText("Right: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::MOVE_RIGHT))));
+        dashText->SetText("Dash: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::DASH))));
+        notebookText->SetText("Notebook: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::NOTEBOOK))));
+        graffitiText->SetText("Graffiti: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::GRAFFITI))));
+    });
+    restoreButton->SetHoverFunction([this]() {
+        restoreText->SetColor({26, 160, 251, 255});
+    });
+    restoreButton->SetNoneFunction([this]() {
+        restoreText->SetColor({128,0,0,255});
+    });
+
+    GameObject* saveObj = new GameObject();
+    Button* saveButton = new Button(*saveObj);
+    saveObj->AddComponent(saveButton);
+    AddObject(saveObj);
+    restoreText = new Text(*saveObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Save", {0,128,0,255}, true);
+    saveObj->AddComponent(restoreText);
+    saveObj->box.X = Game::VirtualScreenWidth/4 - saveObj->box.W/2;
+    saveObj->box.Y = restoreObj->box.Y;
+
+    saveButton->SetClickFunction([this]() {
+        popRequested = true;
+    });
+    saveButton->SetHoverFunction([this]() {
+        restoreText->SetColor({26, 160, 251, 255});
+    });
+    saveButton->SetNoneFunction([this]() {
+        restoreText->SetColor({0,128,0,255});
+    });
 }
 
 void OptionsState::Update(float dt) {

@@ -29,6 +29,8 @@ private:
     Text* dashText;
     Text* notebookText;
     Text* graffitiText;
+    Text* restoreText;
+    Text* saveText;
 };
 
 #endif //OPTIONSSTATE_HPP
