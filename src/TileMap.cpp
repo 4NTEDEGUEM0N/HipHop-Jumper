@@ -226,123 +226,50 @@ TileMap::TileCollisionType TileMap::GetCollisionType(int x, int y) {
 vector<TileMap::CollisionInfo> TileMap::IsColliding(Rect box) {
     vector<CollisionInfo> collisions;
 
-    int tileWidth = tileSets[collisionLayer]->GetTileWidth();
-    int tileHeight = tileSets[collisionLayer]->GetTileHeight();
+    // 1. Calcula a área de tiles que a "box" ocupa
+    int tileWidth = GetTileSetWidth(); // Usando o layer de colisão padrão
+    int tileHeight = GetTileSetHeight();
 
+    // Arredonda para baixo para o tile inicial e para cima para o final
+    int startX = static_cast<int>(box.X) / tileWidth;
+    int endX = static_cast<int>(box.X + box.W) / tileWidth;
+    int startY = static_cast<int>(box.Y) / tileHeight;
+    int endY = static_cast<int>(box.Y + box.H) / tileHeight;
 
-    int left   = box.X / tileWidth;
-    int right  = (box.X + box.W) / tileWidth;
-    int top    = box.Y / tileHeight;
-    int bottom = (box.Y + box.H) / tileHeight;
+    // 2. Itera APENAS sobre os tiles relevantes
+    for (int y = startY; y <= endY; ++y) {
+        for (int x = startX; x <= endX; ++x) {
 
+            TileCollisionType type = GetCollisionType(x, y);
 
+            // 3. Se o tile for sólido, verifica a colisão
+            if (type != TileCollisionType::None) {
+                bool collided = false;
 
-    Vec2 topLeft = Vec2(left, top);
-    Vec2 topRight = Vec2(right, top);
-    Vec2 bottomLeft = Vec2(left, bottom);
-    Vec2 bottomRight = Vec2(right, bottom);
-    Vec2 centerTop    = Vec2((box.X + box.W / 2)/ tileWidth, box.Y / tileHeight);
-    Vec2 centerBottom = Vec2((box.X + box.W / 2)/ tileWidth, (box.Y + box.H) / tileHeight);
-    Vec2 centerLeft   = Vec2(box.X/ tileWidth, (box.Y + box.H / 2) / tileHeight);
-    Vec2 centerRight  = Vec2((box.X + box.W)/ tileWidth, (box.Y + box.H / 2) / tileHeight);
+                // Para tiles retangulares, a colisão é garantida se chegamos aqui
+                if (type == TileCollisionType::Full) {
+                    collided = true;
+                }
+                // Para tiles triangulares, fazemos a verificação mais detalhada
+                else {
+                    if (RectCollidesTriangle(box, x, y, type, tileWidth, tileHeight)) {
+                        collided = true;
+                    }
+                }
 
-    TileCollisionType type_topLeft = GetCollisionType(topLeft.X, topLeft.Y);
-    TileCollisionType type_topRight = GetCollisionType(topRight.X, topRight.Y);
-    TileCollisionType type_bottomLeft = GetCollisionType(bottomLeft.X, bottomLeft.Y);
-    TileCollisionType type_bottomRight = GetCollisionType(bottomRight.X, bottomRight.Y);
-    TileCollisionType type_centerTop = GetCollisionType(centerTop.X, centerTop.Y);
-    TileCollisionType type_centerBottom = GetCollisionType(centerBottom.X, centerBottom.Y);
-    TileCollisionType type_centerLeft = GetCollisionType(centerLeft.X, centerLeft.Y);
-    TileCollisionType type_centerRight = GetCollisionType(centerRight.X, centerRight.Y);
-
-    if (type_topLeft != TileCollisionType::None) {
-        if (type_topLeft != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, topLeft.X, topLeft.Y, type_topLeft, tileWidth, tileHeight)) {
-                CollisionInfo collision = {CollisionCorner::TopLeft, Vec2(topLeft.X, topLeft.Y), type_topLeft};
-                collisions.push_back(collision);
+                if (collided) {
+                    // 4. Adiciona a informação da colisão
+                    // Nota: O 'CollisionCorner' perde um pouco o sentido aqui.
+                    // É mais útil saber qual tile colidiu e seu tipo.
+                    // Podemos adaptar ou simplificar a struct CollisionInfo no futuro.
+                    CollisionInfo info;
+                    info.tilePos = Vec2(x, y);
+                    info.type = type;
+                    // Você pode adicionar uma lógica para determinar o "canto" se ainda precisar,
+                    // mas geralmente não é necessário com essa abordagem.
+                    collisions.push_back(info);
+                }
             }
-        } else {
-            CollisionInfo collision = {CollisionCorner::TopLeft, Vec2(topLeft.X, topLeft.Y), type_topLeft};
-            collisions.push_back(collision);
-        }
-    }
-    if (type_topRight != TileCollisionType::None) {
-        if (type_topRight != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, topRight.X, topRight.Y, type_topRight, tileWidth, tileHeight)) {
-                CollisionInfo collision = {CollisionCorner::TopRight, Vec2(topRight.X, topRight.Y), type_topRight};
-                collisions.push_back(collision);
-            }
-        } else {
-            CollisionInfo collision = {CollisionCorner::TopRight, Vec2(topRight.X, topRight.Y), type_topRight};
-            collisions.push_back(collision);
-        }
-    }
-    if (type_bottomLeft != TileCollisionType::None) {
-        if (type_bottomLeft != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, bottomLeft.X, bottomLeft.Y, type_bottomLeft, tileWidth, tileHeight)) {
-                CollisionInfo collision = {CollisionCorner::BottomLeft, Vec2(bottomLeft.X, bottomLeft.Y), type_bottomLeft};
-                collisions.push_back(collision);
-            }
-        } else {
-            CollisionInfo collision = {CollisionCorner::BottomLeft, Vec2(bottomLeft.X, bottomLeft.Y), type_bottomLeft};
-            collisions.push_back(collision);
-        }
-    }
-    if (type_bottomRight != TileCollisionType::None) {
-        if (type_bottomRight != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, bottomRight.X, bottomRight.Y, type_bottomRight, tileWidth, tileHeight)) {
-                CollisionInfo collision = {CollisionCorner::BottomRight, Vec2(bottomRight.X, bottomRight.Y), type_bottomRight};
-                collisions.push_back(collision);
-            }
-        } else {
-            CollisionInfo collision = {CollisionCorner::BottomRight, Vec2(bottomRight.X, bottomRight.Y), type_bottomRight};
-            collisions.push_back(collision);
-        }
-    }
-    if (type_centerTop != TileCollisionType::None) {
-        if (type_centerTop != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, centerTop.X, centerTop.Y, type_centerTop, tileWidth, tileHeight)) {
-                CollisionInfo collision = {CollisionCorner::CenterTop, Vec2(centerTop.X, centerTop.Y), type_centerTop};
-                collisions.push_back(collision);
-            }
-        } else {
-            CollisionInfo collision = {CollisionCorner::CenterTop, Vec2(centerTop.X, centerTop.Y), type_centerTop};
-            collisions.push_back(collision);
-        }
-    }
-    if (type_centerBottom != TileCollisionType::None) {
-        if (type_centerBottom != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, centerBottom.X, centerBottom.Y, type_centerBottom, tileWidth, tileHeight)) {
-                CollisionInfo collision = {CollisionCorner::CenterBottom, Vec2(centerBottom.X, centerBottom.Y), type_centerBottom};
-                collisions.push_back(collision);
-            }
-        } else {
-            CollisionInfo collision = {CollisionCorner::CenterBottom, Vec2(centerBottom.X, centerBottom.Y), type_centerBottom};
-            collisions.push_back(collision);
-        }
-    }
-
-    if (type_centerLeft != TileCollisionType::None) {
-        if (type_centerLeft != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, centerLeft.X, centerLeft.Y, type_centerLeft, tileWidth, tileHeight)) {
-                CollisionInfo collision = {CollisionCorner::CenterLeft, Vec2(centerLeft.X, centerLeft.Y), type_centerLeft};
-                collisions.push_back(collision);
-            }
-        } else {
-            CollisionInfo collision = {CollisionCorner::CenterLeft, Vec2(centerLeft.X, centerLeft.Y), type_centerLeft};
-            collisions.push_back(collision);
-        }
-    }
-
-    if (type_centerRight != TileCollisionType::None) {
-        if (type_centerRight != TileCollisionType::Full) {
-            if (RectCollidesTriangle(box, centerRight.X, centerRight.Y, type_centerRight, tileWidth, tileHeight)) {
-                CollisionInfo collision = {CollisionCorner::CenterRight, Vec2(centerRight.X, centerRight.Y), type_centerRight};
-                collisions.push_back(collision);
-            }
-        } else {
-            CollisionInfo collision = {CollisionCorner::CenterRight, Vec2(centerRight.X, centerRight.Y), type_centerRight};
-            collisions.push_back(collision);
         }
     }
 

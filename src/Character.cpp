@@ -245,126 +245,110 @@ void Character::Update(float dt) {
             }
         }
         Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
+        vector<TileMap::CollisionInfo> x_collisions = tileMap->IsColliding(new_box_x);
 
-        vector<TileMap::CollisionInfo> collisions = tileMap->IsColliding(new_box_x);
-        if (collisions.size() == 0) {
-            onWall = false;
+        if (x_collisions.empty()) {
             associated.box = new_box_x;
-            if (speed.X < 0)
-                characterSprite->SetFlip(SDL_FLIP_HORIZONTAL);
-            else if (speed.X > 0)
-                characterSprite->SetFlip(SDL_FLIP_NONE);
+            onWall = false; // Se não há colisão em X, não estamos em uma parede
+            if (speed.X < 0) characterSprite->SetFlip(SDL_FLIP_HORIZONTAL);
+            else if (speed.X > 0) characterSprite->SetFlip(SDL_FLIP_NONE);
         } else {
-            bool TopLeft = false, TopRight = false, BottomLeft = false, BottomRight = false, CenterBottom = false, CenterTop = false, CenterLeft = false, CenterRight = false;
-            for (TileMap::CollisionInfo collision : collisions) {
-                if (collision.type == TileMap::TileCollisionType::Full) {
-                    speed.X = 0;
-                    if (collision.corner == TileMap::CollisionCorner::TopRight or collision.corner == TileMap::CollisionCorner::BottomRight) {
-                        associated.box.X = (collision.tilePos.X * tileMap->GetTileSetWidth())  - associated.box.W - 0.01;
-                    } else if (collision.corner == TileMap::CollisionCorner::TopLeft or collision.corner == TileMap::CollisionCorner::BottomLeft) {
-                        associated.box.X = (collision.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth() + 0.01;
+            float originalSpeedX = speed.X;
+            speed.X = 0; // Para o movimento horizontal
+            bool wallCollision = false;
+
+            for (const auto& col : x_collisions) {
+                if (col.type == TileMap::TileCollisionType::Full) {
+                    wallCollision = true;
+
+                    // Se estava indo para a direita (velocidade positiva)
+                    if (originalSpeedX > 0) {
+                        associated.box.X = (col.tilePos.X * tileMap->GetTileSetWidth()) - associated.box.W - 0.01f;
                     }
-                }
-                switch (collision.corner) {
-                    case TileMap::CollisionCorner::TopLeft:
-                        TopLeft = true;
-                        break;
-                    case TileMap::CollisionCorner::TopRight:
-                        TopRight = true;
-                        break;
-                    case TileMap::CollisionCorner::BottomLeft:
-                        BottomLeft = true;
-                        break;
-                    case TileMap::CollisionCorner::BottomRight:
-                        BottomRight = true;
-                        break;
-                    case TileMap::CollisionCorner::CenterBottom:
-                        CenterBottom = true;
-                        break;
-                    case TileMap::CollisionCorner::CenterTop:
-                        CenterTop = true;
-                        break;
-                    case TileMap::CollisionCorner::CenterRight:
-                        CenterRight = true;
-                        break;
-                    case TileMap::CollisionCorner::CenterLeft:
-                        CenterLeft = true;
-                        break;
+                    // Se estava indo para a esquerda (velocidade negativa)
+                    else if (originalSpeedX < 0) {
+                        associated.box.X = (col.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth() + 0.01f;
+                    }
+
+                    // Uma vez que ajustamos a posição por um tile sólido, podemos parar de verificar.
+                    // Isso evita ajustes múltiplos se a box tocar dois tiles ao mesmo tempo.
+                    break;
                 }
             }
-            if ((TopLeft or CenterLeft or BottomLeft) and (not CenterBottom and not BottomRight)) {
-                animator->SetAnimation("wallGrab");
-                if (onWall == false) {
-                    grabSound.Play(1);
-                }
+
+            if (wallCollision && !onGround) { // Só ativa 'onWall' se estiver no ar
+                if (onWall == false) grabSound.Play(1);
                 onWall = true;
-                canJump = true;
-            } else if ((TopRight or CenterRight or BottomRight) and (not CenterBottom and not BottomLeft)) {
+                canJump = true; // Permite o Wall Jump
                 animator->SetAnimation("wallGrab");
-                if (onWall == false) {
-                    grabSound.Play(1);
-                }
-                onWall = true;
-                canJump = true;
-            } else {
-                onWall = false;
             }
         }
     }
 
     if (!dashing) {
         float gravity;
-        if (onWall and speed.Y >= 0)
-            gravity = wallGravity;
-        else
-            gravity = airGravity;
+        if (onWall && speed.Y >= 0) gravity = wallGravity;
+        else gravity = airGravity;
 
-        // calculo da gravidade do personagem
-        speed.Y = speed.Y + gravity * dt;
-        // speedcap de queda
-        if (speed.Y > maxFallSpeed)
-            speed.Y = maxFallSpeed;
+        speed.Y += gravity * dt;
+        if (speed.Y > maxFallSpeed) speed.Y = maxFallSpeed;
+
         Rect new_box_y = associated.box + Vec2(0, speed.Y * dt);
-        vector<TileMap::CollisionInfo> collisions = tileMap->IsColliding(new_box_y);
-        if (collisions.size() > 0) {
-            for (TileMap::CollisionInfo collision : collisions) {
-                if (collision.corner == TileMap::CollisionCorner::TopRight or collision.corner == TileMap::CollisionCorner::TopLeft) {
-                    speed.Y = 0;
-                    animator->SetAnimation("falling");
-                }
-                if (collision.corner == TileMap::CollisionCorner::BottomRight or collision.corner == TileMap::CollisionCorner::BottomLeft) {
-                    speed.Y = 0;
-                    if (onGround == false) {
-                        landSound.Play(1);
-                    }
-                    onGround = true;
-                    canJump = true;
-                    canDoubleJump = true;
+        vector<TileMap::CollisionInfo> y_collisions = tileMap->IsColliding(new_box_y);
 
-                    if (collision.type == TileMap::TileCollisionType::Full) {
-                        associated.box.Y = (collision.tilePos.Y * tileMap->GetTileSetHeight())  - associated.box.H - 0.01;
-                    } else if (collision.type == TileMap::TileCollisionType::TriangleTopLeft and collision.corner == TileMap::CollisionCorner::BottomRight) {
-                        float tileY = collision.tilePos.Y * tileMap->GetTileSetHeight();
-                        float tileX = collision.tilePos.X * tileMap->GetTileSetWidth();
+        if (y_collisions.empty()) {
+            associated.box = new_box_y;
+            onGround = false;
+            if (!onWall) canJump = false;
+
+            if (speed.Y < 0 && !isHit) animator->SetAnimation("jump");
+            else if (!onWall && !isHit) animator->SetAnimation("falling");
+
+        } else {
+            // Determina se a colisão foi com o chão ou com o teto
+            bool landed = false;
+            bool hitCeiling = false;
+
+            for (const auto& col : y_collisions) {
+                // Se a velocidade Y é positiva, estamos caindo.
+                if (speed.Y > 0) {
+                    landed = true;
+                    // Lógica para rampas (a sua já era boa!)
+                    if (col.type == TileMap::TileCollisionType::TriangleTopLeft) {
+                        float tileY = col.tilePos.Y * tileMap->GetTileSetHeight();
+                        float tileX = col.tilePos.X * tileMap->GetTileSetWidth();
                         float rampY = -((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X + associated.box.W) + (tileY + tileMap->GetTileSetHeight() + ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
                         associated.box.Y = rampY - associated.box.H - 0.01;
-                    } else if (collision.type == TileMap::TileCollisionType::TriangleTopRight and collision.corner == TileMap::CollisionCorner::BottomLeft) {
-                        float tileY = collision.tilePos.Y * tileMap->GetTileSetHeight();
-                        float tileX = collision.tilePos.X * tileMap->GetTileSetWidth();
+                    } else if (col.type == TileMap::TileCollisionType::TriangleTopRight) {
+                         float tileY = col.tilePos.Y * tileMap->GetTileSetHeight();
+                        float tileX = col.tilePos.X * tileMap->GetTileSetWidth();
                         float rampY = ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X) + (tileY - ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
                         associated.box.Y = rampY - associated.box.H - 0.01;
                     }
+                    // Para tiles normais, apenas ajusta a posição
+                    else {
+                        associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) - associated.box.H - 0.01;
+                    }
+                }
+                // Se a velocidade Y é negativa, estamos subindo
+                else if (speed.Y < 0) {
+                    hitCeiling = true;
+                    associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) + tileMap->GetTileSetHeight() + 0.01;
                 }
             }
-        } else {
-            associated.box = associated.box + Vec2(0, speed.Y * dt);
-            onGround = false;
-            if (not onWall)
-                canJump = false;
-            if (speed.Y < 0 and not isHit)
-                animator->SetAnimation("jump");
-            else if (not onWall and not isHit)
+
+            if (landed) {
+                if (!onGround) landSound.Play(1);
+                onGround = true;
+                canJump = true;
+                canDoubleJump = true;
+                speed.Y = 0;
+            }
+
+            if (hitCeiling) {
+                speed.Y = 0;
                 animator->SetAnimation("falling");
+            }
         }
     }
 

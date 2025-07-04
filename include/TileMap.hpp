@@ -49,7 +49,6 @@ public:
         TriangleBottomRight
     };
     struct CollisionInfo {
-        CollisionCorner corner;
         Vec2 tilePos;
         TileCollisionType type;
     };
