@@ -64,6 +64,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     dashTimer = Timer();
     dashDuration = 0.15;
     moving = false;
+    isSliding = false;
 
 
     //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
@@ -121,7 +122,7 @@ void Character::Update(float dt) {
         Command task = taskQueue.front();
         taskQueue.pop();
 
-        if (task.type == Command::MOVE && !dashing && !isHit) {
+        if (task.type == Command::MOVE && !dashing && !isHit && !isSliding) {
             if (task.pos == Vec2(0,0)) {
                 moving = false;
             } else {
@@ -286,9 +287,9 @@ void Character::Update(float dt) {
     }
 
     if (!dashing) {
-        float gravity;
-        if (onWall && speed.Y >= 0) gravity = wallGravity;
-        else gravity = airGravity;
+        float gravity = 0;
+        if (onWall && speed.Y >= 0 && !isSliding) gravity = wallGravity;
+        else if (!isSliding) gravity = airGravity;
 
         speed.Y += gravity * dt;
         if (speed.Y > maxFallSpeed) speed.Y = maxFallSpeed;
@@ -297,6 +298,7 @@ void Character::Update(float dt) {
         vector<TileMap::CollisionInfo> y_collisions = tileMap->IsColliding(new_box_y);
 
         if (y_collisions.empty()) {
+            isSliding = false;
             associated.box = new_box_y;
             onGround = false;
             if (!onWall) canJump = false;
@@ -308,6 +310,7 @@ void Character::Update(float dt) {
             // Determina se a colisão foi com o chão ou com o teto
             bool landed = false;
             bool hitCeiling = false;
+            isSliding = false;
 
             for (const auto& col : y_collisions) {
                 // Se a velocidade Y é positiva, estamos caindo.
@@ -315,18 +318,42 @@ void Character::Update(float dt) {
                     landed = true;
                     // Lógica para rampas (a sua já era boa!)
                     if (col.type == TileMap::TileCollisionType::TriangleTopLeft) {
+                        isSliding = true;
+                        speed.Y = maxFallSpeed;
+                        speed.X = -maxFallSpeed;
+                        direction = Vec2(-1, 0);
+
                         float tileY = col.tilePos.Y * tileMap->GetTileSetHeight();
                         float tileX = col.tilePos.X * tileMap->GetTileSetWidth();
                         float rampY = -((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X + associated.box.W) + (tileY + tileMap->GetTileSetHeight() + ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
-                        associated.box.Y = rampY - associated.box.H - 0.01;
+                        associated.box.Y = rampY - associated.box.H - 1;
+                        landed = false;
+                        canJump = false;
+                        canDoubleJump = false;
+                        canDash = false;
+                        dashTimer.Restart();
+                        break;
                     } else if (col.type == TileMap::TileCollisionType::TriangleTopRight) {
-                         float tileY = col.tilePos.Y * tileMap->GetTileSetHeight();
+                        isSliding = true;
+                        speed.Y = maxFallSpeed;
+                        speed.X = maxFallSpeed;
+                        direction = Vec2(1, 0);
+
+                        float tileY = col.tilePos.Y * tileMap->GetTileSetHeight();
                         float tileX = col.tilePos.X * tileMap->GetTileSetWidth();
                         float rampY = ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X) + (tileY - ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
-                        associated.box.Y = rampY - associated.box.H - 0.01;
+                        associated.box.Y = rampY - associated.box.H - 1;
+
+                        landed = false;
+                        canJump = false;
+                        canDoubleJump = false;
+                        canDash = false;
+                        dashTimer.Restart();
+                        break;
                     }
                     // Para tiles normais, apenas ajusta a posição
                     else {
+                        landed = true;
                         associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) - associated.box.H - 0.01;
                     }
                 }
@@ -342,7 +369,9 @@ void Character::Update(float dt) {
                 onGround = true;
                 canJump = true;
                 canDoubleJump = true;
-                speed.Y = 0;
+                if (!isSliding) {
+                    speed.Y = 0;
+                }
             }
 
             if (hitCeiling) {
@@ -366,11 +395,22 @@ void Character::Update(float dt) {
     } else if (direction.X > 0) {
         characterSprite->SetFlip(SDL_FLIP_NONE);
     }
-    if (hp > 0 and onGround and !dashing) {
-        if (speed.X != 0)
-            animator->SetAnimation("walking");
-        else if (speed.X == 0 and not moving)
-            animator->SetAnimation("idle");
+    if (hp > 0 && !dashing) {
+        // NOVO: Condição para animação de deslize
+        if (isSliding) {
+            animator->SetAnimation("falling"); // Ou "falling" se não tiver uma específica
+            // Ajusta a direção do sprite durante o deslize
+            if (speed.X < 0) {
+                characterSprite->SetFlip(SDL_FLIP_HORIZONTAL);
+            } else if (speed.X > 0) {
+                characterSprite->SetFlip(SDL_FLIP_NONE);
+            }
+        } else if (onGround) {
+            if (speed.X != 0)
+                animator->SetAnimation("walking");
+            else if (speed.X == 0 && !moving)
+                animator->SetAnimation("idle");
+        }
     }
     
     bool shouldPlayStep = onGround && fabs(speed.X) > 10.0f && !dashing && !isHit && !dead;

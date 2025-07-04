@@ -61,6 +61,7 @@ private:
     float dashSpeed;
     bool moving;
     bool onWall;
+    bool isSliding;
 
     bool canJump;
     bool canDoubleJump;
