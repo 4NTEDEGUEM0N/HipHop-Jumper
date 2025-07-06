@@ -17,7 +17,7 @@ public:
     void Pause();
     void Resume();
 
-    void CreateColorButton(string cor, SDL_Color color, int n);
+    void CreateColorButton(string cor, SDL_Color color, int& n);
     void RenderMouseBrush();
     void ClearCanvas();
     void FloodFill(int startX, int startY);

@@ -9,7 +9,7 @@
 #include "../include/Game.hpp"
 #include "../include/Text.hpp"
 
-void DrawState::CreateColorButton(string cor, SDL_Color color, int n) {
+void DrawState::CreateColorButton(string cor, SDL_Color color, int& n) {
     GameObject* buttonObj = new GameObject();
     Button* button = new Button(*buttonObj);
     buttonObj->AddComponent(button);
@@ -35,6 +35,7 @@ void DrawState::CreateColorButton(string cor, SDL_Color color, int n) {
         currentColorText->SetColor(color);
     });
     }
+    n++;
 }
 
 DrawState::DrawState() {
@@ -150,14 +151,16 @@ DrawState::DrawState() {
     });
 
 
-    CreateColorButton("Preto", {0,0,0,255}, 1);
-    CreateColorButton("Vermelho", {255,0,0,255}, 2);
-    CreateColorButton("Amarelo", {255,255,0,255}, 3);
-    CreateColorButton("Rosa", {254, 88, 224, 255}, 4);
-    CreateColorButton("Azul", {26, 160, 251, 255}, 5);
-    CreateColorButton("Borracha", {255, 255, 255, 0}, 6);
+    int n = 1;
+    CreateColorButton("Preto", {0,0,0,255}, n);
+    CreateColorButton("Branco", {255,255,255,255}, n);
+    CreateColorButton("Vermelho", {255,0,0,255}, n);
+    CreateColorButton("Verde", {0,255,0,255}, n);
+    CreateColorButton("Azul", {26, 160, 251, 255}, n);
+    CreateColorButton("Amarelo", {255,255,0,255}, n);
+    CreateColorButton("Rosa", {254, 88, 224, 255}, n);
+    CreateColorButton("Borracha", {255, 255, 255, 0}, n);
 
-    int n = 7;
     GameObject* buttonObj2 = new GameObject();
     Button* button2 = new Button(*buttonObj2);
     buttonObj2->AddComponent(button2);
@@ -227,6 +230,23 @@ DrawState::DrawState() {
 
     button->SetClickFunction([this]() {
         ClearCanvas();
+    });
+
+    n++;
+    GameObject* exitObj = new GameObject();
+    Button* exitButton = new Button(*exitObj);
+    exitObj->AddComponent(exitButton);
+    SpriteRenderer* exitbuttonSprite = new SpriteRenderer(*exitObj, "../Recursos/img/pixel.png");
+    exitbuttonSprite->SetCameraFollower(true);
+    exitObj->AddComponent(exitbuttonSprite);
+    Text* exittext = new Text(*exitObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "SAIR", {255, 255, 255, 255}, true);
+    exitObj->AddComponent(exittext);
+    exitObj->box.X = cadernoObj->box.X + cadernoObj->box.W + 5;
+    exitObj->box.Y = cadernoObj->box.Y + (n-1)*exitObj->box.H + (n-1)*5;
+    AddObject(exitObj);
+
+    exitButton->SetClickFunction([this]() {
+        popRequested = true;
     });
 }
 
