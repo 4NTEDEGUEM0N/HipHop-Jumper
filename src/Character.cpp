@@ -87,8 +87,9 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     animator->SetAnimation("idle");
     associated.AddComponent(animator);
 
+    colliderScale = Vec2(0.6, 0.8);
     Collider* collider = new Collider(associated);
-    //collider->SetScale(Vec2(0.5, 0.5));
+    collider->SetScale(colliderScale);
     associated.AddComponent(collider);
 }
 
@@ -199,7 +200,7 @@ void Character::Update(float dt) {
     dashTimer.Update(dt);
     if (dashing && dashTimer.Get() <= dashDuration) {
         Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
-        if (tileMap->IsColliding(new_box_x).size() == 0) {
+        if (tileMap->IsColliding(new_box_x, colliderScale).size() == 0) {
             associated.box = new_box_x;
         } else {
             dashing = false;
@@ -214,7 +215,7 @@ void Character::Update(float dt) {
     hitTimer.Update(dt);
     if (hitTimer.Get() <= 0.5 and isHit) {
         Rect new_box_x = associated.box + Vec2(speed.X * dt,0);
-        if (tileMap->IsColliding(new_box_x).size() == 0) {
+        if (tileMap->IsColliding(new_box_x, colliderScale).size() == 0) {
             associated.box = new_box_x;
             animator->SetAnimation("hit");
         } else {
@@ -246,7 +247,7 @@ void Character::Update(float dt) {
             }
         }
         Rect new_box_x = associated.box + Vec2(speed.X * dt, 0);
-        vector<TileMap::CollisionInfo> x_collisions = tileMap->IsColliding(new_box_x);
+        vector<TileMap::CollisionInfo> x_collisions = tileMap->IsColliding(new_box_x, colliderScale);
 
         if (x_collisions.empty()) {
             associated.box = new_box_x;
@@ -261,14 +262,20 @@ void Character::Update(float dt) {
             for (const auto& col : x_collisions) {
                 if (col.type == TileMap::TileCollisionType::Full) {
                     wallCollision = true;
+                    float colliderWidth = associated.box.W * colliderScale.X;
+                    float offsetSide = (associated.box.W - colliderWidth) / 2.0f;
 
                     // Se estava indo para a direita (velocidade positiva)
                     if (originalSpeedX > 0) {
-                        associated.box.X = (col.tilePos.X * tileMap->GetTileSetWidth()) - associated.box.W - 0.01f;
+                        //associated.box.X = (col.tilePos.X * tileMap->GetTileSetWidth()) - associated.box.W - 0.01f;
+                        float tileLeftX = col.tilePos.X * tileMap->GetTileSetWidth();
+                        associated.box.X = tileLeftX - colliderWidth - offsetSide - 0.01f;
                     }
                     // Se estava indo para a esquerda (velocidade negativa)
                     else if (originalSpeedX < 0) {
-                        associated.box.X = (col.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth() + 0.01f;
+                        //associated.box.X = (col.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth() + 0.01f;
+                        float tileRightX = (col.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth();
+                        associated.box.X = tileRightX - offsetSide + 0.01f;
                     }
 
                     // Uma vez que ajustamos a posição por um tile sólido, podemos parar de verificar.
@@ -295,7 +302,7 @@ void Character::Update(float dt) {
         if (speed.Y > maxFallSpeed) speed.Y = maxFallSpeed;
 
         Rect new_box_y = associated.box + Vec2(0, speed.Y * dt);
-        vector<TileMap::CollisionInfo> y_collisions = tileMap->IsColliding(new_box_y);
+        vector<TileMap::CollisionInfo> y_collisions = tileMap->IsColliding(new_box_y, colliderScale);
 
         if (y_collisions.empty()) {
             isSliding = false;
@@ -316,6 +323,10 @@ void Character::Update(float dt) {
                 // Se a velocidade Y é positiva, estamos caindo.
                 if (speed.Y > 0) {
                     landed = true;
+                    float colliderHeight = associated.box.H * colliderScale.Y;
+                    float verticalOffset = (associated.box.H - colliderHeight) / 2.0f;
+                    float colliderWidth = associated.box.W * colliderScale.X;
+                    float horizontalOffset = (associated.box.W - colliderWidth) / 2.0f;
                     // Lógica para rampas (a sua já era boa!)
                     if (col.type == TileMap::TileCollisionType::TriangleTopLeft) {
                         isSliding = true;
@@ -325,8 +336,9 @@ void Character::Update(float dt) {
 
                         float tileY = col.tilePos.Y * tileMap->GetTileSetHeight();
                         float tileX = col.tilePos.X * tileMap->GetTileSetWidth();
-                        float rampY = -((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X + associated.box.W) + (tileY + tileMap->GetTileSetHeight() + ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
-                        associated.box.Y = rampY - associated.box.H - 1;
+                        float rampY = -((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X + associated.box.W - horizontalOffset) + (tileY + tileMap->GetTileSetHeight() + ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
+                        associated.box.Y = rampY - colliderHeight - verticalOffset - 0.01;
+
                         landed = false;
                         canJump = false;
                         canDoubleJump = false;
@@ -341,8 +353,8 @@ void Character::Update(float dt) {
 
                         float tileY = col.tilePos.Y * tileMap->GetTileSetHeight();
                         float tileX = col.tilePos.X * tileMap->GetTileSetWidth();
-                        float rampY = ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X) + (tileY - ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
-                        associated.box.Y = rampY - associated.box.H - 1;
+                        float rampY = ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth()) * (associated.box.X + horizontalOffset) + (tileY - ((float)tileMap->GetTileSetHeight()/(float)tileMap->GetTileSetWidth())*tileX);
+                        associated.box.Y = rampY - colliderHeight - verticalOffset - 0.01;
 
                         landed = false;
                         canJump = false;
@@ -354,7 +366,12 @@ void Character::Update(float dt) {
                     // Para tiles normais, apenas ajusta a posição
                     else {
                         landed = true;
-                        associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) - associated.box.H - 0.01;
+                        //associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) - (associated.box.H*colliderScale.Y) - 0.01;
+                        float colliderHeight = associated.box.H * colliderScale.Y;
+                        // O centro do GameObject deve ficar a meia altura do colisor acima do chão do tile.
+                        associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) - (associated.box.H / 2.0f) - (colliderHeight / 2.0f);
+                        // Uma pequena correção para garantir que não haja sobreposição.
+                        associated.box.Y -= 0.01f;
                     }
                 }
                 // Se a velocidade Y é negativa, estamos subindo

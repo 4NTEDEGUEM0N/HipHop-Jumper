@@ -74,6 +74,8 @@ private:
     Timer wallJumpCooldown;
     bool isStepSoundPlaying;
 
+    Vec2 colliderScale;
+
 public:
     static Character* player;
 
