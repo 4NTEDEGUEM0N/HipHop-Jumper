@@ -18,6 +18,7 @@
 #include "../include/Item.hpp"
 #include "../include/InventoryItem.hpp"
 #include "../include/KeyBindingManager.hpp"
+#include "../include/NPC.hpp"
 
 
 Character* Character::player = nullptr;
@@ -550,6 +551,14 @@ void Character::NotifyCollision(GameObject &other) {
                     break;
         
             }
+        }
+    }
+    if (other.GetComponent("NPC") != nullptr) {
+        InputManager& input = InputManager::GetInstance();
+        if (input.KeyPress(SDLK_RETURN)) {
+            Component* cmp = other.GetComponent("NPC");
+            NPC* npcCpt = dynamic_cast<NPC*>(cmp);
+            npcCpt->RepeatDialog();
         }
     }
 }

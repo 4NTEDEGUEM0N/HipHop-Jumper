@@ -103,15 +103,17 @@ NotebookState::NotebookState() {
 
 void NotebookState::Update(float dt) {
     UpdateArray(dt);
+    InputManager& inputManager = InputManager::GetInstance();
 
     if (contentNeedsUpdate) {
         UpdatePageContent();
         contentNeedsUpdate = false;
     }
 
-    if (InputManager::GetInstance().KeyPress(SDLK_ESCAPE)) {
+    if (inputManager.KeyPress(SDLK_ESCAPE)) {
         popRequested = true;
     }
+    quitRequested = inputManager.QuitRequested();
 }
 
 void NotebookState::Render() {

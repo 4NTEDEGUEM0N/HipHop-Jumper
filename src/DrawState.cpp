@@ -262,11 +262,11 @@ void DrawBrush(SDL_Renderer* renderer, int x, int y, int size, SDL_Color color) 
 void DrawState::Update(float dt) {
     UpdateArray(dt);
 
-    if (InputManager::GetInstance().KeyPress(SDLK_ESCAPE)) {
+    InputManager& input = InputManager::GetInstance();
+    if (input.KeyPress(SDLK_ESCAPE)) {
         popRequested = true;
     }
-
-    InputManager& input = InputManager::GetInstance();
+    quitRequested = input.QuitRequested();
 
     int x = input.GetMouseX();
     int y = input.GetMouseY();

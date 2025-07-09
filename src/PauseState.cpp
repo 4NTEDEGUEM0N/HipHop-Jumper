@@ -80,11 +80,13 @@ PauseState::PauseState() {
 void PauseState::Update(float dt) {
     UpdateArray(dt);
 
-    if (InputManager::GetInstance().KeyPress(SDLK_ESCAPE)) {
+    InputManager& input = InputManager::GetInstance();
+    if (input.KeyPress(SDLK_ESCAPE)) {
 //        Sound escSound = Sound("../Recursos/audio/UX/MENU CLICK 3.wav");
 //        escSound.Play();
         popRequested = true;
     }
+    //quitRequested = input.QuitRequested();
 }
 
 void PauseState::Render() {

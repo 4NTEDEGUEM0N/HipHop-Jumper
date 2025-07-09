@@ -13,6 +13,7 @@
 #include "../include/Collision.hpp"
 #include <algorithm>
 
+#include "../include/DialogState.hpp"
 #include "../include/EndState.hpp"
 #include "../include/TitleState.hpp"
 #include "../include/Game.hpp"
@@ -22,6 +23,7 @@
 #include "../include/NotebookState.hpp"
 #include "../include/PauseState.hpp"
 #include "../include/KeyBindingManager.hpp"
+#include "../include/NPC.hpp"
 
 
 StageState::StageState() {
@@ -224,6 +226,27 @@ StageState::StageState() {
         playerObject->AddComponent(playerCharacter);
         PlayerController* playerController = new PlayerController(*playerObject);
         playerObject->AddComponent(playerController);
+
+        GameObject* ratoNPCObj = new GameObject();
+        AddObject(ratoNPCObj);
+        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/rato.png", "RATORIOUSBIG");
+        ratoNPCObj->AddComponent(ratoNPC);
+        ratoNPCObj->box.X = 2496;
+        ratoNPCObj->box.Y = 3848 - ratoNPCObj->box.H;
+        Collider* npcCollider = new Collider(*ratoNPCObj, {4,3});
+        ratoNPCObj->AddComponent(npcCollider);
+
+        ratoNPC->dialogs.emplace_back("Olá! Eu sou um rato maluco!");
+        ratoNPC->dialogs.emplace_back("E você é muito besta.");
+        ratoNPC->dialogs.emplace_back("Hum... Quem é você moleque? espera, pela aparência... Spray...");
+        ratoNPC->dialogs.emplace_back("Me disseram que você apareceria aqui para entrar na Crew.");
+        ratoNPC->dialogs.emplace_back("Mas caramba, você é mais feio do que eu imaginava...");
+        ratoNPC->dialogs.emplace_back("Enfim moleque, pra graffitar nessa área tem que ser bom de verdade, não \nqueremos qualquer um na nossa Crew.");
+        ratoNPC->dialogs.emplace_back("O teste vai ser você fazer o graffiti mais ousado do metrô, ali pra trás o \ndesafio é grande. Duvido que vá ser bom o suficiente.");
+        ratoNPC->dialogs.emplace_back("Aé, meu vulgo é Ratoriousbig, o maior graffiteiro da região, pode crer?");
+        ratoNPC->dialogs.emplace_back("Caso passe no teste vai encontra com o Nine lá em cima. O moleque é firmeza,\nmas também é metido");
+        ratoNPC->dialogs.emplace_back("Boa sorte!");
+
         
         backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
         backgroundMusic.Play();

@@ -365,10 +365,12 @@ OptionsState::OptionsState() {
 
 void OptionsState::Update(float dt) {
     UpdateArray(dt);
+    InputManager& input = InputManager::GetInstance();
 
-    if (InputManager::GetInstance().KeyPress(SDLK_ESCAPE)) {
+    if (input.KeyPress(SDLK_ESCAPE)) {
         popRequested = true;
     }
+    quitRequested = input.QuitRequested();
 }
 
 void OptionsState::Render() {
