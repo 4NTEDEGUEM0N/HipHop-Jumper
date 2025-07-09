@@ -6,9 +6,8 @@
 
 class DialogState : public State {
 public:
-    DialogState(vector<string> dialogs, string npcSprite, string npcName);
+    DialogState(GameObject& npcGO,vector<string> dialogs, string npcSprite, string npcName);
     ~DialogState();
-
     void LoadAssets();
     void Update(float dt);
     void Render();
@@ -20,6 +19,7 @@ public:
 
 private:
     vector<string> dialogs;
+    GameObject& npcGO;
     string npcSprite;
     string npcName;
     Text* dialogText;

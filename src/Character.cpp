@@ -555,10 +555,14 @@ void Character::NotifyCollision(GameObject &other) {
     }
     if (other.GetComponent("NPC") != nullptr) {
         InputManager& input = InputManager::GetInstance();
+        Component* cmp = other.GetComponent("NPC");
+        NPC* npcCpt = dynamic_cast<NPC*>(cmp);
+        if (!npcCpt->hasDialog) {
+            stepSound.Stop();
+        }
         if (input.KeyPress(SDLK_RETURN)) {
-            Component* cmp = other.GetComponent("NPC");
-            NPC* npcCpt = dynamic_cast<NPC*>(cmp);
             npcCpt->RepeatDialog();
+            stepSound.Stop();
         }
     }
 }

@@ -8,7 +8,6 @@ using namespace std;
 class NPC : public Component {
 private:
     string name;
-    bool hasDialog;
     string spriteFile;
 
 public:
@@ -21,6 +20,7 @@ public:
 
     void RepeatDialog();
     vector<string> dialogs;
+    bool hasDialog;
 };
 
 #endif //NPC_HPP

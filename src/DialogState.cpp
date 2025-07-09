@@ -1,8 +1,9 @@
 #include "../include/DialogState.hpp"
 #include "../include/SpriteRenderer.hpp"
 #include "../include/InputManager.hpp"
+#include "../include/NPC.hpp"
 
-DialogState::DialogState(vector<string> dialogs, string npcSprite, string npcName) {
+DialogState::DialogState(GameObject& npcGO, vector<string> dialogs, string npcSprite, string npcName): npcGO(npcGO) {
     this->dialogs = dialogs;
     this->npcSprite = npcSprite;
     this->npcName = npcName;
@@ -68,6 +69,9 @@ void DialogState::Update(float dt) {
     if (input.KeyPress(SDLK_RETURN)) {
         currrentDialog++;
         if (currrentDialog >= dialogs.size()) {
+            Component* cmp = npcGO.GetComponent("NPC");
+            NPC* npcCpt = dynamic_cast<NPC*>(cmp);
+            npcCpt->hasDialog = true;
             popRequested = true;
         }
     }

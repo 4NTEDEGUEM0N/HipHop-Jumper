@@ -28,9 +28,8 @@ void NPC::NotifyCollision(GameObject &other) {
     if (other.GetComponent("Character") != nullptr) {
         if (hasDialog) return;
         Game& game = Game::GetInstance();
-        DialogState* dialogState = new DialogState(dialogs, spriteFile, name);
+        DialogState* dialogState = new DialogState(associated, dialogs, spriteFile, name);
         game.Push(dialogState);
-        hasDialog = true;
     }
 }
 
