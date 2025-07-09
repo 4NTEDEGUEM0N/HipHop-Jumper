@@ -313,6 +313,8 @@
 				B07824C32E11D3300020621D /* OptionsState.hpp */,
 				B07824C22E11D3300020621D /* PauseState.hpp */,
 				B002CC562DDA3D1800654639 /* PlayerController.hpp */,
+				B080ED482E1EE0C6001731B1 /* DialogState.hpp */,
+				B080ED472E1EE0C6001731B1 /* NPC.hpp */,
 				B0152AC52DBD57EE008B5B08 /* Rect.hpp */,
 				B002CC502DDA3D1800654639 /* Resources.hpp */,
 				B002CC4B2DDA3D1800654639 /* Sprite.hpp */,
@@ -374,23 +376,7 @@
 				B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */,
 				B07824BD2E11D31E0020621D /* OptionsState.cpp */,
 				B07824BE2E11D31E0020621D /* PauseState.cpp */,
-				B080ED482E1EE0C6001731B1 /* DialogState.hpp */,
-				B080ED472E1EE0C6001731B1 /* NPC.hpp */,
 				B080ED432E1EE0B4001731B1 /* DialogState.cpp */,
-				B080ED562E1EE912001731B1 /* avatar.png */,
-				B080ED502E1EE912001731B1 /* hiphopjumper.png */,
-				B080ED532E1EE912001731B1 /* lata-azul.png */,
-				B080ED542E1EE912001731B1 /* lata-cinza.png */,
-				B080ED4B2E1EE912001731B1 /* lata-verde.png */,
-				B080ED4E2E1EE912001731B1 /* lata-vermelha.png */,
-				B080ED552E1EE912001731B1 /* madeira.png */,
-				B080ED522E1EE912001731B1 /* rato.png */,
-				B080ED4C2E1EE912001731B1 /* Sprite Spray2_scaled.png */,
-				B080ED4D2E1EE912001731B1 /* Sprite Spray2.png */,
-				B080ED4F2E1EE912001731B1 /* tileset_1fase2_frente_scaled.png */,
-				B080ED512E1EE912001731B1 /* tileset_1fase2_tras_scaled.png */,
-				B080ED492E1EE8F1001731B1 /* GraffitiYouth-Regular.ttf */,
-				B080ED4A2E1EE8F1001731B1 /* KGPerfectPenmanship.ttf */,
 				B080ED442E1EE0B5001731B1 /* NPC.cpp */,
 				B0152B012DBD6F01008B5B08 /* PlayerController.cpp */,
 				B002CC742DDA3D3100654639 /* Rect.cpp */,
@@ -451,6 +437,18 @@
 		B0152B532DBD8303008B5B08 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				B080ED562E1EE912001731B1 /* avatar.png */,
+				B080ED502E1EE912001731B1 /* hiphopjumper.png */,
+				B080ED532E1EE912001731B1 /* lata-azul.png */,
+				B080ED542E1EE912001731B1 /* lata-cinza.png */,
+				B080ED4B2E1EE912001731B1 /* lata-verde.png */,
+				B080ED4E2E1EE912001731B1 /* lata-vermelha.png */,
+				B080ED552E1EE912001731B1 /* madeira.png */,
+				B080ED522E1EE912001731B1 /* rato.png */,
+				B080ED4C2E1EE912001731B1 /* Sprite Spray2_scaled.png */,
+				B080ED4D2E1EE912001731B1 /* Sprite Spray2.png */,
+				B080ED4F2E1EE912001731B1 /* tileset_1fase2_frente_scaled.png */,
+				B080ED512E1EE912001731B1 /* tileset_1fase2_tras_scaled.png */,
 				B002CCCE2DDA7FA900654639 /* minikitHud.png */,
 				B002CC022DD8E36500654639 /* boneco.png */,
 				B002CC002DD8E36500654639 /* bonequinho.png */,
@@ -499,6 +497,8 @@
 		B0152B622DBD8303008B5B08 /* font */ = {
 			isa = PBXGroup;
 			children = (
+				B080ED492E1EE8F1001731B1 /* GraffitiYouth-Regular.ttf */,
+				B080ED4A2E1EE8F1001731B1 /* KGPerfectPenmanship.ttf */,
 				B0152B632DBD8303008B5B08 /* neodgm.ttf */,
 			);
 			name = font;
