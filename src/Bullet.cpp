@@ -44,13 +44,7 @@ int Bullet::GetDamage() {
 
 void Bullet::NotifyCollision(GameObject &other) {
     if (other.GetComponent("Zombie") != nullptr) {
-        associated.RequestDelete();
-    } else if (other.GetComponent("Character") != nullptr) {
-        if (targetsPlayer && other.GetComponent("Character") == Character::player) {
-            associated.RequestDelete();
-        } else if (!targetsPlayer && other.GetComponent("Character") != Character::player) {
-            associated.RequestDelete();
-        }
+        associated.RemoveComponent(associated.GetComponent("Collider"));
     }
 }
 

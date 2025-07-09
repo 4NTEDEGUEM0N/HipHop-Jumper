@@ -53,6 +53,8 @@
 		B07824BF2E11D31E0020621D /* KeyBindingManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B07824BC2E11D31E0020621D /* KeyBindingManager.cpp */; };
 		B07824C02E11D31E0020621D /* OptionsState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B07824BD2E11D31E0020621D /* OptionsState.cpp */; };
 		B07824C12E11D31E0020621D /* PauseState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B07824BE2E11D31E0020621D /* PauseState.cpp */; };
+		B080ED452E1EE0B5001731B1 /* DialogState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B080ED432E1EE0B4001731B1 /* DialogState.cpp */; };
+		B080ED462E1EE0B5001731B1 /* NPC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B080ED442E1EE0B5001731B1 /* NPC.cpp */; };
 		B084BA1E2DE0D17A006946A3 /* DrawState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B084BA1C2DE0D17A006946A3 /* DrawState.cpp */; };
 		B084BA1F2DE0D17A006946A3 /* NotebookState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */; };
 		B084BA232DE0D198006946A3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B084BA222DE0D198006946A3 /* main.cpp */; };
@@ -244,6 +246,24 @@
 		B07824CE2E11D5B90020621D /* GRAFFITI */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GRAFFITI; sourceTree = "<group>"; };
 		B07824D02E11D62B0020621D /* UX */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UX; sourceTree = "<group>"; };
 		B07824D12E11D62B0020621D /* TRACKS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TRACKS; sourceTree = "<group>"; };
+		B080ED432E1EE0B4001731B1 /* DialogState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DialogState.cpp; sourceTree = "<group>"; };
+		B080ED442E1EE0B5001731B1 /* NPC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NPC.cpp; sourceTree = "<group>"; };
+		B080ED472E1EE0C6001731B1 /* NPC.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NPC.hpp; path = include/NPC.hpp; sourceTree = SOURCE_ROOT; };
+		B080ED482E1EE0C6001731B1 /* DialogState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DialogState.hpp; path = include/DialogState.hpp; sourceTree = SOURCE_ROOT; };
+		B080ED492E1EE8F1001731B1 /* GraffitiYouth-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GraffitiYouth-Regular.ttf"; path = "Recursos/font/GraffitiYouth-Regular.ttf"; sourceTree = SOURCE_ROOT; };
+		B080ED4A2E1EE8F1001731B1 /* KGPerfectPenmanship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = KGPerfectPenmanship.ttf; path = Recursos/font/KGPerfectPenmanship.ttf; sourceTree = SOURCE_ROOT; };
+		B080ED4B2E1EE912001731B1 /* lata-verde.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lata-verde.png"; path = "Recursos/img/lata-verde.png"; sourceTree = SOURCE_ROOT; };
+		B080ED4C2E1EE912001731B1 /* Sprite Spray2_scaled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Sprite Spray2_scaled.png"; path = "Recursos/img/Sprite Spray2_scaled.png"; sourceTree = SOURCE_ROOT; };
+		B080ED4D2E1EE912001731B1 /* Sprite Spray2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Sprite Spray2.png"; path = "Recursos/img/Sprite Spray2.png"; sourceTree = SOURCE_ROOT; };
+		B080ED4E2E1EE912001731B1 /* lata-vermelha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lata-vermelha.png"; path = "Recursos/img/lata-vermelha.png"; sourceTree = SOURCE_ROOT; };
+		B080ED4F2E1EE912001731B1 /* tileset_1fase2_frente_scaled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tileset_1fase2_frente_scaled.png; path = Recursos/img/tileset_1fase2_frente_scaled.png; sourceTree = SOURCE_ROOT; };
+		B080ED502E1EE912001731B1 /* hiphopjumper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hiphopjumper.png; path = Recursos/img/hiphopjumper.png; sourceTree = SOURCE_ROOT; };
+		B080ED512E1EE912001731B1 /* tileset_1fase2_tras_scaled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tileset_1fase2_tras_scaled.png; path = Recursos/img/tileset_1fase2_tras_scaled.png; sourceTree = SOURCE_ROOT; };
+		B080ED522E1EE912001731B1 /* rato.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rato.png; path = Recursos/img/rato.png; sourceTree = SOURCE_ROOT; };
+		B080ED532E1EE912001731B1 /* lata-azul.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lata-azul.png"; path = "Recursos/img/lata-azul.png"; sourceTree = SOURCE_ROOT; };
+		B080ED542E1EE912001731B1 /* lata-cinza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lata-cinza.png"; path = "Recursos/img/lata-cinza.png"; sourceTree = SOURCE_ROOT; };
+		B080ED552E1EE912001731B1 /* madeira.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = madeira.png; path = Recursos/img/madeira.png; sourceTree = SOURCE_ROOT; };
+		B080ED562E1EE912001731B1 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = avatar.png; path = Recursos/img/avatar.png; sourceTree = SOURCE_ROOT; };
 		B084BA1C2DE0D17A006946A3 /* DrawState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawState.cpp; sourceTree = "<group>"; };
 		B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NotebookState.cpp; sourceTree = "<group>"; };
 		B084BA202DE0D18F006946A3 /* DrawState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawState.hpp; path = include/DrawState.hpp; sourceTree = SOURCE_ROOT; };
@@ -354,6 +374,24 @@
 				B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */,
 				B07824BD2E11D31E0020621D /* OptionsState.cpp */,
 				B07824BE2E11D31E0020621D /* PauseState.cpp */,
+				B080ED482E1EE0C6001731B1 /* DialogState.hpp */,
+				B080ED472E1EE0C6001731B1 /* NPC.hpp */,
+				B080ED432E1EE0B4001731B1 /* DialogState.cpp */,
+				B080ED562E1EE912001731B1 /* avatar.png */,
+				B080ED502E1EE912001731B1 /* hiphopjumper.png */,
+				B080ED532E1EE912001731B1 /* lata-azul.png */,
+				B080ED542E1EE912001731B1 /* lata-cinza.png */,
+				B080ED4B2E1EE912001731B1 /* lata-verde.png */,
+				B080ED4E2E1EE912001731B1 /* lata-vermelha.png */,
+				B080ED552E1EE912001731B1 /* madeira.png */,
+				B080ED522E1EE912001731B1 /* rato.png */,
+				B080ED4C2E1EE912001731B1 /* Sprite Spray2_scaled.png */,
+				B080ED4D2E1EE912001731B1 /* Sprite Spray2.png */,
+				B080ED4F2E1EE912001731B1 /* tileset_1fase2_frente_scaled.png */,
+				B080ED512E1EE912001731B1 /* tileset_1fase2_tras_scaled.png */,
+				B080ED492E1EE8F1001731B1 /* GraffitiYouth-Regular.ttf */,
+				B080ED4A2E1EE8F1001731B1 /* KGPerfectPenmanship.ttf */,
+				B080ED442E1EE0B5001731B1 /* NPC.cpp */,
 				B0152B012DBD6F01008B5B08 /* PlayerController.cpp */,
 				B002CC742DDA3D3100654639 /* Rect.cpp */,
 				B0152B032DBD6F01008B5B08 /* Resources.cpp */,
@@ -576,6 +614,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B080ED462E1EE0B5001731B1 /* NPC.cpp in Sources */,
 				B050525F2DDA8A3F00C81331 /* Animation.cpp in Sources */,
 				B05052602DDA8A3F00C81331 /* Animator.cpp in Sources */,
 				B05052612DDA8A3F00C81331 /* Bullet.cpp in Sources */,
@@ -595,6 +634,7 @@
 				B050526F2DDA8A3F00C81331 /* InventoryItem.cpp in Sources */,
 				B05052702DDA8A3F00C81331 /* Item.cpp in Sources */,
 				B05052722DDA8A3F00C81331 /* Music.cpp in Sources */,
+				B080ED452E1EE0B5001731B1 /* DialogState.cpp in Sources */,
 				B05052732DDA8A3F00C81331 /* PlayerController.cpp in Sources */,
 				B084BA1F2DE0D17A006946A3 /* NotebookState.cpp in Sources */,
 				B05052742DDA8A3F00C81331 /* Rect.cpp in Sources */,

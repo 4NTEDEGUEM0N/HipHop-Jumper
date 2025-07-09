@@ -229,7 +229,7 @@ StageState::StageState() {
 
         GameObject* ratoNPCObj = new GameObject();
         AddObject(ratoNPCObj);
-        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/rato.png", "RATORIOUSBIG");
+        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/rato.png", "RATORIOUS B.I.G.");
         ratoNPCObj->AddComponent(ratoNPC);
         ratoNPCObj->box.X = 2496;
         ratoNPCObj->box.Y = 3848 - ratoNPCObj->box.H;
@@ -238,13 +238,13 @@ StageState::StageState() {
 
         ratoNPC->dialogs.emplace_back("Olá! Eu sou um rato maluco!");
         ratoNPC->dialogs.emplace_back("E você é muito besta.");
-        ratoNPC->dialogs.emplace_back("Hum... Quem é você moleque? espera, pela aparência... Spray...");
+        ratoNPC->dialogs.emplace_back("Hum... Quem é você moleque? Espera, pela aparência... Spray...");
         ratoNPC->dialogs.emplace_back("Me disseram que você apareceria aqui para entrar na Crew.");
         ratoNPC->dialogs.emplace_back("Mas caramba, você é mais feio do que eu imaginava...");
         ratoNPC->dialogs.emplace_back("Enfim moleque, pra graffitar nessa área tem que ser bom de verdade, não \nqueremos qualquer um na nossa Crew.");
         ratoNPC->dialogs.emplace_back("O teste vai ser você fazer o graffiti mais ousado do metrô, ali pra trás o \ndesafio é grande. Duvido que vá ser bom o suficiente.");
-        ratoNPC->dialogs.emplace_back("Aé, meu vulgo é Ratoriousbig, o maior graffiteiro da região, pode crer?");
-        ratoNPC->dialogs.emplace_back("Caso passe no teste vai encontra com o Nine lá em cima. O moleque é firmeza,\nmas também é metido");
+        ratoNPC->dialogs.emplace_back("Aé, meu vulgo é Ratorious B.I.G., o maior graffiteiro da região, pode crer?");
+        ratoNPC->dialogs.emplace_back("Caso passe no teste, vai encontrar com o Nine lá em cima. O moleque é firmeza,\nmas também é metido");
         ratoNPC->dialogs.emplace_back("Boa sorte!");
 
         

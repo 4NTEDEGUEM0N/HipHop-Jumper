@@ -30,8 +30,8 @@
             filePath = "src/Character.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "Character::Update(dt)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "src/Character.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "Character::Update(dt)"
             landmarkType = "7">
          </BreakpointContent>
@@ -194,6 +194,54 @@
             endingLineNumber = "21"
             landmarkName = "Sound::Play(times)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "28C02818-2012-48CC-83BD-7DAF29F77714"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/Rect.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "4"
+            endingLineNumber = "4"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "28C02818-2012-48CC-83BD-7DAF29F77714 - d99f95a4a2b3c614"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Rect::Rect(float, float, float, float)"
+                  moduleName = "hhj"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pedrovenzi/Documents/unb/projetos/hhj/src/Rect.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "6"
+                  endingLineNumber = "6"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "28C02818-2012-48CC-83BD-7DAF29F77714 - d99f95a4a2b3c637"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Rect::Rect(float, float, float, float)"
+                  moduleName = "hhj"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pedrovenzi/Documents/unb/projetos/hhj/src/Rect.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "5"
+                  endingLineNumber = "5"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -50,7 +50,6 @@ private:
     Sound grabSound;
 
     bool onGround;
-    Vec2 direction;
     float airGravity;
     float wallGravity;
     float groundAcceleration;
@@ -94,6 +93,8 @@ public:
     bool CanDoubleJump();
     bool CanDash();
     float GetDamageCooldownTimer();
+    
+    Vec2 direction;
 
     static void AddGraffiti(SDL_Texture* texture);
     static int currentGraffitiId;

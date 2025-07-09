@@ -66,6 +66,8 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     dashDuration = 0.15;
     moving = false;
     isSliding = false;
+    
+    direction = {1,0};
 
 
     //SpriteRenderer* character = new SpriteRenderer(associated, sprite, 3, 4);
@@ -77,7 +79,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
 
     animator->AddAnimation("idle", Animation(0, 2, 0.1));
     animator->AddAnimation("walking", Animation(4, 11, 0.1));
-    animator->AddAnimation("dead", Animation(25, 25, 0));
+    animator->AddAnimation("dead", Animation(23, 23, 0));
     animator->AddAnimation("jump", Animation(16, 16, 0.1));
     animator->AddAnimation("falling", Animation(19, 19, 0));
     animator->AddAnimation("wallGrab", Animation(24, 24, 0));

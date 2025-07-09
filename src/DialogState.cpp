@@ -35,7 +35,7 @@ DialogState::DialogState(GameObject& npcGO, vector<string> dialogs, string npcSp
     nameTextObj->box.Y = 5;
 
     GameObject* dialogTextObj = new GameObject();
-    dialogText = new Text(*dialogTextObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "", {255, 255, 255, 255}, true);
+    dialogText = new Text(*dialogTextObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "abacate", {255, 255, 255, 255}, true);
     dialogTextObj->AddComponent(dialogText);
     AddObject(dialogTextObj);
     dialogTextObj->box.X = npcObj->box.W + 10;
