@@ -11,6 +11,7 @@
 #include "../include/PlayerController.hpp"
 #include "../include/Collider.hpp"
 #include "../include/Collision.hpp"
+#include "../include/Animator.hpp"
 #include <algorithm>
 
 #include "../include/DialogState.hpp"

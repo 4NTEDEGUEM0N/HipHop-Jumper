@@ -265,6 +265,10 @@
 		B080ED552E1EE912001731B1 /* madeira.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = madeira.png; path = Recursos/img/madeira.png; sourceTree = SOURCE_ROOT; };
 		B080ED562E1EE912001731B1 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = avatar.png; path = Recursos/img/avatar.png; sourceTree = SOURCE_ROOT; };
 		B080ED582E22ED71001731B1 /* SOCO.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SOCO.png; sourceTree = "<group>"; };
+		B080ED592E2306C5001731B1 /* spraysheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spraysheet.png; path = Recursos/img/spraysheet.png; sourceTree = SOURCE_ROOT; };
+		B080ED5A2E2306C5001731B1 /* morte.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = morte.png; path = Recursos/img/morte.png; sourceTree = SOURCE_ROOT; };
+		B080ED5B2E2306C5001731B1 /* gota.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gota.png; path = Recursos/img/gota.png; sourceTree = SOURCE_ROOT; };
+		B080ED5C2E2306C5001731B1 /* socospray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = socospray.png; path = Recursos/img/socospray.png; sourceTree = SOURCE_ROOT; };
 		B084BA1C2DE0D17A006946A3 /* DrawState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawState.cpp; sourceTree = "<group>"; };
 		B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NotebookState.cpp; sourceTree = "<group>"; };
 		B084BA202DE0D18F006946A3 /* DrawState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawState.hpp; path = include/DrawState.hpp; sourceTree = SOURCE_ROOT; };
@@ -438,6 +442,10 @@
 		B0152B532DBD8303008B5B08 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				B080ED5B2E2306C5001731B1 /* gota.png */,
+				B080ED5A2E2306C5001731B1 /* morte.png */,
+				B080ED5C2E2306C5001731B1 /* socospray.png */,
+				B080ED592E2306C5001731B1 /* spraysheet.png */,
 				B080ED562E1EE912001731B1 /* avatar.png */,
 				B080ED502E1EE912001731B1 /* hiphopjumper.png */,
 				B080ED532E1EE912001731B1 /* lata-azul.png */,

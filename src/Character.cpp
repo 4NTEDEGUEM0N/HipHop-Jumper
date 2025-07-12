@@ -94,6 +94,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     Collider* collider = new Collider(associated);
     collider->SetScale(colliderScale);
     associated.AddComponent(collider);
+    
 }
 
 Character::~Character() {
@@ -179,7 +180,26 @@ void Character::Update(float dt) {
         }
 
         if (hp <= 0 && !dead) {
-            animator->SetAnimation("dead");
+            
+            State& state = Game::GetInstance().GetState();
+            GameObject* deathObject = new GameObject(false);
+            state.AddObject(deathObject);
+            
+            SpriteRenderer* deathSpriteRenderer = new SpriteRenderer(*deathObject, "../Recursos/img/morte.png",2,2);
+            deathSpriteRenderer->SetScale(0.10, 0.10);
+            
+            deathObject->box.X = associated.box.X;// - playerObject.box.W/2 - playerObject->box.W/2;
+            deathObject->box.Y = associated.box.Y;// - playerObject.box.H/2 - deathObject->box.H/2;
+            deathObject->AddComponent(deathSpriteRenderer);
+            
+            Animator* deathAnimator = new Animator(*deathObject);
+            deathAnimator->AddAnimation("morte", Animation(0, 3, 0.05));
+            deathObject->AddComponent(deathAnimator);
+            
+            deathAnimator->SetAnimation("morte");
+            
+            characterSprite->SetScale(0.0001, 0.0001);
+            
             dead = true;
             deathSound.Play(1);
             deathTimer.Restart();
@@ -402,6 +422,10 @@ void Character::Update(float dt) {
     }
 
     deathTimer.Update(dt);
+    //if (dead && deathTimer.Get() > 1) {
+    //    deathObject.RequestDelete();
+    //}
+    
     if (dead && deathTimer.Get() > 2) {
         if (this == player) {
             GameData::ended = true;

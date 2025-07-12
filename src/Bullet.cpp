@@ -10,7 +10,7 @@
 #include "../include/Gun.hpp"
 
 Bullet::Bullet(GameObject &associated, float angle, float speed, int damage, float maxDistance, bool targetsPlayer) : Component(associated) {
-    SpriteRenderer* spriteRenderer = new SpriteRenderer(associated, "../Recursos/img/SOCO.png", 2, 2);
+    SpriteRenderer* spriteRenderer = new SpriteRenderer(associated, "../Recursos/img/socospray.png", 2, 2);
     //SpriteRenderer* spriteRenderer = new SpriteRenderer(associated, "../Recursos/img/Bullet.png");
     spriteRenderer->SetScale(0.1, 0.1);
     associated.AddComponent(spriteRenderer);

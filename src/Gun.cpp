@@ -17,10 +17,8 @@ Gun::Gun(GameObject& associated, weak_ptr<GameObject> character) : Component(ass
     angle = 0;
     reloaded = true;
     reloading = false;
+                                                                       
 
-    SpriteRenderer* gun = new SpriteRenderer(associated, "../Recursos/img/spray_can.png", 1, 1);
-    gun->SetScale(0.07, 0.07);
-    associated.AddComponent(gun);
 }
 
 void Gun::Update(float dt) {
@@ -88,7 +86,7 @@ void Gun::Shot(Vec2 target) {
     
     //bulletSpeed = 300 +Character::player->speed.X;
 
-    Bullet* bullet = new Bullet(*bulletObject, angle, 400, 25, 200, false);
+    Bullet* bullet = new Bullet(*bulletObject, angle, 300, 25, 100, false);
     bulletObject->box.X = associated.box.X - associated.box.W/2 - bulletObject->box.W/2 + (40 * flipSpawnOffset);
     bulletObject->box.Y = associated.box.Y - associated.box.H/2 - bulletObject->box.H/2;
     bulletObject->AddComponent(bullet);
