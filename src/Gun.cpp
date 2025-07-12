@@ -63,17 +63,20 @@ void Gun::Shot(Vec2 target) {
         return;
     }
 
-    //angle = 0;
-    //associated.angleDeg = angle * 180 / M_PI;
+    //angle = 90;
+    //associated.angleDeg = 270;
 
     //Vec2 direction = target - associated.box.center();
     //direction = direction.normalize();
     //angle = direction.angle();
+    int flipSpawnOffset, bulletSpeed;
     
     if (Character::player->direction.X > 0) {
         angle = 0;
+        flipSpawnOffset = 1;
     } else {
         angle = M_PI;
+        flipSpawnOffset = -1;
     }
 
     State& state = Game::GetInstance().GetState();
@@ -81,13 +84,16 @@ void Gun::Shot(Vec2 target) {
     Character* gunCharacter = dynamic_cast<Character*>(character.lock()->GetComponent("Character"));
 
     GameObject* bulletObject = new GameObject(false);
-    bulletObject->box.X = associated.box.X - associated.box.W/2;
-    bulletObject->box.Y = associated.box.Y - associated.box.H/2;
     state.AddObject(bulletObject);
+    
+    //bulletSpeed = 300 +Character::player->speed.X;
 
-    Bullet* bullet = new Bullet(*bulletObject, angle, 200, 25, 1000, false);
+    Bullet* bullet = new Bullet(*bulletObject, angle, 400, 25, 200, false);
+    bulletObject->box.X = associated.box.X - associated.box.W/2 - bulletObject->box.W/2 + (40 * flipSpawnOffset);
+    bulletObject->box.Y = associated.box.Y - associated.box.H/2 - bulletObject->box.H/2;
     bulletObject->AddComponent(bullet);
-
+    
+    bulletObject->angleDeg = 270 * flipSpawnOffset;
 
     shotSound.Play(1);
     cooldown = 50;

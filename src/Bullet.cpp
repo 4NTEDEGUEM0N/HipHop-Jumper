@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "../include/Animator.hpp"
 #include "../include/Character.hpp"
 #include "../include/SpriteRenderer.hpp"
 #include "../include/GameObject.hpp"
@@ -9,9 +10,12 @@
 #include "../include/Gun.hpp"
 
 Bullet::Bullet(GameObject &associated, float angle, float speed, int damage, float maxDistance, bool targetsPlayer) : Component(associated) {
-    SpriteRenderer* spriteRenderer = new SpriteRenderer(associated, "../Recursos/img/Bullet.png");
-    associated.angleDeg = (angle * 180 / M_PI) + 90;
+    SpriteRenderer* spriteRenderer = new SpriteRenderer(associated, "../Recursos/img/SOCO.png", 2, 2);
+    //SpriteRenderer* spriteRenderer = new SpriteRenderer(associated, "../Recursos/img/Bullet.png");
+    spriteRenderer->SetScale(0.1, 0.1);
     associated.AddComponent(spriteRenderer);
+    
+    associated.angleDeg = 270;
 
     this->speed = Vec2(1, 0).rotate(angle) * speed;
     distanceLeft = maxDistance;
@@ -19,6 +23,11 @@ Bullet::Bullet(GameObject &associated, float angle, float speed, int damage, flo
 
     Collider* collider = new Collider(associated, {1,1}, {0,-15});
     associated.AddComponent(collider);
+    
+    Animator* animator = new Animator(associated);
+    animator->AddAnimation("socospray", Animation(0, 3, 0.25));
+    animator->SetAnimation("socospray");
+    associated.AddComponent(animator);
 
     this->targetsPlayer = targetsPlayer;
 }
