@@ -42,7 +42,7 @@ StageState::StageState() {
     bgObject->box.X = 0;
     bgObject->box.Y = 0;
 
-    int teste = 3;
+    int teste = 4;
 
     if (teste == 0) {
         tileMapObject = new GameObject();
@@ -256,10 +256,88 @@ StageState::StageState() {
         backgroundMusic.Play();
 
         GameObject* detectionObj = new GameObject();
-        detectionObj->box.X = 64;
-        detectionObj->box.Y = 3712;
-        detectionObj->box.W = 128;
-        detectionObj->box.H = 128;
+        detectionObj->box.X = 5056;//64;
+        detectionObj->box.Y = 1088;//3712;
+        detectionObj->box.W = 64;
+        detectionObj->box.H = 64;
+        AddObject(detectionObj);
+        DetectionZone* detectionZone = new DetectionZone(*detectionObj);
+        detectionObj->AddComponent(detectionZone);
+        detectionZone->SetDetectFunction([this,playerObject]() {
+            End(playerObject);
+        });
+    } else if (teste == 4) {
+        TileSet* metroFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario metro123.png", 64, 64);
+        TileSet* finalFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario 2 frente.png", 64, 64);
+        TileSet* collisionTileSet = new TileSet("../Recursos/img/1fase/assets juntos primeira fase.png", 64, 64);
+        TileSet* finalTrasTileSet = new TileSet("../Recursos/img/1fase/cenario 2 trás.png", 64, 64);
+        TileSet* metroTrasTileSet = new TileSet("../Recursos/img/1fase/cenario metro trás.png", 64, 64);
+        TileSet* detalhes1TileSet = new TileSet("../Recursos/img/1fase/Sprite sheets detalhes.png", 64, 64);
+        TileSet* detalhes2TileSet = new TileSet("../Recursos/img/1fase/Sprite sheets detalhes.png", 64, 64);
+        TileSet* detalhes3TileSet = new TileSet("../Recursos/img/1fase/tubo extensão sprite.png", 64, 64);
+        TileSet* texturaFundoTileSet = new TileSet("../Recursos/img/1fase/tijolos.png", 64, 64);
+        TileSet* fundoTileSet = new TileSet("../Recursos/img/1fase/tijolos.png", 64, 64);
+
+        std::vector<TileSet*> TileSets;
+        TileSets.push_back(metroFrenteTileSet);
+        TileSets.push_back(finalFrenteTileSet);
+        TileSets.push_back(collisionTileSet);
+        TileSets.push_back(finalTrasTileSet);
+        TileSets.push_back(metroTrasTileSet);
+        TileSets.push_back(detalhes1TileSet);
+        TileSets.push_back(detalhes2TileSet);
+        TileSets.push_back(detalhes3TileSet);
+        TileSets.push_back(texturaFundoTileSet);
+        TileSets.push_back(fundoTileSet);
+
+        tileMapObject = new GameObject();
+        AddObject(tileMapObject);
+        tileMapObject->box.X = 0;
+        tileMapObject->box.Y = 0;
+        set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10,12,13,15,16,18,19};
+        tileSet = collisionTileSet;
+        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase_final.txt", TileSets, solidIDs, 2);
+        tileMapObject->AddComponent(tileMap);
+
+        GameObject* playerObject = new GameObject(false);
+        AddObject(playerObject);
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Sprite Spray2_scaled.png");
+        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/sprite_spray_3_scaled.png");
+        playerObject->box.X = 1408;//11868;
+        playerObject->box.Y = 8640 - playerObject->box.H; //2176
+        Camera::Follow(playerObject);
+        playerObject->AddComponent(playerCharacter);
+        PlayerController* playerController = new PlayerController(*playerObject);
+        playerObject->AddComponent(playerController);
+
+        GameObject* ratoNPCObj = new GameObject();
+        AddObject(ratoNPCObj);
+        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/rato.png", "RATORIOUS B.I.G.");
+        ratoNPCObj->AddComponent(ratoNPC);
+        ratoNPCObj->box.X = 5760;
+        ratoNPCObj->box.Y = 8896 - ratoNPCObj->box.H;
+        Collider* npcCollider = new Collider(*ratoNPCObj, {4,3});
+        ratoNPCObj->AddComponent(npcCollider);
+
+        ratoNPC->dialogs.emplace_back("Hum... Quem é você moleque? Espera, pela aparência... Spray...");
+        ratoNPC->dialogs.emplace_back("Me disseram que você apareceria aqui para entrar na Crew.");
+        ratoNPC->dialogs.emplace_back("Mas caramba, você é mais feio do que eu imaginava...");
+        ratoNPC->dialogs.emplace_back("Enfim moleque, pra graffitar nessa área tem que ser bom de verdade, não \nqueremos qualquer um na nossa Crew.");
+        ratoNPC->dialogs.emplace_back("O teste vai ser você fazer o graffiti mais ousado do metrô, ali pra trás o \ndesafio é grande. Duvido que vá ser bom o suficiente.");
+        ratoNPC->dialogs.emplace_back("Aé, meu vulgo é Ratorious B.I.G., o maior graffiteiro da região, pode crer?");
+        ratoNPC->dialogs.emplace_back("Caso passe no teste, vai encontrar com o Nine lá em cima. O moleque é firmeza,\nmas também é metido");
+        ratoNPC->dialogs.emplace_back("Boa sorte!");
+
+        backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
+        backgroundMusic.Play();
+
+        GameObject* detectionObj = new GameObject();
+        detectionObj->box.X = 11968;
+        detectionObj->box.Y = 2176;
+        detectionObj->box.W = 64*3;
+        detectionObj->box.H = 64*3;
         AddObject(detectionObj);
         DetectionZone* detectionZone = new DetectionZone(*detectionObj);
         detectionObj->AddComponent(detectionZone);
@@ -327,9 +405,14 @@ bool Y_Sort(GameObject* a, GameObject* b) {
 
 void StageState::Render() {
     TileMap* tileMap = (TileMap*)tileMapObject->GetComponent("TileMap");
-    tileMap->RenderLayer(3); // Camada do metrô
-    tileMap->RenderLayer(2); // Camada de background
-    tileMap->RenderLayer(1); // Camada de colisão
+    tileMap->RenderLayer(9); // Camada
+    tileMap->RenderLayer(8); // Camada
+    tileMap->RenderLayer(7); // Camada
+    tileMap->RenderLayer(6); // Camada
+    tileMap->RenderLayer(5); // Camada
+    tileMap->RenderLayer(4); // Camada
+    tileMap->RenderLayer(3); // Camada
+    tileMap->RenderLayer(2);  // Camada colisão
 
     vector<GameObject*> objectsToRender;
     for (const auto& objPtr : objectArray) {
@@ -342,7 +425,8 @@ void StageState::Render() {
         objectsToRender[i]->Render();
     }
 
-    tileMap->RenderLayer(0); // Camada da "frente"
+    tileMap->RenderLayer(1); // Camada final frente
+    tileMap->RenderLayer(0); // Camada metro frente
 
     hud->Render();
 }
@@ -367,8 +451,8 @@ GameObject* StageState::GetTileMapObject() {
 }
 
 void StageState::End(GameObject* playerObject) {
-    playerObject->box.X = 5056;
-    playerObject->box.Y = 1152 - playerObject->box.H;
+    playerObject->box.X = 12032;
+    playerObject->box.Y = 2368 - playerObject->box.H;
     GameData::ended = true;
     GameData::playerVictory = true;
     endTimer->Restart();

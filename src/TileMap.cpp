@@ -61,7 +61,14 @@ void TileMap::Load(string file) {
 
 int& TileMap::At(int x, int y, int z) {
     if (x < 0 || x >= mapWidth || y < 0 || y >= mapHeight || z < 0 || z >= mapDepth) {
-        cerr << "Erro - TileMap::At - Posição Inválida" << endl;
+        cerr << "Erro - TileMap::At - Posição Inválida : " << endl;
+        cerr << "x: " << x << endl;
+        cerr << "y: " << y << endl;
+        cerr << "z: " << z << endl;
+        cerr << endl;
+        cerr << "mapWidth: " << mapWidth << endl;
+        cerr << "mapHeight: " << mapHeight << endl;
+        cerr << "mapDepth: " << mapDepth << endl;
         exit(1);
     }
     return tileMatrix[x + y * mapWidth + z * mapWidth * mapHeight];
@@ -201,13 +208,13 @@ void TileMap::SetCollisionMatrix(int layer) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
             if (solidIDs.find(index) != solidIDs.end()) {
-                if (index == 5) {
+                if (index == 15) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopLeft;
-                } else if (index == 2) {
+                } else if (index == 16) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopRight;
-                } else if (index == 28) {
+                } else if (index == 18) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomLeft;
-                } else if (index == 30) {
+                } else if (index == 19) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomRight;
                 } else {
                     collisionMatrix[y][x] = TileCollisionType::Full;
