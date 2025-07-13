@@ -294,7 +294,7 @@ StageState::StageState() {
         AddObject(tileMapObject);
         tileMapObject->box.X = 0;
         tileMapObject->box.Y = 0;
-        set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10,12,13,15,16,18,19};
+        set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,18,19};
         tileSet = collisionTileSet;
         TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase_final.txt", TileSets, solidIDs, 2);
         tileMapObject->AddComponent(tileMap);
