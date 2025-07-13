@@ -6,6 +6,7 @@
 #include "../include/Character.hpp"
 #include "../include/GameObject.hpp"
 #include "../include/Camera.hpp"
+#include "../include/GameData.hpp"
 #include "../include/KeyBindingManager.hpp"
 
 
@@ -14,6 +15,12 @@ void PlayerController::Update(float dt) {
     bool shot = false;
     Component* component = associated.GetComponent("Character");
     Character* character = dynamic_cast<Character*>(component);
+
+    if (GameData::ended) {
+        character->Issue(Character::Command(Character::Command::MOVE, 0, 0));
+        return;
+    }
+
     InputManager& inputManager = InputManager::GetInstance();
     KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
     Vec2 direction = Vec2(0, 0);

@@ -4,6 +4,8 @@
 #include <sstream>
 #include <iomanip>
 
+#include "../include/GameData.hpp"
+
 HUD::HUD() : characterSprite("../Recursos/img/avatar.png"), characterAbilities("../Recursos/img/habilidades.png",2,3), characterItems("../Recursos/img/minikitHud.png",2,1) {
     characterSprite.cameraFollower = true;
     characterAbilities.cameraFollower = true;
@@ -59,6 +61,7 @@ void HUD::Render() {
         RenderItem(invSize, characterRect->X + characterSprite.GetWidth() + 5 + 64 * i, characterRect->Y + characterSprite.GetHeight() - 100);
     }
 
+
     levelTimerText->Render();
     fpsText->Render();
 }
@@ -77,7 +80,8 @@ void HUD::RenderItem(int itemNumber, int x, int y) {
 }
 
 void HUD::Update(float dt) {
-    levelTimer->Update(dt);
+    if (GameData::ended == false)
+        levelTimer->Update(dt);
 
     ostringstream timer;
     timer << fixed << setprecision(2) << levelTimer->Get();

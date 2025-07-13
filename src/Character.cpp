@@ -116,6 +116,10 @@ void Character::Start() {
 }
 
 void Character::Update(float dt) {
+    if (GameData::ended) {
+        speed.X = 0;
+        direction.X = 1;
+    }
     Component* component = associated.GetComponent("Animator");
     Animator* animator = dynamic_cast<Animator*>(component);
 

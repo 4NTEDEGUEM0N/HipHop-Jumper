@@ -14,6 +14,9 @@ private:
     Music backgroundMusic;
     HUD* hud;
 
+    Timer* endTimer;
+    void End(GameObject* playerObject);
+
 public:
     StageState();
     ~StageState();

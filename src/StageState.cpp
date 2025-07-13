@@ -14,6 +14,7 @@
 #include "../include/Animator.hpp"
 #include <algorithm>
 
+#include "../include/DetectionZone.hpp"
 #include "../include/DialogState.hpp"
 #include "../include/EndState.hpp"
 #include "../include/TitleState.hpp"
@@ -28,6 +29,7 @@
 
 
 StageState::StageState() {
+    endTimer = new Timer();
     GameObject* bgObject = new GameObject();
     //AddObject(bgObject);
     SpriteRenderer* bg = new SpriteRenderer(*bgObject, "../Recursos/img/Background.png");
@@ -220,7 +222,8 @@ StageState::StageState() {
         AddObject(playerObject);
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Player.png");
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
-        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Sprite Spray2_scaled.png");
+        //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Sprite Spray2_scaled.png");
+        Character* playerCharacter = new Character(*playerObject, "../Recursos/img/sprite_spray_3_scaled.png");
         playerObject->box.X = 1024;
         playerObject->box.Y = 3392 - playerObject->box.H;
         Camera::Follow(playerObject);
@@ -251,24 +254,19 @@ StageState::StageState() {
         
         backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
         backgroundMusic.Play();
+
+        GameObject* detectionObj = new GameObject();
+        detectionObj->box.X = 64;
+        detectionObj->box.Y = 3712;
+        detectionObj->box.W = 128;
+        detectionObj->box.H = 128;
+        AddObject(detectionObj);
+        DetectionZone* detectionZone = new DetectionZone(*detectionObj);
+        detectionObj->AddComponent(detectionZone);
+        detectionZone->SetDetectFunction([this,playerObject]() {
+            End(playerObject);
+        });
     }
-
-    //backgroundMusic.Open("../Recursos/audio/bgm1.mp3");
-    //backgroundMusic.Play();
-
-    //GameObject* waveObject = new GameObject();
-    //AddObject(waveObject);
-    //WaveSpawner* waveSpawner = new WaveSpawner(*waveObject);
-    //waveObject->AddComponent(waveSpawner);
-
-    //GameObject* aiObject = new GameObject();
-    //aiObject->box.X = 576 + rand()%(1984 - 576 + 1);
-    //aiObject->box.Y = 448 + rand()%(2112 - 448 + 1);
-    //AddObject(aiObject);
-    //Character* aiCharacter = new Character(*aiObject, "../Recursos/img/NPC.png");
-    //aiObject->AddComponent(aiCharacter);
-    //AIController* aiController = new AIController(*aiObject);
-    //aiObject->AddComponent(aiController);
 
     hud = new HUD();
 
@@ -280,6 +278,13 @@ StageState::~StageState() = default;
 void StageState::LoadAssets() {}
 
 void StageState::Update(float dtt) {
+    if (GameData::ended and endTimer->Get() > 5) {
+        Game& game = Game::GetInstance();
+        EndState* endState = new EndState();
+        game.Push(endState);
+        popRequested = true;
+    }
+    endTimer->Update(dtt);
     InputManager& inputManager = InputManager::GetInstance();
     KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
     float dt = 0.0156;
@@ -311,15 +316,9 @@ void StageState::Update(float dtt) {
         game.Push(cadernoState);
     }
 
-    if (GameData::ended) {
-        Game& game = Game::GetInstance();
-        EndState* endState = new EndState();
-        game.Push(endState);
-        popRequested = true;
-    }
-
     Camera::Update(dt);
-    hud->Update(dt);
+    if (Character::player != nullptr)
+        hud->Update(dt);
 }
 
 bool Y_Sort(GameObject* a, GameObject* b) {
@@ -351,6 +350,8 @@ void StageState::Render() {
 void StageState::Start() {
     StartArray();
     backgroundMusic.UpdateVolume();
+    GameData::playerVictory = false;
+    GameData::ended = false;
 }
 
 void StageState::Pause() {
@@ -363,4 +364,22 @@ void StageState::Resume() {
 
 GameObject* StageState::GetTileMapObject() {
     return tileMapObject;
+}
+
+void StageState::End(GameObject* playerObject) {
+    playerObject->box.X = 5056;
+    playerObject->box.Y = 1152 - playerObject->box.H;
+    GameData::ended = true;
+    GameData::playerVictory = true;
+    endTimer->Restart();
+
+    Sound* graffitiSound = new Sound("../Recursos/audio/GRAFFITI/SPRAY 1.wav");
+    graffitiSound->Play(1);
+
+    GameObject* graffitiObj = new GameObject(true);
+    SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, "../Recursos/img/check.png");
+    graffitiObj->AddComponent(graffiti);
+    graffitiObj->box.X = playerObject->box.X + playerObject->box.W/2 - graffitiObj->box.W/2;
+    graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H;
+    AddObject(graffitiObj);
 }
