@@ -33,32 +33,34 @@ HUD::HUD() : characterSprite("../Recursos/img/avatar.png"), characterAbilities("
 }
 
 void HUD::Render() {
-    characterSprite.Render(characterRect->X, characterRect->Y, characterRect->W, characterRect->H);
+    if (Character::player != nullptr) {
+        characterSprite.Render(characterRect->X, characterRect->Y, characterRect->W, characterRect->H);
 
-    float hpPercent = (float)player->GetHP() / 100;
-    int currentBarWidth = (int)(hpRect->W * hpPercent);
+        float hpPercent = (float)player->GetHP() / 100;
+        int currentBarWidth = (int)(hpRect->W * hpPercent);
 
-    SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
+        SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
 
-    SDL_SetRenderDrawColor(renderer, 100, 0, 0, 255);
-    SDL_Rect bgRect = { (int)this->hpRect->X, (int)this->hpRect->Y, (int)this->hpRect->W, (int)this->hpRect->H };
-    SDL_RenderFillRect(renderer, &bgRect);
+        SDL_SetRenderDrawColor(renderer, 100, 0, 0, 255);
+        SDL_Rect bgRect = { (int)this->hpRect->X, (int)this->hpRect->Y, (int)this->hpRect->W, (int)this->hpRect->H };
+        SDL_RenderFillRect(renderer, &bgRect);
 
 
-    SDL_SetRenderDrawColor(renderer, 0, 200, 0, 255);
-    SDL_Rect hpRect = { (int)this->hpRect->X, (int)this->hpRect->Y, currentBarWidth, (int)this->hpRect->H };
-    SDL_RenderFillRect(renderer, &hpRect);
+        SDL_SetRenderDrawColor(renderer, 0, 200, 0, 255);
+        SDL_Rect hpRect = { (int)this->hpRect->X, (int)this->hpRect->Y, currentBarWidth, (int)this->hpRect->H };
+        SDL_RenderFillRect(renderer, &hpRect);
 
-    hpText->SetText(to_string(player->GetHP()) + "/100");
-    hpText->Render();
+        hpText->SetText(to_string(player->GetHP()) + "/100");
+        hpText->Render();
 
-    RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 0*32 + 1*5);
-    RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 1*32 + 2*5);
-    RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 2*32 + 3*5);
+        RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 0*32 + 1*5);
+        RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 1*32 + 2*5);
+        RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 2*32 + 3*5);
 
-    int invSize = player->GetInventorySize();
-    for(int i = 0; i < invSize; i++) {
-        RenderItem(invSize, characterRect->X + characterSprite.GetWidth() + 5 + 64 * i, characterRect->Y + characterSprite.GetHeight() - 100);
+        int invSize = player->GetInventorySize();
+        for(int i = 0; i < invSize; i++) {
+            RenderItem(invSize, characterRect->X + characterSprite.GetWidth() + 5 + 64 * i, characterRect->Y + characterSprite.GetHeight() - 100);
+        }
     }
 
 

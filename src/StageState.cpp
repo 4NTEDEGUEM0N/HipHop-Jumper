@@ -356,7 +356,7 @@ StageState::~StageState() = default;
 void StageState::LoadAssets() {}
 
 void StageState::Update(float dtt) {
-    if (GameData::ended and endTimer->Get() > 5) {
+    if (GameData::ended and endTimer->Get() > 5 or Character::player == nullptr) {
         Game& game = Game::GetInstance();
         EndState* endState = new EndState();
         game.Push(endState);
