@@ -27,7 +27,6 @@ public:
     void Render();
     void Update(float dt);
     void RenderAbility(int abilityNumber, bool active, int x, int y);
-    void RenderItem(int itemNumber, int x, int y);
 };
 
 #endif //HUD_HPP

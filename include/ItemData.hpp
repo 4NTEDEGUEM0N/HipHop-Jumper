@@ -14,22 +14,49 @@
 using namespace std;
 
 struct ItemData {
-    enum class Type { Minikit, SprayCap, SprayBody, SprayColor };
+    enum class Type { Minikit, SprayColor_RED, SprayColor_GREEN, SprayColor_BLUE };
 
     Type type;
     string name;
     string iconPath;
-    int maxStack;
+    string collectSound;
 
-    ItemData(Type type, string name, string iconPath, int maxStack)
-        : type(type), name(name), iconPath(iconPath), maxStack(maxStack) {}
+    ItemData(Type type, string name, string iconPath, string collectSound)
+        : type(type), name(name), iconPath(iconPath), collectSound(collectSound) {}
 
     static ItemData Minikit() {
         return ItemData{
             Type::Minikit,
             "Minikit",
             "../Recursos/img/minikit.png",
-            1
+            "../Recursos/audio/lego-star-wars-minikit.mp3"
+        };
+    }
+
+    static ItemData SprayColor_RED() {
+        return ItemData{
+            Type::SprayColor_RED,
+            "RED",
+            "../Recursos/img/lata-vermelha.png",
+            "../Recursos/audio/INTERACOES/COLLECT.wav"
+        };
+    }
+
+    static ItemData SprayColor_GREEN() {
+        return ItemData{
+            Type::SprayColor_GREEN,
+            "GREEN",
+            "../Recursos/img/lata-verde.png",
+            "../Recursos/audio/INTERACOES/COLLECT.wav"
+        };
+    }
+
+    static ItemData SprayColor_BLUE() {
+        return ItemData{
+            Type::SprayColor_BLUE,
+            "BLUE",
+            "../Recursos/img/lata-azul.png",
+            "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
     }
 };

@@ -25,6 +25,7 @@ bool DetectionZone::Is(string type) {
 void DetectionZone::Start() {}
 
 void DetectionZone::NotifyCollision(GameObject &other) {
+    if (other.GetComponent("Character") == nullptr) return;
     if (wasCollidingLastFrame == false and isCollidingThisFrame == false) {
         if (Detect) {
             Detect();

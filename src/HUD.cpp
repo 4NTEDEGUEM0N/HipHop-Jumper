@@ -56,11 +56,6 @@ void HUD::Render() {
         RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 0*32 + 1*5);
         RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 1*32 + 2*5);
         RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 2*32 + 3*5);
-
-        int invSize = player->GetInventorySize();
-        for(int i = 0; i < invSize; i++) {
-            RenderItem(invSize, characterRect->X + characterSprite.GetWidth() + 5 + 64 * i, characterRect->Y + characterSprite.GetHeight() - 100);
-        }
     }
 
 
@@ -73,13 +68,6 @@ void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
     characterAbilities.SetFrame(frame);
     characterAbilities.Render(x, y, characterAbilities.GetWidth(), characterAbilities.GetHeight());
 }\
-
-void HUD::RenderItem(int itemNumber, int x, int y) {
-    int frame = 1; // so minikit por enquanto
-    
-    characterItems.SetFrame(frame);
-    characterItems.Render(x, y, characterItems.GetWidth(), characterItems.GetHeight());
-}
 
 void HUD::Update(float dt) {
     if (GameData::ended == false)

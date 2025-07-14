@@ -140,6 +140,7 @@ NotebookState::~NotebookState() {
 void NotebookState::RenderCollectables() {
     int line = 0;
     int row = 0;
+    int minikits = Character::player->minikits;
     for (int i = 0; i < 6; i++, row++) {
         if (i % 3 == 0 and i>0) {
             line++;
@@ -150,46 +151,29 @@ void NotebookState::RenderCollectables() {
         pageItems.push_back(minikitObj);
         SpriteRenderer* minikit = new SpriteRenderer(*minikitObj, "../Recursos/img/minikitHud.png", 2, 1);
         minikit->SetCameraFollower(true);
-        minikit->SetFrame(rand() % 2);
+        if (minikits > 0) {
+            minikit->SetFrame(1);
+            minikits--;
+        } else {
+            minikit->SetFrame(0);
+        }
         minikitObj->AddComponent(minikit);
         minikitObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + minikitObj->box.W/2 + row*128.5;
         minikitObj->box.Y = 168 + line*100;
     }
+    line++;
+    row = 0;
     for (int i = 6 ;i < 9; i++, row++) {
-        if (i % 3 == 0 and i>0) {
-            line++;
-            row = 0;
-        }
         string file = "";
-        switch (row) {
-            case 0:
-                file = "../Recursos/img/lata-vermelha.png";
-            break;
-            case 1:
-                file = "../Recursos/img/lata-verde.png";
-            break;
-            case 2:
-                file = "../Recursos/img/lata-azul.png";
-            break;
+        if (i-6+1 <= Character::player->inventory.size()) {
+            file = Character::player->inventory[i-6].iconPath;
+        } else {
+            file = "../Recursos/img/lata-cinza.png";
         }
         GameObject* canObj = new GameObject();
         AddObject(canObj);
         pageItems.push_back(canObj);
         SpriteRenderer* can = new SpriteRenderer(*canObj, file);
-        can->SetCameraFollower(true);
-        canObj->AddComponent(can);
-        canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + row*128.5;
-        canObj->box.Y = 168 + line*100;
-    }
-    for (int i = 9 ;i < 12; i++, row++) {
-        if (i % 3 == 0 and i>0) {
-            line++;
-            row = 0;
-        }
-        GameObject* canObj = new GameObject();
-        AddObject(canObj);
-        pageItems.push_back(canObj);
-        SpriteRenderer* can = new SpriteRenderer(*canObj, "../Recursos/img/lata-cinza.png");
         can->SetCameraFollower(true);
         canObj->AddComponent(can);
         canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + row*128.5;

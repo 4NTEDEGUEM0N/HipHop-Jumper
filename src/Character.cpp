@@ -16,7 +16,6 @@
 #include "../include/StageState.hpp"
 #include "../include/TileMap.hpp"
 #include "../include/Item.hpp"
-#include "../include/InventoryItem.hpp"
 #include "../include/KeyBindingManager.hpp"
 #include "../include/NPC.hpp"
 
@@ -36,7 +35,7 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     grabSound("../Recursos/audio/MOVIMENTOS/WHOOSH .wav")
 {
     gun.reset();
-    inventory = vector<GameObject>();
+    inventory = vector<ItemData>();
     taskQueue = queue<Command>();
     speed = Vec2(0, 0);
     maxGroundSpeed = 500;
@@ -557,29 +556,22 @@ void Character::NotifyCollision(GameObject &other) {
             
             switch (itemData.type) {
                 case ItemData::Type::Minikit: {
-                    GameObject* inventoryItemObject = new GameObject();
-
-                    InventoryItem* inventoryItemCpt = new InventoryItem(*inventoryItemObject, itemData);
-                    inventoryItemObject->AddComponent(inventoryItemCpt);
-                    
-                    inventory.push_back(inventoryItemObject);
-
+                    minikits++;
                     break;
                 }
                     
-                case ItemData::Type::SprayCap:
-
+                case ItemData::Type::SprayColor_RED:
+                    inventory.push_back(itemData);
                     break;
                 
                     
-                case ItemData::Type::SprayBody:
-
+                case ItemData::Type::SprayColor_GREEN:
+                    inventory.push_back(itemData);
                     break;
                     
-                case ItemData::Type::SprayColor:
-
+                case ItemData::Type::SprayColor_BLUE:
+                    inventory.push_back(itemData);
                     break;
-        
             }
         }
     }

@@ -2,10 +2,10 @@
 #include "../include/SpriteRenderer.hpp"
 #include "../include/Collider.hpp"
 
-Item::Item(GameObject& associated, ItemData itemData, string file) :
+Item::Item(GameObject& associated, ItemData itemData) :
     Component(associated),
     itemData(itemData),
-    collectSound("../Recursos/audio/INTERACOES/COLLECT.wav")
+    collectSound(itemData.collectSound)
 {
     counter = 0;
     up = false;

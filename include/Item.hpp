@@ -9,7 +9,7 @@ using namespace std;
 
 class Item : public Component {
 public:
-    Item(GameObject& associated, ItemData itemData, string file);
+    Item(GameObject& associated, ItemData itemData);
     void Update(float dt);
     void Render();
     bool Is(string type);

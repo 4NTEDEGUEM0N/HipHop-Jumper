@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "Component.hpp"
+#include "ItemData.hpp"
 #include "Timer.hpp"
 #include "Vec2.hpp"
 #include "Sound.hpp"
@@ -32,7 +33,6 @@ public:
 private:
     SpriteRenderer* characterSprite;
     weak_ptr<GameObject> gun;
-    vector<GameObject> inventory;
     queue<Command> taskQueue;
     Vec2 speed;
     int hp;
@@ -75,8 +75,11 @@ private:
 
     Vec2 colliderScale;
 
+
 public:
     static Character* player;
+    vector<ItemData> inventory;
+    int minikits = 0;
 
     Character(GameObject& associated, string sprite);
     ~Character();
