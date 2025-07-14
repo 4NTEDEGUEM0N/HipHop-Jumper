@@ -348,6 +348,19 @@ StageState::StageState() {
         detectionZone->SetDetectFunction([this,playerObject]() {
             End(playerObject);
         });
+
+
+        GameObject* detectionObj2 = new GameObject();
+        detectionObj2->box.X = 192;
+        detectionObj2->box.Y = 8448;
+        detectionObj2->box.W = 64*2;
+        detectionObj2->box.H = 64*2;
+        AddObject(detectionObj2);
+        DetectionZone* detectionZone2 = new DetectionZone(*detectionObj2);
+        detectionObj2->AddComponent(detectionZone2);
+        detectionZone2->SetDetectFunction([this,playerObject]() {
+            End(playerObject);
+        });
     }
 
     hud = new HUD();
