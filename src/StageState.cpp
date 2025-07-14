@@ -267,11 +267,11 @@ StageState::StageState() {
             End(playerObject);
         });
     } else if (teste == 4) {
-        TileSet* metroFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario metro123.png", 64, 64);
-        TileSet* finalFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario 2 frente.png", 64, 64);
+        TileSet* metroFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario metro123_scaled.png", 64, 64);
+        TileSet* finalFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario 2 frente_scaled.png", 64, 64);
         TileSet* collisionTileSet = new TileSet("../Recursos/img/1fase/assets juntos primeira fase.png", 64, 64);
-        TileSet* finalTrasTileSet = new TileSet("../Recursos/img/1fase/cenario 2 trás.png", 64, 64);
-        TileSet* metroTrasTileSet = new TileSet("../Recursos/img/1fase/cenario metro trás.png", 64, 64);
+        TileSet* finalTrasTileSet = new TileSet("../Recursos/img/1fase/cenario 2 trás_scaled.png", 64, 64);
+        TileSet* metroTrasTileSet = new TileSet("../Recursos/img/1fase/cenario metro trás_scaled.png", 64, 64);
         TileSet* detalhes1TileSet = new TileSet("../Recursos/img/1fase/Sprite sheets detalhes.png", 64, 64);
         TileSet* detalhes2TileSet = new TileSet("../Recursos/img/1fase/Sprite sheets detalhes.png", 64, 64);
         TileSet* detalhes3TileSet = new TileSet("../Recursos/img/1fase/tubo extensão sprite.png", 64, 64);
@@ -296,7 +296,7 @@ StageState::StageState() {
         tileMapObject->box.Y = 0;
         set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,18,19};
         tileSet = collisionTileSet;
-        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase_final.txt", TileSets, solidIDs, 2);
+        TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase_final_scaled.txt", TileSets, solidIDs, 2);
         tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);
@@ -305,8 +305,12 @@ StageState::StageState() {
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/spray run test.png");
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Sprite Spray2_scaled.png");
         Character* playerCharacter = new Character(*playerObject, "../Recursos/img/sprite_spray_3_scaled.png");
-        playerObject->box.X = 1408;//11868;
-        playerObject->box.Y = 8640 - playerObject->box.H; //2176
+        /*Cordenadas úteis:
+         * Início: 768, 8512
+         * Fim: 5760, 1536
+        */
+        playerObject->box.X = 768;
+        playerObject->box.Y = 8512 - playerObject->box.H;
         Camera::Follow(playerObject);
         playerObject->AddComponent(playerCharacter);
         PlayerController* playerController = new PlayerController(*playerObject);
@@ -316,8 +320,8 @@ StageState::StageState() {
         AddObject(ratoNPCObj);
         NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/rato.png", "RATORIOUS B.I.G.");
         ratoNPCObj->AddComponent(ratoNPC);
-        ratoNPCObj->box.X = 5760;
-        ratoNPCObj->box.Y = 8896 - ratoNPCObj->box.H;
+        ratoNPCObj->box.X = 3072;
+        ratoNPCObj->box.Y = 8576 - ratoNPCObj->box.H;
         Collider* npcCollider = new Collider(*ratoNPCObj, {4,3});
         ratoNPCObj->AddComponent(npcCollider);
 
@@ -334,7 +338,7 @@ StageState::StageState() {
         backgroundMusic.Play();
 
         GameObject* detectionObj = new GameObject();
-        detectionObj->box.X = 11968;
+        detectionObj->box.X = 7168;
         detectionObj->box.Y = 2176;
         detectionObj->box.W = 64*3;
         detectionObj->box.H = 64*3;
@@ -451,7 +455,7 @@ GameObject* StageState::GetTileMapObject() {
 }
 
 void StageState::End(GameObject* playerObject) {
-    playerObject->box.X = 12032;
+    playerObject->box.X = 7232;
     playerObject->box.Y = 2368 - playerObject->box.H;
     GameData::ended = true;
     GameData::playerVictory = true;
