@@ -318,11 +318,11 @@ StageState::StageState() {
 
         GameObject* ratoNPCObj = new GameObject();
         AddObject(ratoNPCObj);
-        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/rato.png", "RATORIOUS B.I.G.");
+        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/RatoriousBig.png", "RATORIOUS B.I.G.");
         ratoNPCObj->AddComponent(ratoNPC);
-        ratoNPCObj->box.X = 3072;
-        ratoNPCObj->box.Y = 8576 - ratoNPCObj->box.H;
-        Collider* npcCollider = new Collider(*ratoNPCObj, {4,3});
+        ratoNPCObj->box.X = 3008;
+        ratoNPCObj->box.Y = 8572 - ratoNPCObj->box.H;
+        Collider* npcCollider = new Collider(*ratoNPCObj, {2,2});
         ratoNPCObj->AddComponent(npcCollider);
 
         ratoNPC->dialogs.emplace_back("Hum... Quem é você moleque? Espera, pela aparência... Spray...");

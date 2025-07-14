@@ -19,7 +19,7 @@ public:
     State& GetState();
 
     void Push(State* state);
-
+    void SuperPop();
     void Run();
 
     float GetDeltaTime();
@@ -42,6 +42,8 @@ private:
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
     stack<unique_ptr<State>> stateStack;
+
+    bool superPopRequested = false;
 
 };
 

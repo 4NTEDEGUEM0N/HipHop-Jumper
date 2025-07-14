@@ -123,7 +123,16 @@ void Game::Run(){
         stateStack.top()->Start();
         storedState = nullptr;
         while(!stateStack.empty() && !stateStack.top()->QuitRequested()){
-            if (stateStack.top()->PopRequested()) {
+            if (superPopRequested) {
+                while (!stateStack.empty()) {
+                    stateStack.pop();
+                }
+                Resources::ClearImages();
+                Resources::ClearMusics();
+                Resources::ClearSounds();
+                Resources::ClearFonts();
+                superPopRequested = false;
+            } else if (stateStack.top()->PopRequested()) {
                 stateStack.pop();
                 Resources::ClearImages();
                 Resources::ClearMusics();
@@ -178,5 +187,8 @@ void Game::Push(State* state) {
     storedState = state;
 }
 
+void Game::SuperPop() {
+    superPopRequested = true;
+}
 
 

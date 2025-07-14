@@ -5,6 +5,7 @@
 #include "../include/Button.hpp"
 #include "../include/OptionsState.hpp"
 #include "../include/Text.hpp"
+#include "../include/TitleState.hpp"
 
 PauseState::PauseState() {
     GameObject* bgObject = new GameObject();
@@ -66,7 +67,10 @@ PauseState::PauseState() {
     menuObj->box.Y = optionsObj->box.Y + menuObj->box.H + 10;
     AddObject(menuObj);
     menuButton->SetClickFunction([this]() {
-        quitRequested = true;
+        Game& game = Game::GetInstance();
+        TitleState* tileState = new TitleState();
+        game.Push(tileState);
+        game.SuperPop();
     });
     menuButton->SetHoverFunction([this]() {
         menuText->SetColor({26, 160, 251, 255});
@@ -86,7 +90,7 @@ void PauseState::Update(float dt) {
 //        escSound.Play();
         popRequested = true;
     }
-    //quitRequested = input.QuitRequested();
+    quitRequested = input.QuitRequested();
 }
 
 void PauseState::Render() {
