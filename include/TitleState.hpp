@@ -1,6 +1,8 @@
 #ifndef TITLESTATE_HPP
 #define TITLESTATE_HPP
+
 #include "State.hpp"
+#include "Text.hpp"
 
 class TitleState : public State {
 public:
@@ -16,10 +18,11 @@ public:
     void Resume();
 
 private:
-    bool up;
-    int counter;
-    weak_ptr<GameObject> instructionsObject;
-    GameObject* backgroudImage;
+    Text* playText;
+    Text* optionsText;
+    Text* quitText;
+    bool quit = false;
+
 };
 
 #endif //TITLESTATE_HPP
