@@ -319,6 +319,7 @@ StageState::StageState() {
         /*Cordenadas úteis:
          * Início: 768, 8512
          * Fim: 5760, 1536
+         * Super canto direito: 7936, 384
         */
         playerObject->box.X = 768;
         playerObject->box.Y = 8512 - playerObject->box.H;
@@ -519,9 +520,55 @@ void StageState::End(GameObject* playerObject) {
     Sound* graffitiSound = new Sound("../Recursos/audio/GRAFFITI/SPRAY 1.wav");
     graffitiSound->Play(1);
 
+    bool hasRed = false;
+    bool hasGreen = false;
+    bool hasBlue = false;
+    for (int i=0; i < Character::player->inventory.size(); i++) {
+        switch (Character::player->inventory[i].type) {
+            case ItemData::Type::SprayColor_RED:
+                hasRed = true;
+            break;
+            case ItemData::Type::SprayColor_GREEN:
+                hasGreen = true;
+            break;
+            case ItemData::Type::SprayColor_BLUE:
+                hasBlue = true;
+            break;
+            default:
+                break;
+        }
+    }
+
+    string file = "";
+    if (hasRed && hasGreen && hasBlue) {
+        file = "../Recursos/img/vermelho_verde_azul.png";
+    }
+    else if (hasRed && hasGreen) {
+        file = "../Recursos/img/vermelho_verde.png";
+    }
+    else if (hasRed && hasBlue) {
+        file = "../Recursos/img/vermelho_azul.png";
+    }
+    else if (hasGreen && hasBlue) {
+        file = "../Recursos/img/verde_azul.png";
+    }
+    else if (hasRed) {
+        file = "../Recursos/img/vermelho.png";
+    }
+    else if (hasGreen) {
+        file = "../Recursos/img/verde.png";
+    }
+    else if (hasBlue) {
+        file = "../Recursos/img/azul.png";
+    }
+    else {
+        file = "../Recursos/img/nenhum.png";
+    }
+
     GameObject* graffitiObj = new GameObject(true);
-    SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, "../Recursos/img/check.png");
+    SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, file);
     graffitiObj->AddComponent(graffiti);
+    graffiti->SetScale(0.5f, 0.5f);
     graffitiObj->box.X = playerObject->box.X + playerObject->box.W/2 - graffitiObj->box.W/2;
     graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H;
     AddObject(graffitiObj);
