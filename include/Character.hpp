@@ -48,6 +48,7 @@ private:
     Sound stepSound;
     Sound landSound;
     Sound grabSound;
+    Sound slideSound;
 
     bool onGround;
     float airGravity;
@@ -74,6 +75,10 @@ private:
     bool isStepSoundPlaying;
 
     Vec2 colliderScale;
+    
+    Timer slidingTimer;
+    float slideGraceTime = 0.1f;
+    bool onRamp = false;
 
 
 public:

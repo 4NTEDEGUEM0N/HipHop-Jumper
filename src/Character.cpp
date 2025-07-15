@@ -32,7 +32,8 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
     dashSound("../Recursos/audio/MOVIMENTOS/CLOTHWHOOSH.wav"),
     stepSound("../Recursos/audio/PASSOS MOVIMENTOS DIVERSOS/PASSOS CONCRETO 1 DEVAGAR.wav"),
     landSound("../Recursos/audio/MOVIMENTOS/JUMPFINISH.wav"),
-    grabSound("../Recursos/audio/MOVIMENTOS/WHOOSH .wav")
+    grabSound("../Recursos/audio/MOVIMENTOS/WHOOSH .wav"),
+    slideSound("../Recursos/audio/MOVIMENTOS/SLIDECONCRETE.wav")
 {
     gun.reset();
     inventory = vector<ItemData>();
@@ -329,6 +330,7 @@ void Character::Update(float dt) {
 
         Rect new_box_y = associated.box + Vec2(0, speed.Y * dt);
         vector<TileMap::CollisionInfo> y_collisions = tileMap->IsColliding(new_box_y, colliderScale);
+        onRamp = false;
 
         if (y_collisions.empty()) {
             isSliding = false;
@@ -355,7 +357,8 @@ void Character::Update(float dt) {
                     float horizontalOffset = (associated.box.W - colliderWidth) / 2.0f;
                     // Lógica para rampas (a sua já era boa!)
                     if (col.type == TileMap::TileCollisionType::TriangleTopLeft) {
-                        isSliding = true;
+                        onRamp = true;
+                        slidingTimer.Restart();
                         speed.Y = maxFallSpeed;
                         speed.X = -maxFallSpeed;
                         direction = Vec2(-1, 0);
@@ -372,7 +375,8 @@ void Character::Update(float dt) {
                         dashTimer.Restart();
                         break;
                     } else if (col.type == TileMap::TileCollisionType::TriangleTopRight) {
-                        isSliding = true;
+                        onRamp = true;
+                        slidingTimer.Restart();
                         speed.Y = maxFallSpeed;
                         speed.X = maxFallSpeed;
                         direction = Vec2(1, 0);
@@ -442,6 +446,15 @@ void Character::Update(float dt) {
     } else if (direction.X > 0) {
         characterSprite->SetFlip(SDL_FLIP_NONE);
     }
+    
+    slidingTimer.Update(dt);
+    if (slidingTimer.Get() < slideGraceTime) {
+        isSliding = true;
+    } else {
+        isSliding = false;
+    }
+    
+    
     if (hp > 0 && !dashing) {
         // NOVO: Condição para animação de deslize
         if (isSliding) {
@@ -457,13 +470,23 @@ void Character::Update(float dt) {
                 animator->SetAnimation("walking");
             else if (speed.X == 0 && !moving)
                 animator->SetAnimation("idle");
+        } else {
+            slideSound.Stop();
+        }
+    }
+    
+    slidingTimer.Update(dt);
+    if (onRamp) {
+        slidingTimer.Restart();
+        isSliding = true;
+    } else {
+        if (slidingTimer.Get() > slideGraceTime) {
+            isSliding = false;
         }
     }
     
     bool shouldPlayStep = onGround && fabs(speed.X) > 10.0f && !dashing && !isHit && !dead;
-
-    //bool shouldPlayStep = onGround && moving && !dashing && !isHit && !dead;
-
+    bool shouldPlaySlide = isSliding && !dead;
     
     if (shouldPlayStep) {
         stepSound.Play(-1);  // loop
@@ -471,15 +494,11 @@ void Character::Update(float dt) {
         stepSound.Stop();
     }
     
-//    if (shouldPlayStep) {
-//        if (!stepSound.IsPlaying()) {
-//            stepSound.Play(-1);  // Toca em loop infinito
-//        }
-//    } else {
-//        if (stepSound.IsPlaying()) {
-//            stepSound.Stop();  // Para quando necessário
-//        }
-//    }
+    if (shouldPlaySlide) {
+        slideSound.Play(-1);  // loop
+    } else {
+        slideSound.Stop();
+    }
 
     KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
     if (keybinder.IsActionPressed(KeyBindingManager::GameAction::GRAFFITI) and !graffitiArray.empty()) {

@@ -342,7 +342,7 @@ StageState::StageState() {
         ratoNPC->dialogs.emplace_back("Enfim moleque, pra graffitar nessa área tem que ser bom de verdade, não \nqueremos qualquer um na nossa Crew.");
         ratoNPC->dialogs.emplace_back("O teste vai ser você fazer o graffiti mais ousado do metrô, ali pra trás o \ndesafio é grande. Duvido que vá ser bom o suficiente.");
         ratoNPC->dialogs.emplace_back("Aé, meu vulgo é Ratorious B.I.G., o maior graffiteiro da região, pode crer?");
-        ratoNPC->dialogs.emplace_back("Caso passe no teste, vai encontrar com o Nine lá em cima. O moleque é firmeza,\nmas também é metido");
+        ratoNPC->dialogs.emplace_back("Caso passe no teste, vai encontrar com o Nine lá em cima. \nO moleque é firmeza, mas também é metido");
         ratoNPC->dialogs.emplace_back("Boa sorte!");
 
         backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
