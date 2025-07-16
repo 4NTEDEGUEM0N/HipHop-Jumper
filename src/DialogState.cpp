@@ -59,9 +59,6 @@ void DialogState::Update(float dt) {
     UpdateArray(dt);
 
     InputManager& input = InputManager::GetInstance();
-    if (input.KeyPress(SDLK_ESCAPE)) {
-        popRequested = true;
-    }
     quitRequested = input.QuitRequested();
 
 
