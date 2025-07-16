@@ -33,7 +33,7 @@ void Sound::Play(int times) {
     // Track looping state
     isLooping = (times == -1);
     
-    std::cout << "channel: " << channel << std::endl;
+    //std::cout << "channel: " << channel << std::endl;
 }
 
 void Sound::Stop() {

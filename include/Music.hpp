@@ -11,11 +11,13 @@ using namespace std;
 class Music {
 private:
     shared_ptr<Mix_Music> music;
+    shared_ptr<Mix_Music> intro;
 
 public:
     Music();
     Music(string file);
     ~Music();
+
     void Play(int times = -1);
     void Stop(int msToStop = 1500);
     void Pause();
@@ -23,6 +25,9 @@ public:
     void UpdateVolume();
     void Open(string file);
     bool IsOpen();
+    void SetIntro(string file);
+
+    void PlayLoop();
 
     static int MUSIC_VOLUME;
 };

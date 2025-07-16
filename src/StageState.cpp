@@ -348,8 +348,9 @@ StageState::StageState() {
         ratoNPC->dialogs.emplace_back("Caso passe no teste, vai encontrar com o Nine lá em cima. \nO moleque é firmeza, mas também é metido");
         ratoNPC->dialogs.emplace_back("Boa sorte!");
 
-//        backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
-//        backgroundMusic.Play();
+        backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
+        backgroundMusic.SetIntro("../Recursos/audio/TRACKS/CLOUD TRAP METRO START.wav");
+        backgroundMusic.Play();
 
         GameObject* detectionObj = new GameObject();
         detectionObj->box.X = 7168;
@@ -406,12 +407,14 @@ StageState::StageState() {
         Item* blue = new Item(*blueObject, sprayAzulData);
         blueObject->AddComponent(blue);
         AddObject(blueObject);
-        
+
+        /*
         MusicManager::GetInstance().PlayMusic(
             "../Recursos/audio/TRACKS/CLOUD TRAP METRO START.wav",
             "../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav",
             ""
         );
+        */
     }
 
     hud = new HUD();
@@ -466,7 +469,7 @@ void StageState::Update(float dtt) {
     if (Character::player != nullptr)
         hud->Update(dt);
     
-    MusicManager::GetInstance().Update(dt);
+    //MusicManager::GetInstance().Update(dt);
 }
 
 bool Y_Sort(GameObject* a, GameObject* b) {
