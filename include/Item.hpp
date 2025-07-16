@@ -3,6 +3,7 @@
 #include "ItemData.hpp"
 #include "GameObject.hpp"
 #include "Sound.hpp"
+#include "SpriteRenderer.hpp"
 #include "Timer.hpp"
 
 using namespace std;
@@ -26,6 +27,8 @@ private:
     Timer collectTimer;
 
     ItemData itemData;
+    SpriteRenderer* itemSprite;
+    bool scaled = false;
     int counter;
     bool up;
 };

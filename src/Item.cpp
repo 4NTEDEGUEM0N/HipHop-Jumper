@@ -12,8 +12,8 @@ Item::Item(GameObject& associated, ItemData itemData) :
     collected = false;
     collectTimer.Restart();
 
-    SpriteRenderer* item = new SpriteRenderer(associated, itemData.iconPath);
-    associated.AddComponent(item);
+    itemSprite = new SpriteRenderer(associated, itemData.iconPath);
+    associated.AddComponent(itemSprite);
 
     Collider* collider = new Collider(associated);
     associated.AddComponent(collider);
@@ -31,6 +31,10 @@ void Item::Update(float dt) {
     associated.box.Y = associated.box.Y + counter*dt;
 
     if (collected) {
+        if (not scaled) {
+            scaled = true;
+            itemSprite->SetScale(0.001f, 0.001f);
+        }
         if (collectTimer.Get() >= 0.5)
             associated.RequestDelete();
         collectTimer.Update(dt);
