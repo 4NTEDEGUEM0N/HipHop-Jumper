@@ -350,7 +350,6 @@ StageState::StageState() {
 
         backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
         backgroundMusic.SetIntro("../Recursos/audio/TRACKS/CLOUD TRAP METRO START.wav");
-        backgroundMusic.Play();
 
         GameObject* detectionObj = new GameObject();
         detectionObj->box.X = 7168;
@@ -507,6 +506,7 @@ void StageState::Render() {
 void StageState::Start() {
     StartArray();
     backgroundMusic.UpdateVolume();
+    backgroundMusic.Play();
     GameData::playerVictory = false;
     GameData::ended = false;
 }

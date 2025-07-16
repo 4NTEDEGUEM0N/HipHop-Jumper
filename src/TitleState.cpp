@@ -20,6 +20,9 @@ TitleState::TitleState() {
     bgObject->box.X = 0;
     bgObject->box.Y = 0;
 
+    backgroundMusic.Open("../Recursos/audio/TRACKS/MAIN MENU TRACK LOOP.wav");
+    backgroundMusic.SetIntro("../Recursos/audio/TRACKS/MAIN MENU TRACK START.wav");
+
     GameObject* logoObj = new GameObject();
     AddObject(logoObj);
     SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper.png");
@@ -109,9 +112,16 @@ void TitleState::Render() {
 
 void TitleState::Start() {
     StartArray();
+    backgroundMusic.UpdateVolume();
+    backgroundMusic.Play();
 }
-void TitleState::Pause() {}
-void TitleState::Resume() {}
+void TitleState::Pause() {
+    backgroundMusic.Pause();
+}
+void TitleState::Resume() {
+    backgroundMusic.UpdateVolume();
+    backgroundMusic.Resume();
+}
 void TitleState::LoadAssets() {}
 TitleState::~TitleState() = default;
 

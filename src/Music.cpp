@@ -104,6 +104,12 @@ Music::~Music() {
     if (music != nullptr) {
         Stop();
         music = nullptr;
+        intro = nullptr;
+    }
+
+    if (g_musicInstance == this) {
+        Mix_HookMusicFinished(nullptr);
+        g_musicInstance = nullptr;
     }
 }
 

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../include/Resources.hpp"
 
-int Sound::SOUND_VOLUME = 3;
+int Sound::SOUND_VOLUME = 1;
 
 Sound::Sound() {
     chunk = nullptr;

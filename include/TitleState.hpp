@@ -1,6 +1,7 @@
 #ifndef TITLESTATE_HPP
 #define TITLESTATE_HPP
 
+#include "Music.hpp"
 #include "State.hpp"
 #include "Text.hpp"
 
@@ -22,6 +23,7 @@ private:
     Text* optionsText;
     Text* quitText;
     bool quit = false;
+    Music backgroundMusic;
 
 };
 
