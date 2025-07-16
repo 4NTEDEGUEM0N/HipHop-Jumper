@@ -35,9 +35,9 @@ void PlayerController::Update(float dt) {
         direction = direction + Vec2(1, 0);
         move = true;
     }
-    if (keybinder.IsActionDown(KeyBindingManager::GameAction::SHOOT)) {
+    if (keybinder.IsActionDown(KeyBindingManager::GameAction::STUNGLEE)) {
         shot = true;
-        character->Issue(Character::Command(Character::Command::SHOOT, 0, 0));
+        character->Issue(Character::Command(Character::Command::STUNGLEE, 0, 0));
     }
     if (keybinder.IsActionPressed(KeyBindingManager::GameAction::DASH)) {
         character->Issue(Character::Command(Character::Command::DASH, direction.X, 0));

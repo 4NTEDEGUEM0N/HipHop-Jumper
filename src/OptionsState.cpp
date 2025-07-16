@@ -135,7 +135,7 @@ OptionsState::OptionsState() {
     Button* jumpButton = new Button(*jumpObj);
     jumpObj->AddComponent(jumpButton);
     AddObject(jumpObj);
-    jumpText = new Text(*jumpObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Jump: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::JUMP))), {64, 64, 64, 255}, true);
+    jumpText = new Text(*jumpObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Jump: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::JUMP))), {64, 64, 64, 255}, true);
     jumpObj->AddComponent(jumpText);
     jumpObj->box.X = (3 * Game::VirtualScreenWidth)/4 - jumpObj->box.W/2;
     jumpObj->box.Y = keyObj->box.Y + 130;
@@ -166,7 +166,7 @@ OptionsState::OptionsState() {
     Button* leftButton = new Button(*leftObj);
     leftObj->AddComponent(leftButton);
     AddObject(leftObj);
-    leftText = new Text(*leftObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Left: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::MOVE_LEFT))), {64, 64, 64, 255}, true);
+    leftText = new Text(*leftObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Left: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::MOVE_LEFT))), {64, 64, 64, 255}, true);
     leftObj->AddComponent(leftText);
     leftObj->box.X = (3 * Game::VirtualScreenWidth)/4 - leftObj->box.W/2;
     leftObj->box.Y = jumpObj->box.Y + leftObj->box.H + 10;
@@ -197,7 +197,7 @@ OptionsState::OptionsState() {
     Button* rightButton = new Button(*rightObj);
     rightObj->AddComponent(rightButton);
     AddObject(rightObj);
-    rightText = new Text(*rightObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Right: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::MOVE_RIGHT))), {64, 64, 64, 255}, true);
+    rightText = new Text(*rightObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Right: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::MOVE_RIGHT))), {64, 64, 64, 255}, true);
     rightObj->AddComponent(rightText);
     rightObj->box.X = (3 * Game::VirtualScreenWidth)/4 - rightObj->box.W/2;
     rightObj->box.Y = leftObj->box.Y + rightObj->box.H + 10;
@@ -228,7 +228,7 @@ OptionsState::OptionsState() {
     Button* dashButton = new Button(*dashObj);
     dashObj->AddComponent(dashButton);
     AddObject(dashObj);
-    dashText = new Text(*dashObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Dash: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::DASH))), {64, 64, 64, 255}, true);
+    dashText = new Text(*dashObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Dash: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::DASH))), {64, 64, 64, 255}, true);
     dashObj->AddComponent(dashText);
     dashObj->box.X = (3 * Game::VirtualScreenWidth)/4 - dashObj->box.W/2;
     dashObj->box.Y = rightObj->box.Y + dashObj->box.H + 10;
@@ -259,7 +259,7 @@ OptionsState::OptionsState() {
     Button* notebookButton = new Button(*notebookObj);
     notebookObj->AddComponent(notebookButton);
     AddObject(notebookObj);
-    notebookText = new Text(*notebookObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Notebook: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::NOTEBOOK))), {64, 64, 64, 255}, true);
+    notebookText = new Text(*notebookObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Notebook: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::NOTEBOOK))), {64, 64, 64, 255}, true);
     notebookObj->AddComponent(notebookText);
     notebookObj->box.X = (3 * Game::VirtualScreenWidth)/4 - notebookObj->box.W/2;
     notebookObj->box.Y = dashObj->box.Y + notebookObj->box.H + 10;
@@ -290,7 +290,7 @@ OptionsState::OptionsState() {
     Button* graffitiButton = new Button(*graffitiObj);
     graffitiObj->AddComponent(graffitiButton);
     AddObject(graffitiObj);
-    graffitiText = new Text(*graffitiObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Graffiti: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::GRAFFITI))), {64, 64, 64, 255}, true);
+    graffitiText = new Text(*graffitiObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Graffiti: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::GRAFFITI))), {64, 64, 64, 255}, true);
     graffitiObj->AddComponent(graffitiText);
     graffitiObj->box.X = (3 * Game::VirtualScreenWidth)/4 - graffitiObj->box.W/2;
     graffitiObj->box.Y = notebookObj->box.Y + graffitiObj->box.H + 10;
@@ -316,15 +316,46 @@ OptionsState::OptionsState() {
     graffitiButton->SetNoneFunction([this]() {
         graffitiText->SetColor({64, 64, 64, 255});
     });
+    
+    GameObject* stungleeObj = new GameObject();
+    Button* stungleeButton = new Button(*stungleeObj);
+    stungleeObj->AddComponent(stungleeButton);
+    AddObject(stungleeObj);
+    stungleeText = new Text(*stungleeObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Stun: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::STUNGLEE))), {64, 64, 64, 255}, true);
+    stungleeObj->AddComponent(stungleeText);
+    stungleeObj->box.X = (3 * Game::VirtualScreenWidth)/4 - stungleeObj->box.W/2;
+    stungleeObj->box.Y = graffitiObj->box.Y + stungleeObj->box.H + 10;
+    
+    stungleeButton->SetClickFunction([this]() {
+        actionToRebind = KeyBindingManager::GameAction::STUNGLEE;
+        KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
+        GameObject* pressObj = new GameObject();
+        Text* pressText = new Text(*pressObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 200, Text::SHADED, "PRESS ANY KEY", {254, 88, 224, 255}, true);
+        pressObj->AddComponent(pressText);
+        pressObj->box.X = Game::VirtualScreenWidth/2 - pressObj->box.W/2;
+        pressObj->box.Y = Game::VirtualScreenHeight/2 - pressObj->box.H/2;
+        pressText->Render();
+        SDL_RenderPresent(Game::GetInstance().GetRenderer());
+        SDL_Keycode newKey = keybinder.GetNextKeyPressed();
+        keybinder.SetKeyForAction(actionToRebind, newKey);
+        stungleeText->SetText("Stun: " + string(SDL_GetKeyName(newKey)));
+        delete pressObj;
+    });
+    stungleeButton->SetHoverFunction([this]() {
+        stungleeText->SetColor({26, 160, 251, 255});
+    });
+    stungleeButton->SetNoneFunction([this]() {
+        stungleeText->SetColor({64, 64, 64, 255});
+    });
 
     GameObject* restoreObj = new GameObject();
     Button* restoreButton = new Button(*restoreObj);
     restoreObj->AddComponent(restoreButton);
     AddObject(restoreObj);
-    restoreText = new Text(*restoreObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Reset to Default", {128,0,0,255}, true);
+    restoreText = new Text(*restoreObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Reset to Default", {128,0,0,255}, true);
     restoreObj->AddComponent(restoreText);
     restoreObj->box.X = (3 * Game::VirtualScreenWidth)/4 - restoreObj->box.W/2;
-    restoreObj->box.Y = graffitiObj->box.Y + restoreObj->box.H + 30;
+    restoreObj->box.Y = stungleeObj->box.Y + restoreObj->box.H + 30;
 
     restoreButton->SetClickFunction([this]() {
         KeyBindingManager& keybinder = KeyBindingManager::GetInstance();
@@ -335,6 +366,7 @@ OptionsState::OptionsState() {
         dashText->SetText("Dash: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::DASH))));
         notebookText->SetText("Notebook: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::NOTEBOOK))));
         graffitiText->SetText("Graffiti: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::GRAFFITI))));
+        stungleeText->SetText("Stun: " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::GameAction::STUNGLEE))));
     });
     restoreButton->SetHoverFunction([this]() {
         restoreText->SetColor({26, 160, 251, 255});
@@ -347,7 +379,7 @@ OptionsState::OptionsState() {
     Button* saveButton = new Button(*saveObj);
     saveObj->AddComponent(saveButton);
     AddObject(saveObj);
-    saveText = new Text(*saveObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 70, Text::BLENDED, "Save", {0,128,0,255}, true);
+    saveText = new Text(*saveObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 50, Text::BLENDED, "Save", {0,128,0,255}, true);
     saveObj->AddComponent(saveText);
     saveObj->box.X = Game::VirtualScreenWidth/4 - saveObj->box.W/2;
     saveObj->box.Y = restoreObj->box.Y;

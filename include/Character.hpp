@@ -19,7 +19,7 @@ public:
     public:
         enum CommandType {
             MOVE,
-            SHOOT,
+            STUNGLEE,
             JUMP,
             DASH
         };

@@ -13,7 +13,7 @@ public:
         DASH,
         NOTEBOOK,
         GRAFFITI,
-        SHOOT
+        STUNGLEE
     };
 
     enum MouseAction {

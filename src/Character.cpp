@@ -148,7 +148,7 @@ void Character::Update(float dt) {
                 if (speed.X < -maxGroundSpeed)
                     speed.X = -maxGroundSpeed;
             }
-        } else if (task.type == Command::SHOOT && !dashing && !isHit) {
+        } else if (task.type == Command::STUNGLEE && !dashing && !isHit) {
             Component* component = gun.lock()->GetComponent("Gun");
             Gun* gunCpt = dynamic_cast<Gun*>(component);
             gunCpt->Shot(task.pos);

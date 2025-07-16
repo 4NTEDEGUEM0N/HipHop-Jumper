@@ -29,6 +29,7 @@ private:
     Text* dashText;
     Text* notebookText;
     Text* graffitiText;
+    Text* stungleeText;
     Text* restoreText;
     Text* saveText;
 };
