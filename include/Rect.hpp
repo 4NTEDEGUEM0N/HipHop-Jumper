@@ -21,7 +21,7 @@ public:
     Rect operator+(const Vec2& vector);
     Vec2 center();
     static float distance(Rect& rect1, Rect& rect2);
-    bool contains(Vec2& vector);
+    bool contains(const Vec2& vector);
     Rect& operator=(const Rect& rect2);
 };
 

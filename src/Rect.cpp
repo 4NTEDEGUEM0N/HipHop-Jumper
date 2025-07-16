@@ -39,7 +39,7 @@ float Rect::distance(Rect& rect1, Rect& rect2) {
     return Vec2::distance(center1, center2);
 }
 
-bool Rect::contains(Vec2& vector) {
+bool Rect::contains(const Vec2& vector) {
     return (vector.GetX() >= X && vector.GetX() <= X + W && vector.GetY() >= Y && vector.GetY() <= Y + H);
 }
 

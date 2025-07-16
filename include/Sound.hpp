@@ -22,7 +22,7 @@ public:
     bool IsPlaying() const;
     static int SOUND_VOLUME;
     
-    bool isLooping = false; // NEW: tracks if currently looping
+    bool isLooping = false;
 };
 
 

@@ -287,6 +287,7 @@
 		B0E238662E27290C0093D1BF /* MusicManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MusicManager.hpp; sourceTree = "<group>"; };
 		B0E238682E27291C0093D1BF /* AmbientManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientManager.cpp; sourceTree = "<group>"; };
 		B0E238692E27291C0093D1BF /* AmbientManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AmbientManager.hpp; sourceTree = "<group>"; };
+		B0E2386C2E2853080093D1BF /* AMBIENCE */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AMBIENCE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -537,6 +538,7 @@
 		B0152B642DBD8303008B5B08 /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				B0E2386C2E2853080093D1BF /* AMBIENCE */,
 				B07824D12E11D62B0020621D /* TRACKS */,
 				B07824D02E11D62B0020621D /* UX */,
 				B07824CE2E11D5B90020621D /* GRAFFITI */,

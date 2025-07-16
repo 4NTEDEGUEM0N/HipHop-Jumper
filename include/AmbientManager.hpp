@@ -41,7 +41,7 @@ public:
     AmbientManager& operator=(const AmbientManager&) = delete;
     
     void AddRegion(Rect area, const std::string& soundFile);
-    void Update(Vec2& playerPosition);
+    void Update(const Vec2& playerPosition);
     void StopAll();
 
 private:

@@ -10,7 +10,7 @@ void AmbientManager::AddRegion(Rect area, const std::string& soundFile) {
     regions.push_back(region);
 }
 
-void AmbientManager::Update(Vec2& playerPosition) {
+void AmbientManager::Update(const Vec2& playerPosition) {
     for (auto& region : regions) {
         if (region.area.contains(playerPosition)) {
             if (&region != currentRegion) {

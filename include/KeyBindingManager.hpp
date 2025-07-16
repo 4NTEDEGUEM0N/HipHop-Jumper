@@ -12,11 +12,12 @@ public:
         MOVE_RIGHT,
         DASH,
         NOTEBOOK,
-        GRAFFITI
+        GRAFFITI,
+        SHOOT
     };
 
     enum MouseAction {
-        SHOOT
+        OLDSHOOT
     };
 
     static KeyBindingManager& GetInstance();

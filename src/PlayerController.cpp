@@ -35,11 +35,9 @@ void PlayerController::Update(float dt) {
         direction = direction + Vec2(1, 0);
         move = true;
     }
-    if (keybinder.IsMouseActionPressed(KeyBindingManager::MouseAction::SHOOT)) {
-        float mouseX = inputManager.GetMouseX() + Camera::pos.GetX();
-        float mouseY = inputManager.GetMouseY() + Camera::pos.GetY();
+    if (keybinder.IsActionDown(KeyBindingManager::GameAction::SHOOT)) {
         shot = true;
-        character->Issue(Character::Command(Character::Command::SHOOT, mouseX, mouseY));
+        character->Issue(Character::Command(Character::Command::SHOOT, 0, 0));
     }
     if (keybinder.IsActionPressed(KeyBindingManager::GameAction::DASH)) {
         character->Issue(Character::Command(Character::Command::DASH, direction.X, 0));

@@ -414,13 +414,28 @@ StageState::StageState() {
             ""
         );
         */
+        Rect* metroIntroAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 134 * 64);
+        AmbientManager::GetInstance().AddRegion(*metroIntroAmbience, "../Recursos/audio/AMBIENCE/METRO ARRIVING.wav");
+        
+        Rect* metroMidAmbience = new Rect(0 * 64, 0 * 64, 135 * 64, 31 * 64);
+        AmbientManager::GetInstance().AddRegion(*metroMidAmbience, "../Recursos/audio/AMBIENCE/METRO AMBIENCE 2.wav");
+        
+        Rect* metroEndAmbience = new Rect(83 * 64, 32 * 64, 44 * 64, 6 * 64);
+        AmbientManager::GetInstance().AddRegion(*metroEndAmbience, "../Recursos/audio/AMBIENCE/METRO AMBIENCE.wav");
+        
+        Rect* sewersAmbience = new Rect(40 * 64, 38 * 64, 63 * 64, 91 * 64);
+        Rect* sewersAmbience2 = new Rect(40 * 64, 20 * 64, 43 * 64, 18 * 64);
+        AmbientManager::GetInstance().AddRegion(*sewersAmbience, "../Recursos/audio/AMBIENCE/WATER DROPS 2.wav");
+        AmbientManager::GetInstance().AddRegion(*sewersAmbience2, "../Recursos/audio/AMBIENCE/WATER DROPS 2.wav");
     }
 
     hud = new HUD();
 
 }
 
-StageState::~StageState() = default;
+StageState::~StageState() {
+    AmbientManager::GetInstance().StopAll();
+}
 
 
 void StageState::LoadAssets() {}
@@ -465,10 +480,12 @@ void StageState::Update(float dtt) {
     }
 
     Camera::Update(dt);
-    if (Character::player != nullptr)
+    if (Character::player != nullptr) {
         hud->Update(dt);
-    
+        AmbientManager::GetInstance().Update(Character::player->GetPosition());
+    }
     //MusicManager::GetInstance().Update(dt);
+
 }
 
 bool Y_Sort(GameObject* a, GameObject* b) {

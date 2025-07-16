@@ -20,8 +20,7 @@ void KeyBindingManager::LoadDefaultBindings() {
     keyActionMap[GameAction::DASH] = SDLK_LSHIFT;
     keyActionMap[GameAction::NOTEBOOK] = SDLK_g;
     keyActionMap[GameAction::GRAFFITI] = SDLK_e;
-
-    mouseActionMap[MouseAction::SHOOT] = 1;
+    keyActionMap[GameAction::SHOOT] = SDLK_f;
 }
 
 void KeyBindingManager::SetKeyForAction(GameAction action, SDL_Keycode key) {
