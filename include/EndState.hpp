@@ -3,6 +3,7 @@
 
 #include "Music.hpp"
 #include "State.hpp"
+#include "Text.hpp"
 
 class EndState : public State {
 public:
@@ -19,11 +20,8 @@ public:
 
 private:
     Music backgroundMusic;
-    bool up;
-    int counter;
-    weak_ptr<GameObject> quitInstructionsObject;
-    weak_ptr<GameObject> playInstructionsObject;
-    GameObject* backgroudImage;
+    Text* nextText;
+    Text* menuText;
 };
 
 #endif //ENDSTATE_HPP

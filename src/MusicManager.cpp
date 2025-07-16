@@ -1,4 +1,4 @@
-#include "MusicManager.hpp"
+#include "../include/MusicManager.hpp"
 
 MusicManager::MusicManager()
     : playing(false), introFinished(false), requestEnd(false), hasEndTrack(false) {}

@@ -27,6 +27,7 @@ public:
     void Render();
     void Update(float dt);
     void RenderAbility(int abilityNumber, bool active, int x, int y);
+    float GetLevelTimer();
 };
 
 #endif //HUD_HPP

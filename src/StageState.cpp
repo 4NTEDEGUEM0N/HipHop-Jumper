@@ -525,6 +525,9 @@ void StageState::End(GameObject* playerObject) {
     playerObject->box.Y = 2368 - playerObject->box.H;
     GameData::ended = true;
     GameData::playerVictory = true;
+    GameData::endTime = hud->GetLevelTimer();
+    GameData::minikits = Character::player->minikits;
+    GameData::sprayCans = Character::player->inventory.size();
     endTimer->Restart();
 
     Sound* graffitiSound = new Sound("../Recursos/audio/GRAFFITI/SPRAY 1.wav");

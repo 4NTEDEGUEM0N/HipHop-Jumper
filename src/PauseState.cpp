@@ -24,7 +24,7 @@ PauseState::PauseState() {
     optionsObj->AddComponent(optionsButton);
     optionsText = new Text(*optionsObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Options", {255, 255, 255, 255}, true);
     optionsObj->AddComponent(optionsText);
-    optionsObj->box.X = bgObject->box.X + bgObject->box.W/2 - optionsObj->box.W/2;
+    optionsObj->box.X = Game::VirtualScreenWidth/2 - optionsObj->box.W/2;
     optionsObj->box.Y = bgObject->box.Y + bgObject->box.H/2 - optionsObj->box.H/2;
     AddObject(optionsObj);
     optionsButton->SetClickFunction([this]() {
@@ -44,7 +44,7 @@ PauseState::PauseState() {
     resumeObj->AddComponent(resumeButton);
     resumeText = new Text(*resumeObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Resume", {255, 255, 255, 255}, true);
     resumeObj->AddComponent(resumeText);
-    resumeObj->box.X = optionsObj->box.X;
+    resumeObj->box.X = Game::VirtualScreenWidth/2 - resumeObj->box.W/2;
     resumeObj->box.Y = optionsObj->box.Y - resumeObj->box.H - 10;
     AddObject(resumeObj);
         
@@ -63,7 +63,7 @@ PauseState::PauseState() {
     menuObj->AddComponent(menuButton);
     menuText = new Text(*menuObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Menu", {255, 255, 255, 255}, true);
     menuObj->AddComponent(menuText);
-    menuObj->box.X = optionsObj->box.X;
+    menuObj->box.X = Game::VirtualScreenWidth/2 - menuObj->box.W/2;
     menuObj->box.Y = optionsObj->box.Y + menuObj->box.H + 10;
     AddObject(menuObj);
     menuButton->SetClickFunction([this]() {

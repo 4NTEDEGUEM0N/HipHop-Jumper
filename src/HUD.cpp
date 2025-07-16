@@ -82,3 +82,7 @@ void HUD::Update(float dt) {
     fps << fixed << setprecision(2) << 1/delta;
     fpsText->SetText("FPS: " + fps.str());
 }
+
+float HUD::GetLevelTimer() {
+    return levelTimer->Get();
+}

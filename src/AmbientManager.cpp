@@ -1,11 +1,4 @@
-//
-//  AmbientManager.cpp
-//  hhj
-//
-//  Created by Pedro Venzi on 15/07/25.
-//
-
-#include "AmbientManager.hpp"
+#include "../include/AmbientManager.hpp"
 
 AmbientManager::AmbientManager() : currentRegion(nullptr) {}
 
