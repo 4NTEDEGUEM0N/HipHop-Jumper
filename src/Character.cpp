@@ -338,7 +338,7 @@ void Character::Update(float dt) {
             onGround = false;
             if (!onWall) canJump = false;
 
-            if (speed.Y < 0 && !isHit) animator->SetAnimation("jump");
+            if (speed.Y < 0 && !isHit && !onWall) animator->SetAnimation("jump");
             else if (!onWall && !isHit) animator->SetAnimation("falling");
 
         } else {
