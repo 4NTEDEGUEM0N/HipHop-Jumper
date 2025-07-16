@@ -58,7 +58,8 @@
 		B084BA1F2DE0D17A006946A3 /* NotebookState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B084BA1D2DE0D17A006946A3 /* NotebookState.cpp */; };
 		B084BA232DE0D198006946A3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B084BA222DE0D198006946A3 /* main.cpp */; };
 		B0E2385A2E25C7A70093D1BF /* DetectionZone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238592E25C7A70093D1BF /* DetectionZone.cpp */; };
-		B0E238632E25D84A0093D1BF /* MusicManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238612E25D84A0093D1BF /* MusicManager.cpp */; };
+		B0E238672E27290C0093D1BF /* MusicManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238652E27290C0093D1BF /* MusicManager.cpp */; };
+		B0E2386A2E27291C0093D1BF /* AmbientManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238682E27291C0093D1BF /* AmbientManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -241,7 +242,6 @@
 		B07824C62E11D5B90020621D /* INTERACOES */ = {isa = PBXFileReference; lastKnownFileType = folder; path = INTERACOES; sourceTree = "<group>"; };
 		B07824C82E11D5B90020621D /* MOVIMENTOS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MOVIMENTOS; sourceTree = "<group>"; };
 		B07824C92E11D5B90020621D /* PASSOS MOVIMENTOS DIVERSOS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "PASSOS MOVIMENTOS DIVERSOS"; sourceTree = "<group>"; };
-		B07824CB2E11D5B90020621D /* CADERNO  */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "CADERNO "; sourceTree = "<group>"; };
 		B07824CE2E11D5B90020621D /* GRAFFITI */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GRAFFITI; sourceTree = "<group>"; };
 		B07824D02E11D62B0020621D /* UX */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UX; sourceTree = "<group>"; };
 		B07824D12E11D62B0020621D /* TRACKS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TRACKS; sourceTree = "<group>"; };
@@ -283,9 +283,10 @@
 		B0E2385E2E25D7760093D1BF /* 1fase */ = {isa = PBXFileReference; lastKnownFileType = folder; path = 1fase; sourceTree = "<group>"; };
 		B0E2385F2E25D7760093D1BF /* sprite_spray_3_scaled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_spray_3_scaled.png; sourceTree = "<group>"; };
 		B0E238602E25D7760093D1BF /* RatoriousBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RatoriousBig.png; sourceTree = "<group>"; };
-		B0E238612E25D84A0093D1BF /* MusicManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MusicManager.cpp; sourceTree = "<group>"; };
-		B0E238622E25D84A0093D1BF /* MusicManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MusicManager.hpp; sourceTree = "<group>"; };
-		B0E238642E25DAB40093D1BF /* SLIDE CONCRETE.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "SLIDE CONCRETE.wav"; path = "Recursos/audio/MOVIMENTOS/SLIDE CONCRETE.wav"; sourceTree = "<group>"; };
+		B0E238652E27290C0093D1BF /* MusicManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MusicManager.cpp; sourceTree = "<group>"; };
+		B0E238662E27290C0093D1BF /* MusicManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MusicManager.hpp; sourceTree = "<group>"; };
+		B0E238682E27291C0093D1BF /* AmbientManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientManager.cpp; sourceTree = "<group>"; };
+		B0E238692E27291C0093D1BF /* AmbientManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AmbientManager.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +339,8 @@
 				B002CC362DDA3D1800654639 /* TileMap.hpp */,
 				B002CC4C2DDA3D1800654639 /* Timer.hpp */,
 				B0152ACE2DBD57EE008B5B08 /* TitleState.hpp */,
+				B0E238692E27291C0093D1BF /* AmbientManager.hpp */,
+				B0E238662E27290C0093D1BF /* MusicManager.hpp */,
 				B002CC3A2DDA3D1800654639 /* Vec2.hpp */,
 				B002CC352DDA3D1800654639 /* Tile.hpp */,
 				B002CC382DDA3D1800654639 /* Bullet.hpp */,
@@ -370,6 +373,8 @@
 				B002CC042DD8E38200654639 /* Button.cpp */,
 				B0152AFB2DBD6F01008B5B08 /* Camera.cpp */,
 				B002CC652DDA3D3100654639 /* Character.cpp */,
+				B0E238652E27290C0093D1BF /* MusicManager.cpp */,
+				B0E238682E27291C0093D1BF /* AmbientManager.cpp */,
 				B0152B052DBD6F01008B5B08 /* Collider.cpp */,
 				B002CC672DDA3D3100654639 /* Component.cpp */,
 				B084BA1C2DE0D17A006946A3 /* DrawState.cpp */,
@@ -406,8 +411,6 @@
 				B002CC622DDA3D3100654639 /* TitleState.cpp */,
 				B0152B042DBD6F01008B5B08 /* Vec2.cpp */,
 				B002CC6E2DDA3D3100654639 /* Zombie.cpp */,
-				B0E238612E25D84A0093D1BF /* MusicManager.cpp */,
-				B0E238622E25D84A0093D1BF /* MusicManager.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -419,7 +422,6 @@
 				B0E238592E25C7A70093D1BF /* DetectionZone.cpp */,
 				B0152A9A2DBD3EA4008B5B08 /* README.md */,
 				B0152A982DBD3EA4008B5B08 /* CMakeLists.txt */,
-				B0E238642E25DAB40093D1BF /* SLIDE CONCRETE.wav */,
 				B0152B642DBD8303008B5B08 /* audio */,
 				B0152B622DBD8303008B5B08 /* font */,
 				B0152A9D2DBD4863008B5B08 /* Frameworks */,
@@ -537,7 +539,6 @@
 			children = (
 				B07824D12E11D62B0020621D /* TRACKS */,
 				B07824D02E11D62B0020621D /* UX */,
-				B07824CB2E11D5B90020621D /* CADERNO  */,
 				B07824CE2E11D5B90020621D /* GRAFFITI */,
 				B07824C62E11D5B90020621D /* INTERACOES */,
 				B07824C82E11D5B90020621D /* MOVIMENTOS */,
@@ -674,7 +675,8 @@
 				B05052782DDA8A3F00C81331 /* SpriteRenderer.cpp in Sources */,
 				B05052792DDA8A3F00C81331 /* StageState.cpp in Sources */,
 				B050527A2DDA8A3F00C81331 /* State.cpp in Sources */,
-				B0E238632E25D84A0093D1BF /* MusicManager.cpp in Sources */,
+				B0E238672E27290C0093D1BF /* MusicManager.cpp in Sources */,
+				B0E2386A2E27291C0093D1BF /* AmbientManager.cpp in Sources */,
 				B07824C02E11D31E0020621D /* OptionsState.cpp in Sources */,
 				B050527B2DDA8A3F00C81331 /* Text.cpp in Sources */,
 				B05052872DDA944B00C81331 /* ItemData.cpp in Sources */,

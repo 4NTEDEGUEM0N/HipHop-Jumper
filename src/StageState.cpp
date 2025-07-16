@@ -12,6 +12,8 @@
 #include "../include/Collider.hpp"
 #include "../include/Collision.hpp"
 #include "../include/Animator.hpp"
+#include "../include/MusicManager.hpp"
+#include "../include/AmbientManager.hpp"
 #include <algorithm>
 
 #include "../include/DetectionZone.hpp"
@@ -265,7 +267,7 @@ StageState::StageState() {
         
         backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
         backgroundMusic.Play();
-
+        
         GameObject* detectionObj = new GameObject();
         detectionObj->box.X = 5056;//64;
         detectionObj->box.Y = 1088;//3712;
@@ -346,8 +348,8 @@ StageState::StageState() {
         ratoNPC->dialogs.emplace_back("Caso passe no teste, vai encontrar com o Nine lá em cima. \nO moleque é firmeza, mas também é metido");
         ratoNPC->dialogs.emplace_back("Boa sorte!");
 
-        backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
-        backgroundMusic.Play();
+//        backgroundMusic.Open("../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav");
+//        backgroundMusic.Play();
 
         GameObject* detectionObj = new GameObject();
         detectionObj->box.X = 7168;
@@ -404,6 +406,12 @@ StageState::StageState() {
         Item* blue = new Item(*blueObject, sprayAzulData);
         blueObject->AddComponent(blue);
         AddObject(blueObject);
+        
+        MusicManager::GetInstance().PlayMusic(
+            "../Recursos/audio/TRACKS/CLOUD TRAP METRO START.wav",
+            "../Recursos/audio/TRACKS/CLOUD TRAP METRO LOOP.wav",
+            ""
+        );
     }
 
     hud = new HUD();
@@ -457,6 +465,8 @@ void StageState::Update(float dtt) {
     Camera::Update(dt);
     if (Character::player != nullptr)
         hud->Update(dt);
+    
+    MusicManager::GetInstance().Update(dt);
 }
 
 bool Y_Sort(GameObject* a, GameObject* b) {
