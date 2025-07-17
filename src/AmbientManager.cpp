@@ -40,3 +40,16 @@ void AmbientManager::StopAll() {
     }
     activeRegions.clear();
 }
+
+void AmbientManager::PauseAll() {
+    for (auto& region : regions) {
+        region.ambientSound.Pause();
+    }
+}
+
+void AmbientManager::ResumeAll() {
+    for (auto& region : regions) {
+        region.ambientSound.Resume();
+        region.ambientSound.UpdateVolume();
+    }
+}

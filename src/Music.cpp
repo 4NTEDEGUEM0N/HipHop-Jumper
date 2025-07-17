@@ -80,7 +80,7 @@ void Music::Resume() {
 }
 
 void Music::UpdateVolume() {
-    Mix_VolumeMusic(MUSIC_VOLUME);
+    Mix_VolumeMusic(MUSIC_VOLUME*10);
 }
 
 
