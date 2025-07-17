@@ -84,11 +84,13 @@ void State::UpdateArray(float dt) {
     }
 }
 
-bool Y_Sort(shared_ptr<GameObject> a, shared_ptr<GameObject> b) {
-    return a->box.Y < b->box.Y;
+bool YZ_Sort(shared_ptr<GameObject> a, shared_ptr<GameObject> b) {
+    if (a->box.Z == b->box.Z)
+        return a->box.Y < b->box.Y;
+    return a->box.Z < b->box.Z;
 }
 void State::RenderArray() {
-    sort(objectArray.begin(), objectArray.end(), Y_Sort);
+    sort(objectArray.begin(), objectArray.end(), YZ_Sort);
     for (int i = 0; i < objectArray.size(); i++) {
         objectArray[i]->Render();
     }

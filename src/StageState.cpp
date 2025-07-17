@@ -319,12 +319,13 @@ StageState::StageState() {
         //Character* playerCharacter = new Character(*playerObject, "../Recursos/img/Sprite Spray2_scaled.png");
         Character* playerCharacter = new Character(*playerObject, "../Recursos/img/sprite_spray_3_scaled.png");
         /*Cordenadas úteis:
-         * Início: 768, 8512
+         * Início: 448, 8512
          * Fim: 5760, 1536
          * Super canto direito: 7936, 384
         */
-        playerObject->box.X = 768;
+        playerObject->box.X = 448;
         playerObject->box.Y = 8512 - playerObject->box.H;
+        playerObject->box.Z = 1;
         Camera::Follow(playerObject);
         playerObject->AddComponent(playerCharacter);
         PlayerController* playerController = new PlayerController(*playerObject);
@@ -565,8 +566,10 @@ void StageState::Update(float dtt) {
 
 }
 
-bool Y_Sort(GameObject* a, GameObject* b) {
-    return a->box.Y < b->box.Y;
+bool YZ_Sort(GameObject* a, GameObject* b) {
+    if (a->box.Z == b->box.Z)
+        return a->box.Y < b->box.Y;
+    return a->box.Z < b->box.Z;
 }
 
 void StageState::Render() {
@@ -586,7 +589,7 @@ void StageState::Render() {
             objectsToRender.push_back(objPtr.get());
         }
     }
-    sort(objectsToRender.begin(), objectsToRender.end(), Y_Sort);
+    sort(objectsToRender.begin(), objectsToRender.end(), YZ_Sort);
     for (int i = 0; i < objectsToRender.size(); i++) {
         objectsToRender[i]->Render();
     }
