@@ -22,6 +22,7 @@ public:
     void SetStyle(TextStyle style);
     void SetFontFile(string fontFile);
     void SetFontSize(int fontSize);
+    string GetText();
 private:
     void RemakeTexture();
     TTF_Font* font;

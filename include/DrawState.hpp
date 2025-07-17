@@ -34,6 +34,8 @@ private:
     Text* currentTool;
     Text* currentColorText;
     Text* currentSizeText;
+    GameObject* infosObj;
+    GameObject* ferramentaObj;
 };
 
 

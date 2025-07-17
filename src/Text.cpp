@@ -191,6 +191,11 @@ bool Text::Is(string type) {
     return type == "Text";
 }
 
+string Text::GetText() {
+    return text;
+}
+
+
 
 
 

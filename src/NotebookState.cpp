@@ -10,46 +10,53 @@
 
 NotebookState::NotebookState() {
     currentPage = 1;
+    SDL_Color preto = {56,53,48,255};
 
     GameObject* bgObject = new GameObject();
     AddObject(bgObject);
-    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/madeira.png");
+    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/BG Caderno.png");
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
-    float scaleX = Game::VirtualScreenWidth  / 1200.0f;
-    float scaleY = Game::VirtualScreenHeight / 900.0f;
+    float scaleX = Game::VirtualScreenWidth  / (bgObject->box.W);
+    float scaleY = Game::VirtualScreenHeight / (bgObject->box.H);
     bg->SetScale(scaleX, scaleY);
     bgObject->box.X = 0;
     bgObject->box.Y = 0;
 
     cadernoObj = new GameObject();
     AddObject(cadernoObj);
-    SpriteRenderer* caderno = new SpriteRenderer(*cadernoObj, "../Recursos/img/Caderno.png");
+    SpriteRenderer* caderno = new SpriteRenderer(*cadernoObj, "../Recursos/img/CADERNO BRABO.png");
     caderno->SetCameraFollower(true);
-    caderno->SetScale(2,2);
     Vec2 screenCenter = Vec2(Game::VirtualScreenWidth/2.0f, Game::VirtualScreenHeight/2.0f);
     cadernoObj->box.X = screenCenter.GetX() - cadernoObj->box.W / 2;
     cadernoObj->box.Y = screenCenter.GetY() - cadernoObj->box.H / 2;
     cadernoObj->AddComponent(caderno);
 
     GameObject* currentPageObj = new GameObject();
-    SpriteRenderer* currentPageButtonSprite = new SpriteRenderer(*currentPageObj, "../Recursos/img/pixel.png");
+    SpriteRenderer* currentPageButtonSprite = new SpriteRenderer(*currentPageObj, "../Recursos/img/Caderno_Botão_Fundo.png");
     currentPageButtonSprite->SetCameraFollower(true);
     currentPageObj->AddComponent(currentPageButtonSprite);
-    currentPageText = new Text(*currentPageObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "Pagina " + to_string(currentPage), {255, 255, 255, 255}, true);
-    currentPageObj->AddComponent(currentPageText);
+    currentPageObj->box.W = 92;
+    currentPageObj->box.H = 30;
     currentPageObj->box.X = cadernoObj->box.X + cadernoObj->box.W/2 - currentPageObj->box.W/2;
     currentPageObj->box.Y = cadernoObj->box.Y - currentPageObj->box.H;
     AddObject(currentPageObj);
 
+    GameObject* currentPageTextObj = new GameObject();
+    currentPageText = new Text(*currentPageTextObj, "../Recursos/font/KGPerfectPenmanship.ttf", 21, Text::SOLID, "Página " + to_string(currentPage), preto, true);
+    currentPageTextObj->AddComponent(currentPageText);
+    currentPageTextObj->box.X = cadernoObj->box.X + cadernoObj->box.W/2 - currentPageTextObj->box.W/2;
+    currentPageTextObj->box.Y = cadernoObj->box.Y - currentPageTextObj->box.H;
+    AddObject(currentPageTextObj);
+
     GameObject* previousPageObj = new GameObject();
     Button* previousPageButton = new Button(*previousPageObj);
     previousPageObj->AddComponent(previousPageButton);
-    SpriteRenderer* previousPageButtonSprite = new SpriteRenderer(*previousPageObj, "../Recursos/img/pixel.png");
+    SpriteRenderer* previousPageButtonSprite = new SpriteRenderer(*previousPageObj, "../Recursos/img/Caderno_previous.png");
     previousPageButtonSprite->SetCameraFollower(true);
     previousPageObj->AddComponent(previousPageButtonSprite);
-    Text* previousPageText = new Text(*previousPageObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, "<<", {255, 255, 255, 255}, true);
-    previousPageObj->AddComponent(previousPageText);
+    previousPageObj->box.W = 30;
+    previousPageObj->box.H = 30;
     previousPageObj->box.X = currentPageObj->box.X - previousPageObj->box.W - 5;
     previousPageObj->box.Y = currentPageObj->box.Y;
     AddObject(previousPageObj);
@@ -57,7 +64,7 @@ NotebookState::NotebookState() {
     previousPageButton->SetClickFunction([this]() {
         if (currentPage > 1) {
             currentPage--;
-            currentPageText->SetText("Pagina " + to_string(currentPage));
+            currentPageText->SetText("Página " + to_string(currentPage));
             UpdatePageContent();
         }
     });
@@ -65,19 +72,19 @@ NotebookState::NotebookState() {
     GameObject* nextPageObj = new GameObject();
     Button* nextPageButton = new Button(*nextPageObj);
     nextPageObj->AddComponent(nextPageButton);
-    SpriteRenderer* nextPageButtonSprite = new SpriteRenderer(*nextPageObj, "../Recursos/img/pixel.png");
+    SpriteRenderer* nextPageButtonSprite = new SpriteRenderer(*nextPageObj, "../Recursos/img/Caderno_next.png");
     nextPageButtonSprite->SetCameraFollower(true);
     nextPageObj->AddComponent(nextPageButtonSprite);
-    Text* nextPageText = new Text(*nextPageObj, "../Recursos/font/neodgm.ttf", 30, Text::SOLID, ">>", {255, 255, 255, 255}, true);
-    nextPageObj->AddComponent(nextPageText);
+    nextPageObj->box.W = 30;
+    nextPageObj->box.H = 30;
     nextPageObj->box.X = currentPageObj->box.X + currentPageObj->box.W + 5;
     nextPageObj->box.Y = currentPageObj->box.Y;
     AddObject(nextPageObj);
 
-    nextPageButton->SetClickFunction([this]() {
+    nextPageButton->SetClickFunction([this, currentPageObj]() {
         if (currentPage < 9) {
             currentPage++;
-            currentPageText->SetText("Pagina " + to_string(currentPage));
+            currentPageText->SetText("Página " + to_string(currentPage));
             UpdatePageContent();
         }
     });
@@ -85,11 +92,9 @@ NotebookState::NotebookState() {
     GameObject* drawObj = new GameObject();
     Button* drawButton = new Button(*drawObj);
     drawObj->AddComponent(drawButton);
-    SpriteRenderer* drawButtonSprite = new SpriteRenderer(*drawObj, "../Recursos/img/pixel.png");
+    SpriteRenderer* drawButtonSprite = new SpriteRenderer(*drawObj, "../Recursos/img/Caderno_desenhar.png");
     drawButtonSprite->SetCameraFollower(true);
     drawObj->AddComponent(drawButtonSprite);
-    Text* drawText = new Text(*drawObj, "../Recursos/font/neodgm.ttf", 50, Text::SOLID, "Desenhar", {255, 255, 255, 255}, true);
-    drawObj->AddComponent(drawText);
     drawObj->box.X = cadernoObj->box.X + cadernoObj->box.W/2 - drawObj->box.W/2;
     drawObj->box.Y = cadernoObj->box.Y + cadernoObj->box.H;
     AddObject(drawObj);
@@ -138,13 +143,13 @@ NotebookState::~NotebookState() {
 }
 
 void NotebookState::RenderCollectables() {
-    int line = 0;
     int row = 0;
+    int column = 0;
     int minikits = Character::player->minikits;
-    for (int i = 0; i < 6; i++, row++) {
+    for (int i = 0; i < 6; i++, column++) {
         if (i % 3 == 0 and i>0) {
-            line++;
-            row = 0;
+            row++;
+            column = 0;
         }
         GameObject* minikitObj = new GameObject();
         AddObject(minikitObj);
@@ -158,12 +163,12 @@ void NotebookState::RenderCollectables() {
             minikit->SetFrame(0);
         }
         minikitObj->AddComponent(minikit);
-        minikitObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + minikitObj->box.W/2 + row*128.5;
-        minikitObj->box.Y = 168 + line*100;
+        minikitObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + minikitObj->box.W/2 + column*128.5;
+        minikitObj->box.Y = 168 + row*100;
     }
-    line++;
-    row = 0;
-    for (int i = 6 ;i < 9; i++, row++) {
+    row++;
+    column = 0;
+    for (int i = 6 ;i < 9; i++, column++) {
         string file = "";
         if (i-6+1 <= Character::player->inventory.size()) {
             file = Character::player->inventory[i-6].iconPath;
@@ -176,8 +181,8 @@ void NotebookState::RenderCollectables() {
         SpriteRenderer* can = new SpriteRenderer(*canObj, file);
         can->SetCameraFollower(true);
         canObj->AddComponent(can);
-        canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + row*128.5;
-        canObj->box.Y = 168 + line*100;
+        canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+        canObj->box.Y = 168 + row*100;
     }
 }
 
