@@ -67,7 +67,6 @@ private:
     bool canDoubleJump;
     bool canDash;
     bool dashing;
-    Timer dashTimer;
     float dashDuration;
     bool isHit;
     Timer hitTimer;
@@ -85,6 +84,8 @@ public:
     static Character* player;
     vector<ItemData> inventory;
     int minikits = 0;
+    int ammo = 3;
+    Timer dashTimer;
 
     Character(GameObject& associated, string sprite);
     ~Character();

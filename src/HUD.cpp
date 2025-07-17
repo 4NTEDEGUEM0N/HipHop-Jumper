@@ -6,19 +6,20 @@
 
 #include "../include/GameData.hpp"
 
-HUD::HUD() : characterSprite("../Recursos/img/avatar.png"), characterAbilities("../Recursos/img/habilidades.png",2,3), characterItems("../Recursos/img/minikitHud.png",2,1) {
+HUD::HUD() : characterSprite("../Recursos/img/hud_avatar.png",1,4), dashSprite("../Recursos/img/hud_dash.png") {
     characterSprite.cameraFollower = true;
-    characterAbilities.cameraFollower = true;
-    characterItems.cameraFollower = true;
-    characterSprite.SetScale(0.6f, 0.6f);
+    characterSprite.SetFrame(0);
+    dashSprite.cameraFollower = true;
     characterRect = new Rect(0, Game::VirtualScreenHeight-characterSprite.GetHeight(), characterSprite.GetWidth(), characterSprite.GetHeight());
 
     player = Character::player;
-    hpRect = new Rect(0, Game::VirtualScreenHeight - characterSprite.GetHeight() - 20, characterSprite.GetWidth(), 20);
+    hpRect = new Rect(177, Game::VirtualScreenHeight - 46, 303, 25);
     GameObject* hpTextObj = new GameObject(true);
-    hpTextObj->box.X = hpRect->X + hpRect->W/2 - 25;
+    hpTextObj->box.X = hpRect->X + 15;
     hpTextObj->box.Y = hpRect->Y + hpRect->H/2 - 8;
     hpText = new Text(*hpTextObj, "../Recursos/font/neodgm.ttf", 20, Text::SOLID, "", {255, 255, 255, 255}, true);
+
+    dashRect = new Rect(276,Game::VirtualScreenHeight - 22 - 10,196,10);
 
     GameObject* levelTimerObj = new GameObject(true);
     levelTimer = new Timer();
@@ -34,8 +35,6 @@ HUD::HUD() : characterSprite("../Recursos/img/avatar.png"), characterAbilities("
 
 void HUD::Render() {
     if (Character::player != nullptr) {
-        characterSprite.Render(characterRect->X, characterRect->Y, characterRect->W, characterRect->H);
-
         float hpPercent = (float)player->GetHP() / 100;
         int currentBarWidth = (int)(hpRect->W * hpPercent);
 
@@ -52,22 +51,19 @@ void HUD::Render() {
 
         hpText->SetText(to_string(player->GetHP()) + "/100");
         hpText->Render();
+        characterSprite.Render(characterRect->X, characterRect->Y, characterRect->W, characterRect->H);
 
-        RenderAbility(0, player->CanJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 0*32 + 1*5);
-        RenderAbility(1, player->CanDoubleJump(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 1*32 + 2*5);
-        RenderAbility(2, player->CanDash(), characterRect->X + characterSprite.GetWidth(), characterRect->Y + 2*32 + 3*5);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_Rect dashRect = { (int)this->dashRect->X, (int)this->dashRect->Y, (int)this->dashRect->W, (int)this->dashRect->H };
+        SDL_RenderFillRect(renderer, &dashRect);
     }
 
-
+    if (player != nullptr)
+        characterSprite.SetFrame(player->ammo);
     levelTimerText->Render();
     fpsText->Render();
 }
 
-void HUD::RenderAbility(int abilityNumber, bool active, int x, int y) {
-    int frame = abilityNumber * 2 + (active ? 0 : 1);
-    characterAbilities.SetFrame(frame);
-    characterAbilities.Render(x, y, characterAbilities.GetWidth(), characterAbilities.GetHeight());
-}\
 
 void HUD::Update(float dt) {
     if (GameData::ended == false)
@@ -81,6 +77,14 @@ void HUD::Update(float dt) {
     float delta = Game::GetInstance().GetDeltaTime();
     fps << fixed << setprecision(2) << 1/delta;
     fpsText->SetText("FPS: " + fps.str());
+
+    float dashTimer = player->dashTimer.Get();
+    if (dashTimer > 4) {
+        dashTimer = 4;
+    }
+    float percentage = dashTimer/4;
+    dashRect->X = 277 + percentage * 196;
+    dashRect->W = 196 - percentage * 196;
 }
 
 float HUD::GetLevelTimer() {

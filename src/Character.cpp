@@ -149,9 +149,11 @@ void Character::Update(float dt) {
                     speed.X = -maxGroundSpeed;
             }
         } else if (task.type == Command::STUNGLEE && !dashing && !isHit) {
-            Component* component = gun.lock()->GetComponent("Gun");
-            Gun* gunCpt = dynamic_cast<Gun*>(component);
-            gunCpt->Shot(task.pos);
+            if (ammo > 0) {
+                Component* component = gun.lock()->GetComponent("Gun");
+                Gun* gunCpt = dynamic_cast<Gun*>(component);
+                gunCpt->Shot(task.pos);
+            }
         } else if (task.type == Command::JUMP && !dashing && !isHit) {
             if (canJump) {
                 jumpSound.Play(1);

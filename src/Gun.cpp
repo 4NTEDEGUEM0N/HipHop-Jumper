@@ -97,6 +97,7 @@ void Gun::Shot(Vec2 target) {
     cooldown = 50;
     cdTimer.Restart();
     reloaded = false;
+    Character::player->ammo--;
 }
 
 
