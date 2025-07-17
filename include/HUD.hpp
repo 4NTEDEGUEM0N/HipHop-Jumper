@@ -11,10 +11,10 @@ private:
     Character* player;
     Rect* hpRect;
     Text* hpText;
+    Rect* dashRect;
 
     Sprite characterSprite;
-    Sprite characterAbilities;
-    Sprite characterItems;
+    Sprite dashSprite;
     Rect* characterRect;
 
     Timer* levelTimer;
@@ -26,7 +26,6 @@ public:
     HUD();
     void Render();
     void Update(float dt);
-    void RenderAbility(int abilityNumber, bool active, int x, int y);
     float GetLevelTimer();
 };
 
