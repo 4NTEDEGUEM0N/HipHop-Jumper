@@ -21,6 +21,7 @@ public:
 private:
     Text* playText;
     Text* optionsText;
+    Text* creditosText;
     Text* quitText;
     bool quit = false;
     Music backgroundMusic;

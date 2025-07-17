@@ -1,4 +1,8 @@
 #include "../include/TitleState.hpp"
+
+#include <iostream>
+#include <ostream>
+
 #include "../include/SpriteRenderer.hpp"
 #include "../include/Game.hpp"
 #include "../include/InputManager.hpp"
@@ -11,7 +15,7 @@
 TitleState::TitleState() {
     GameObject* bgObject = new GameObject();
     AddObject(bgObject);
-    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/pixel.png");
+    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/Menu BG.png");
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
     float scaleX = Game::VirtualScreenWidth  / (bgObject->box.W);
@@ -23,6 +27,7 @@ TitleState::TitleState() {
     backgroundMusic.Open("../Recursos/audio/TRACKS/MAIN MENU TRACK LOOP.wav");
     backgroundMusic.SetIntro("../Recursos/audio/TRACKS/MAIN MENU TRACK START.wav");
 
+    /*
     GameObject* logoObj = new GameObject();
     AddObject(logoObj);
     SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper.png");
@@ -31,34 +36,75 @@ TitleState::TitleState() {
     //logo->SetScale(0.5f, 0.5f);
     logoObj->box.X = Game::VirtualScreenWidth/2 - logoObj->box.W/2;
     logoObj->box.Y = 20;
+    */
+    SDL_Color buttonNone = {47,63,68,255};
+    //SDL_Color buttonNone = {87, 46, 73, 255};
+    //SDL_Color buttonNone = {148, 0, 92, 255};
+    SDL_Color buttonHover = {158,191,198,255};
+
+
+    GameObject* optionsButtonObj = new GameObject();
+    SpriteRenderer* optionsBgButton = new SpriteRenderer(*optionsButtonObj,  "../Recursos/img/MENU-BOTÃO-PREENCHIDO.png",2,1);
+    optionsBgButton->SetCameraFollower(true);
+    optionsButtonObj->AddComponent(optionsBgButton);
+    AddObject(optionsButtonObj);
+    optionsButtonObj->box.X = Game::VirtualScreenWidth/2 - optionsButtonObj->box.W/2;
+    optionsButtonObj->box.Y = Game::VirtualScreenHeight/2 - optionsButtonObj->box.H/2;
+
+    GameObject* optionsButtonObj2 = new GameObject();
+    SpriteRenderer* optionsBgButton2 = new SpriteRenderer(*optionsButtonObj2,  "../Recursos/img/MENU-BOTÃO-2.png");
+    optionsBgButton2->SetCameraFollower(true);
+    optionsButtonObj2->AddComponent(optionsBgButton2);
+    AddObject(optionsButtonObj2);
+    optionsButtonObj2->box.X = Game::VirtualScreenWidth/2 - optionsButtonObj2->box.W/2 + 7;
+    optionsButtonObj2->box.Y = Game::VirtualScreenHeight/2 - optionsButtonObj2->box.H/2 + 5;
 
     GameObject* optionsObj = new GameObject();
-    Button* optionsButton = new Button(*optionsObj);
-    optionsObj->AddComponent(optionsButton);
-    optionsText = new Text(*optionsObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Options", {255, 255, 255, 255}, true);
+    Button* optionsButton = new Button(*optionsButtonObj);
+    optionsButtonObj->AddComponent(optionsButton);
+    optionsText = new Text(*optionsObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Options", buttonNone, true);
     optionsObj->AddComponent(optionsText);
-    optionsObj->box.X = Game::VirtualScreenWidth/2 - optionsObj->box.W/2;
-    optionsObj->box.Y = bgObject->box.Y + bgObject->box.H/2 - optionsObj->box.H/2 + 50;
+    optionsObj->box.X = optionsButtonObj->box.X + optionsButtonObj->box.W/2 - optionsObj->box.W/2;
+    optionsObj->box.Y = optionsButtonObj->box.Y;
     AddObject(optionsObj);
     optionsButton->SetClickFunction([this]() {
         Game& game = Game::GetInstance();
         OptionsState* optionsState = new OptionsState();
         game.Push(optionsState);
     });
-    optionsButton->SetHoverFunction([this]() {
-        optionsText->SetColor({26, 160, 251, 255});
+    optionsButton->SetHoverFunction([this, buttonHover, optionsBgButton]() {
+        optionsText->SetColor(buttonHover);
+        optionsBgButton->SetFrame(1);
     });
-    optionsButton->SetNoneFunction([this]() {
-        optionsText->SetColor({255, 255, 255, 255});
+    optionsButton->SetNoneFunction([this, buttonNone, optionsBgButton]() {
+        optionsText->SetColor(buttonNone);
+        optionsBgButton->SetFrame(0);
     });
 
+
+    GameObject* playButtonObj = new GameObject();
+    SpriteRenderer* playBgButton = new SpriteRenderer(*playButtonObj,  "../Recursos/img/MENU-BOTÃO-PREENCHIDO.png",2,1);
+    playBgButton->SetCameraFollower(true);
+    playButtonObj->AddComponent(playBgButton);
+    AddObject(playButtonObj);
+    playButtonObj->box.X = optionsButtonObj->box.X;
+    playButtonObj->box.Y = optionsButtonObj->box.Y - playButtonObj->box.H - 40;
+
+    GameObject* playButtonObj2 = new GameObject();
+    SpriteRenderer* playBgButton2 = new SpriteRenderer(*playButtonObj2,  "../Recursos/img/MENU-BOTÃO-1.png");
+    playBgButton2->SetCameraFollower(true);
+    playButtonObj2->AddComponent(playBgButton2);
+    AddObject(playButtonObj2);
+    playButtonObj2->box.X = Game::VirtualScreenWidth/2 - playButtonObj2->box.W/2 - 7;
+    playButtonObj2->box.Y = Game::VirtualScreenHeight/2 - playButtonObj2->box.H/2 - playButtonObj2->box.H + 18;
+
     GameObject* playObj = new GameObject();
-    Button* playButton = new Button(*playObj);
-    playObj->AddComponent(playButton);
-    playText = new Text(*playObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Play", {255, 255, 255, 255}, true);
+    Button* playButton = new Button(*playButtonObj);
+    playButtonObj->AddComponent(playButton);
+    playText = new Text(*playObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Play", buttonNone, true);
     playObj->AddComponent(playText);
-    playObj->box.X = Game::VirtualScreenWidth/2 - playObj->box.W/2;
-    playObj->box.Y = optionsObj->box.Y - playObj->box.H - 10;
+    playObj->box.X = playButtonObj->box.X + playButtonObj->box.W/2 - playObj->box.W/2;
+    playObj->box.Y = playButtonObj->box.Y;
     AddObject(playObj);
 
     playButton->SetClickFunction([this]() {
@@ -68,29 +114,85 @@ TitleState::TitleState() {
         GameData::ended = false;
         popRequested = true;
     });
-    playButton->SetHoverFunction([this]() {
-        playText->SetColor({26, 160, 251, 255});
+    playButton->SetHoverFunction([this, playBgButton, buttonHover]() {
+        playText->SetColor(buttonHover);
+        playBgButton->SetFrame(1);
     });
-    playButton->SetNoneFunction([this]() {
-        playText->SetColor({255, 255, 255, 255});
+    playButton->SetNoneFunction([this, buttonNone, playBgButton]() {
+        playText->SetColor(buttonNone);
+        playBgButton->SetFrame(0);
     });
 
+    GameObject* creditosButtonObj = new GameObject();
+    SpriteRenderer* creditosBgButton = new SpriteRenderer(*creditosButtonObj,  "../Recursos/img/MENU-BOTÃO-PREENCHIDO.png",2,1);
+    creditosBgButton->SetCameraFollower(true);
+    creditosButtonObj->AddComponent(creditosBgButton);
+    AddObject(creditosButtonObj);
+    creditosButtonObj->box.X = optionsButtonObj->box.X;
+    creditosButtonObj->box.Y = optionsButtonObj->box.Y + creditosButtonObj->box.H + 40;
+
+    GameObject* creditosButtonObj2 = new GameObject();
+    SpriteRenderer* creditosBgButton2 = new SpriteRenderer(*creditosButtonObj2,  "../Recursos/img/MENU-BOTÃO-1.png");
+    creditosBgButton2->SetCameraFollower(true);
+    creditosButtonObj2->AddComponent(creditosBgButton2);
+    AddObject(creditosButtonObj2);
+    creditosButtonObj2->box.X = Game::VirtualScreenWidth/2 - creditosButtonObj2->box.W/2 - 7;
+    creditosButtonObj2->box.Y = Game::VirtualScreenHeight/2 - creditosButtonObj2->box.H/2 + creditosButtonObj2->box.H - 12;
+
+    GameObject* creeditosObj = new GameObject();
+    Button* creditosButton = new Button(*creditosButtonObj);
+    creditosButtonObj->AddComponent(creditosButton);
+    creditosText = new Text(*creeditosObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Credits", buttonNone, true);
+    creeditosObj->AddComponent(creditosText);
+    creeditosObj->box.X = creditosButtonObj->box.X + creditosButtonObj->box.W/2 - creeditosObj->box.W/2;
+    creeditosObj->box.Y = creditosButtonObj->box.Y;
+    AddObject(creeditosObj);
+    creditosButton->SetClickFunction([this]() {
+
+    });
+    creditosButton->SetHoverFunction([this, buttonHover, creditosBgButton]() {
+        creditosText->SetColor(buttonHover);
+        creditosBgButton->SetFrame(1);
+    });
+    creditosButton->SetNoneFunction([this, buttonNone, creditosBgButton]() {
+        creditosText->SetColor(buttonNone);
+        creditosBgButton->SetFrame(0);
+    });
+
+    GameObject* quitButtonObj = new GameObject();
+    SpriteRenderer* quitBgButton = new SpriteRenderer(*quitButtonObj,  "../Recursos/img/MENU-BOTÃO-PREENCHIDO.png",2,1);
+    quitBgButton->SetCameraFollower(true);
+    quitButtonObj->AddComponent(quitBgButton);
+    AddObject(quitButtonObj);
+    quitButtonObj->box.X = optionsButtonObj->box.X;
+    quitButtonObj->box.Y = creditosButtonObj->box.Y + quitButtonObj->box.H + 40;
+
+    GameObject* quitButtonObj2 = new GameObject();
+    SpriteRenderer* quitBgButton2 = new SpriteRenderer(*quitButtonObj2,  "../Recursos/img/MENU-BOTÃO-1.png");
+    quitBgButton2->SetCameraFollower(true);
+    quitButtonObj2->AddComponent(quitBgButton2);
+    AddObject(quitButtonObj2);
+    quitButtonObj2->box.X = Game::VirtualScreenWidth/2 - quitButtonObj2->box.W/2 - 7;
+    quitButtonObj2->box.Y = Game::VirtualScreenHeight/2 - quitButtonObj2->box.H/2 + 2*quitButtonObj2->box.H - 27;
+
     GameObject* quitObj = new GameObject();
-    Button* quitButton = new Button(*quitObj);
-    quitObj->AddComponent(quitButton);
-    quitText = new Text(*quitObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Quit", {255, 255, 255, 255}, true);
+    Button* quitButton = new Button(*quitButtonObj);
+    quitButtonObj->AddComponent(quitButton);
+    quitText = new Text(*quitObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Quit", buttonNone, true);
     quitObj->AddComponent(quitText);
-    quitObj->box.X = Game::VirtualScreenWidth/2 - quitObj->box.W/2;
-    quitObj->box.Y = optionsObj->box.Y + quitObj->box.H + 10;
+    quitObj->box.X = quitButtonObj->box.X + quitButtonObj->box.W/2 - quitObj->box.W/2;
+    quitObj->box.Y = quitButtonObj->box.Y;
     AddObject(quitObj);
     quitButton->SetClickFunction([this]() {
         quit = true;
     });
-    quitButton->SetHoverFunction([this]() {
-        quitText->SetColor({26, 160, 251, 255});
+    quitButton->SetHoverFunction([this, buttonHover, quitBgButton]() {
+        quitText->SetColor(buttonHover);
+        quitBgButton->SetFrame(1);
     });
-    quitButton->SetNoneFunction([this]() {
-        quitText->SetColor({255, 255, 255, 255});
+    quitButton->SetNoneFunction([this, buttonNone, quitBgButton]() {
+        quitText->SetColor(buttonNone);
+        quitBgButton->SetFrame(0);
     });
 
 }
