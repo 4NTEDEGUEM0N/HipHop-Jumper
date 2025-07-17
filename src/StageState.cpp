@@ -426,14 +426,13 @@ StageState::StageState() {
         Animator* animatorDrop = new Animator(*dropObject);
         animatorDrop->AddAnimation("idle", Animation(31, 31, 0));
         animatorDrop->AddAnimation("drop", Animation(0, 31, 0.10));
-        animatorDrop->SetAnimation("drop");
+        animatorDrop->SetAnimation("idle");
         dropObject->AddComponent(animatorDrop);
         
         animatorDrop->SetFrameCallback("drop", 8, []() {
             Sound* dropSound = new Sound("../Recursos/audio/SINGLEDROP.wav");
             dropSound->Play(1);
         });
-        
         
         GameObject* detectionObjDrop = new GameObject();
         detectionObjDrop->box.X = 38 * 64;
@@ -451,6 +450,40 @@ StageState::StageState() {
             animatorDrop->SetAnimation("idle");
         });
         
+        
+        
+        
+        GameObject* lampObject = new GameObject(false);
+        lampObject->box.X = 11 * 64;
+        lampObject->box.Y = 130 * 64 + 10;
+        SpriteRenderer* spriteLamp = new SpriteRenderer(*lampObject, "../Recursos/img/luz.png", 2, 1);
+        lampObject->AddComponent(spriteLamp);
+        AddObject(lampObject);
+        
+        Animator* animatorLamp = new Animator(*lampObject);
+        animatorLamp->AddAnimation("off", Animation(1, 1, 0));
+        animatorLamp->AddAnimation("on", Animation(0, 0, 0));
+        animatorLamp->SetAnimation("off");
+        lampObject->AddComponent(animatorLamp);
+        
+        GameObject* detectionObjLamp = new GameObject();
+        detectionObjLamp->box.X = 11 * 64;
+        detectionObjLamp->box.Y = 130 * 64;
+        detectionObjLamp->box.W = 5 * 64;
+        detectionObjLamp->box.H = 5 * 64;
+        AddObject(detectionObjLamp);
+        DetectionZone* detectionZoneLamp = new DetectionZone(*detectionObjLamp);
+        detectionObjLamp->AddComponent(detectionZoneLamp);
+        
+        Sound* lampSound = new Sound("../Recursos/audio/AMBIENCE/LIGHT BUZZING.wav");
+        
+        detectionZoneLamp->SetDetectFunction([animatorLamp, lampSound]() {
+            animatorLamp->SetAnimation("on");
+            lampSound->Play(1);
+        });
+        detectionZoneLamp->SetNoneFunction([animatorLamp]() {
+            animatorLamp->SetAnimation("off");
+        });
     
         
         Rect* metroIntroAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 6 * 64);
