@@ -10,7 +10,7 @@
 PauseState::PauseState() {
     GameObject* bgObject = new GameObject();
     AddObject(bgObject);
-    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/pixel.png");
+    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/BG Caderno.png");
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
     float scaleX = Game::VirtualScreenWidth  / (bgObject->box.W);

@@ -58,11 +58,11 @@ Character::Character(GameObject& associated, string sprite) : Component(associat
 
     canJump = true;
     canDoubleJump = false;
-    canDash = false;
+    canDash = true;
     dashing = false;
     dashTimer = Timer();
     isHit = false;
-    dashTimer = Timer();
+    dashTimer.Update(4);
     dashDuration = 0.15;
     moving = false;
     isSliding = false;

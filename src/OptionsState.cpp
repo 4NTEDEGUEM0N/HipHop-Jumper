@@ -1,4 +1,8 @@
 #include "../include/OptionsState.hpp"
+
+#include <iostream>
+#include <ostream>
+
 #include "../include/SpriteRenderer.hpp"
 #include "../include/Game.hpp"
 #include "../include/InputManager.hpp"
@@ -11,7 +15,7 @@ KeyBindingManager::GameAction OptionsState::actionToRebind = KeyBindingManager::
 OptionsState::OptionsState() {
     GameObject* bgObject = new GameObject();
     AddObject(bgObject);
-    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/caderno.png");
+    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/CADERNO BRABO.png");
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
     float scaleX = Game::VirtualScreenWidth  / (bgObject->box.W - 70);
