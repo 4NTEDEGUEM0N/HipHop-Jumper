@@ -43,6 +43,8 @@ public:
     void AddRegion(Rect area, const std::string& soundFile);
     void Update(const Vec2& playerPosition);
     void StopAll();
+    void PauseAll();
+    void ResumeAll();
 
 private:
     std::vector<AmbientRegion> regions;

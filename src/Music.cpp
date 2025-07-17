@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int Music::MUSIC_VOLUME = 3;
+int Music::MUSIC_VOLUME = 1;
 static Music* g_musicInstance = nullptr;
 
 Music::Music() {
@@ -80,7 +80,7 @@ void Music::Resume() {
 }
 
 void Music::UpdateVolume() {
-    Mix_VolumeMusic(MUSIC_VOLUME);
+    Mix_VolumeMusic(MUSIC_VOLUME*10);
 }
 
 

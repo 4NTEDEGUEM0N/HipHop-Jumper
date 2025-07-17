@@ -17,6 +17,9 @@ public:
     ~Sound();
     void Play(int times = 1);
     void Stop();
+    void Pause();
+    void Resume();
+    void UpdateVolume();
     void Open(string file);
     bool IsOpen();
     bool IsPlaying() const;

@@ -574,10 +574,12 @@ void StageState::Start() {
 
 void StageState::Pause() {
     backgroundMusic.Pause();
+    AmbientManager::GetInstance().PauseAll();
 }
 void StageState::Resume() {
     backgroundMusic.UpdateVolume();
     backgroundMusic.Resume();
+    AmbientManager::GetInstance().ResumeAll();
 }
 
 GameObject* StageState::GetTileMapObject() {

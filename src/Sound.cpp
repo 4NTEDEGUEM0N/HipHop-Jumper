@@ -69,3 +69,19 @@ bool Sound::IsOpen() {
 bool Sound::IsPlaying() const {
     return channel != -1 && Mix_Playing(channel);
 }
+
+void Sound::Pause() {
+    if (channel != -1) {
+        Mix_Pause(channel);
+    }
+}
+
+void Sound::Resume() {
+    if (channel != -1) {
+        Mix_Resume(channel);
+    }
+}
+
+void Sound::UpdateVolume() {
+    Mix_Volume(channel, SOUND_VOLUME*10);
+}
