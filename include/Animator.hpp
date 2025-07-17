@@ -26,6 +26,8 @@ public:
     void SetAnimation(string name);
     void AddAnimation(string name, Animation anim);
     string GetAnimation();
+    void SetFrameCallback(const std::string& animationName, int frame, std::function<void()> callback);
+
 };
 
 #endif //ANIMATOR_HPP

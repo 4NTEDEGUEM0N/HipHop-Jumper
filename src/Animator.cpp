@@ -21,6 +21,9 @@ void Animator::Update(float dt) {
         if (currentFrame > frameEnd) {
             currentFrame = frameStart;
         }
+        
+        animations[currentAnimation].CheckAndRunCallback(currentFrame);
+        
         Component* component = associated.GetComponent("SpriteRenderer");
         SpriteRenderer* spriteRenderer = dynamic_cast<SpriteRenderer*>(component);
         SDL_RendererFlip flip = animations[currentAnimation].flip;
@@ -71,4 +74,13 @@ void Animator::AddAnimation(string name, Animation anim) {
 
 string Animator::GetAnimation() {
     return currentAnimation;
+}
+
+void Animator::SetFrameCallback(const std::string& animationName, int frame, std::function<void()> callback) {
+    auto search = animations.find(animationName);
+    if (search != animations.end()) {
+        search->second.SetCallback(frame, callback);
+    } else {
+        std::cerr << "Erro - SetFrameCallback: animação '" << animationName << "' não encontrada!" << std::endl;
+    }
 }
