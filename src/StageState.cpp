@@ -414,12 +414,43 @@ StageState::StageState() {
             ""
         );
         */
-        Rect* metroIntroAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 134 * 64);
+        
+        
+        GameObject* dropObject = new GameObject(false);
+        dropObject->box.X = 53 * 64;
+        dropObject->box.Y = 130 * 64;
+        SpriteRenderer* spriteDrop = new SpriteRenderer(*dropObject, "../Recursos/img/drop_scaled_ext.png", 4, 6);
+        dropObject->AddComponent(spriteDrop);
+        AddObject(dropObject);
+        
+        Animator* animatorDrop = new Animator(*dropObject);
+        animatorDrop->AddAnimation("idle", Animation(23, 23, 0));
+        animatorDrop->AddAnimation("drop", Animation(0, 23, 0.10));
+        animatorDrop->SetAnimation("drop");
+        dropObject->AddComponent(animatorDrop);
+        
+        GameObject* detectionObjDrop = new GameObject();
+        detectionObjDrop->box.X = 38 * 64;
+        detectionObjDrop->box.Y = 124 * 64;
+        detectionObjDrop->box.W = 30 * 64;
+        detectionObjDrop->box.H = 10 * 64;
+        AddObject(detectionObjDrop);
+        DetectionZone* detectionZoneDrop = new DetectionZone(*detectionObjDrop);
+        detectionObjDrop->AddComponent(detectionZoneDrop);
+        
+        detectionZoneDrop->SetDetectFunction([animatorDrop]() {
+            animatorDrop->SetAnimation("drop");
+        });
+        detectionZoneDrop->SetNoneFunction([animatorDrop]() {
+            animatorDrop->SetAnimation("idle");
+        });
+        
+        Rect* metroIntroAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 6 * 64);
         AmbientManager::GetInstance().AddRegion(*metroIntroAmbience, "../Recursos/audio/AMBIENCE/METRO ARRIVING.wav");
         
         //TODO
-        Rect* dropAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 134 * 64);
-        AmbientManager::GetInstance().AddRegion(*dropAmbience, "../Recursos/audio/TRACKS/MAIN MENU TRACK LOOP.wav");
+        Rect* dropAmbience = new Rect(38 * 64, 124 * 64, 30 * 64, 10 * 64);
+        AmbientManager::GetInstance().AddRegion(*dropAmbience, "../Recursos/audio/AMBIENCE/WATER DROPS 1.wav");
         
 
         Rect* metroMidAmbience = new Rect(0 * 64, 0 * 64, 135 * 64, 31 * 64);
