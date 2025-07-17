@@ -11,6 +11,7 @@
 #include "../include/Text.hpp"
 #include "../include/StageState.hpp"
 #include "../include/GameData.hpp"
+#include "../include/LevelSelectorState.hpp"
 
 TitleState::TitleState() {
     GameObject* bgObject = new GameObject();
@@ -109,10 +110,10 @@ TitleState::TitleState() {
 
     playButton->SetClickFunction([this]() {
         Game& game = Game::GetInstance();
-        StageState* stage = new StageState();
+        LevelSelectorState* stage = new LevelSelectorState();
         game.Push(stage);
         GameData::ended = false;
-        popRequested = true;
+        //popRequested = true;
     });
     playButton->SetHoverFunction([this, playBgButton, buttonHover]() {
         playText->SetColor(buttonHover);
@@ -218,7 +219,9 @@ void TitleState::Start() {
     backgroundMusic.Play();
 }
 void TitleState::Pause() {
-    backgroundMusic.Pause();
+    if (dynamic_cast<LevelSelectorState*>(Game::GetInstance().GetStoredState()) == nullptr) {
+        backgroundMusic.Pause();
+    }
 }
 void TitleState::Resume() {
     backgroundMusic.UpdateVolume();

@@ -192,4 +192,8 @@ void Game::SuperPop() {
     superPopRequested = true;
 }
 
+State* Game::GetStoredState() {
+    return storedState;
+}
+
 
