@@ -417,6 +417,11 @@ StageState::StageState() {
         Rect* metroIntroAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 134 * 64);
         AmbientManager::GetInstance().AddRegion(*metroIntroAmbience, "../Recursos/audio/AMBIENCE/METRO ARRIVING.wav");
         
+        //TODO
+        Rect* dropAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 134 * 64);
+        AmbientManager::GetInstance().AddRegion(*dropAmbience, "../Recursos/audio/TRACKS/MAIN MENU TRACK LOOP.wav");
+        
+
         Rect* metroMidAmbience = new Rect(0 * 64, 0 * 64, 135 * 64, 31 * 64);
         AmbientManager::GetInstance().AddRegion(*metroMidAmbience, "../Recursos/audio/AMBIENCE/METRO AMBIENCE 2.wav");
         

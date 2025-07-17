@@ -1,6 +1,7 @@
 #include "../include/AmbientManager.hpp"
+#include <unordered_set>
 
-AmbientManager::AmbientManager() : currentRegion(nullptr) {}
+AmbientManager::AmbientManager() {}
 
 void AmbientManager::AddRegion(Rect area, const std::string& soundFile) {
     AmbientRegion region;
@@ -11,29 +12,31 @@ void AmbientManager::AddRegion(Rect area, const std::string& soundFile) {
 }
 
 void AmbientManager::Update(const Vec2& playerPosition) {
+    std::unordered_set<AmbientRegion*> newActiveRegions;
+
     for (auto& region : regions) {
         if (region.area.contains(playerPosition)) {
-            if (&region != currentRegion) {
-                if (currentRegion)
-                    currentRegion->ambientSound.Stop();
+            newActiveRegions.insert(&region);
+            if (activeRegions.find(&region) == activeRegions.end()) {
                 region.ambientSound.Play(-1);
-                currentRegion = &region;
             }
-            return;
         }
     }
 
-    if (currentRegion) {
-        currentRegion->ambientSound.Stop();
-        currentRegion = nullptr;
+    // Stop sounds for regions that are no longer active
+    for (auto* region : activeRegions) {
+        if (newActiveRegions.find(region) == newActiveRegions.end()) {
+            region->ambientSound.Stop();  // just exited this region
+        }
     }
+
+    // Update the set of active regions
+    activeRegions = std::move(newActiveRegions);
 }
 
 void AmbientManager::StopAll() {
     for (auto& region : regions) {
         region.ambientSound.Stop();
     }
-    currentRegion = nullptr;
+    activeRegions.clear();
 }
-
-
