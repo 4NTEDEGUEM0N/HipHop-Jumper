@@ -37,9 +37,9 @@ TitleState::TitleState() {
     logoObj->box.X = Game::VirtualScreenWidth/2 - logoObj->box.W/2;
     logoObj->box.Y = 20;
     */
-    //SDL_Color buttonNone = {47,63,68,255};
+    SDL_Color buttonNone = {47,63,68,255};
     //SDL_Color buttonNone = {87, 46, 73, 255};
-    SDL_Color buttonNone = {148, 0, 92, 255};
+    //SDL_Color buttonNone = {148, 0, 92, 255};
     SDL_Color buttonHover = {158,191,198,255};
 
 
