@@ -333,7 +333,7 @@ void Character::Update(float dt) {
         onRamp = false;
 
         if (y_collisions.empty()) {
-            isSliding = false;
+            //isSliding = false;
             associated.box = new_box_y;
             onGround = false;
             if (!onWall) canJump = false;
@@ -345,7 +345,7 @@ void Character::Update(float dt) {
             // Determina se a colisão foi com o chão ou com o teto
             bool landed = false;
             bool hitCeiling = false;
-            isSliding = false;
+            bool foundRamp = false;
 
             for (const auto& col : y_collisions) {
                 // Se a velocidade Y é positiva, estamos caindo.
@@ -358,6 +358,8 @@ void Character::Update(float dt) {
                     // Lógica para rampas (a sua já era boa!)
                     if (col.type == TileMap::TileCollisionType::TriangleTopLeft) {
                         onRamp = true;
+                        isSliding = true;
+                        foundRamp = true;
                         slidingTimer.Restart();
                         speed.Y = maxFallSpeed;
                         speed.X = -maxFallSpeed;
@@ -376,6 +378,8 @@ void Character::Update(float dt) {
                         break;
                     } else if (col.type == TileMap::TileCollisionType::TriangleTopRight) {
                         onRamp = true;
+                        isSliding = true;
+                        foundRamp = true;
                         slidingTimer.Restart();
                         speed.Y = maxFallSpeed;
                         speed.X = maxFallSpeed;
@@ -409,6 +413,10 @@ void Character::Update(float dt) {
                     hitCeiling = true;
                     associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) + tileMap->GetTileSetHeight() + 0.01;
                 }
+            }
+            
+            if (!foundRamp) {
+                onRamp = false;
             }
 
             if (landed) {
@@ -446,14 +454,6 @@ void Character::Update(float dt) {
     } else if (direction.X > 0) {
         characterSprite->SetFlip(SDL_FLIP_NONE);
     }
-    
-    slidingTimer.Update(dt);
-    if (slidingTimer.Get() < slideGraceTime) {
-        isSliding = true;
-    } else {
-        isSliding = false;
-    }
-    
     
     if (hp > 0 && !dashing) {
         // NOVO: Condição para animação de deslize
@@ -493,7 +493,7 @@ void Character::Update(float dt) {
     } else {
         stepSound.Stop();
     }
-    
+
     if (shouldPlaySlide) {
         slideSound.Play(-1);  // loop
     } else {

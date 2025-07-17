@@ -77,7 +77,7 @@ private:
     Vec2 colliderScale;
     
     Timer slidingTimer;
-    float slideGraceTime = 0.1f;
+    float slideGraceTime = 0.2f;
     bool onRamp = false;
 
 
