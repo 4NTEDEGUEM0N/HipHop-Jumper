@@ -23,6 +23,7 @@ public:
     void Run();
 
     float GetDeltaTime();
+    State* GetStoredState();
 
     static int VirtualScreenWidth;
     static int VirtualScreenHeight;
