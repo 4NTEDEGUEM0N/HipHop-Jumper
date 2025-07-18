@@ -97,7 +97,7 @@ EndState::EndState() {
         minikitObj->box.Y = minikitTextdObj->box.Y;
 
         GameObject* canTextObj = new GameObject();
-        Text* canText = new Text(*canTextObj, "../Recursos/font/KGPerfectPenmanship.ttf", 50, Text::BLENDED, "Collectibles: " + to_string(GameData::sprayCans) + "/3", {255, 255, 255, 255}, true);
+        Text* canText = new Text(*canTextObj, "../Recursos/font/KGPerfectPenmanship.ttf", 50, Text::BLENDED, "Collectables: " + to_string(GameData::sprayCans) + "/?", {255, 255, 255, 255}, true);
         canTextObj->AddComponent(canText);
         AddObject(canTextObj);
         canTextObj->box.X = Game::VirtualScreenWidth/2 - canTextObj->box.W/2;
