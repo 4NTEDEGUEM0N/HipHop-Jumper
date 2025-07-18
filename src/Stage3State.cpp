@@ -40,6 +40,15 @@ GameObject* CreateMinikit3(Vec2 pos) {
     return minikitObject;
 }
 
+GameObject* CreateVigilante2(Vec2 pos) {
+    GameObject* zombieObject = new GameObject(false);
+    Zombie* zmb = new Zombie(*zombieObject, 100);
+    zombieObject->box.X = pos.X*64;
+    zombieObject->box.Y = pos.Y*64 - zombieObject->box.H;
+    zombieObject->AddComponent(zmb);
+    return zombieObject;
+}
+
 Stage3State::Stage3State() {
     endTimer = new Timer();
     GameObject* bgObject = new GameObject();
@@ -90,6 +99,7 @@ Stage3State::Stage3State() {
     GameObject* playerObject = new GameObject(false);
     AddObject(playerObject);
     Character* playerCharacter = new Character(*playerObject, "../Recursos/img/sprite_spray_3_scaled.png");
+    //53, 58
     playerObject->box.X = 53*64;
     playerObject->box.Y = 58*64 - playerObject->box.H;
     playerObject->box.Z = 1;
@@ -107,6 +117,12 @@ Stage3State::Stage3State() {
     doidaNPCObj->AddComponent(doidaNPC);
     doidaNPCObj->box.X = 56*64;
     doidaNPCObj->box.Y = 59*64 - doidaNPCObj->box.H;
+
+    AddObject(CreateVigilante2({66,31}));
+    AddObject(CreateVigilante2({65,15}));
+    AddObject(CreateVigilante2({60,15}));
+    AddObject(CreateVigilante2({72,29}));
+    AddObject(CreateVigilante2({90,32}));
 
     hud = new HUD();
 
