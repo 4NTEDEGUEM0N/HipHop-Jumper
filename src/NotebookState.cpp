@@ -370,10 +370,10 @@ void NotebookState::UpdatePageContent() {
         GameObject* logoObj = new GameObject();
         AddObject(logoObj);
         pageItems.push_back(logoObj);
-        SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper.png");
+        SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper_logo_caderno.png");
         logo->SetCameraFollower(true);
         logoObj->AddComponent(logo);
-        logo->SetScale(0.5f, 0.5f);
+        //logo->SetScale(0.5f, 0.5f);
         logoObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/4) - logoObj->box.W/2;
         logoObj->box.Y = cadernoObj->box.Y + 20;
 
@@ -424,10 +424,10 @@ void NotebookState::UpdatePageContent() {
         GameObject* logoObj = new GameObject();
         AddObject(logoObj);
         pageItems.push_back(logoObj);
-        SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper.png");
+        SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper_logo_caderno.png");
         logo->SetCameraFollower(true);
         logoObj->AddComponent(logo);
-        logo->SetScale(0.5f, 0.5f);
+        //logo->SetScale(0.5f, 0.5f);
         logoObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/4) - logoObj->box.W/2;
         logoObj->box.Y = cadernoObj->box.Y + 20;
 
@@ -463,10 +463,10 @@ void NotebookState::UpdatePageContent() {
         GameObject* logoObj = new GameObject();
         AddObject(logoObj);
         pageItems.push_back(logoObj);
-        SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper.png");
+        SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper_logo_caderno.png");
         logo->SetCameraFollower(true);
         logoObj->AddComponent(logo);
-        logo->SetScale(0.5f, 0.5f);
+        //logo->SetScale(0.5f, 0.5f);
         logoObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/4) - logoObj->box.W/2;
         logoObj->box.Y = cadernoObj->box.Y + 20;
 
@@ -499,9 +499,13 @@ void NotebookState::UpdatePageContent() {
     }
 
     if (currentPage > 3 || (LevelSelectorState::currentLevel == 0 && currentPage > 1)) {
+        int magicNumber = 4;
+        if (LevelSelectorState::currentLevel == 0) {
+            magicNumber = 2;
+        }
         if (Character::graffitiArray.empty()) return;
 
-        int startIndex = (currentPage - 4) * 4;
+        int startIndex = (currentPage - magicNumber) * 4;
         int endIndex = startIndex + 4;
 
         for (int i = startIndex; i < Character::graffitiArray.size() && i < endIndex; i++) {

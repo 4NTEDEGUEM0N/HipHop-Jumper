@@ -151,7 +151,7 @@ Stage2State::Stage2State() {
     end2Obj->box.Y = 165*64;
     end2Obj->box.W = 64*3;
     end2Obj->box.H = 64*3;
-    AddObject(end2Obj);
+    //AddObject(end2Obj);
     DetectionZone* end2DetectionZone = new DetectionZone(*end2Obj);
     end2Obj->AddComponent(end2DetectionZone);
     end2DetectionZone->SetDetectFunction([this,playerObject]() {
@@ -169,6 +169,31 @@ Stage2State::Stage2State() {
     AddObject(CreateMinikit2({14,53}));
     AddObject(CreateMinikit2({37,52}));
     AddObject(CreateMinikit2({17,27}));
+
+    ItemData sprayVermelhoData = ItemData::MarkerColor_RED();
+    ItemData sprayVerdeData = ItemData::MarkerColor_GREEN();
+    ItemData sprayAzulData = ItemData::MarkerColor_BLUE();
+
+    GameObject* redObject = new GameObject(false);
+    redObject->box.X = 33*64;
+    redObject->box.Y = 116*64;
+    Item* red = new Item(*redObject, sprayVermelhoData);
+    redObject->AddComponent(red);
+    AddObject(redObject);
+
+    GameObject* greenObject = new GameObject(false);
+    greenObject->box.X = 7*64;
+    greenObject->box.Y = 118*64;
+    Item* green = new Item(*greenObject, sprayVerdeData);
+    greenObject->AddComponent(green);
+    AddObject(greenObject);
+
+    GameObject* blueObject = new GameObject(false);
+    blueObject->box.X = 30*64;
+    blueObject->box.Y = 57*64;
+    Item* blue = new Item(*blueObject, sprayAzulData);
+    blueObject->AddComponent(blue);
+    AddObject(blueObject);
 
     hud = new HUD();
 
