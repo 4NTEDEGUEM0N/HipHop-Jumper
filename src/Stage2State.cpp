@@ -40,6 +40,15 @@ GameObject* CreateMinikit2(Vec2 pos) {
     return minikitObject;
 }
 
+GameObject* CreateVigilante(Vec2 pos) {
+    GameObject* zombieObject = new GameObject(false);
+    Zombie* zmb = new Zombie(*zombieObject, 100);
+    zombieObject->box.X = pos.X*64;
+    zombieObject->box.Y = pos.Y*64 - zombieObject->box.H;
+    zombieObject->AddComponent(zmb);
+    return zombieObject;
+}
+
 Stage2State::Stage2State() {
     endTimer = new Timer();
     GameObject* bgObject = new GameObject();
@@ -90,6 +99,7 @@ Stage2State::Stage2State() {
     GameObject* playerObject = new GameObject(false);
     AddObject(playerObject);
     Character* playerCharacter = new Character(*playerObject, "../Recursos/img/sprite_spray_3_scaled.png");
+    // 8,164
     playerObject->box.X = 8*64;
     playerObject->box.Y = 164*64 - playerObject->box.H;
     playerObject->box.Z = 1;
@@ -118,6 +128,35 @@ Stage2State::Stage2State() {
     nineNPC->dialogs.emplace_back("Mas cuidado, a área é protegida por uns vigilantes aí.");
     nineNPC->dialogs.emplace_back("Mas não liga pra eles não. Nós somos tudo maloqueiro e eles são tudo cuzão.");
     nineNPC->dialogs.emplace_back("E se lembra, a única regra aqui é não seguir regras!!");
+
+    GameObject* endObj = new GameObject();
+    endObj->box.X = 38*64;
+    endObj->box.Y = 59*64;
+    endObj->box.W = 64*3;
+    endObj->box.H = 64*3;
+    AddObject(endObj);
+    DetectionZone* endDetectionZone = new DetectionZone(*endObj);
+    endObj->AddComponent(endDetectionZone);
+    endDetectionZone->SetDetectFunction([this,playerObject]() {
+        End(playerObject);
+    });
+
+    GameObject* end2Obj = new GameObject();
+    end2Obj->box.X = 2*64;
+    end2Obj->box.Y = 165*64;
+    end2Obj->box.W = 64*3;
+    end2Obj->box.H = 64*3;
+    AddObject(end2Obj);
+    DetectionZone* end2DetectionZone = new DetectionZone(*end2Obj);
+    end2Obj->AddComponent(end2DetectionZone);
+    end2DetectionZone->SetDetectFunction([this,playerObject]() {
+        End(playerObject);
+    });
+
+    AddObject(CreateVigilante({9,119}));
+    AddObject(CreateVigilante({35,80}));
+    AddObject(CreateVigilante({39,71}));
+    AddObject(CreateVigilante({14,54}));
 
     hud = new HUD();
 
@@ -234,8 +273,8 @@ GameObject* Stage2State::GetTileMapObject() {
 }
 
 void Stage2State::End(GameObject* playerObject) {
-    playerObject->box.X = 7232;
-    playerObject->box.Y = 2368 - playerObject->box.H;
+    playerObject->box.X = 39*64;
+    playerObject->box.Y = 62*64 - playerObject->box.H;
     GameData::ended = true;
     GameData::playerVictory = true;
     GameData::endTime = hud->GetLevelTimer();
@@ -267,25 +306,25 @@ void Stage2State::End(GameObject* playerObject) {
 
     string file = "";
     if (hasRed && hasGreen && hasBlue) {
-        file = "../Recursos/img/Graffiti final level 1_3_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_4_scaled.png";
     }
     else if (hasRed && hasGreen) {
-        file = "../Recursos/img/Graffiti final level 1_2_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_3_scaled.png";
     }
     else if (hasRed && hasBlue) {
-        file = "../Recursos/img/Graffiti final level 1_2_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_3_scaled.png";
     }
     else if (hasGreen && hasBlue) {
-        file = "../Recursos/img/Graffiti final level 1_2_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_3_scaled.png";
     }
     else if (hasRed) {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_2_scaled.png";
     }
     else if (hasGreen) {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_2_scaled.png";
     }
     else if (hasBlue) {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_2_scaled.png";
     }
     else {
         file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
