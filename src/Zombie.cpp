@@ -11,7 +11,7 @@
 
 int Zombie::zombieCounter = 0;
 
-Zombie::Zombie(GameObject& associated, int hp):Component(associated), deathSound("../Recursos/audio/Dead.wav"), hitSound("../Recursos/audio/Hit0.wav") {
+Zombie::Zombie(GameObject& associated, int hp):Component(associated), deathSound("../Recursos/audio/Dead.wav"), hitSound("../Recursos/audio/ampapepa.wav") {
     hitpoints = hp;
     hasPlayedDeathSound = false;
     hit = false;
