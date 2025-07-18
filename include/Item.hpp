@@ -29,6 +29,7 @@ private:
     ItemData itemData;
     SpriteRenderer* itemSprite;
     bool scaled = false;
+    bool animated = false;
     int counter;
     bool up;
 };

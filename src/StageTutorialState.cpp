@@ -95,9 +95,14 @@ StageTutorialState::StageTutorialState() {
     ItemData sprayVermelhoData = ItemData::SprayColor_RED();
     GameObject* redObject = new GameObject(false);
     redObject->box.X = 50*64;
-    redObject->box.Y = 10*64;
+    redObject->box.Y = 9.75*64;
     Item* red = new Item(*redObject, sprayVermelhoData);
     redObject->AddComponent(red);
+    
+    Animator* redAnimator = new Animator(*redObject);
+    redAnimator->SetAnimation("spin");
+    redObject->AddComponent(redAnimator);
+    
     AddObject(redObject);
 
     GameObject* endObj = new GameObject();

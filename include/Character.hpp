@@ -84,6 +84,8 @@ public:
     static Character* player;
     vector<ItemData> inventory;
     int minikits = 0;
+    int minikits2 = 0;
+    int minikits3 = 0;
     int ammo = 3;
     Timer dashTimer;
 

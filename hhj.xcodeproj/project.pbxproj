@@ -280,8 +280,6 @@
 		B094C2572DC41B7D00463219 /* Item.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Item.hpp; sourceTree = "<group>"; };
 		B0E238592E25C7A70093D1BF /* DetectionZone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DetectionZone.cpp; path = src/DetectionZone.cpp; sourceTree = "<group>"; };
 		B0E2385B2E25C7AF0093D1BF /* DetectionZone.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DetectionZone.hpp; path = include/DetectionZone.hpp; sourceTree = "<group>"; };
-		B0E2385C2E25D7760093D1BF /* VigilanteCaminhadaCores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VigilanteCaminhadaCores.png; sourceTree = "<group>"; };
-		B0E2385D2E25D7760093D1BF /* VigilanteEmpurraoCores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VigilanteEmpurraoCores.png; sourceTree = "<group>"; };
 		B0E2385E2E25D7760093D1BF /* 1fase */ = {isa = PBXFileReference; lastKnownFileType = folder; path = 1fase; sourceTree = "<group>"; };
 		B0E2385F2E25D7760093D1BF /* sprite_spray_3_scaled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_spray_3_scaled.png; sourceTree = "<group>"; };
 		B0E238602E25D7760093D1BF /* RatoriousBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RatoriousBig.png; sourceTree = "<group>"; };
@@ -470,8 +468,6 @@
 				B0E2385E2E25D7760093D1BF /* 1fase */,
 				B0E238602E25D7760093D1BF /* RatoriousBig.png */,
 				B0E2385F2E25D7760093D1BF /* sprite_spray_3_scaled.png */,
-				B0E2385C2E25D7760093D1BF /* VigilanteCaminhadaCores.png */,
-				B0E2385D2E25D7760093D1BF /* VigilanteEmpurraoCores.png */,
 				B080ED5B2E2306C5001731B1 /* gota.png */,
 				B080ED5A2E2306C5001731B1 /* morte.png */,
 				B080ED5C2E2306C5001731B1 /* socospray.png */,
