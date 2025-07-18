@@ -13,17 +13,22 @@ Item::Item(GameObject& associated, ItemData itemData) :
     collected = false;
     collectTimer.Restart();
 
-    itemSprite = new SpriteRenderer(associated, itemData.iconPath, 9, 9);
+    if (itemData.type == ItemData::Type::Minikit || itemData.type == ItemData::Type::Minikit2 || itemData.type == ItemData::Type::Minikit3) {
+        itemSprite = new SpriteRenderer(associated, itemData.iconPath);
+    } else {
+        itemSprite = new SpriteRenderer(associated, itemData.iconPath, 9, 9);
+        Animator* animator = new Animator(associated);
+        animator->AddAnimation("static", Animation(0, 0, 0));
+        animator->AddAnimation("spin", Animation(0, 74, 0.05));
+        animator->SetAnimation("spin");
+        associated.AddComponent(animator);
+    }
+    
     associated.AddComponent(itemSprite);
 
     Collider* collider = new Collider(associated);
     associated.AddComponent(collider);
     
-    Animator* animator = new Animator(associated);
-    animator->AddAnimation("static", Animation(0, 0, 0));
-    animator->AddAnimation("spin", Animation(0, 74, 0.05));
-    animator->SetAnimation("spin");
-    associated.AddComponent(animator);
 }
 
 void Item::Update(float dt) {
