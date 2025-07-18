@@ -101,6 +101,24 @@ Stage2State::Stage2State() {
     backgroundMusic.Open("../Recursos/audio/TRACKS/THEME 2 LOOP 3.wav");
     backgroundMusic.SetIntro("../Recursos/audio/TRACKS/THEME 2 LOOP 1.wav");
 
+    GameObject* nineNPCObj = new GameObject();
+    AddObject(nineNPCObj);
+    NPC* nineNPC = new NPC(*nineNPCObj, "../Recursos/img/nine.png", "Nine");
+    nineNPCObj->AddComponent(nineNPC);
+    nineNPCObj->box.X = 16*64;
+    nineNPCObj->box.Y = 167*64 - nineNPCObj->box.H;
+    Collider* npcCollider = new Collider(*nineNPCObj, {2,2});
+    nineNPCObj->AddComponent(npcCollider);
+
+    nineNPC->dialogs.emplace_back("Eae, é o nine! Ratorious me falou de você. Dahora!");
+    nineNPC->dialogs.emplace_back("Mas se quiser realmente entrar pra crew vai ter que fazer algo mais desafiador\nque subir de um bueiro.");
+    nineNPC->dialogs.emplace_back("Se o Ratorious te falou alguma coisa de ser o melhor graffiteiro da cidade,\nele tava mentindo, porque sou eu!");
+    nineNPC->dialogs.emplace_back("Por isso o meu desafio é maior que o dele.");
+    nineNPC->dialogs.emplace_back("Em cima desse prédio tem um spot de tirar onda.\nSe fizer um bomb lá você vai ser respeitado.");
+    nineNPC->dialogs.emplace_back("Mas cuidado, a área é protegida por uns vigilantes aí.");
+    nineNPC->dialogs.emplace_back("Mas não liga pra eles não. Nós somos tudo maloqueiro e eles são tudo cuzão.");
+    nineNPC->dialogs.emplace_back("E se lembra, a única regra aqui é não seguir regras!!");
+
     hud = new HUD();
 
 }

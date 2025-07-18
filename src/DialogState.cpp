@@ -35,6 +35,13 @@ DialogState::DialogState(GameObject& npcGO, vector<string> dialogs, string npcSp
         AddObject(npcObj);
         npcObj->box.X = 20;
         npcObj->box.Y = npcObj->box.H/2;
+    } else {
+        SpriteRenderer* npcSpriteRenderer = new SpriteRenderer(*npcObj, npcSprite);
+        npcSpriteRenderer->SetCameraFollower(true);
+        npcObj->AddComponent(npcSpriteRenderer);
+        AddObject(npcObj);
+        npcObj->box.X = 0;
+        npcObj->box.Y = npcObj->box.H/2;
     }
 
     GameObject* nameTextObj = new GameObject();

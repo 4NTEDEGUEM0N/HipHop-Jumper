@@ -11,7 +11,7 @@ private:
     string spriteFile;
 
 public:
-    NPC(GameObject &associated, string file, string name, int frameCountW, int frameCountH);
+    NPC(GameObject &associated, string file, string name, int frameCountW=1, int frameCountH=1);
     ~NPC();
     void Update(float dt);
     void Render();

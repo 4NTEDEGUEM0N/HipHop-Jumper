@@ -101,6 +101,13 @@ Stage3State::Stage3State() {
     backgroundMusic.Open("../Recursos/audio/TRACKS/THEME 3 G-FUNK LOOP 2.wav");
     backgroundMusic.SetIntro("../Recursos/audio/TRACKS/THEME 3 G-FUNK LOOP 1.wav");
 
+    GameObject* doidaNPCObj = new GameObject();
+    AddObject(doidaNPCObj);
+    NPC* doidaNPC = new NPC(*doidaNPCObj, "../Recursos/img/EsqueciOnomeDela.png", "Nine");
+    doidaNPCObj->AddComponent(doidaNPC);
+    doidaNPCObj->box.X = 56*64;
+    doidaNPCObj->box.Y = 59*64 - doidaNPCObj->box.H;
+
     hud = new HUD();
 
 }
