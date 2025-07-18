@@ -36,7 +36,7 @@ struct ItemData {
     static ItemData SprayColor_RED() {
         return ItemData{
             Type::SprayColor_RED,
-            "RED",
+            "LATA",
             "../Recursos/img/COLETAVEISSCALED/SPRITE LATA LARANJA.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
@@ -45,7 +45,7 @@ struct ItemData {
     static ItemData SprayColor_GREEN() {
         return ItemData{
             Type::SprayColor_GREEN,
-            "GREEN",
+            "LATA",
             "../Recursos/img/COLETAVEISSCALED/SPRITE LATA VERDE.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
@@ -54,7 +54,7 @@ struct ItemData {
     static ItemData SprayColor_BLUE() {
         return ItemData{
             Type::SprayColor_BLUE,
-            "BLUE",
+            "LATA",
             "../Recursos/img/COLETAVEISSCALED/SPRITE LATA ROXA.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
@@ -63,7 +63,7 @@ struct ItemData {
     static ItemData MarkerColor_RED() {
         return ItemData{
             Type::MarkerColor_RED,
-            "RED",
+            "MARCADOR",
             "../Recursos/img/COLETAVEISSCALED/SPRITE MARCADOR LARANJA.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
@@ -72,7 +72,7 @@ struct ItemData {
     static ItemData MarkerColor_GREEN() {
         return ItemData{
             Type::MarkerColor_GREEN,
-            "GREEN",
+            "MARCADOR",
             "../Recursos/img/COLETAVEISSCALED/SPRITE MARCADOR VERDE.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
@@ -81,7 +81,7 @@ struct ItemData {
     static ItemData MarkerColor_BLUE() {
         return ItemData{
             Type::MarkerColor_BLUE,
-            "BLUE",
+            "MARCADOR",
             "../Recursos/img/COLETAVEISSCALED/SPRITE MARCADOR ROXO.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
@@ -90,7 +90,7 @@ struct ItemData {
     static ItemData BucketColor_RED() {
         return ItemData{
             Type::BucketColor_RED,
-            "RED",
+            "BALDE",
             "../Recursos/img/COLETAVEISSCALED/SPRITE BALDE LARANJA.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
@@ -99,7 +99,7 @@ struct ItemData {
     static ItemData BucketColor_GREEN() {
         return ItemData{
             Type::BucketColor_GREEN,
-            "GREEN",
+            "BALDE",
             "../Recursos/img/COLETAVEISSCALED/SPRITE BALDE VERDE.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };
@@ -108,7 +108,7 @@ struct ItemData {
     static ItemData BucketColor_BLUE() {
         return ItemData{
             Type::SprayColor_BLUE,
-            "BLUE",
+            "BALDE",
             "../Recursos/img/COLETAVEISSCALED/SPRITE BALDE ROXO.png",
             "../Recursos/audio/INTERACOES/COLLECT.wav"
         };

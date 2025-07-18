@@ -175,22 +175,24 @@ void NotebookState::RenderCollectables(int level) {
         for (int i = 6 ;i < 9; i++, column++) {
             string file = "";
             if (i-6+1 <= Character::player->inventory.size()) {
-                file = Character::player->inventory[i-6].iconPath;
-                
-                GameObject* canObj = new GameObject();
-                AddObject(canObj);
-                pageItems.push_back(canObj);
-                SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
-                can->SetCameraFollower(true);
-                canObj->AddComponent(can);
-                
-                Animator* canAnimator = new Animator(*canObj);
-                canAnimator->SetAnimation("spin");
-                canObj->AddComponent(canAnimator);
-                
-                canObj->box.Z = 2;
-                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
-                canObj->box.Y = 168 + row*100;
+                if (Character::player->inventory[i-6].name == "LATA") {
+                    file = Character::player->inventory[i-6].iconPath;
+                    
+                    GameObject* canObj = new GameObject();
+                    AddObject(canObj);
+                    pageItems.push_back(canObj);
+                    SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
+                    can->SetCameraFollower(true);
+                    canObj->AddComponent(can);
+                    
+                    Animator* canAnimator = new Animator(*canObj);
+                    canAnimator->SetAnimation("spin");
+                    canObj->AddComponent(canAnimator);
+                    
+                    canObj->box.Z = 2;
+                    canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                    canObj->box.Y = 168 + row*100;
+                }
             } else {
                 file = "../Recursos/img/COLETAVEISSCALED/SILHUETALATA.png";
                 
@@ -239,22 +241,24 @@ void NotebookState::RenderCollectables(int level) {
         for (int i = 6 ;i < 9; i++, column++) {
             string file = "";
             if (i-6+1 <= Character::player->inventory.size()) {
-                file = Character::player->inventory[i-6].iconPath;
-                
-                GameObject* canObj = new GameObject();
-                AddObject(canObj);
-                pageItems.push_back(canObj);
-                SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
-                can->SetCameraFollower(true);
-                canObj->AddComponent(can);
-                
-                Animator* canAnimator = new Animator(*canObj);
-                canAnimator->SetAnimation("spin");
-                canObj->AddComponent(canAnimator);
-                
-                canObj->box.Z = 2;
-                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
-                canObj->box.Y = 168 + row*100;
+                if (Character::player->inventory[i-6].name == "MARCADOR") {
+                    file = Character::player->inventory[i-6].iconPath;
+                    
+                    GameObject* canObj = new GameObject();
+                    AddObject(canObj);
+                    pageItems.push_back(canObj);
+                    SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
+                    can->SetCameraFollower(true);
+                    canObj->AddComponent(can);
+                    
+                    Animator* canAnimator = new Animator(*canObj);
+                    canAnimator->SetAnimation("spin");
+                    canObj->AddComponent(canAnimator);
+                    
+                    canObj->box.Z = 2;
+                    canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                    canObj->box.Y = 168 + row*100;
+                }
             } else {
                 file = "../Recursos/img/COLETAVEISSCALED/SILHUETAMARCADOR.png";
                 
@@ -300,25 +304,27 @@ void NotebookState::RenderCollectables(int level) {
         }
         row++;
         column = 0;
-        for (int i = 6 ;i < 9; i++, column++) {
+        for (int i = 6 ;i < 15; i++, column++) {
             string file = "";
             if (i-6+1 <= Character::player->inventory.size()) {
-                file = Character::player->inventory[i-6].iconPath;
-                
-                GameObject* canObj = new GameObject();
-                AddObject(canObj);
-                pageItems.push_back(canObj);
-                SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
-                can->SetCameraFollower(true);
-                canObj->AddComponent(can);
-                
-                Animator* canAnimator = new Animator(*canObj);
-                canAnimator->SetAnimation("spin");
-                canObj->AddComponent(canAnimator);
-                
-                canObj->box.Z = 2;
-                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
-                canObj->box.Y = 168 + row*100;
+                if (Character::player->inventory[i-6].name == "BALDE") {
+                    file = Character::player->inventory[i-6].iconPath;
+                    
+                    GameObject* canObj = new GameObject();
+                    AddObject(canObj);
+                    pageItems.push_back(canObj);
+                    SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
+                    can->SetCameraFollower(true);
+                    canObj->AddComponent(can);
+                    
+                    Animator* canAnimator = new Animator(*canObj);
+                    canAnimator->SetAnimation("spin");
+                    canObj->AddComponent(canAnimator);
+                    
+                    canObj->box.Z = 2;
+                    canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                    canObj->box.Y = 168 + row*100;
+                }
             } else {
                 file = "../Recursos/img/COLETAVEISSCALED/SILHUETABALDE.png";
                 
