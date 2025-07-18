@@ -32,28 +32,28 @@
 StageTutorialState::StageTutorialState() {
     endTimer = new Timer();
     GameObject* bgObject = new GameObject();
-    //AddObject(bgObject);
-    SpriteRenderer* bg = new SpriteRenderer(*bgObject, "../Recursos/img/Background.png");
+    AddObject(bgObject);
+    SpriteRenderer* bg = new SpriteRenderer(*bgObject, "../Recursos/img/BG Caderno claro.png");
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
-
-    float scaleX = Game::VirtualScreenWidth  / 1200.0f;
-    float scaleY = Game::VirtualScreenHeight / 900.0f;
+    float scaleX = Game::VirtualScreenWidth  / (bgObject->box.W);
+    float scaleY = Game::VirtualScreenHeight / (bgObject->box.H);
     bg->SetScale(scaleX, scaleY);
     bgObject->box.X = 0;
     bgObject->box.Y = 0;
 
 
     TileSet* collisionTileSet = new TileSet("../Recursos/img/1fase/assets juntos primeira fase.png", 64, 64);
-    TileSet* fundoTileSet = new TileSet("../Recursos/img/bloco.png", 64, 64);
+    //TileSet* fundoTileSet = new TileSet("../Recursos/img/bloco.png", 64, 64);
 
     std::vector<TileSet*> TileSets;
 
     TileSets.push_back(collisionTileSet);
-    TileSets.push_back(fundoTileSet);
+    //TileSets.push_back(fundoTileSet);
 
     tileMapObject = new GameObject();
     AddObject(tileMapObject);
+    tileMapObject->box.Z = 1;
     tileMapObject->box.X = 0;
     tileMapObject->box.Y = 0;
     set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,18,19};
@@ -177,7 +177,7 @@ StageTutorialState::StageTutorialState() {
     cadernoObj->box.X = 37*64 +5;
     cadernoObj->box.Y = 3*64;
 
-    string cuidado_vigilante = "Cuidado com o vigilante!.\n\n"
+    string cuidado_vigilante = "Cuidado com o vigilante!\n\n"
                     "Ao encostar nele você perde vida\n"
                     "e é empurrado para longe!";
 
