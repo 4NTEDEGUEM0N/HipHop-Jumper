@@ -192,13 +192,13 @@ void NotebookState::RenderCollectables(int level) {
                 canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
                 canObj->box.Y = 168 + row*100;
             } else {
-                file = "../Recursos/img/COLETAVEISSCALED/SILHUETA LATA (1).png";
+                file = "../Recursos/img/COLETAVEISSCALED/SILHUETALATA.png";
                 
                 GameObject* canObj = new GameObject();
                 AddObject(canObj);
                 pageItems.push_back(canObj);
                 SpriteRenderer* can = new SpriteRenderer(*canObj, file);
-                can->SetScale(0.8, 0.8);
+                //can->SetScale(0.8, 0.8);
                 can->SetCameraFollower(true);
                 canObj->AddComponent(can);
                 
@@ -256,7 +256,7 @@ void NotebookState::RenderCollectables(int level) {
                 canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
                 canObj->box.Y = 168 + row*100;
             } else {
-                file = "../Recursos/img/COLETAVEISSCALED/SILHUETA MARCADOR (1).png";
+                file = "../Recursos/img/COLETAVEISSCALED/SILHUETAMARCADOR.png";
                 
                 GameObject* canObj = new GameObject();
                 AddObject(canObj);
@@ -320,7 +320,7 @@ void NotebookState::RenderCollectables(int level) {
                 canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
                 canObj->box.Y = 168 + row*100;
             } else {
-                file = "../Recursos/img/COLETAVEISSCALED/SILHUETA BALDE (1).png";
+                file = "../Recursos/img/COLETAVEISSCALED/SILHUETABALDE.png";
                 
                 GameObject* canObj = new GameObject();
                 AddObject(canObj);
