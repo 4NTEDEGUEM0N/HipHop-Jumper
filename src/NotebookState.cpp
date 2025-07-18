@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "../include/Character.hpp"
+#include "../include/LevelSelectorState.hpp"
 
 NotebookState::NotebookState() {
     currentPage = 1;
@@ -278,20 +279,36 @@ void NotebookState::UpdatePageContent() {
         logoObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/4) - logoObj->box.W/2;
         logoObj->box.Y = cadernoObj->box.Y + 20;
 
-        string text1 = "Breve descrição e objetivo:\n\n"
+
+        string text1;
+        if (LevelSelectorState::currentLevel == 0) {
+            text1 = "No caderno você pode ver algumas \n"
+        "informações importantes e também\n"
+        "pode libertar sua criatividade.\n\n"
+        "Na primeira página temos sua cole-\n"
+        "ção de coletáveis para você ficar\n"
+        "atento e não perder nenhum deles\n"
+        "ao longo da fase.\n\n"
+        "Você também pode desenhar seu\n"
+        "próprio graffiti! Eles ficarão salvos\n"
+        "nas próximas páginas.";
+        } else {
+            text1 = "Breve descrição e objetivo:\n\n"
         "Explorar os obstáculos de um\n"
         "cenário urbano em busca do\n"
         "espaço perfeito para a arte\n"
         "de rua. Se expressar através\n"
         "do grafite e do HipHop enquanto\n"
         "dribla as forças de vigilância.\n";
+        }
+
 
         GameObject* textObj1 = new GameObject();
         AddObject(textObj1);
         pageItems.push_back(textObj1);
         Text* descriptionText = new Text(*textObj1, "../Recursos/font/KGPerfectPenmanship.ttf", 24, Text::SOLID, text1, {0, 0, 0, 255}, true);
         textObj1->AddComponent(descriptionText);
-        textObj1->box.X = cadernoObj->box.X + 60;
+        textObj1->box.X = cadernoObj->box.X + 30;
         textObj1->box.Y = logoObj->box.Y + logoObj->box.H + 20;
 
         GameObject* collectObj = new GameObject();

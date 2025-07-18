@@ -3,8 +3,8 @@
 #include "../include/Game.hpp"
 #include "../include/InputManager.hpp"
 #include "../include/Button.hpp"
-#include "../include/OptionsState.hpp"
 #include "../include/StageState.hpp"
+#include "../include/StageTutorialState.hpp"
 #include "../include/Text.hpp"
 #include "../include/TitleState.hpp"
 
@@ -128,7 +128,7 @@ LevelSelectorState::~LevelSelectorState() = default;
 void LevelSelectorState::LoadLevel() {
     Game& game = Game::GetInstance();
     if (currentLevel == 0) {
-        StageState* tutorial = new StageState();
+        StageTutorialState* tutorial = new StageTutorialState();
         game.Push(tutorial);
         game.SuperPop();
     } else if (currentLevel == 1) {

@@ -82,7 +82,7 @@ void Zombie::Update(float dt) {
     }*/
 
     hitTimer.Update(dt);
-    if (hit && hitTimer.Get() > 0.8 && hitpoints > 0 && not hitting) {
+    if (hit && hitTimer.Get() > 3 && hitpoints > 0 && not hitting) {
         hit = false;
         Component* component = associated.GetComponent("Animator");
         Animator* animator = dynamic_cast<Animator*>(component);
@@ -162,6 +162,7 @@ void Zombie::NotifyCollision(GameObject &other) {
         Damage(25);
     }
     else if (other.GetComponent("Character") != nullptr) {
+        if (hitTimer.Get() < 3) return;
         hitting = true;
         hittingTimer.Restart();
         Component* component = associated.GetComponent("Animator");
@@ -173,4 +174,9 @@ void Zombie::NotifyCollision(GameObject &other) {
 Zombie::~Zombie() {
     zombieCounter -= 1;
 }
+
+bool Zombie::IsTakingHit() {
+    return hit;
+}
+
 

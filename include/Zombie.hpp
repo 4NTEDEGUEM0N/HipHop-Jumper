@@ -30,6 +30,7 @@ public:
     bool Is(string type);
     void NotifyCollision(GameObject &other);
     void CheckDirection(float dt, TileMap* tileMap);
+    bool IsTakingHit();
 
     static int zombieCounter;
 };

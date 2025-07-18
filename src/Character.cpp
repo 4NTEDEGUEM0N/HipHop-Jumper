@@ -536,7 +536,8 @@ Character::Command::Command(CommandType type, float x, float y) {
 
 void Character::NotifyCollision(GameObject &other) {
     if (other.GetComponent("Zombie") != nullptr) {
-        if (damageCooldown.Get() > 1 && hp > 0) {
+        Zombie* zombie = dynamic_cast<Zombie*>(other.GetComponent("Zombie"));
+        if (!zombie->IsTakingHit() && damageCooldown.Get() > 1 && hp > 0) {
             if (this == player) {
                 hp -= 25;
                 damageCooldown.Restart();

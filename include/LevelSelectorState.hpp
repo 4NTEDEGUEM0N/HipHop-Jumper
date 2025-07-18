@@ -19,14 +19,12 @@ public:
 
     void LoadLevel();
     static void NextLevel();
-
+    static int currentLevel;
 private:
     Text* tutorialText;
     Text* level1Text;
     Text* level2Text;
     Text* level3Text;
-
-    static int currentLevel;
 
 };
 
