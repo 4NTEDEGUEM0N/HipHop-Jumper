@@ -94,9 +94,9 @@
             filePath = "src/Item.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "Item::TryCollect()"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "Item::SetCollected()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -126,9 +126,9 @@
             filePath = "src/Item.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "Item::Item(associated, itemData, file)"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "Item::Item(associated, itemData)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

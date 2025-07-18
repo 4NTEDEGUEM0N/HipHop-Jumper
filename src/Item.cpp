@@ -1,4 +1,5 @@
 #include "../include/Item.hpp"
+#include "../include/Animator.hpp"
 #include "../include/SpriteRenderer.hpp"
 #include "../include/Collider.hpp"
 
@@ -12,11 +13,17 @@ Item::Item(GameObject& associated, ItemData itemData) :
     collected = false;
     collectTimer.Restart();
 
-    itemSprite = new SpriteRenderer(associated, itemData.iconPath);
+    itemSprite = new SpriteRenderer(associated, itemData.iconPath, 9, 9);
     associated.AddComponent(itemSprite);
 
     Collider* collider = new Collider(associated);
     associated.AddComponent(collider);
+    
+    Animator* animator = new Animator(associated);
+    animator->AddAnimation("static", Animation(0, 0, 0));
+    animator->AddAnimation("spin", Animation(0, 74, 0.05));
+    animator->SetAnimation("spin");
+    associated.AddComponent(animator);
 }
 
 void Item::Update(float dt) {

@@ -581,17 +581,50 @@ void Character::NotifyCollision(GameObject &other) {
                     minikits++;
                     break;
                 }
+                
+                case ItemData::Type::Minikit2: {
+                    minikits2++;
+                    break;
+                }
+                    
+                case ItemData::Type::Minikit3: {
+                    minikits3++;
+                    break;
+                }
                     
                 case ItemData::Type::SprayColor_RED:
                     inventory.push_back(itemData);
                     break;
-                
                     
                 case ItemData::Type::SprayColor_GREEN:
                     inventory.push_back(itemData);
                     break;
                     
                 case ItemData::Type::SprayColor_BLUE:
+                    inventory.push_back(itemData);
+                    break;
+                    
+                case ItemData::Type::MarkerColor_RED:
+                    inventory.push_back(itemData);
+                    break;
+                    
+                case ItemData::Type::MarkerColor_GREEN:
+                    inventory.push_back(itemData);
+                    break;
+                    
+                case ItemData::Type::MarkerColor_BLUE:
+                    inventory.push_back(itemData);
+                    break;
+                    
+                case ItemData::Type::BucketColor_RED:
+                    inventory.push_back(itemData);
+                    break;
+                    
+                case ItemData::Type::BucketColor_GREEN:
+                    inventory.push_back(itemData);
+                    break;
+                    
+                case ItemData::Type::BucketColor_BLUE:
                     inventory.push_back(itemData);
                     break;
             }
