@@ -6,11 +6,9 @@
 #include "../include/Game.hpp"
 #include "../include/DialogState.hpp"
 
-NPC::NPC(GameObject &associated, string file, string name, int frameCountW = 1, int frameCountH = 1) : Component(associated) {
+NPC::NPC(GameObject &associated, string file, string name, int frameCountW, int frameCountH) : Component(associated) {
     SpriteRenderer* npc = new SpriteRenderer(associated, file, frameCountW, frameCountH);
     associated.AddComponent(npc);
-
-
     hasDialog = false;
     spriteFile = file;
     this->name = name;
