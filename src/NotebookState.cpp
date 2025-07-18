@@ -354,10 +354,12 @@ void NotebookState::UpdatePageContent() {
         GameObject* logoObj = new GameObject();
         AddObject(logoObj);
         pageItems.push_back(logoObj);
-        SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper.png");
+        SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper_logo_caderno.png");
         logo->SetCameraFollower(true);
         logoObj->AddComponent(logo);
-        logo->SetScale(0.5f, 0.5f);
+        //logo->SetScale(0.5f, 0.5f);
+        cerr << logoObj->box.W << endl;
+        cerr << logoObj->box.H << endl;
         logoObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/4) - logoObj->box.W/2;
         logoObj->box.Y = cadernoObj->box.Y + 20;
 

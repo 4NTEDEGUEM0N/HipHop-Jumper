@@ -28,16 +28,16 @@ TitleState::TitleState() {
     backgroundMusic.Open("../Recursos/audio/TRACKS/MAIN MENU TRACK LOOP.wav");
     backgroundMusic.SetIntro("../Recursos/audio/TRACKS/MAIN MENU TRACK START.wav");
 
-    /*
+
     GameObject* logoObj = new GameObject();
     AddObject(logoObj);
-    SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper.png");
+    SpriteRenderer* logo = new SpriteRenderer(*logoObj, "../Recursos/img/hiphopjumper_logo_menu.png");
     logo->SetCameraFollower(true);
     logoObj->AddComponent(logo);
-    //logo->SetScale(0.5f, 0.5f);
-    logoObj->box.X = Game::VirtualScreenWidth/2 - logoObj->box.W/2;
-    logoObj->box.Y = 20;
-    */
+    logoObj->box.X = -6;
+    logoObj->box.Y = 9;
+    logoObj->box.Z = 1;
+
     SDL_Color buttonNone = {47,63,68,255};
     //SDL_Color buttonNone = {87, 46, 73, 255};
     //SDL_Color buttonNone = {148, 0, 92, 255};
