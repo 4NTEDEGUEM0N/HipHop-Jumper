@@ -157,7 +157,7 @@ StageTutorialState::StageTutorialState() {
     dashObj->box.X = 17*64;
     dashObj->box.Y = 3*64;
 
-    string wall_jump = "Pule em direção a parade para agarra-la.\n"
+    string wall_jump = "Pule em direção à parede para agarrá-la.\n"
                     "Pule novamente para realizar um wall jump!";
 
     GameObject* wallJumpObj = new GameObject();
@@ -189,7 +189,9 @@ StageTutorialState::StageTutorialState() {
     cuidadoVigilanteObj->box.Y = 6*64;
 
     string stun_vigilante = "Aperte " + string(SDL_GetKeyName(keybinder.GetKeyForAction(KeyBindingManager::STUNGLEE))) + " próximo vigilante para\n"
-                    "jogar um spray na cara dele!";
+                    "jogar um spray na cara dele!\n\n"
+                    "Você pode usar o spray 3 vezes por level.\n"
+                    "Seja sábio!\n";
 
     GameObject* stunVigilanteObj = new GameObject();
     AddObject(stunVigilanteObj);

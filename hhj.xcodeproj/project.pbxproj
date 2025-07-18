@@ -60,6 +60,8 @@
 		B0E2385A2E25C7A70093D1BF /* DetectionZone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238592E25C7A70093D1BF /* DetectionZone.cpp */; };
 		B0E238672E27290C0093D1BF /* MusicManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238652E27290C0093D1BF /* MusicManager.cpp */; };
 		B0E2386A2E27291C0093D1BF /* AmbientManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238682E27291C0093D1BF /* AmbientManager.cpp */; };
+		B0E2387A2E29DB680093D1BF /* StageTutorialState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238782E29DB680093D1BF /* StageTutorialState.cpp */; };
+		B0E2387B2E29DB680093D1BF /* LevelSelectorState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0E238792E29DB680093D1BF /* LevelSelectorState.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -288,6 +290,10 @@
 		B0E238682E27291C0093D1BF /* AmbientManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AmbientManager.cpp; sourceTree = "<group>"; };
 		B0E238692E27291C0093D1BF /* AmbientManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AmbientManager.hpp; sourceTree = "<group>"; };
 		B0E2386C2E2853080093D1BF /* AMBIENCE */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AMBIENCE; sourceTree = "<group>"; };
+		B0E238782E29DB680093D1BF /* StageTutorialState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageTutorialState.cpp; sourceTree = "<group>"; };
+		B0E238792E29DB680093D1BF /* LevelSelectorState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelSelectorState.cpp; sourceTree = "<group>"; };
+		B0E2387C2E29DB7D0093D1BF /* LevelSelectorState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = LevelSelectorState.hpp; path = include/LevelSelectorState.hpp; sourceTree = SOURCE_ROOT; };
+		B0E2387D2E29DB7D0093D1BF /* StageTutorialState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StageTutorialState.hpp; path = include/StageTutorialState.hpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +346,8 @@
 				B002CC362DDA3D1800654639 /* TileMap.hpp */,
 				B002CC4C2DDA3D1800654639 /* Timer.hpp */,
 				B0152ACE2DBD57EE008B5B08 /* TitleState.hpp */,
+				B0E2387C2E29DB7D0093D1BF /* LevelSelectorState.hpp */,
+				B0E2387D2E29DB7D0093D1BF /* StageTutorialState.hpp */,
 				B0E238692E27291C0093D1BF /* AmbientManager.hpp */,
 				B0E238662E27290C0093D1BF /* MusicManager.hpp */,
 				B002CC3A2DDA3D1800654639 /* Vec2.hpp */,
@@ -412,6 +420,8 @@
 				B002CC622DDA3D3100654639 /* TitleState.cpp */,
 				B0152B042DBD6F01008B5B08 /* Vec2.cpp */,
 				B002CC6E2DDA3D3100654639 /* Zombie.cpp */,
+				B0E238792E29DB680093D1BF /* LevelSelectorState.cpp */,
+				B0E238782E29DB680093D1BF /* StageTutorialState.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -661,7 +671,9 @@
 				B050526B2DDA8A3F00C81331 /* GameObject.cpp in Sources */,
 				B050526C2DDA8A3F00C81331 /* Gun.cpp in Sources */,
 				B050526D2DDA8A3F00C81331 /* HUD.cpp in Sources */,
+				B0E2387B2E29DB680093D1BF /* LevelSelectorState.cpp in Sources */,
 				B050526E2DDA8A3F00C81331 /* InputManager.cpp in Sources */,
+				B0E2387A2E29DB680093D1BF /* StageTutorialState.cpp in Sources */,
 				B05052702DDA8A3F00C81331 /* Item.cpp in Sources */,
 				B05052722DDA8A3F00C81331 /* Music.cpp in Sources */,
 				B080ED452E1EE0B5001731B1 /* DialogState.cpp in Sources */,

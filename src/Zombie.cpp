@@ -21,18 +21,18 @@ Zombie::Zombie(GameObject& associated, int hp):Component(associated), deathSound
     ySpeed = 0;
     hitting = false;
 
-    SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/vigilante.png", 4,8);
+    SpriteRenderer* zmb = new SpriteRenderer(associated, "../Recursos/img/VigilanteSpritesheetGigantesca.png", 6,5);
     associated.AddComponent(zmb);
     //zmb->SetScale(0.1, 0.1);
 
     Animator *animator = new Animator(associated);
     animator->AddAnimation("walking", Animation(0, 11, 0.1));
     animator->AddAnimation("walkingLeft", Animation(0, 11, 0.1, SDL_FLIP_HORIZONTAL));
-    animator->AddAnimation("dead", Animation(18, 18, 0));
-    animator->AddAnimation("hit", Animation(12, 23, 0.08));
-    animator->AddAnimation("hitLeft", Animation(12, 23, 0.08, SDL_FLIP_HORIZONTAL));
-    animator->AddAnimation("hitting", Animation(24, 31, 0.05));
-    animator->AddAnimation("hittingLeft", Animation(24, 31, 0.05, SDL_FLIP_HORIZONTAL));
+    //animator->AddAnimation("dead", Animation(18, 18, 0));
+    animator->AddAnimation("hit", Animation(19, 25, 0.1));
+    animator->AddAnimation("hitLeft", Animation(19, 25, 0.1, SDL_FLIP_HORIZONTAL));
+    animator->AddAnimation("hitting", Animation(12, 18, 0.1));
+    animator->AddAnimation("hittingLeft", Animation(12, 18, 0.1, SDL_FLIP_HORIZONTAL));
     animator->SetAnimation("walking");
     associated.AddComponent(animator);
 
