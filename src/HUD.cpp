@@ -56,10 +56,10 @@ void HUD::Render() {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_Rect dashRect = { (int)this->dashRect->X, (int)this->dashRect->Y, (int)this->dashRect->W, (int)this->dashRect->H };
         SDL_RenderFillRect(renderer, &dashRect);
-    }
-
-    if (player != nullptr)
+        
         characterSprite.SetFrame(player->ammo);
+    }
+        
     levelTimerText->Render();
     fpsText->Render();
 }
