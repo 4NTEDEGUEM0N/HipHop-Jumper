@@ -358,8 +358,6 @@ void NotebookState::UpdatePageContent() {
         logo->SetCameraFollower(true);
         logoObj->AddComponent(logo);
         //logo->SetScale(0.5f, 0.5f);
-        cerr << logoObj->box.W << endl;
-        cerr << logoObj->box.H << endl;
         logoObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/4) - logoObj->box.W/2;
         logoObj->box.Y = cadernoObj->box.Y + 20;
 
