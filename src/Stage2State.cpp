@@ -98,6 +98,9 @@ Stage2State::Stage2State() {
     PlayerController* playerController = new PlayerController(*playerObject);
     playerObject->AddComponent(playerController);
 
+    backgroundMusic.Open("../Recursos/audio/TRACKS/THEME 2 LOOP 3.wav");
+    backgroundMusic.SetIntro("../Recursos/audio/TRACKS/THEME 2 LOOP 1.wav");
+
     hud = new HUD();
 
 }

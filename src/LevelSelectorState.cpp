@@ -5,6 +5,7 @@
 #include "../include/Button.hpp"
 #include "../include/StageState.hpp"
 #include "../include/Stage2State.hpp"
+#include "../include/Stage3State.hpp"
 #include "../include/StageTutorialState.hpp"
 #include "../include/Text.hpp"
 #include "../include/TitleState.hpp"
@@ -141,7 +142,7 @@ void LevelSelectorState::LoadLevel() {
         game.Push(stage2);
         game.SuperPop();
     } else if (currentLevel == 3) {
-        StageState* stage3 = new StageState();
+        Stage3State* stage3 = new Stage3State();
         game.Push(stage3);
         game.SuperPop();
     } else {
