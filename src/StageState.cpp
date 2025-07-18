@@ -404,8 +404,10 @@ StageState::StageState() {
         ItemData sprayAzulData = ItemData::SprayColor_BLUE();
 
         GameObject* redObject = new GameObject(false);
-        redObject->box.X = 92*64;
-        redObject->box.Y = 51*64;
+        redObject->box.X = 13*64;
+        redObject->box.Y = 132*64;
+        //redObject->box.X = 92*64;
+        //redObject->box.Y = 51*64;
         Item* red = new Item(*redObject, sprayVermelhoData);
         redObject->AddComponent(red);
         AddObject(redObject);

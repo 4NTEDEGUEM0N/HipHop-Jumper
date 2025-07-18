@@ -144,51 +144,197 @@ NotebookState::~NotebookState() {
     pageItems.clear();
 }
 
-void NotebookState::RenderCollectables() {
-    int row = 0;
-    int column = 0;
-    int minikits = Character::player->minikits;
-    for (int i = 0; i < 6; i++, column++) {
-        if (i % 3 == 0 and i>0) {
-            row++;
-            column = 0;
+void NotebookState::RenderCollectables(int level) {
+    
+    if (level == 1) {
+        int row = 0;
+        int column = 0;
+        int minikits = Character::player->minikits;
+        for (int i = 0; i < 6; i++, column++) {
+            if (i % 3 == 0 and i>0) {
+                row++;
+                column = 0;
+            }
+            GameObject* minikitObj = new GameObject();
+            AddObject(minikitObj);
+            pageItems.push_back(minikitObj);
+            SpriteRenderer* minikit = new SpriteRenderer(*minikitObj, "../Recursos/img/minikitHud.png", 2, 1);
+            minikit->SetCameraFollower(true);
+            if (minikits > 0) {
+                minikit->SetFrame(1);
+                minikits--;
+            } else {
+                minikit->SetFrame(0);
+            }
+            minikitObj->AddComponent(minikit);
+            minikitObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + minikitObj->box.W/2 + column*128.5;
+            minikitObj->box.Y = 168 + row*100;
         }
-        GameObject* minikitObj = new GameObject();
-        AddObject(minikitObj);
-        pageItems.push_back(minikitObj);
-        SpriteRenderer* minikit = new SpriteRenderer(*minikitObj, "../Recursos/img/minikitHud.png", 2, 1);
-        minikit->SetCameraFollower(true);
-        if (minikits > 0) {
-            minikit->SetFrame(1);
-            minikits--;
-        } else {
-            minikit->SetFrame(0);
+        row++;
+        column = 0;
+        for (int i = 6 ;i < 9; i++, column++) {
+            string file = "";
+            if (i-6+1 <= Character::player->inventory.size()) {
+                file = Character::player->inventory[i-6].iconPath;
+                
+                GameObject* canObj = new GameObject();
+                AddObject(canObj);
+                pageItems.push_back(canObj);
+                SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
+                can->SetCameraFollower(true);
+                canObj->AddComponent(can);
+                
+                Animator* canAnimator = new Animator(*canObj);
+                canAnimator->SetAnimation("spin");
+                canObj->AddComponent(canAnimator);
+                
+                canObj->box.Z = 2;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.Y = 168 + row*100;
+            } else {
+                file = "../Recursos/img/COLETAVEISSCALED/SILHUETA LATA (1).png";
+                
+                GameObject* canObj = new GameObject();
+                AddObject(canObj);
+                pageItems.push_back(canObj);
+                SpriteRenderer* can = new SpriteRenderer(*canObj, file);
+                can->SetScale(0.8, 0.8);
+                can->SetCameraFollower(true);
+                canObj->AddComponent(can);
+                
+                canObj->box.Z = 2;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.Y = 168 + row*100;
+                
+            }
         }
-        minikitObj->AddComponent(minikit);
-        minikitObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + minikitObj->box.W/2 + column*128.5;
-        minikitObj->box.Y = 168 + row*100;
     }
-    row++;
-    column = 0;
-    for (int i = 6 ;i < 9; i++, column++) {
-        string file = "";
-        if (i-6+1 <= Character::player->inventory.size()) {
-            file = Character::player->inventory[i-6].iconPath;
-        } else {
-            file = "../Recursos/img/lata-cinza.png";
+        
+    if (level == 2) {
+        int row = 0;
+        int column = 0;
+        int minikits = Character::player->minikits2;
+        for (int i = 0; i < 6; i++, column++) {
+            if (i % 3 == 0 and i>0) {
+                row++;
+                column = 0;
+            }
+            GameObject* minikitObj = new GameObject();
+            AddObject(minikitObj);
+            pageItems.push_back(minikitObj);
+            SpriteRenderer* minikit = new SpriteRenderer(*minikitObj, "../Recursos/img/minikitHud.png", 2, 1);
+            minikit->SetCameraFollower(true);
+            if (minikits > 0) {
+                minikit->SetFrame(1);
+                minikits--;
+            } else {
+                minikit->SetFrame(0);
+            }
+            minikitObj->AddComponent(minikit);
+            minikitObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + minikitObj->box.W/2 + column*128.5;
+            minikitObj->box.Y = 168 + row*100;
         }
-        GameObject* canObj = new GameObject();
-        AddObject(canObj);
-        pageItems.push_back(canObj);
-        SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
-        
-        Animator* canAnimator = new Animator(*canObj);
-        canAnimator->SetAnimation("static");
-        
-        can->SetCameraFollower(true);
-        canObj->AddComponent(can);
-        canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
-        canObj->box.Y = 168 + row*100;
+        row++;
+        column = 0;
+        for (int i = 6 ;i < 9; i++, column++) {
+            string file = "";
+            if (i-6+1 <= Character::player->inventory.size()) {
+                file = Character::player->inventory[i-6].iconPath;
+                
+                GameObject* canObj = new GameObject();
+                AddObject(canObj);
+                pageItems.push_back(canObj);
+                SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
+                can->SetCameraFollower(true);
+                canObj->AddComponent(can);
+                
+                Animator* canAnimator = new Animator(*canObj);
+                canAnimator->SetAnimation("spin");
+                canObj->AddComponent(canAnimator);
+                
+                canObj->box.Z = 2;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.Y = 168 + row*100;
+            } else {
+                file = "../Recursos/img/COLETAVEISSCALED/SILHUETA MARCADOR (1).png";
+                
+                GameObject* canObj = new GameObject();
+                AddObject(canObj);
+                pageItems.push_back(canObj);
+                SpriteRenderer* can = new SpriteRenderer(*canObj, file);
+                //can->SetScale(0.08, 0.08);
+                can->SetCameraFollower(true);
+                canObj->AddComponent(can);
+                
+                canObj->box.Z = 2;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.Y = 168 + row*100;
+                
+            }
+        }
+    }
+            
+    if (level == 3) {
+        int row = 0;
+        int column = 0;
+        int minikits = Character::player->minikits3;
+        for (int i = 0; i < 6; i++, column++) {
+            if (i % 3 == 0 and i>0) {
+                row++;
+                column = 0;
+            }
+            GameObject* minikitObj = new GameObject();
+            AddObject(minikitObj);
+            pageItems.push_back(minikitObj);
+            SpriteRenderer* minikit = new SpriteRenderer(*minikitObj, "../Recursos/img/minikitHud.png", 2, 1);
+            minikit->SetCameraFollower(true);
+            if (minikits > 0) {
+                minikit->SetFrame(1);
+                minikits--;
+            } else {
+                minikit->SetFrame(0);
+            }
+            minikitObj->AddComponent(minikit);
+            minikitObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + minikitObj->box.W/2 + column*128.5;
+            minikitObj->box.Y = 168 + row*100;
+        }
+        row++;
+        column = 0;
+        for (int i = 6 ;i < 9; i++, column++) {
+            string file = "";
+            if (i-6+1 <= Character::player->inventory.size()) {
+                file = Character::player->inventory[i-6].iconPath;
+                
+                GameObject* canObj = new GameObject();
+                AddObject(canObj);
+                pageItems.push_back(canObj);
+                SpriteRenderer* can = new SpriteRenderer(*canObj, file, 9, 9);
+                can->SetCameraFollower(true);
+                canObj->AddComponent(can);
+                
+                Animator* canAnimator = new Animator(*canObj);
+                canAnimator->SetAnimation("spin");
+                canObj->AddComponent(canAnimator);
+                
+                canObj->box.Z = 2;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.Y = 168 + row*100;
+            } else {
+                file = "../Recursos/img/COLETAVEISSCALED/SILHUETA BALDE (1).png";
+                
+                GameObject* canObj = new GameObject();
+                AddObject(canObj);
+                pageItems.push_back(canObj);
+                SpriteRenderer* can = new SpriteRenderer(*canObj, file);
+                //can->SetScale(0.08, 0.08);
+                can->SetCameraFollower(true);
+                canObj->AddComponent(can);
+                
+                canObj->box.Z = 2;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.Y = 168 + row*100;
+            }
+        }
     }
 }
 
@@ -249,7 +395,7 @@ void NotebookState::UpdatePageContent() {
         collectObj->box.X = (cadernoObj->box.X + (3*cadernoObj->box.W)/4) - collectObj->box.W/2 - 20;
         collectObj->box.Y = cadernoObj->box.Y + 20;
 
-        RenderCollectables();
+        RenderCollectables(1);
     }
     
     if (currentPage == 2 && LevelSelectorState::currentLevel != 0) {
@@ -288,7 +434,7 @@ void NotebookState::UpdatePageContent() {
         collectObj->box.X = (cadernoObj->box.X + (3*cadernoObj->box.W)/4) - collectObj->box.W/2 - 20;
         collectObj->box.Y = cadernoObj->box.Y + 20;
 
-        RenderCollectables();
+        RenderCollectables(2);
     }
     
     if (currentPage == 3 && LevelSelectorState::currentLevel != 0) {
@@ -327,13 +473,13 @@ void NotebookState::UpdatePageContent() {
         collectObj->box.X = (cadernoObj->box.X + (3*cadernoObj->box.W)/4) - collectObj->box.W/2 - 20;
         collectObj->box.Y = cadernoObj->box.Y + 20;
 
-        RenderCollectables();
+        RenderCollectables(3);
     }
 
-    if (currentPage > 4 || (LevelSelectorState::currentLevel == 0 && currentPage > 1)) {
+    if (currentPage > 3 || (LevelSelectorState::currentLevel == 0 && currentPage > 1)) {
         if (Character::graffitiArray.empty()) return;
 
-        int startIndex = (currentPage - 2) * 4;
+        int startIndex = (currentPage - 4) * 4;
         int endIndex = startIndex + 4;
 
         for (int i = startIndex; i < Character::graffitiArray.size() && i < endIndex; i++) {

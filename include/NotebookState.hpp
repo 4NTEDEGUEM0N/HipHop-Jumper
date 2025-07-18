@@ -19,7 +19,7 @@ public:
     void Resume();
 
     void UpdatePageContent();
-    void RenderCollectables();
+    void RenderCollectables(int level);
 
 private:
     GameObject* cadernoObj;

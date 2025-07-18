@@ -15,17 +15,18 @@ Item::Item(GameObject& associated, ItemData itemData) :
 
     if (itemData.type == ItemData::Type::Minikit || itemData.type == ItemData::Type::Minikit2 || itemData.type == ItemData::Type::Minikit3) {
         itemSprite = new SpriteRenderer(associated, itemData.iconPath);
+        associated.AddComponent(itemSprite);
     } else {
         itemSprite = new SpriteRenderer(associated, itemData.iconPath, 9, 9);
+        associated.AddComponent(itemSprite);
+        
         Animator* animator = new Animator(associated);
-        animator->AddAnimation("static", Animation(0, 0, 0));
+        animator->AddAnimation("static", Animation(0, 0, 1));
         animator->AddAnimation("spin", Animation(0, 74, 0.05));
         animator->SetAnimation("spin");
         associated.AddComponent(animator);
     }
     
-    associated.AddComponent(itemSprite);
-
     Collider* collider = new Collider(associated);
     associated.AddComponent(collider);
     
