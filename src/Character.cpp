@@ -24,7 +24,7 @@ Character* Character::player = nullptr;
 vector<SDL_Texture*> Character::graffitiArray;
 int Character::currentGraffitiId = -1;
 
-Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/MOVIMENTOS/FIGHT VOCALIZE MALE HURT.wav"),
+Character::Character(GameObject& associated, string sprite) : Component(associated), deathSound("../Recursos/audio/ahh.wav"),
     hitSound("../Recursos/audio/MOVIMENTOS/FIGHT VOCALIZE MALE.wav"),
     spraySound("../Recursos/audio/GRAFFITI/CANSHAKESPRAY.wav"),
     jumpSound("../Recursos/audio/MOVIMENTOS/JUMP1.wav"),

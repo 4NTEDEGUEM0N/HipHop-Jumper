@@ -1,13 +1,15 @@
 #include "../include/NPC.hpp"
 
+#include "../include/Animator.hpp"
 #include "../include/Collider.hpp"
 #include "../include/SpriteRenderer.hpp"
 #include "../include/Game.hpp"
 #include "../include/DialogState.hpp"
 
-NPC::NPC(GameObject &associated, string file, string name):Component(associated) {
-    SpriteRenderer* npc = new SpriteRenderer(associated, file);
+NPC::NPC(GameObject &associated, string file, string name, int frameCountW = 1, int frameCountH = 1) : Component(associated) {
+    SpriteRenderer* npc = new SpriteRenderer(associated, file, frameCountW, frameCountH);
     associated.AddComponent(npc);
+
 
     hasDialog = false;
     spriteFile = file;

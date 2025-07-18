@@ -1,3 +1,4 @@
+#include "../include/Animator.hpp"
 #include "../include/DialogState.hpp"
 #include "../include/SpriteRenderer.hpp"
 #include "../include/InputManager.hpp"
@@ -20,12 +21,21 @@ DialogState::DialogState(GameObject& npcGO, vector<string> dialogs, string npcSp
     dialogBox->box.H = 180;
 
     GameObject* npcObj = new GameObject();
-    SpriteRenderer* npcSpriteRenderer = new SpriteRenderer(*npcObj, npcSprite);
-    npcSpriteRenderer->SetCameraFollower(true);
-    npcObj->AddComponent(npcSpriteRenderer);
-    AddObject(npcObj);
-    npcObj->box.X = 0;
-    npcObj->box.Y = npcObj->box.H/2;
+    
+    if (npcName == "RATORIOUS B.I.G.") {
+        SpriteRenderer* npcSpriteRenderer = new SpriteRenderer(*npcObj, npcSprite, 4, 4);
+        npcSpriteRenderer->SetCameraFollower(true);
+        npcObj->AddComponent(npcSpriteRenderer);
+        
+        Animator* npcAnimator = new Animator(*npcObj);
+        npcAnimator->AddAnimation("idle", Animation(14, 14, 0));
+        npcAnimator->SetAnimation("idle");
+        npcObj->AddComponent(npcAnimator);
+        
+        AddObject(npcObj);
+        npcObj->box.X = 20;
+        npcObj->box.Y = npcObj->box.H/2;
+    }
 
     GameObject* nameTextObj = new GameObject();
     Text* nameText = new Text(*nameTextObj, "../Recursos/font/KGPerfectPenmanship.ttf", 20, Text::SOLID, npcName, {255, 255, 255, 255}, true);

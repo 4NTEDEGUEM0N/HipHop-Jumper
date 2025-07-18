@@ -64,6 +64,7 @@ TitleState::TitleState() {
     optionsButtonObj->AddComponent(optionsButton);
     optionsText = new Text(*optionsObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Options", buttonNone, true);
     optionsObj->AddComponent(optionsText);
+    optionsObj->box.Z = 1;
     optionsObj->box.X = optionsButtonObj->box.X + optionsButtonObj->box.W/2 - optionsObj->box.W/2;
     optionsObj->box.Y = optionsButtonObj->box.Y;
     AddObject(optionsObj);
@@ -103,6 +104,7 @@ TitleState::TitleState() {
     playButtonObj->AddComponent(playButton);
     playText = new Text(*playObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Play", buttonNone, true);
     playObj->AddComponent(playText);
+    playObj->box.Z = 1;
     playObj->box.X = playButtonObj->box.X + playButtonObj->box.W/2 - playObj->box.W/2;
     playObj->box.Y = playButtonObj->box.Y;
     AddObject(playObj);
@@ -144,6 +146,7 @@ TitleState::TitleState() {
     creditosButtonObj->AddComponent(creditosButton);
     creditosText = new Text(*creeditosObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Credits", buttonNone, true);
     creeditosObj->AddComponent(creditosText);
+    creeditosObj->box.Z = 1;
     creeditosObj->box.X = creditosButtonObj->box.X + creditosButtonObj->box.W/2 - creeditosObj->box.W/2;
     creeditosObj->box.Y = creditosButtonObj->box.Y;
     AddObject(creeditosObj);
@@ -180,6 +183,7 @@ TitleState::TitleState() {
     quitButtonObj->AddComponent(quitButton);
     quitText = new Text(*quitObj, "../Recursos/font/GraffitiYouth-Regular.ttf", 100, Text::BLENDED, "Quit", buttonNone, true);
     quitObj->AddComponent(quitText);
+    quitObj->box.Z = 1;
     quitObj->box.X = quitButtonObj->box.X + quitButtonObj->box.W/2 - quitObj->box.W/2;
     quitObj->box.Y = quitButtonObj->box.Y;
     AddObject(quitObj);

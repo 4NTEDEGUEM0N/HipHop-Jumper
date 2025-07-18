@@ -11,7 +11,7 @@
 #include "../include/Game.hpp"
 
 Gun::Gun(GameObject& associated, weak_ptr<GameObject> character) : Component(associated),
-                                                                   shotSound("../Recursos/audio/GRAFFITI/SPRAY 1.wav"), reloadSound("../Recursos/audio/GRAFFITI/CANSHAKESPRAY.wav"), character(character) {
+                                                                   shotSound("../Recursos/audio/GRAFFITI/SPRAY SHORT 4.wav"), reloadSound("../Recursos/audio/GRAFFITI/CAN SHAKE 3.wav"), character(character) {
     cdTimer = Timer();
     cooldown = 0;
     angle = 0;

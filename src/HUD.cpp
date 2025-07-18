@@ -50,7 +50,7 @@ void HUD::Render() {
         SDL_RenderFillRect(renderer, &hpRect);
 
         hpText->SetText(to_string(player->GetHP()) + "/100");
-        hpText->Render();
+        //hpText->Render();
         characterSprite.Render(characterRect->X, characterRect->Y, characterRect->W, characterRect->H);
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);

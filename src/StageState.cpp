@@ -246,7 +246,14 @@ StageState::StageState() {
 
         GameObject* ratoNPCObj = new GameObject();
         AddObject(ratoNPCObj);
-        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/rato.png", "RATORIOUS B.I.G.");
+        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/RatoriousSentadoIdleScaled.png", "RATORIOUS B.I.G.", 4, 4);
+        
+        Animator* animator = new Animator(*ratoNPCObj);
+        ratoNPCObj->AddComponent(animator);
+        animator->AddAnimation("idle", Animation(0, 13, 0.1));
+        animator->AddAnimation("standing", Animation(14, 14, 0));
+        animator->SetAnimation("idle");
+        
         ratoNPCObj->AddComponent(ratoNPC);
         ratoNPCObj->box.X = 2496;
         ratoNPCObj->box.Y = 3848 - ratoNPCObj->box.H;
@@ -325,6 +332,8 @@ StageState::StageState() {
         */
         playerObject->box.X = 448;
         playerObject->box.Y = 8512 - playerObject->box.H;
+        //playerObject->box.X = 448;
+        //playerObject->box.Y = 8512 - playerObject->box.H;
         playerObject->box.Z = 1;
         Camera::Follow(playerObject);
         playerObject->AddComponent(playerCharacter);
@@ -333,7 +342,14 @@ StageState::StageState() {
 
         GameObject* ratoNPCObj = new GameObject();
         AddObject(ratoNPCObj);
-        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/RatoriousBig.png", "RATORIOUS B.I.G.");
+        NPC* ratoNPC = new NPC(*ratoNPCObj, "../Recursos/img/RatoriousSentadoIdleScaled.png", "RATORIOUS B.I.G.", 4, 4);
+        
+        Animator* animator = new Animator(*ratoNPCObj);
+        ratoNPCObj->AddComponent(animator);
+        animator->AddAnimation("idle", Animation(0, 13, 0.1));
+        animator->AddAnimation("standing", Animation(14, 14, 0));
+        animator->SetAnimation("idle");
+        
         ratoNPCObj->AddComponent(ratoNPC);
         ratoNPCObj->box.X = 3008;
         ratoNPCObj->box.Y = 8572 - ratoNPCObj->box.H;
@@ -454,9 +470,12 @@ StageState::StageState() {
         
         
         
+        Sound* lampSound = new Sound("../Recursos/audio/AMBIENCE/LIGHT BUZZING.wav");
+        
         GameObject* lampObject = new GameObject(false);
+        lampObject->box.Z = 2;
         lampObject->box.X = 11 * 64;
-        lampObject->box.Y = 130 * 64 + 10;
+        lampObject->box.Y = 130 * 64 + 12;
         SpriteRenderer* spriteLamp = new SpriteRenderer(*lampObject, "../Recursos/img/luz.png", 2, 1);
         lampObject->AddComponent(spriteLamp);
         AddObject(lampObject);
@@ -476,8 +495,6 @@ StageState::StageState() {
         DetectionZone* detectionZoneLamp = new DetectionZone(*detectionObjLamp);
         detectionObjLamp->AddComponent(detectionZoneLamp);
         
-        Sound* lampSound = new Sound("../Recursos/audio/AMBIENCE/LIGHT BUZZING.wav");
-        
         detectionZoneLamp->SetDetectFunction([animatorLamp, lampSound]() {
             animatorLamp->SetAnimation("on");
             lampSound->Play(1);
@@ -485,6 +502,168 @@ StageState::StageState() {
         detectionZoneLamp->SetNoneFunction([animatorLamp]() {
             animatorLamp->SetAnimation("off");
         });
+        
+        
+        GameObject* lampObject2 = new GameObject(false);
+        lampObject2->box.Z = 2;
+        lampObject2->box.X = 94 * 64 - 30;
+        lampObject2->box.Y = 32 * 64 + 12;
+        SpriteRenderer* spriteLamp2 = new SpriteRenderer(*lampObject2, "../Recursos/img/luz.png", 2, 1);
+        lampObject2->AddComponent(spriteLamp2);
+        AddObject(lampObject2);
+        
+        Animator* animatorLamp2 = new Animator(*lampObject2);
+        animatorLamp2->AddAnimation("off", Animation(1, 1, 0));
+        animatorLamp2->AddAnimation("on", Animation(0, 0, 0));
+        animatorLamp2->SetAnimation("off");
+        lampObject2->AddComponent(animatorLamp2);
+        
+        GameObject* detectionObjLamp2 = new GameObject();
+        detectionObjLamp2->box.X = 94 * 64 - 32;
+        detectionObjLamp2->box.Y = 32 * 64;
+        detectionObjLamp2->box.W = 5 * 64;
+        detectionObjLamp2->box.H = 5 * 64;
+        AddObject(detectionObjLamp2);
+        DetectionZone* detectionZoneLamp2 = new DetectionZone(*detectionObjLamp2);
+        detectionObjLamp2->AddComponent(detectionZoneLamp2);
+        
+        detectionZoneLamp2->SetDetectFunction([animatorLamp2, lampSound]() {
+            animatorLamp2->SetAnimation("on");
+            lampSound->Play(1);
+        });
+        detectionZoneLamp2->SetNoneFunction([animatorLamp2]() {
+            animatorLamp2->SetAnimation("off");
+        });
+        
+        GameObject* lampObject3 = new GameObject(false);
+        lampObject3->box.Z = 2;
+        lampObject3->box.X = 103 * 64 - 36;
+        lampObject3->box.Y = 32 * 64 + 12;
+        SpriteRenderer* spriteLamp3 = new SpriteRenderer(*lampObject3, "../Recursos/img/luz.png", 2, 1);
+        lampObject3->AddComponent(spriteLamp3);
+        AddObject(lampObject3);
+
+        Animator* animatorLamp3 = new Animator(*lampObject3);
+        animatorLamp3->AddAnimation("off", Animation(1, 1, 0));
+        animatorLamp3->AddAnimation("on", Animation(0, 0, 0));
+        animatorLamp3->SetAnimation("off");
+        lampObject3->AddComponent(animatorLamp3);
+
+        GameObject* detectionObjLamp3 = new GameObject();
+        detectionObjLamp3->box.X = 103 * 64 - 32;
+        detectionObjLamp3->box.Y = 32 * 64;
+        detectionObjLamp3->box.W = 5 * 64;
+        detectionObjLamp3->box.H = 5 * 64;
+        AddObject(detectionObjLamp3);
+        DetectionZone* detectionZoneLamp3 = new DetectionZone(*detectionObjLamp3);
+        detectionObjLamp3->AddComponent(detectionZoneLamp3);
+
+        detectionZoneLamp3->SetDetectFunction([animatorLamp3, lampSound]() {
+            animatorLamp3->SetAnimation("on");
+            lampSound->Play(1);
+        });
+        detectionZoneLamp3->SetNoneFunction([animatorLamp3]() {
+            animatorLamp3->SetAnimation("off");
+        });
+
+        GameObject* lampObject4 = new GameObject(false);
+        lampObject4->box.Z = 2;
+        lampObject4->box.X = 112 * 64 - 48;
+        lampObject4->box.Y = 32 * 64 + 16;
+        SpriteRenderer* spriteLamp4 = new SpriteRenderer(*lampObject4, "../Recursos/img/luz.png", 2, 1);
+        lampObject4->AddComponent(spriteLamp4);
+        AddObject(lampObject4);
+
+        Animator* animatorLamp4 = new Animator(*lampObject4);
+        animatorLamp4->AddAnimation("off", Animation(1, 1, 0));
+        animatorLamp4->AddAnimation("on", Animation(0, 0, 0));
+        animatorLamp4->SetAnimation("off");
+        lampObject4->AddComponent(animatorLamp4);
+
+        GameObject* detectionObjLamp4 = new GameObject();
+        detectionObjLamp4->box.X = 112 * 64 - 48;
+        detectionObjLamp4->box.Y = 32 * 64;
+        detectionObjLamp4->box.W = 5 * 64;
+        detectionObjLamp4->box.H = 5 * 64;
+        AddObject(detectionObjLamp4);
+        DetectionZone* detectionZoneLamp4 = new DetectionZone(*detectionObjLamp4);
+        detectionObjLamp4->AddComponent(detectionZoneLamp4);
+
+        detectionZoneLamp4->SetDetectFunction([animatorLamp4, lampSound]() {
+            animatorLamp4->SetAnimation("on");
+            lampSound->Play(1);
+        });
+        detectionZoneLamp4->SetNoneFunction([animatorLamp4]() {
+            animatorLamp4->SetAnimation("off");
+        });
+        
+        
+        GameObject* lampObject5 = new GameObject(false);
+        lampObject5->box.Z = 5;
+        lampObject5->box.X = 85 * 64;
+        lampObject5->box.Y = 33 * 64 - 20;
+        lampObject5->angleDeg = 343.0f;
+
+        SpriteRenderer* spriteLamp5 = new SpriteRenderer(*lampObject5, "../Recursos/img/luz.png", 2, 1);
+        lampObject5->AddComponent(spriteLamp5);
+        AddObject(lampObject5);
+
+        Animator* animatorLamp5 = new Animator(*lampObject5);
+        animatorLamp5->AddAnimation("off", Animation(1, 1, 0));
+        animatorLamp5->AddAnimation("on", Animation(0, 0, 0));
+        animatorLamp5->SetAnimation("off");
+        lampObject5->AddComponent(animatorLamp5);
+
+        GameObject* detectionObjLamp5 = new GameObject();
+        detectionObjLamp5->box.X = 85 * 64;
+        detectionObjLamp5->box.Y = 33 * 64;
+        detectionObjLamp5->box.W = 5 * 64;
+        detectionObjLamp5->box.H = 5 * 64;
+        AddObject(detectionObjLamp5);
+
+        DetectionZone* detectionZoneLamp5 = new DetectionZone(*detectionObjLamp5);
+        detectionObjLamp5->AddComponent(detectionZoneLamp5);
+
+        detectionZoneLamp5->SetDetectFunction([animatorLamp5, lampSound]() {
+            animatorLamp5->SetAnimation("on");
+            lampSound->Play(1);
+        });
+        detectionZoneLamp5->SetNoneFunction([animatorLamp5]() {
+            animatorLamp5->SetAnimation("off");
+        });
+
+        
+        
+//        GameObject* lampObject = new GameObject(false);
+//        lampObject->box.Z = 2;
+//        lampObject->box.X = 11 * 64;
+//        lampObject->box.Y = 130 * 64 + 10;
+//        SpriteRenderer* spriteLamp = new SpriteRenderer(*lampObject, "../Recursos/img/luz.png", 2, 1);
+//        lampObject->AddComponent(spriteLamp);
+//        AddObject(lampObject);
+//
+//        Animator* animatorLamp = new Animator(*lampObject);
+//        animatorLamp->AddAnimation("off", Animation(1, 1, 0));
+//        animatorLamp->AddAnimation("on", Animation(0, 0, 0));
+//        animatorLamp->SetAnimation("off");
+//        lampObject->AddComponent(animatorLamp);
+//
+//        GameObject* detectionObjLamp = new GameObject();
+//        detectionObjLamp->box.X = 11 * 64;
+//        detectionObjLamp->box.Y = 130 * 64;
+//        detectionObjLamp->box.W = 5 * 64;
+//        detectionObjLamp->box.H = 5 * 64;
+//        AddObject(detectionObjLamp);
+//        DetectionZone* detectionZoneLamp = new DetectionZone(*detectionObjLamp);
+//        detectionObjLamp->AddComponent(detectionZoneLamp);
+//
+//        detectionZoneLamp->SetDetectFunction([animatorLamp, lampSound]() {
+//            animatorLamp->SetAnimation("on");
+//            lampSound->Play(1);
+//        });
+//        detectionZoneLamp->SetNoneFunction([animatorLamp]() {
+//            animatorLamp->SetAnimation("off");
+//        });
     
         
         Rect* metroIntroAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 6 * 64);
@@ -684,6 +863,7 @@ void StageState::End(GameObject* playerObject) {
     SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, file);
     graffitiObj->AddComponent(graffiti);
     graffiti->SetScale(0.3f, 0.3f);
+    graffitiObj->box.Z = 0;
     graffitiObj->box.X = playerObject->box.X + playerObject->box.W/2 - graffitiObj->box.W/2;
     graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H;
     AddObject(graffitiObj);
