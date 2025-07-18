@@ -223,7 +223,7 @@ void NotebookState::UpdatePageContent() {
         "próprio graffiti! Eles ficarão salvos\n"
         "nas próximas páginas.";
         } else {
-            text1 = "Breve descrição e objetivo:\n\n"
+            text1 = "LEVEL 1: O Nascimento de Gaia\n\n"
         "Explorar os obstáculos de um\n"
         "cenário urbano em busca do\n"
         "espaço perfeito para a arte\n"
@@ -264,7 +264,13 @@ void NotebookState::UpdatePageContent() {
         logoObj->box.Y = cadernoObj->box.Y + 20;
 
         string text1;
-        text1 = "LEVEL3: Arranha-céu";
+        text1 = "LEVEL 2: O Mito de Sísifo\n\n"
+        "Subir pelas veias da metrópole,\n"
+        "encarar becos, muros e viadutos\n"
+        "num esforço constante e desafiador.\n"
+        "Como Sísifo empurrando sua arte\n"
+        "contra a corrente, cada traço é\n"
+        "resistência no coração urbano.\n";
 
         GameObject* textObj1 = new GameObject();
         AddObject(textObj1);
@@ -297,7 +303,13 @@ void NotebookState::UpdatePageContent() {
         logoObj->box.Y = cadernoObj->box.Y + 20;
 
         string text1;
-        text1 = "LEVEL3: Arranha-céu";
+        text1 = "LEVEL 3: O Vôo de Ícaro\n\n"
+        "Alcançar os céus da cidade,\n"
+        "os topos esquecidos e as alturas\n"
+        "proibidas. Ali, onde o vento bate\n"
+        "mais forte, o grafite encontra sua\n"
+        "glória, e seu risco. Voar alto é\n"
+        "liberdade, mas também tentação.\n";
 
         GameObject* textObj1 = new GameObject();
         AddObject(textObj1);
