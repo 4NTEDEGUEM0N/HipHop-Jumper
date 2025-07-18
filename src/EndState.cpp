@@ -70,7 +70,9 @@ EndState::EndState() {
     });
 
     if (GameData::playerVictory) {
-        backgroundMusic.Open("../Recursos/audio/endStateWin.ogg");
+        //backgroundMusic.Open("../Recursos/audio/endStateWin.ogg");
+        backgroundMusic.Open("../Recursos/audio/TRACKS/MAIN MENU TRACK LOOP.wav");
+        backgroundMusic.SetIntro("../Recursos/audio/TRACKS/MAIN MENU TRACK START.wav");
         completedText->SetText("Level Completed!");
         completedText->SetColor({0, 255, 0, 255});
         completedObj->box.X = Game::VirtualScreenWidth/2 - completedObj->box.W/2;
