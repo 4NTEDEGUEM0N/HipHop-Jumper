@@ -145,7 +145,10 @@ NotebookState::~NotebookState() {
 }
 
 void NotebookState::RenderCollectables(int level) {
-    
+    int collecs1 = 0;
+    int collecs2 = 0;
+    int collecs3 = 0;
+
     if (level == 1) {
         int row = 0;
         int column = 0;
@@ -172,10 +175,13 @@ void NotebookState::RenderCollectables(int level) {
         }
         row++;
         column = 0;
-        for (int i = 6 ;i < 9; i++, column++) {
+        int foundCollec = 0;
+        for (int i = 6 ;i < 9; i++) {
             string file = "";
+            if (collecs1 > 3) break;
             if (i-6+1 <= Character::player->inventory.size()) {
                 if (Character::player->inventory[i-6].name == "LATA") {
+                    collecs1++;
                     file = Character::player->inventory[i-6].iconPath;
                     
                     GameObject* canObj = new GameObject();
@@ -192,6 +198,8 @@ void NotebookState::RenderCollectables(int level) {
                     canObj->box.Z = 2;
                     canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
                     canObj->box.Y = 168 + row*100;
+                    
+                    column++;
                 }
             } else {
                 file = "../Recursos/img/COLETAVEISSCALED/SILHUETALATA.png";
@@ -205,9 +213,8 @@ void NotebookState::RenderCollectables(int level) {
                 canObj->AddComponent(can);
                 
                 canObj->box.Z = 2;
-                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + (column - collecs2 - collecs3)*128.5;
                 canObj->box.Y = 168 + row*100;
-                
             }
         }
     }
@@ -238,10 +245,13 @@ void NotebookState::RenderCollectables(int level) {
         }
         row++;
         column = 0;
-        for (int i = 6 ;i < 9; i++, column++) {
+        int foundCollec = 0;
+        for (int i = 6 ;i < 15; i++) {
             string file = "";
+            if (collecs2 > 3) break;
             if (i-6+1 <= Character::player->inventory.size()) {
                 if (Character::player->inventory[i-6].name == "MARCADOR") {
+                    collecs2++;
                     file = Character::player->inventory[i-6].iconPath;
                     
                     GameObject* canObj = new GameObject();
@@ -258,6 +268,8 @@ void NotebookState::RenderCollectables(int level) {
                     canObj->box.Z = 2;
                     canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
                     canObj->box.Y = 168 + row*100;
+                    
+                    column++;
                 }
             } else {
                 file = "../Recursos/img/COLETAVEISSCALED/SILHUETAMARCADOR.png";
@@ -271,9 +283,8 @@ void NotebookState::RenderCollectables(int level) {
                 canObj->AddComponent(can);
                 
                 canObj->box.Z = 2;
-                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + (column - collecs1 - collecs3)*128.5;
                 canObj->box.Y = 168 + row*100;
-                
             }
         }
     }
@@ -304,10 +315,13 @@ void NotebookState::RenderCollectables(int level) {
         }
         row++;
         column = 0;
-        for (int i = 6 ;i < 15; i++, column++) {
+        int foundCollec = 0;
+        for (int i = 6; i < 15; i++) {
             string file = "";
+            if (foundCollec > 3) break;
             if (i-6+1 <= Character::player->inventory.size()) {
                 if (Character::player->inventory[i-6].name == "BALDE") {
+                    collecs3++;
                     file = Character::player->inventory[i-6].iconPath;
                     
                     GameObject* canObj = new GameObject();
@@ -322,8 +336,10 @@ void NotebookState::RenderCollectables(int level) {
                     canObj->AddComponent(canAnimator);
                     
                     canObj->box.Z = 2;
-                    canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                    canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + (column)*128.5;
                     canObj->box.Y = 168 + row*100;
+                    
+                    column++;
                 }
             } else {
                 file = "../Recursos/img/COLETAVEISSCALED/SILHUETABALDE.png";
@@ -337,7 +353,7 @@ void NotebookState::RenderCollectables(int level) {
                 canObj->AddComponent(can);
                 
                 canObj->box.Z = 2;
-                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + column*128.5;
+                canObj->box.X = (cadernoObj->box.X + (cadernoObj->box.W)/2) + canObj->box.W/2 + (column - collecs2 - collecs3)*128.5;
                 canObj->box.Y = 168 + row*100;
             }
         }

@@ -15,7 +15,7 @@
 EndState::EndState() {
     GameObject* bgObject = new GameObject();
     AddObject(bgObject);
-    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/pixel.png");
+    SpriteRenderer* bg = new SpriteRenderer(*bgObject,  "../Recursos/img/BG Caderno claro.png");
     bg->SetCameraFollower(true);
     bgObject->AddComponent(bg);
     float scaleX = Game::VirtualScreenWidth  / (bgObject->box.W);
@@ -97,7 +97,7 @@ EndState::EndState() {
         minikitObj->box.Y = minikitTextdObj->box.Y;
 
         GameObject* canTextObj = new GameObject();
-        Text* canText = new Text(*canTextObj, "../Recursos/font/KGPerfectPenmanship.ttf", 50, Text::BLENDED, "Spray Cans: " + to_string(GameData::sprayCans) + "/3", {255, 255, 255, 255}, true);
+        Text* canText = new Text(*canTextObj, "../Recursos/font/KGPerfectPenmanship.ttf", 50, Text::BLENDED, "Collectibles: " + to_string(GameData::sprayCans) + "/3", {255, 255, 255, 255}, true);
         canTextObj->AddComponent(canText);
         AddObject(canTextObj);
         canTextObj->box.X = Game::VirtualScreenWidth/2 - canTextObj->box.W/2;
@@ -105,7 +105,7 @@ EndState::EndState() {
 
         GameObject* canObj = new GameObject();
         AddObject(canObj);
-        SpriteRenderer* can = new SpriteRenderer(*canObj, "../Recursos/img/lata-cinza.png");
+        SpriteRenderer* can = new SpriteRenderer(*canObj, "../Recursos/img/COLETAVEISSCALED/SILHUETALATA.png");
         can->SetCameraFollower(true);
         canObj->AddComponent(can);
         canObj->box.X = canTextObj->box.X - canObj->box.W - 10;
