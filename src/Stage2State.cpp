@@ -327,17 +327,15 @@ void Stage2State::End(GameObject* playerObject) {
         file = "../Recursos/img/Graffiti final level 2_2_scaled.png";
     }
     else {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_1_scaled.png";
     }
 
     GameObject* graffitiObj = new GameObject(true);
     SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, file);
     graffitiObj->AddComponent(graffiti);
     //graffiti->SetScale(0.3f, 0.3f);
-    cerr << graffitiObj->box.W << endl;
-    cerr << graffitiObj->box.H << endl;
     graffitiObj->box.Z = 0;
     graffitiObj->box.X = playerObject->box.X + playerObject->box.W/2 - graffitiObj->box.W/2;
-    graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H;
+    graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H + 64;
     AddObject(graffitiObj);
 }
