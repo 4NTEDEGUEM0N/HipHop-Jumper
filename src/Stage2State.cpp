@@ -158,6 +158,13 @@ Stage2State::Stage2State() {
     AddObject(CreateVigilante({39,71}));
     AddObject(CreateVigilante({14,54}));
 
+    AddObject(CreateMinikit2({41,166}));
+    AddObject(CreateMinikit2({8,112}));
+    AddObject(CreateMinikit2({53,73}));
+    AddObject(CreateMinikit2({14,53}));
+    AddObject(CreateMinikit2({37,52}));
+    AddObject(CreateMinikit2({17,27}));
+
     hud = new HUD();
 
 }

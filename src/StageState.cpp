@@ -863,8 +863,6 @@ void StageState::End(GameObject* playerObject) {
     SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, file);
     graffitiObj->AddComponent(graffiti);
     //graffiti->SetScale(0.3f, 0.3f);
-    cerr << graffitiObj->box.W << endl;
-    cerr << graffitiObj->box.H << endl;
     graffitiObj->box.Z = 0;
     graffitiObj->box.X = playerObject->box.X + playerObject->box.W/2 - graffitiObj->box.W/2;
     graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H;

@@ -17,7 +17,7 @@ public:
     void Pause();
     void Resume();
 
-    void LoadLevel();
+    static void LoadLevel();
     static void NextLevel();
     static int currentLevel;
 private:

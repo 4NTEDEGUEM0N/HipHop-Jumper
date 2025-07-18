@@ -118,11 +118,42 @@ Stage3State::Stage3State() {
     doidaNPCObj->box.X = 56*64;
     doidaNPCObj->box.Y = 59*64 - doidaNPCObj->box.H;
 
+    GameObject* endObj = new GameObject();
+    endObj->box.X = 52*64;
+    endObj->box.Y = 7*64;
+    endObj->box.W = 64*3;
+    endObj->box.H = 64*3;
+    AddObject(endObj);
+    DetectionZone* endDetectionZone = new DetectionZone(*endObj);
+    endObj->AddComponent(endDetectionZone);
+    endDetectionZone->SetDetectFunction([this,playerObject]() {
+        End(playerObject);
+    });
+
+    GameObject* end2Obj = new GameObject();
+    end2Obj->box.X = 93*64;
+    end2Obj->box.Y = 54*64;
+    end2Obj->box.W = 64*3;
+    end2Obj->box.H = 64*3;
+    AddObject(end2Obj);
+    DetectionZone* end2DetectionZone = new DetectionZone(*end2Obj);
+    end2Obj->AddComponent(end2DetectionZone);
+    end2DetectionZone->SetDetectFunction([this,playerObject]() {
+        End(playerObject);
+    });
+
     AddObject(CreateVigilante2({66,31}));
     AddObject(CreateVigilante2({65,15}));
     AddObject(CreateVigilante2({60,15}));
     AddObject(CreateVigilante2({72,29}));
     AddObject(CreateVigilante2({90,32}));
+
+    AddObject(CreateMinikit3({106,49}));
+    AddObject(CreateMinikit3({109,4}));
+    AddObject(CreateMinikit3({87,44}));
+    AddObject(CreateMinikit3({73,26}));
+    AddObject(CreateMinikit3({62,11}));
+    AddObject(CreateMinikit3({62,44}));
 
     hud = new HUD();
 
@@ -239,8 +270,8 @@ GameObject* Stage3State::GetTileMapObject() {
 }
 
 void Stage3State::End(GameObject* playerObject) {
-    playerObject->box.X = 7232;
-    playerObject->box.Y = 2368 - playerObject->box.H;
+    playerObject->box.X = 53*64;
+    playerObject->box.Y = 10*64 - playerObject->box.H;
     GameData::ended = true;
     GameData::playerVictory = true;
     GameData::endTime = hud->GetLevelTimer();
@@ -272,28 +303,28 @@ void Stage3State::End(GameObject* playerObject) {
 
     string file = "";
     if (hasRed && hasGreen && hasBlue) {
-        file = "../Recursos/img/Graffiti final level 1_3_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_4_scaled.png";
     }
     else if (hasRed && hasGreen) {
-        file = "../Recursos/img/Graffiti final level 1_2_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_3_scaled.png";
     }
     else if (hasRed && hasBlue) {
-        file = "../Recursos/img/Graffiti final level 1_2_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_3_scaled.png";
     }
     else if (hasGreen && hasBlue) {
-        file = "../Recursos/img/Graffiti final level 1_2_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_3_scaled.png";
     }
     else if (hasRed) {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_2_scaled.png";
     }
     else if (hasGreen) {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_2_scaled.png";
     }
     else if (hasBlue) {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_2_scaled.png";
     }
     else {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_1_scaled.png";
     }
 
     GameObject* graffitiObj = new GameObject(true);
@@ -302,6 +333,6 @@ void Stage3State::End(GameObject* playerObject) {
     //graffiti->SetScale(0.3f, 0.3f);
     graffitiObj->box.Z = 0;
     graffitiObj->box.X = playerObject->box.X + playerObject->box.W/2 - graffitiObj->box.W/2;
-    graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H;
+    graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H + 64;
     AddObject(graffitiObj);
 }
