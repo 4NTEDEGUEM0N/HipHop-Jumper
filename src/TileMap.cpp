@@ -208,13 +208,13 @@ void TileMap::SetCollisionMatrix(int layer) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
             if (solidIDs.find(index) != solidIDs.end()) {
-                if (index == 15) {
+                if (index == 15 or index == 166 or index == 205) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopLeft;
-                } else if (index == 16) {
+                } else if (index == 16 or index == 134 or index == 206 or index == 215) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopRight;
-                } else if (index == 18) {
+                } else if (index == 18 or index == 246) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomLeft;
-                } else if (index == 19) {
+                } else if (index == 19 or index == 125 or index == 216 or index == 247) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomRight;
                 } else {
                     collisionMatrix[y][x] = TileCollisionType::Full;
