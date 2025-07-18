@@ -152,3 +152,8 @@ void LevelSelectorState::LoadLevel() {
     }
 }
 
+void LevelSelectorState::NextLevel() {
+    currentLevel++;
+    LoadLevel();
+}
+

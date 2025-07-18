@@ -91,9 +91,14 @@ Stage2State::Stage2State() {
     tileMapObject->box.Y = 0;
     set<int> solidIDs = {0,1,2,41,42,43,82,83,84,123,124,125,164,165,166,205,206,207,246,247,250,251,252,254,257,134,175,176,214,215,216,
         1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251,
-        1252, 1253, 1254, 1255, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1264, 1265, 1266, 1267, 1268, 1269};
+        1252, 1253, 1254, 1255, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1264, 1265, 1266, 1267, 1268, 1269,17, 18, 19, 20, 21, 22,
+        23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,60,70,71,72,75,111,112,113,116};
     tileSet = collisionTileSet;
     TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/2_3_fase.txt", TileSets, solidIDs, 1);
+    tileMap->TriangleTopLeftIDs = {166, 205, 26, 32, 35, 113};
+    tileMap->TriangleTopRightIDs = {134, 206, 215, 36, 112};
+    tileMap->TriangleBottomLeftIDs = {246, 27, 33, 116};
+    tileMap->TriangleBottomRightIDs = {125, 216, 247, 28, 34, 75};
     tileMapObject->AddComponent(tileMap);
 
     GameObject* playerObject = new GameObject(false);
@@ -157,6 +162,13 @@ Stage2State::Stage2State() {
     AddObject(CreateVigilante({35,80}));
     AddObject(CreateVigilante({39,71}));
     AddObject(CreateVigilante({14,54}));
+
+    AddObject(CreateMinikit2({41,166}));
+    AddObject(CreateMinikit2({8,112}));
+    AddObject(CreateMinikit2({53,73}));
+    AddObject(CreateMinikit2({14,53}));
+    AddObject(CreateMinikit2({37,52}));
+    AddObject(CreateMinikit2({17,27}));
 
     hud = new HUD();
 
@@ -327,17 +339,15 @@ void Stage2State::End(GameObject* playerObject) {
         file = "../Recursos/img/Graffiti final level 2_2_scaled.png";
     }
     else {
-        file = "../Recursos/img/Graffiti final level 1_1_scaled.png";
+        file = "../Recursos/img/Graffiti final level 2_1_scaled.png";
     }
 
     GameObject* graffitiObj = new GameObject(true);
     SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, file);
     graffitiObj->AddComponent(graffiti);
     //graffiti->SetScale(0.3f, 0.3f);
-    cerr << graffitiObj->box.W << endl;
-    cerr << graffitiObj->box.H << endl;
     graffitiObj->box.Z = 0;
     graffitiObj->box.X = playerObject->box.X + playerObject->box.W/2 - graffitiObj->box.W/2;
-    graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H;
+    graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H + 64;
     AddObject(graffitiObj);
 }

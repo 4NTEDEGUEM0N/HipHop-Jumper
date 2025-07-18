@@ -36,6 +36,10 @@ public:
     void SetCollisionMatrix(int layer);
     int GetTileSetWidth(int layer = 0);
     int GetTileSetHeight(int layer = 0);
+    set<int> TriangleTopLeftIDs;
+    set<int> TriangleTopRightIDs;
+    set<int> TriangleBottomLeftIDs;
+    set<int> TriangleBottomRightIDs;
 
     enum class CollisionCorner {
         TopLeft, TopRight, BottomLeft, BottomRight, CenterBottom, CenterTop, CenterLeft, CenterRight,

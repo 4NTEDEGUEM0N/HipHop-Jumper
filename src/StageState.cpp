@@ -317,6 +317,10 @@ StageState::StageState() {
         set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,18,19};
         tileSet = collisionTileSet;
         TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase_final_scaled.txt", TileSets, solidIDs, 2);
+        tileMap->TriangleTopLeftIDs = {15};
+        tileMap->TriangleTopRightIDs = {16};
+        tileMap->TriangleBottomLeftIDs = {18};
+        tileMap->TriangleBottomRightIDs = {19};
         tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);
@@ -865,8 +869,6 @@ void StageState::End(GameObject* playerObject) {
     SpriteRenderer* graffiti = new SpriteRenderer(*graffitiObj, file);
     graffitiObj->AddComponent(graffiti);
     //graffiti->SetScale(0.3f, 0.3f);
-    cerr << graffitiObj->box.W << endl;
-    cerr << graffitiObj->box.H << endl;
     graffitiObj->box.Z = 0;
     graffitiObj->box.X = playerObject->box.X + playerObject->box.W/2 - graffitiObj->box.W/2;
     graffitiObj->box.Y = playerObject->box.Y - graffitiObj->box.H;

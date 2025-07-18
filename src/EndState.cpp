@@ -10,6 +10,8 @@
 #include <sstream>
 #include <iomanip>
 
+#include "../include/LevelSelectorState.hpp"
+
 EndState::EndState() {
     GameObject* bgObject = new GameObject();
     AddObject(bgObject);
@@ -36,13 +38,12 @@ EndState::EndState() {
     nextObj->AddComponent(nextText);
     nextObj->box.X = Game::VirtualScreenWidth/2 - nextObj->box.W/2;
     nextObj->box.Y = bgObject->box.Y + bgObject->box.H/2 - nextObj->box.H/2 + 200;
-    /*
-    nextButton->SetClickFunction([this]() {
 
+    nextButton->SetClickFunction([this]() {
+        LevelSelectorState::NextLevel();
     });
-    */
     nextButton->SetHoverFunction([this]() {
-        nextText->SetColor({255, 0, 0, 255});
+        nextText->SetColor({26, 160, 251, 255});
     });
     nextButton->SetNoneFunction([this]() {
         nextText->SetColor({255, 255, 255, 255});
