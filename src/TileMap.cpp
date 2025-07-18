@@ -208,13 +208,32 @@ void TileMap::SetCollisionMatrix(int layer) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
             if (solidIDs.find(index) != solidIDs.end()) {
-                if (index == 15 or index == 166 or index == 205) {
+                if (index == 15 or index == 166 or index == 205 or index == 26 or index == 32 or index == 35 or index == 113) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopLeft;
-                } else if (index == 16 or index == 134 or index == 206 or index == 215) {
+                } else if (index == 16 or index == 134 or index == 206 or index == 215 or index == 36 or index == 112) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopRight;
-                } else if (index == 18 or index == 246) {
+                } else if (index == 18 or index == 246 or index == 27 or index == 33 or index == 116) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomLeft;
-                } else if (index == 19 or index == 125 or index == 216 or index == 247) {
+                } else if (index == 19 or index == 125 or index == 216 or index == 247 or index == 28 or index == 34 or index == 75) {
+                    collisionMatrix[y][x] = TileCollisionType::TriangleBottomRight;
+                } else {
+                    collisionMatrix[y][x] = TileCollisionType::Full;
+                }
+            }
+        }
+    }
+    for (int y = 0; y < mapHeight; ++y) {
+        for (int x = 0; x < mapWidth; ++x) {
+            int index = At(x, y, layer);
+
+            if (solidIDs.find(index) != solidIDs.end()) {
+                if (TriangleTopLeftIDs.find(index) != TriangleTopLeftIDs.end()) {
+                    collisionMatrix[y][x] = TileCollisionType::TriangleTopLeft;
+                } else if (TriangleTopRightIDs.find(index) != TriangleTopRightIDs.end()) {
+                    collisionMatrix[y][x] = TileCollisionType::TriangleTopRight;
+                } else if (TriangleBottomLeftIDs.find(index) != TriangleBottomLeftIDs.end()) {
+                    collisionMatrix[y][x] = TileCollisionType::TriangleBottomLeft;
+                } else if (TriangleBottomRightIDs.find(index) != TriangleBottomRightIDs.end()) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomRight;
                 } else {
                     collisionMatrix[y][x] = TileCollisionType::Full;

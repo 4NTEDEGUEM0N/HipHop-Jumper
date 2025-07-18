@@ -317,6 +317,10 @@ StageState::StageState() {
         set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,18,19};
         tileSet = collisionTileSet;
         TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase_final_scaled.txt", TileSets, solidIDs, 2);
+        tileMap->TriangleTopLeftIDs = {15};
+        tileMap->TriangleTopRightIDs = {16};
+        tileMap->TriangleBottomLeftIDs = {18};
+        tileMap->TriangleBottomRightIDs = {19};
         tileMapObject->AddComponent(tileMap);
 
         GameObject* playerObject = new GameObject(false);
