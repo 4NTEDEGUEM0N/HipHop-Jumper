@@ -485,9 +485,13 @@ void NotebookState::UpdatePageContent() {
     }
 
     if (currentPage > 3 || (LevelSelectorState::currentLevel == 0 && currentPage > 1)) {
+        int magicNumber = 4;
+        if (LevelSelectorState::currentLevel == 0) {
+            magicNumber = 2;
+        }
         if (Character::graffitiArray.empty()) return;
 
-        int startIndex = (currentPage - 4) * 4;
+        int startIndex = (currentPage - magicNumber) * 4;
         int endIndex = startIndex + 4;
 
         for (int i = startIndex; i < Character::graffitiArray.size() && i < endIndex; i++) {
