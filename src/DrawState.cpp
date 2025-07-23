@@ -362,19 +362,15 @@ void DrawState::RenderMouseBrush() {
 void DrawState::FloodFill(int startX, int startY) {
     SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
 
-    // Cria uma surface com os dados da canvasTexture
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA8888);
 
-    // Lê os pixels da textura para a surface
     SDL_SetRenderTarget(renderer, canvasTexture);
     SDL_RenderReadPixels(renderer, nullptr, SDL_PIXELFORMAT_RGBA8888, surface->pixels, surface->pitch);
     SDL_SetRenderTarget(renderer, nullptr);
 
-    // Acesso direto ao buffer
     Uint32* pixels = (Uint32*)surface->pixels;
     int pitch = surface->pitch / 4;
 
-    // Cor original a ser substituída
     Uint32* pixelRef = &pixels[startY * pitch + startX];
     Uint32 targetColor = *pixelRef;
 
@@ -401,7 +397,6 @@ void DrawState::FloodFill(int startX, int startY) {
         q.push({x, y-1});
     }
 
-    // Atualiza a canvasTexture com os pixels preenchidos
     SDL_UpdateTexture(canvasTexture, nullptr, surface->pixels, surface->pitch);
 
     SDL_FreeSurface(surface);

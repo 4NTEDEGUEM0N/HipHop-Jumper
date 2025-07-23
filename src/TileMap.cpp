@@ -259,7 +259,7 @@ vector<TileMap::CollisionInfo> TileMap::IsColliding(Rect boxOG, Vec2 scale) {
     box.Y = box_center.Y - box.H / 2;
 
     // 1. Calcula a área de tiles que a "box" ocupa
-    int tileWidth = GetTileSetWidth(); // Usando o layer de colisão padrão
+    int tileWidth = GetTileSetWidth();
     int tileHeight = GetTileSetHeight();
 
     // Arredonda para baixo para o tile inicial e para cima para o final

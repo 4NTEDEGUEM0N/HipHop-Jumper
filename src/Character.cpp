@@ -294,26 +294,24 @@ void Character::Update(float dt) {
                     float colliderWidth = associated.box.W * colliderScale.X;
                     float offsetSide = (associated.box.W - colliderWidth) / 2.0f;
 
-                    // Se estava indo para a direita (velocidade positiva)
+
                     if (originalSpeedX > 0) {
                         //associated.box.X = (col.tilePos.X * tileMap->GetTileSetWidth()) - associated.box.W - 0.01f;
                         float tileLeftX = col.tilePos.X * tileMap->GetTileSetWidth();
                         associated.box.X = tileLeftX - colliderWidth - offsetSide - 0.01f;
                     }
-                    // Se estava indo para a esquerda (velocidade negativa)
+
                     else if (originalSpeedX < 0) {
                         //associated.box.X = (col.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth() + 0.01f;
                         float tileRightX = (col.tilePos.X * tileMap->GetTileSetWidth()) + tileMap->GetTileSetWidth();
                         associated.box.X = tileRightX - offsetSide + 0.01f;
                     }
 
-                    // Uma vez que ajustamos a posição por um tile sólido, podemos parar de verificar.
-                    // Isso evita ajustes múltiplos se a box tocar dois tiles ao mesmo tempo.
                     break;
                 }
             }
 
-            if (wallCollision && !onGround) { // Só ativa 'onWall' se estiver no ar
+            if (wallCollision && !onGround) {
                 if (onWall == false) grabSound.Play(1);
                 onWall = true;
                 canJump = true; // Permite o Wall Jump
@@ -344,20 +342,17 @@ void Character::Update(float dt) {
             else if (!onWall && !isHit) animator->SetAnimation("falling");
 
         } else {
-            // Determina se a colisão foi com o chão ou com o teto
             bool landed = false;
             bool hitCeiling = false;
             bool foundRamp = false;
 
             for (const auto& col : y_collisions) {
-                // Se a velocidade Y é positiva, estamos caindo.
                 if (speed.Y > 0) {
                     landed = true;
                     float colliderHeight = associated.box.H * colliderScale.Y;
                     float verticalOffset = (associated.box.H - colliderHeight) / 2.0f;
                     float colliderWidth = associated.box.W * colliderScale.X;
                     float horizontalOffset = (associated.box.W - colliderWidth) / 2.0f;
-                    // Lógica para rampas (a sua já era boa!)
                     if (col.type == TileMap::TileCollisionType::TriangleTopLeft) {
                         onRamp = true;
                         isSliding = true;
@@ -399,18 +394,14 @@ void Character::Update(float dt) {
                         dashTimer.Restart();
                         break;
                     }
-                    // Para tiles normais, apenas ajusta a posição
                     else {
                         landed = true;
                         //associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) - (associated.box.H*colliderScale.Y) - 0.01;
                         float colliderHeight = associated.box.H * colliderScale.Y;
-                        // O centro do GameObject deve ficar a meia altura do colisor acima do chão do tile.
                         associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) - (associated.box.H / 2.0f) - (colliderHeight / 2.0f);
-                        // Uma pequena correção para garantir que não haja sobreposição.
                         associated.box.Y -= 0.01f;
                     }
                 }
-                // Se a velocidade Y é negativa, estamos subindo
                 else if (speed.Y < 0) {
                     hitCeiling = true;
                     associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) + tileMap->GetTileSetHeight() + 0.01;
@@ -458,10 +449,8 @@ void Character::Update(float dt) {
     }
     
     if (hp > 0 && !dashing) {
-        // NOVO: Condição para animação de deslize
         if (isSliding) {
-            animator->SetAnimation("falling"); // Ou "falling" se não tiver uma específica
-            // Ajusta a direção do sprite durante o deslize
+            animator->SetAnimation("falling");
             if (speed.X < 0) {
                 characterSprite->SetFlip(SDL_FLIP_HORIZONTAL);
             } else if (speed.X > 0) {
@@ -491,13 +480,13 @@ void Character::Update(float dt) {
     bool shouldPlaySlide = isSliding && !dead;
     
     if (shouldPlayStep) {
-        stepSound.Play(-1);  // loop
+        stepSound.Play(-1);
     } else {
         stepSound.Stop();
     }
 
     if (shouldPlaySlide) {
-        slideSound.Play(-1);  // loop
+        slideSound.Play(-1);
     } else {
         slideSound.Stop();
     }
@@ -675,22 +664,17 @@ void Character::AddGraffiti(SDL_Texture *texture) {
     int w, h;
     SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
 
-    // Define o blend mode correto antes de ler pixels
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 
-    // Cria uma surface temporária com canal alfa
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, w, h, 32, SDL_PIXELFORMAT_RGBA8888);
 
-    // Lê os pixels da canvasTexture
     SDL_SetRenderTarget(renderer, texture);
     SDL_RenderReadPixels(renderer, nullptr, SDL_PIXELFORMAT_RGBA8888, surface->pixels, surface->pitch);
     SDL_SetRenderTarget(renderer, nullptr);
 
-    // Cria uma nova textura que suportará transparência
     SDL_Texture* newTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, w, h);
-    SDL_SetTextureBlendMode(newTexture, SDL_BLENDMODE_BLEND); // <- IMPORTANTE!
+    SDL_SetTextureBlendMode(newTexture, SDL_BLENDMODE_BLEND);
 
-    // Atualiza a nova textura com os dados da surface
     SDL_UpdateTexture(newTexture, nullptr, surface->pixels, surface->pitch);
 
     SDL_FreeSurface(surface);
