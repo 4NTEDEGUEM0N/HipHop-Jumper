@@ -107,8 +107,8 @@ Stage2State::Stage2State() {
     AddObject(playerObject);
     Character* playerCharacter = new Character(*playerObject, "../Recursos/img/sprite_spray_3_scaled.png");
     // 8,164
-    playerObject->box.X = 31*64;
-    playerObject->box.Y = 83*64 - playerObject->box.H;
+    playerObject->box.X = 8*64;
+    playerObject->box.Y = 164*64 - playerObject->box.H;
     playerObject->box.Z = 1;
     Camera::Follow(playerObject);
     playerObject->AddComponent(playerCharacter);
