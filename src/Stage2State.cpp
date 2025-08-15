@@ -70,6 +70,7 @@ Stage2State::Stage2State() {
     TileSet* detalhes2TileSet = new TileSet("../Recursos/img/2_3fase/Sprite sheets detalhes.png", 64, 64);
     TileSet* cenario2TrasTileSet = new TileSet("../Recursos/img/2_3fase/area 2 trás.png", 64, 64);
     TileSet* luzesTileSet = new TileSet("../Recursos/img/2_3fase/assets juntos primeira fase.png", 64, 64);
+    TileSet* luzes2TileSet = new TileSet("../Recursos/img/2_3fase/luz predial.png", 64, 64);
     TileSet* cenario2FundoTileSet = new TileSet("../Recursos/img/2_3fase/assets juntos primeira fase.png", 64, 64);
     TileSet* cenario3TileSet = new TileSet("../Recursos/img/2_3fase/cenário 3.png", 64, 64);
     TileSet* cenario2FundoParalaxTileSet = new TileSet("../Recursos/img/2_3fase/fundo segundo cenário.png", 64, 64);
@@ -81,6 +82,7 @@ Stage2State::Stage2State() {
     TileSets.push_back(detalhes2TileSet);
     TileSets.push_back(cenario2TrasTileSet);
     TileSets.push_back(luzesTileSet);
+    TileSets.push_back(luzes2TileSet);
     TileSets.push_back(cenario2FundoTileSet);
     TileSets.push_back(cenario3TileSet);
     TileSets.push_back(cenario2FundoParalaxTileSet);
@@ -94,7 +96,7 @@ Stage2State::Stage2State() {
         1252, 1253, 1254, 1255, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1264, 1265, 1266, 1267, 1268, 1269,17, 18, 19, 20, 21, 22,
         23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,60,70,71,72,75,111,112,113,116};
     tileSet = collisionTileSet;
-    TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/2_3_fase.txt", TileSets, solidIDs, 1);
+    TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/2_3_fase_final.txt", TileSets, solidIDs, 1);
     tileMap->TriangleTopLeftIDs = {166, 205, 26, 32, 35, 113};
     tileMap->TriangleTopRightIDs = {134, 206, 215, 36, 112};
     tileMap->TriangleBottomLeftIDs = {246, 27, 33, 116};
@@ -105,8 +107,8 @@ Stage2State::Stage2State() {
     AddObject(playerObject);
     Character* playerCharacter = new Character(*playerObject, "../Recursos/img/sprite_spray_3_scaled.png");
     // 8,164
-    playerObject->box.X = 8*64;
-    playerObject->box.Y = 164*64 - playerObject->box.H;
+    playerObject->box.X = 31*64;
+    playerObject->box.Y = 83*64 - playerObject->box.H;
     playerObject->box.Z = 1;
     Camera::Follow(playerObject);
     playerObject->AddComponent(playerCharacter);
@@ -175,8 +177,8 @@ Stage2State::Stage2State() {
     ItemData sprayAzulData = ItemData::MarkerColor_BLUE();
 
     GameObject* redObject = new GameObject(false);
-    redObject->box.X = 33*64;
-    redObject->box.Y = 116*64;
+    redObject->box.X = 10*64;
+    redObject->box.Y = 44*64;
     Item* red = new Item(*redObject, sprayVermelhoData);
     redObject->AddComponent(red);
     AddObject(redObject);
@@ -262,6 +264,7 @@ bool YZ_Sort2(GameObject* a, GameObject* b) {
 
 void Stage2State::Render() {
     TileMap* tileMap = (TileMap*)tileMapObject->GetComponent("TileMap");
+    tileMap->RenderLayer(9); // Camada
     tileMap->RenderLayer(8); // Camada
     tileMap->RenderLayer(7); // Camada
     tileMap->RenderLayer(6); // Camada

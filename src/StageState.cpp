@@ -55,26 +55,28 @@ StageState::StageState() {
     bgObject->box.X = 0;
     bgObject->box.Y = 0;
 
-    TileSet* metroFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario metro123_scaled.png", 64, 64);
     TileSet* finalFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario 2 frente_scaled.png", 64, 64);
+    TileSet* metroFrenteTileSet = new TileSet("../Recursos/img/1fase/cenario metro123_scaled.png", 64, 64);
     TileSet* collisionTileSet = new TileSet("../Recursos/img/1fase/assets juntos primeira fase.png", 64, 64);
     TileSet* finalTrasTileSet = new TileSet("../Recursos/img/1fase/cenario 2 trás_scaled.png", 64, 64);
     TileSet* metroTrasTileSet = new TileSet("../Recursos/img/1fase/cenario metro trás_scaled.png", 64, 64);
     TileSet* detalhes1TileSet = new TileSet("../Recursos/img/1fase/Sprite sheets detalhes.png", 64, 64);
     TileSet* detalhes2TileSet = new TileSet("../Recursos/img/1fase/Sprite sheets detalhes.png", 64, 64);
     TileSet* detalhes3TileSet = new TileSet("../Recursos/img/1fase/tubo extensão sprite.png", 64, 64);
+    TileSet* detalhes4TileSet = new TileSet("../Recursos/img/1fase/Sprite sheets detalhes.png", 64, 64);
     TileSet* texturaFundoTileSet = new TileSet("../Recursos/img/1fase/tijolos.png", 64, 64);
     TileSet* fundoTileSet = new TileSet("../Recursos/img/1fase/tijolos.png", 64, 64);
 
     std::vector<TileSet*> TileSets;
-    TileSets.push_back(metroFrenteTileSet);
     TileSets.push_back(finalFrenteTileSet);
+    TileSets.push_back(metroFrenteTileSet);
     TileSets.push_back(collisionTileSet);
     TileSets.push_back(finalTrasTileSet);
     TileSets.push_back(metroTrasTileSet);
     TileSets.push_back(detalhes1TileSet);
     TileSets.push_back(detalhes2TileSet);
     TileSets.push_back(detalhes3TileSet);
+    TileSets.push_back(detalhes4TileSet);
     TileSets.push_back(texturaFundoTileSet);
     TileSets.push_back(fundoTileSet);
 
@@ -82,13 +84,16 @@ StageState::StageState() {
     AddObject(tileMapObject);
     tileMapObject->box.X = 0;
     tileMapObject->box.Y = 0;
-    set<int> solidIDs = {0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,18,19};
+    set<int> solidIDs = {0,1,2,41,42,43,82,83,84,123,124,125,164,165,166,205,206,207,246,247,250,251,252,254,257,134,175,176,214,215,216,
+        1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238, 1239, 1240, 1241, 1242, 1243, 1244, 1245, 1246, 1247, 1248, 1249, 1250, 1251,
+        1252, 1253, 1254, 1255, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1264, 1265, 1266, 1267, 1268, 1269,17, 18, 19, 20, 21, 22,
+        23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,60,70,71,72,75,111,112,113,116};
     tileSet = collisionTileSet;
-    TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase_final_scaled.txt", TileSets, solidIDs, 2);
-    tileMap->TriangleTopLeftIDs = {15};
-    tileMap->TriangleTopRightIDs = {16};
-    tileMap->TriangleBottomLeftIDs = {18};
-    tileMap->TriangleBottomRightIDs = {19};
+    TileMap* tileMap = new TileMap(*tileMapObject, "../Recursos/map/1fase_final.txt", TileSets, solidIDs, 2);
+    tileMap->TriangleTopLeftIDs = {166, 205, 26, 32, 35, 113};
+    tileMap->TriangleTopRightIDs = {134, 206, 215, 36, 112};
+    tileMap->TriangleBottomLeftIDs = {246, 27, 33, 116};
+    tileMap->TriangleBottomRightIDs = {125, 216, 247, 28, 34, 75};
     tileMapObject->AddComponent(tileMap);
 
     GameObject* playerObject = new GameObject(false);
@@ -102,8 +107,8 @@ StageState::StageState() {
      * Fim: 5760, 1536
      * Super canto direito: 7936, 384
     */
-    playerObject->box.X = 448;
-    playerObject->box.Y = 8512 - playerObject->box.H;
+    playerObject->box.X = 7*64;
+    playerObject->box.Y = 136*64 - playerObject->box.H;
     //playerObject->box.X = 448;
     //playerObject->box.Y = 8512 - playerObject->box.H;
     playerObject->box.Z = 1;
@@ -123,8 +128,8 @@ StageState::StageState() {
     animator->SetAnimation("idle");
 
     ratoNPCObj->AddComponent(ratoNPC);
-    ratoNPCObj->box.X = 3008;
-    ratoNPCObj->box.Y = 8572 - ratoNPCObj->box.H;
+    ratoNPCObj->box.X = 47*64;
+    ratoNPCObj->box.Y = 8764 - ratoNPCObj->box.H;
     Collider* npcCollider = new Collider(*ratoNPCObj, {2,2});
     ratoNPCObj->AddComponent(npcCollider);
 
@@ -141,8 +146,8 @@ StageState::StageState() {
     backgroundMusic.SetIntro("../Recursos/audio/TRACKS/CLOUD TRAP METRO START.wav");
 
     GameObject* detectionObj = new GameObject();
-    detectionObj->box.X = 7168;
-    detectionObj->box.Y = 2176;
+    detectionObj->box.X = 112*64;
+    detectionObj->box.Y = 29*64;
     detectionObj->box.W = 64*3;
     detectionObj->box.H = 64*3;
     AddObject(detectionObj);
@@ -153,8 +158,8 @@ StageState::StageState() {
     });
 
     GameObject* detectionObj2 = new GameObject();
-    detectionObj2->box.X = 192;
-    detectionObj2->box.Y = 8448;
+    detectionObj2->box.X = 3*64;
+    detectionObj2->box.Y = 135*64;
     detectionObj2->box.W = 64*2;
     detectionObj2->box.H = 64*2;
     //AddObject(detectionObj2);
@@ -164,11 +169,11 @@ StageState::StageState() {
         End(playerObject);
     });
 
-    AddObject(CreateMinikit({2,133}));
-    AddObject(CreateMinikit({69,132}));
-    AddObject(CreateMinikit({78,102}));
+    AddObject(CreateMinikit({2,136}));
+    AddObject(CreateMinikit({69,135}));
+    AddObject(CreateMinikit({78,104}));
     AddObject(CreateMinikit({133,2}));
-    AddObject(CreateMinikit({100,44}));
+    AddObject(CreateMinikit({95,41}));
     AddObject(CreateMinikit({64,36}));
 
     ItemData sprayVermelhoData = ItemData::SprayColor_RED();
@@ -178,8 +183,8 @@ StageState::StageState() {
     GameObject* redObject = new GameObject(false);
 //        redObject->box.X = 13*64;
 //        redObject->box.Y = 132*64;
-    redObject->box.X = 92*64;
-    redObject->box.Y = 51*64;
+    redObject->box.X = 84*64;
+    redObject->box.Y = 52*64;
     Item* red = new Item(*redObject, sprayVermelhoData);
     redObject->AddComponent(red);
     AddObject(redObject);
@@ -188,7 +193,7 @@ StageState::StageState() {
     //greenObject->box.X = 14*64;
     //greenObject->box.Y = 132*64;
     greenObject->box.X = 84*64;
-    greenObject->box.Y = 107*64;
+    greenObject->box.Y = 109*64;
     Item* green = new Item(*greenObject, sprayVerdeData);
     greenObject->AddComponent(green);
     AddObject(greenObject);
@@ -211,7 +216,7 @@ StageState::StageState() {
 
     GameObject* dropObject = new GameObject(false);
     dropObject->box.X = 53 * 64 + 10;
-    dropObject->box.Y = 130 * 64 + 5;
+    dropObject->box.Y = 133 * 64 + 5;
     SpriteRenderer* spriteDrop = new SpriteRenderer(*dropObject, "../Recursos/img/thedrop.png", 6, 6);
     dropObject->AddComponent(spriteDrop);
     AddObject(dropObject);
@@ -229,7 +234,7 @@ StageState::StageState() {
 
     GameObject* detectionObjDrop = new GameObject();
     detectionObjDrop->box.X = 38 * 64;
-    detectionObjDrop->box.Y = 124 * 64;
+    detectionObjDrop->box.Y = 127 * 64;
     detectionObjDrop->box.W = 30 * 64;
     detectionObjDrop->box.H = 10 * 64;
     AddObject(detectionObjDrop);
@@ -251,7 +256,7 @@ StageState::StageState() {
     GameObject* lampObject = new GameObject(false);
     lampObject->box.Z = 2;
     lampObject->box.X = 11 * 64;
-    lampObject->box.Y = 130 * 64 + 12;
+    lampObject->box.Y = 133 * 64 + 12;
     SpriteRenderer* spriteLamp = new SpriteRenderer(*lampObject, "../Recursos/img/luz.png", 2, 1);
     lampObject->AddComponent(spriteLamp);
     AddObject(lampObject);
@@ -264,7 +269,7 @@ StageState::StageState() {
 
     GameObject* detectionObjLamp = new GameObject();
     detectionObjLamp->box.X = 11 * 64;
-    detectionObjLamp->box.Y = 130 * 64;
+    detectionObjLamp->box.Y = 133 * 64;
     detectionObjLamp->box.W = 5 * 64;
     detectionObjLamp->box.H = 5 * 64;
     AddObject(detectionObjLamp);
@@ -283,7 +288,7 @@ StageState::StageState() {
     GameObject* lampObject2 = new GameObject(false);
     lampObject2->box.Z = 2;
     lampObject2->box.X = 94 * 64 - 30;
-    lampObject2->box.Y = 32 * 64 + 12;
+    lampObject2->box.Y = 27 * 64 + 12;
     SpriteRenderer* spriteLamp2 = new SpriteRenderer(*lampObject2, "../Recursos/img/luz.png", 2, 1);
     lampObject2->AddComponent(spriteLamp2);
     AddObject(lampObject2);
@@ -296,7 +301,7 @@ StageState::StageState() {
 
     GameObject* detectionObjLamp2 = new GameObject();
     detectionObjLamp2->box.X = 94 * 64 - 32;
-    detectionObjLamp2->box.Y = 32 * 64;
+    detectionObjLamp2->box.Y = 27 * 64;
     detectionObjLamp2->box.W = 5 * 64;
     detectionObjLamp2->box.H = 5 * 64;
     AddObject(detectionObjLamp2);
@@ -314,7 +319,7 @@ StageState::StageState() {
     GameObject* lampObject3 = new GameObject(false);
     lampObject3->box.Z = 2;
     lampObject3->box.X = 103 * 64 - 36;
-    lampObject3->box.Y = 32 * 64 + 12;
+    lampObject3->box.Y = 27 * 64 + 12;
     SpriteRenderer* spriteLamp3 = new SpriteRenderer(*lampObject3, "../Recursos/img/luz.png", 2, 1);
     lampObject3->AddComponent(spriteLamp3);
     AddObject(lampObject3);
@@ -327,7 +332,7 @@ StageState::StageState() {
 
     GameObject* detectionObjLamp3 = new GameObject();
     detectionObjLamp3->box.X = 103 * 64 - 32;
-    detectionObjLamp3->box.Y = 32 * 64;
+    detectionObjLamp3->box.Y = 27 * 64;
     detectionObjLamp3->box.W = 5 * 64;
     detectionObjLamp3->box.H = 5 * 64;
     AddObject(detectionObjLamp3);
@@ -345,7 +350,7 @@ StageState::StageState() {
     GameObject* lampObject4 = new GameObject(false);
     lampObject4->box.Z = 2;
     lampObject4->box.X = 112 * 64 - 48;
-    lampObject4->box.Y = 32 * 64 + 16;
+    lampObject4->box.Y = 27 * 64 + 16;
     SpriteRenderer* spriteLamp4 = new SpriteRenderer(*lampObject4, "../Recursos/img/luz.png", 2, 1);
     lampObject4->AddComponent(spriteLamp4);
     AddObject(lampObject4);
@@ -358,7 +363,7 @@ StageState::StageState() {
 
     GameObject* detectionObjLamp4 = new GameObject();
     detectionObjLamp4->box.X = 112 * 64 - 48;
-    detectionObjLamp4->box.Y = 32 * 64;
+    detectionObjLamp4->box.Y = 27 * 64;
     detectionObjLamp4->box.W = 5 * 64;
     detectionObjLamp4->box.H = 5 * 64;
     AddObject(detectionObjLamp4);
@@ -377,7 +382,7 @@ StageState::StageState() {
     GameObject* lampObject5 = new GameObject(false);
     lampObject5->box.Z = 5;
     lampObject5->box.X = 85 * 64;
-    lampObject5->box.Y = 33 * 64 - 20;
+    lampObject5->box.Y = 28 * 64 - 20;
     lampObject5->angleDeg = 343.0f;
 
     SpriteRenderer* spriteLamp5 = new SpriteRenderer(*lampObject5, "../Recursos/img/luz.png", 2, 1);
@@ -392,7 +397,7 @@ StageState::StageState() {
 
     GameObject* detectionObjLamp5 = new GameObject();
     detectionObjLamp5->box.X = 85 * 64;
-    detectionObjLamp5->box.Y = 33 * 64;
+    detectionObjLamp5->box.Y = 28 * 64;
     detectionObjLamp5->box.W = 5 * 64;
     detectionObjLamp5->box.H = 5 * 64;
     AddObject(detectionObjLamp5);
@@ -442,7 +447,7 @@ StageState::StageState() {
 //        });
 
 
-    Rect* metroIntroAmbience = new Rect(1 * 64, 129 * 64, 71 * 64, 6 * 64);
+    Rect* metroIntroAmbience = new Rect(1 * 64, 132 * 64, 71 * 64, 6 * 64);
     AmbientManager::GetInstance().AddRegion(*metroIntroAmbience, "../Recursos/audio/AMBIENCE/METRO ARRIVING.wav");
 
 //        //TODO
@@ -450,14 +455,14 @@ StageState::StageState() {
 //        AmbientManager::GetInstance().AddRegion(*dropAmbience, "../Recursos/audio/AMBIENCE/WATER DROPS 1.wav");
 
 
-    Rect* metroMidAmbience = new Rect(0 * 64, 0 * 64, 135 * 64, 31 * 64);
+    Rect* metroMidAmbience = new Rect(0 * 64, 0 * 64, 135 * 64, 25 * 64);
     AmbientManager::GetInstance().AddRegion(*metroMidAmbience, "../Recursos/audio/AMBIENCE/METRO AMBIENCE 2.wav");
 
-    Rect* metroEndAmbience = new Rect(83 * 64, 32 * 64, 44 * 64, 6 * 64);
+    Rect* metroEndAmbience = new Rect(83 * 64, 27 * 64, 44 * 64, 6 * 64);
     AmbientManager::GetInstance().AddRegion(*metroEndAmbience, "../Recursos/audio/AMBIENCE/METRO AMBIENCE.wav");
 
-    Rect* sewersAmbience = new Rect(40 * 64, 38 * 64, 63 * 64, 91 * 64);
-    Rect* sewersAmbience2 = new Rect(40 * 64, 20 * 64, 43 * 64, 18 * 64);
+    Rect* sewersAmbience = new Rect(41 * 64, 34 * 64, 58 * 64, 98 * 64);
+    Rect* sewersAmbience2 = new Rect(54 * 64, 20 * 64, 29 * 64, 14 * 64);
     AmbientManager::GetInstance().AddRegion(*sewersAmbience, "../Recursos/audio/AMBIENCE/WATER DROPS 2.wav");
     AmbientManager::GetInstance().AddRegion(*sewersAmbience2, "../Recursos/audio/AMBIENCE/WATER DROPS 2.wav");
 
@@ -520,6 +525,7 @@ bool YZ_Sort(GameObject* a, GameObject* b) {
 
 void StageState::Render() {
     TileMap* tileMap = (TileMap*)tileMapObject->GetComponent("TileMap");
+    tileMap->RenderLayer(10);
     tileMap->RenderLayer(9); // Camada
     tileMap->RenderLayer(8); // Camada
     tileMap->RenderLayer(7); // Camada
@@ -540,8 +546,8 @@ void StageState::Render() {
         objectsToRender[i]->Render();
     }
 
-    tileMap->RenderLayer(1); // Camada final frente
-    tileMap->RenderLayer(0); // Camada metro frente
+    tileMap->RenderLayer(1); // Camada metro frente
+    tileMap->RenderLayer(0); // Camada final frente
 
     hud->Render();
 }
@@ -569,8 +575,8 @@ GameObject* StageState::GetTileMapObject() {
 }
 
 void StageState::End(GameObject* playerObject) {
-    playerObject->box.X = 7232;
-    playerObject->box.Y = 2368 - playerObject->box.H;
+    playerObject->box.X = 113*64;
+    playerObject->box.Y = 32*64 - playerObject->box.H;
     GameData::ended = true;
     GameData::playerVictory = true;
     GameData::endTime = hud->GetLevelTimer();

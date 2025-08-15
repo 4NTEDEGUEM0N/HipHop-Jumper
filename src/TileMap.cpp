@@ -42,7 +42,8 @@ void TileMap::Load(string file) {
 
     int tileCount = 0;
     tileMatrix.reserve(mapWidth * mapHeight * mapDepth);
-    while (tileMapFile >> linha) {
+    while (getline(tileMapFile, linha)) {
+        if (linha.empty()) continue;
         stringstream ss(linha);
 
         while (getline(ss, numero, ',')) {
@@ -100,7 +101,8 @@ void TileMap::RenderLayer(int layer) {
     for (int y = startY; y < endY; ++y) {
         for (int x = startX; x < endX; ++x) {
             int index = At(x, y, layer);
-            currentTileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
+            if (index != -1)
+                currentTileSet->RenderTile(index, baseX + x * tileWidth, baseY + y * tileHeight);
             //renderCount++;
 #ifdef DEBUG
             if (Collider::showCollision and layer == 0 and collisionMatrix[y][x] != TileCollisionType::None) {
@@ -208,13 +210,13 @@ void TileMap::SetCollisionMatrix(int layer) {
         for (int x = 0; x < mapWidth; ++x) {
             int index = At(x, y, layer);
             if (solidIDs.find(index) != solidIDs.end()) {
-                if (index == 15 or index == 166 or index == 205 or index == 26 or index == 32 or index == 35 or index == 113) {
+                if (index == 166 or index == 205 or index == 26 or index == 32 or index == 35 or index == 113) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopLeft;
-                } else if (index == 16 or index == 134 or index == 206 or index == 215 or index == 36 or index == 112) {
+                } else if (index == 134 or index == 206 or index == 215 or index == 36 or index == 112) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleTopRight;
-                } else if (index == 18 or index == 246 or index == 27 or index == 33 or index == 116) {
+                } else if (index == 246 or index == 27 or index == 33 or index == 116) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomLeft;
-                } else if (index == 19 or index == 125 or index == 216 or index == 247 or index == 28 or index == 34 or index == 75) {
+                } else if (index == 125 or index == 216 or index == 247 or index == 28 or index == 34 or index == 75) {
                     collisionMatrix[y][x] = TileCollisionType::TriangleBottomRight;
                 } else {
                     collisionMatrix[y][x] = TileCollisionType::Full;
