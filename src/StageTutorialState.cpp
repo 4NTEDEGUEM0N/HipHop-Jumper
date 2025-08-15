@@ -43,7 +43,7 @@ StageTutorialState::StageTutorialState() {
     bgObject->box.Y = 0;
 
 
-    TileSet* collisionTileSet = new TileSet("../Recursos/img/1fase/assets juntos primeira fase.png", 64, 64);
+    TileSet* collisionTileSet = new TileSet("../Recursos/img/tileset_tutorial.png", 64, 64);
     //TileSet* fundoTileSet = new TileSet("../Recursos/img/bloco.png", 64, 64);
 
     std::vector<TileSet*> TileSets;

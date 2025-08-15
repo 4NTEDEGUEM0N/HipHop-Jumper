@@ -403,8 +403,13 @@ void Character::Update(float dt) {
                     }
                 }
                 else if (speed.Y < 0) {
-                    hitCeiling = true;
-                    associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) + tileMap->GetTileSetHeight() + 0.01;
+                    if (col.type == TileMap::TileCollisionType::TriangleTopLeft || col.type == TileMap::TileCollisionType::TriangleTopRight || col.type == TileMap::TileCollisionType::TriangleBottomLeft || col.type == TileMap::TileCollisionType::TriangleBottomRight) {
+                        hitCeiling = true;
+                     }
+                    else {
+                        hitCeiling = true;
+                        associated.box.Y = (col.tilePos.Y * tileMap->GetTileSetHeight()) + tileMap->GetTileSetHeight() + 0.01f;
+                    }
                 }
             }
             
