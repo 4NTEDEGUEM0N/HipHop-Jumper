@@ -346,6 +346,7 @@ void Character::Update(float dt) {
             bool hitCeiling = false;
             bool foundRamp = false;
 
+
             for (const auto& col : y_collisions) {
                 if (speed.Y > 0) {
                     landed = true;
@@ -353,7 +354,19 @@ void Character::Update(float dt) {
                     float verticalOffset = (associated.box.H - colliderHeight) / 2.0f;
                     float colliderWidth = associated.box.W * colliderScale.X;
                     float horizontalOffset = (associated.box.W - colliderWidth) / 2.0f;
+
+                    Rect colliderBox;
+                    colliderBox.W = colliderWidth;
+                    colliderBox.H = colliderHeight;
+                    Vec2 box_center = associated.box.center();
+                    colliderBox.X = box_center.X - colliderBox.W / 2;
+                    colliderBox.Y = box_center.Y - colliderBox.H / 2;
+                    Vec2 colliderBox_center = colliderBox.center();
                     if (col.type == TileMap::TileCollisionType::TriangleTopLeft) {
+
+                        if (col.tilePos.X * tileMap->GetTileSetWidth() + tileMap->GetTileSetWidth() < colliderBox_center.X)
+                            continue;
+
                         onRamp = true;
                         isSliding = true;
                         foundRamp = true;
@@ -374,6 +387,10 @@ void Character::Update(float dt) {
                         dashTimer.Restart();
                         break;
                     } else if (col.type == TileMap::TileCollisionType::TriangleTopRight) {
+
+                        if (col.tilePos.X * tileMap->GetTileSetWidth() > colliderBox_center.X)
+                            continue;
+
                         onRamp = true;
                         isSliding = true;
                         foundRamp = true;
